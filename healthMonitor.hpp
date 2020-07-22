@@ -5,6 +5,7 @@
 #include <xyz/openbmc_project/Sensor/Threshold/Warning/server.hpp>
 #include <xyz/openbmc_project/Sensor/Value/server.hpp>
 
+#include <deque>
 #include <map>
 #include <string>
 
@@ -26,6 +27,19 @@ using healthIfaces =
     sdbusplus::server::object::object<ValueIface, CriticalInterface,
                                       WarningInterface>;
 
+struct HealthConfig
+{
+    std::string name;
+    uint16_t freq;
+    uint16_t windowSize;
+    uint8_t criticalHigh;
+    uint8_t warningHigh;
+    bool criticalLog;
+    bool warningLog;
+    std::string criticalTgt;
+    std::string warningTgt;
+};
+
 class HealthSensor : public healthIfaces
 {
   public:
@@ -41,17 +55,26 @@ class HealthSensor : public healthIfaces
      * @param[in] bus     - Handle to system dbus
      * @param[in] objPath - The Dbus path of health sensor
      */
-    HealthSensor(sdbusplus::bus::bus& bus, const char* objPath) :
-        healthIfaces(bus, objPath), bus(bus)
-    {}
+    HealthSensor(sdbusplus::bus::bus& bus, const char* objPath,
+                 HealthConfig& sensorConfig) :
+        healthIfaces(bus, objPath),
+        bus(bus), sensorConfig(sensorConfig)
+    {
+        initHealthSensor();
+    }
 
+    /** @brief list of sensor data values */
+    std::deque<double> valQueue;
+
+    void initHealthSensor();
     /** @brief Set sensor value utilization to health sensor D-bus  */
-    void setSensorValueToDbus(const uint8_t value);
+    void setSensorValueToDbus(const double value);
     /** @brief Set Sensor Threshold to D-bus at beginning */
-    void setSensorThreshold(uint8_t criticalHigh, uint8_t warningHigh);
+    void setSensorThreshold(double criticalHigh, double warningHigh);
 
   private:
     sdbusplus::bus::bus& bus;
+    HealthConfig& sensorConfig;
 };
 
 class HealthMon
@@ -74,22 +97,6 @@ class HealthMon
         sensorConfigs = getHealthConfig();
         createHealthSensors();
     }
-
-    struct HealthConfig
-    {
-        std::string name;
-        uint16_t freq;
-        uint16_t windowSize;
-        uint8_t criticalHigh;
-        uint8_t warningHigh;
-        bool criticalLog;
-        bool warningLog;
-        std::string criticalTgt;
-        std::string warningTgt;
-    };
-
-    /** @brief List of health sensors supported */
-    std::vector<std::string> cfgNames = {"CPU", "Memory"};
 
     /** @brief Parsing Health config JSON file  */
     Json parseConfigFile(std::string configFile);
