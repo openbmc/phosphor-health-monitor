@@ -7,6 +7,13 @@
 
 #include <fstream>
 #include <iostream>
+#include <numeric>
+#include <sstream>
+
+extern "C"
+{
+#include <sys/sysinfo.h>
+}
 
 static constexpr bool DEBUG = false;
 
@@ -17,15 +24,163 @@ namespace health
 
 using namespace phosphor::logging;
 
-void HealthSensor::setSensorThreshold(uint8_t criticalHigh, uint8_t warningHigh)
+enum CPUStatesTime
+{
+    USER_IDX = 0,
+    NICE_IDX,
+    SYSTEM_IDX,
+    IDLE_IDX,
+    IOWAIT_IDX,
+    IRQ_IDX,
+    SOFTIRQ_IDX,
+    STEAL_IDX,
+    GUEST_USER_IDX,
+    GUEST_NICE_IDX,
+    NUM_CPU_STATES_TIME
+};
+
+double readCPUUtilization()
+{
+    std::ifstream fileStat("/proc/stat");
+    if (!fileStat.is_open())
+    {
+        log<level::ERR>("cpu file not available",
+                        entry("FILENAME = /proc/stat"));
+        return -1;
+    }
+
+    std::string firstLine, labelName;
+    std::size_t timeData[NUM_CPU_STATES_TIME];
+
+    std::getline(fileStat, firstLine);
+    std::stringstream ss(firstLine);
+    ss >> labelName;
+
+    if (DEBUG)
+        std::cout << "CPU stats first Line is " << firstLine << "\n";
+
+    if (labelName.compare("cpu"))
+    {
+        log<level::ERR>("CPU data not available");
+        return -1;
+    }
+
+    int i;
+    for (i = 0; i < NUM_CPU_STATES_TIME; i++)
+    {
+        if (!(ss >> timeData[i]))
+            break;
+    }
+
+    if (i != NUM_CPU_STATES_TIME)
+    {
+        log<level::ERR>("CPU data not correct");
+        return -1;
+    }
+
+    static double preActiveTime = 0, preIdleTime = 0;
+    double activeTime, activeTimeDiff, idleTime, idleTimeDiff, totalTime,
+        activePercValue;
+
+    idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
+    activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
+                 timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
+                 timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
+                 timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+
+    idleTimeDiff = idleTime - preIdleTime;
+    activeTimeDiff = activeTime - preActiveTime;
+
+    /* Store current idle and active time for next calculation */
+    preIdleTime = idleTime;
+    preActiveTime = activeTime;
+
+    totalTime = idleTimeDiff + activeTimeDiff;
+
+    activePercValue = activeTimeDiff / totalTime * 100;
+
+    if (DEBUG)
+        std::cout << "CPU Utilization is " << activePercValue << "\n";
+
+    return activePercValue;
+}
+
+double readMemoryUtilization()
+{
+    struct sysinfo s_info;
+
+    sysinfo(&s_info);
+    double usedRam = s_info.totalram - s_info.freeram;
+    double memUsePerc = usedRam / s_info.totalram * 100;
+
+    if (DEBUG)
+    {
+        std::cout << "Memory Utilization is " << memUsePerc << "\n";
+
+        std::cout << "TotalRam: " << s_info.totalram
+                  << " FreeRam: " << s_info.freeram << "\n";
+        std::cout << "UseRam: " << usedRam << "\n";
+    }
+
+    return memUsePerc;
+}
+
+/** Map of read function for each health sensors supported */
+std::map<std::string, std::function<double()>> readSensors = {
+    {"CPU", readCPUUtilization}, {"Memory", readMemoryUtilization}};
+
+void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
 {
     CriticalInterface::criticalHigh(criticalHigh);
     WarningInterface::warningHigh(warningHigh);
 }
 
-void HealthSensor::setSensorValueToDbus(const uint8_t value)
+void HealthSensor::setSensorValueToDbus(const double value)
 {
     ValueIface::value(value);
+}
+
+void HealthSensor::initHealthSensor()
+{
+    std::string logMsg = sensorConfig.name + " Health Sensor initialized";
+    log<level::INFO>(logMsg.c_str());
+
+    /* Look for sensor read functions */
+    if (readSensors.find(sensorConfig.name) == readSensors.end())
+    {
+        log<level::ERR>("Sensor read function not available");
+        return;
+    }
+
+    /* Read Sensor values */
+    auto value = readSensors[sensorConfig.name]();
+
+    if (value < 0)
+    {
+        log<level::ERR>("Reading Sensor Utilization failed",
+                        entry("NAME = %s", sensorConfig.name.c_str()));
+        return;
+    }
+
+    /* Initialize value queue with initail sensor reading */
+    for (int i = 0; i < sensorConfig.windowSize; i++)
+    {
+        valQueue.push_back(value);
+    }
+    setSensorValueToDbus(value);
+}
+
+void printConfig(HealthConfig& cfg)
+{
+    std::cout << "Name: " << cfg.name << "\n";
+    std::cout << "Freq: " << (int)cfg.freq << "\n";
+    std::cout << "Window Size: " << (int)cfg.windowSize << "\n";
+    std::cout << "Critical value: " << (int)cfg.criticalHigh << "\n";
+    std::cout << "warning value: " << (int)cfg.warningHigh << "\n";
+    std::cout << "Critical log: " << (int)cfg.criticalLog << "\n";
+    std::cout << "Warning log: " << (int)cfg.warningLog << "\n";
+    std::cout << "Critical Target: " << cfg.criticalTgt << "\n";
+    std::cout << "Warning Target: " << cfg.warningTgt << "\n\n";
 }
 
 /* Create dbus utilization sensor object for each configured sensors */
@@ -35,7 +190,7 @@ void HealthMon::createHealthSensors()
     {
         std::string objPath = std::string(HEALTH_SENSOR_PATH) + cfg.name;
         auto healthSensor =
-            std::make_shared<HealthSensor>(bus, objPath.c_str());
+            std::make_shared<HealthSensor>(bus, objPath.c_str(), cfg);
         healthSensors.emplace(cfg.name, healthSensor);
 
         std::string logMsg = cfg.name + " Health Sensor created";
@@ -66,26 +221,17 @@ Json HealthMon::parseConfigFile(std::string configFile)
     return data;
 }
 
-void printConfig(HealthMon::HealthConfig& cfg)
-{
-    std::cout << "Name: " << cfg.name << "\n";
-    std::cout << "Freq: " << cfg.freq << "\n";
-    std::cout << "Window Size: " << cfg.windowSize << "\n";
-    std::cout << "Critical value: " << cfg.criticalHigh << "\n";
-    std::cout << "warning value: " << cfg.warningHigh << "\n";
-    std::cout << "Critical log: " << cfg.criticalLog << "\n";
-    std::cout << "Warning log: " << cfg.warningLog << "\n";
-    std::cout << "Critical Target: " << cfg.criticalTgt << "\n";
-    std::cout << "Warning Target: " << cfg.warningTgt << "\n\n";
-}
-
 void HealthMon::getConfigData(Json& data, HealthConfig& cfg)
 {
 
     static const Json empty{};
 
-    cfg.freq = data.value("Frequency", 0);
-    cfg.windowSize = data.value("Window_size", 0);
+    /* Default frerquency of sensor polling is 1 second */
+    cfg.freq = data.value("Frequency", 1);
+
+    /* Default window size sensor queue is 1 */
+    cfg.windowSize = data.value("Window_size", 1);
+
     auto threshold = data.value("Threshold", empty);
     if (!threshold.empty())
     {
@@ -106,7 +252,7 @@ void HealthMon::getConfigData(Json& data, HealthConfig& cfg)
     }
 }
 
-std::vector<HealthMon::HealthConfig> HealthMon::getHealthConfig()
+std::vector<HealthConfig> HealthMon::getHealthConfig()
 {
 
     std::vector<HealthConfig> cfgs;
@@ -121,7 +267,7 @@ std::vector<HealthMon::HealthConfig> HealthMon::getHealthConfig()
     for (auto& j : data.items())
     {
         auto key = j.key();
-        if (std::find(cfgNames.begin(), cfgNames.end(), key) != cfgNames.end())
+        if (readSensors.find(key) != readSensors.end())
         {
             HealthConfig cfg = HealthConfig();
             cfg.name = j.key();
