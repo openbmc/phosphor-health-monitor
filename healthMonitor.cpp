@@ -164,6 +164,34 @@ void HealthSensor::initHealthSensor()
         valQueue.push_back(value);
     }
     setSensorValueToDbus(value);
+
+    /* Start the timer for reading sensor data at regular interval */
+    readTimer.restart(std::chrono::milliseconds(sensorConfig.freq * 1000));
+}
+
+void HealthSensor::readHealthSensor()
+{
+    /* Read current sensor value */
+    double value = readSensors[sensorConfig.name]();
+    if (value < 0)
+    {
+        log<level::ERR>("Reading Sensor Utilization failed",
+                        entry("NAME = %s", sensorConfig.name.c_str()));
+        return;
+    }
+
+    /* Remove first item from the queue */
+    valQueue.pop_front();
+    /* Add new item at the back */
+    valQueue.push_back(value);
+
+    /* Calculate average values for the given window size */
+    double avgValue = 0;
+    avgValue = accumulate(valQueue.begin(), valQueue.end(), avgValue);
+    avgValue = avgValue / sensorConfig.windowSize;
+
+    /* Set this new value to dbus */
+    setSensorValueToDbus(avgValue);
 }
 
 void printConfig(HealthConfig& cfg)
