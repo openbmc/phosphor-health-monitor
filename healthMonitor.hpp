@@ -1,6 +1,8 @@
 #include <nlohmann/json.hpp>
 #include <sdbusplus/bus.hpp>
+#include <sdeventplus/clock.hpp>
 #include <sdeventplus/event.hpp>
+#include <sdeventplus/utility/timer.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Critical/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Warning/server.hpp>
 #include <xyz/openbmc_project/Sensor/Value/server.hpp>
@@ -58,7 +60,9 @@ class HealthSensor : public healthIfaces
     HealthSensor(sdbusplus::bus::bus& bus, const char* objPath,
                  HealthConfig& sensorConfig) :
         healthIfaces(bus, objPath),
-        bus(bus), sensorConfig(sensorConfig)
+        bus(bus), sensorConfig(sensorConfig),
+        timerEvent(sdeventplus::Event::get_default()),
+        readTimer(timerEvent, std::bind(&HealthSensor::readHealthSensor, this))
     {
         initHealthSensor();
     }
@@ -73,8 +77,17 @@ class HealthSensor : public healthIfaces
     void setSensorThreshold(double criticalHigh, double warningHigh);
 
   private:
+    /** @brief sdbusplus bus client connection. */
     sdbusplus::bus::bus& bus;
+    /** @brief Sensor config from config file */
     HealthConfig& sensorConfig;
+    /** @brief the Event Loop structure */
+    sdeventplus::Event timerEvent;
+    /** @brief Sensor Read Timer */
+    sdeventplus::utility::Timer<sdeventplus::ClockId::Monotonic> readTimer;
+
+    /** @brief Read sensor at regular intrval */
+    void readHealthSensor();
 };
 
 class HealthMon
