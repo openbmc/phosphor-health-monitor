@@ -173,6 +173,51 @@ void HealthSensor::initHealthSensor()
     readTimer.restart(std::chrono::milliseconds(sensorConfig.freq * 1000));
 }
 
+void HealthSensor::checkSensorThreshold(const double value)
+{
+    if (value > sensorConfig.criticalHigh)
+    {
+        if (!CriticalInterface::criticalAlarmHigh())
+        {
+            CriticalInterface::criticalAlarmHigh(true);
+            if (sensorConfig.criticalLog)
+                log<level::ERR>("ASSERT: Utilization Sensor has exceeded "
+                                "critical high threshold",
+                                entry("NAME = %s", sensorConfig.name.c_str()));
+        }
+    }
+    else
+    {
+        if (CriticalInterface::criticalAlarmHigh())
+        {
+            CriticalInterface::criticalAlarmHigh(false);
+            if (sensorConfig.criticalLog)
+                log<level::INFO>("DEASSERT: Utilization Sensor is under "
+                                 "critical high threshold",
+                                 entry("NAME = %s", sensorConfig.name.c_str()));
+        }
+
+        if ((value > sensorConfig.warningHigh) &&
+            (!WarningInterface::warningAlarmHigh()))
+        {
+            WarningInterface::warningAlarmHigh(true);
+            if (sensorConfig.warningLog)
+                log<level::ERR>("ASSERT: Utilization Sensor has exceeded "
+                                "warning high threshold",
+                                entry("NAME = %s", sensorConfig.name.c_str()));
+        }
+        else if ((value <= sensorConfig.warningHigh) &&
+                 (WarningInterface::warningAlarmHigh()))
+        {
+            WarningInterface::warningAlarmHigh(false);
+            if (sensorConfig.warningLog)
+                log<level::INFO>("DEASSERT: Utilization Sensor is under "
+                                 "warning high threshold",
+                                 entry("NAME = %s", sensorConfig.name.c_str()));
+        }
+    }
+}
+
 void HealthSensor::readHealthSensor()
 {
     /* Read current sensor value */
@@ -196,6 +241,9 @@ void HealthSensor::readHealthSensor()
 
     /* Set this new value to dbus */
     setSensorValueToDbus(avgValue);
+
+    /* Check the sensor threshold  and log required message */
+    checkSensorThreshold(avgValue);
 }
 
 void printConfig(HealthConfig& cfg)
