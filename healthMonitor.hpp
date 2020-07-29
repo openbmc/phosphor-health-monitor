@@ -75,6 +75,8 @@ class HealthSensor : public healthIfaces
     void setSensorValueToDbus(const double value);
     /** @brief Set Sensor Threshold to D-bus at beginning */
     void setSensorThreshold(double criticalHigh, double warningHigh);
+    /** @brief Check Sensor threshold and update alarm and log */
+    void checkSensorThreshold(const double value);
 
   private:
     /** @brief sdbusplus bus client connection. */
