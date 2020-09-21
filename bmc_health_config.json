@@ -28,6 +28,12 @@
             "Value": 85.0,
             "Log": true,
             "Target": "reboot.target"
+        },
+        "Warning":
+        {
+          "Value": 75.0,
+          "Log": false,
+          "Target": "systemd unit file"
         }
     }
   }
