@@ -167,6 +167,8 @@ void HealthSensor::initHealthSensor()
     {
         valQueue.push_back(value);
     }
+
+    ValueIface::unit(sdbusplus::xyz::openbmc_project::Sensor::server::Value::Unit::Percent);
     setSensorValueToDbus(value);
 
     /* Start the timer for reading sensor data at regular interval */
