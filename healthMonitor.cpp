@@ -16,6 +16,7 @@ extern "C"
 }
 
 static constexpr bool DEBUG = false;
+static constexpr uint8_t defaultHighThreshold = 100;
 
 namespace phosphor
 {
@@ -179,7 +180,7 @@ void HealthSensor::initHealthSensor()
 
 void HealthSensor::checkSensorThreshold(const double value)
 {
-    if (value > sensorConfig.criticalHigh)
+    if (sensorConfig.criticalHigh && (value > sensorConfig.criticalHigh))
     {
         if (!CriticalInterface::criticalAlarmHigh())
         {
@@ -200,6 +201,10 @@ void HealthSensor::checkSensorThreshold(const double value)
                                  "critical high threshold",
                                  entry("NAME = %s", sensorConfig.name.c_str()));
         }
+
+        /* if warning high value is not set then return */
+        if (!sensorConfig.warningHigh)
+            return;
 
         if ((value > sensorConfig.warningHigh) &&
             (!WarningInterface::warningAlarmHigh()))
@@ -318,15 +323,16 @@ void HealthMon::getConfigData(Json& data, HealthConfig& cfg)
         auto criticalData = threshold.value("Critical", empty);
         if (!criticalData.empty())
         {
-            cfg.criticalHigh = criticalData.value("Value", 0);
+            cfg.criticalHigh =
+                criticalData.value("Value", defaultHighThreshold);
             cfg.criticalLog = criticalData.value("Log", true);
             cfg.criticalTgt = criticalData.value("Target", "");
         }
         auto warningData = threshold.value("Warning", empty);
         if (!warningData.empty())
         {
-            cfg.warningHigh = warningData.value("Value", 0);
-            cfg.warningLog = warningData.value("Log", true);
+            cfg.warningHigh = warningData.value("Value", defaultHighThreshold);
+            cfg.warningLog = warningData.value("Log", false);
             cfg.warningTgt = warningData.value("Target", "");
         }
     }
