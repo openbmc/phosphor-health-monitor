@@ -6,7 +6,7 @@
 #include <xyz/openbmc_project/Sensor/Threshold/Critical/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Warning/server.hpp>
 #include <xyz/openbmc_project/Sensor/Value/server.hpp>
-
+#include <sdbusplus/server/manager.hpp>
 #include <deque>
 #include <map>
 #include <string>
@@ -111,6 +111,7 @@ class HealthMon
         // read json file
         sensorConfigs = getHealthConfig();
         createHealthSensors();
+        add_manager("/");
     }
 
     /** @brief Parsing Health config JSON file  */
@@ -126,10 +127,18 @@ class HealthMon
     /** @brief Create sensors for health monitoring */
     void createHealthSensors();
 
+    void add_manager(const std::string& path)
+    {
+        managers_.emplace_back(
+            std::make_unique<sdbusplus::server::manager::manager>(
+                sdbusplus::server::manager::manager(
+                bus, path.c_str())));
+    }
   private:
     sdbusplus::bus::bus& bus;
     std::vector<HealthConfig> sensorConfigs;
     std::vector<HealthConfig> getHealthConfig();
+    std::vector<std::unique_ptr<sdbusplus::server::manager::manager>> managers_;
 };
 
 } // namespace health
