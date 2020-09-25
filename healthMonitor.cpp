@@ -13,6 +13,7 @@
 extern "C"
 {
 #include <sys/sysinfo.h>
+#include <sys/statvfs.h>
 }
 
 static constexpr bool DEBUG = false;
@@ -126,9 +127,37 @@ double readMemoryUtilization()
     return memUsePerc;
 }
 
+double readStorageUtilization()
+{
+    double total = 0;
+    double available = 0;
+    double used = 0;
+    double usedPercentage = 0;
+    struct statvfs buffer;
+    int ret = statvfs("/run/initramfs/rw", &buffer);
+
+    if (!ret)
+    {
+        total = (double)(buffer.f_blocks * buffer.f_frsize);
+        available = (double)(buffer.f_bfree * buffer.f_frsize);
+        used = total - available;
+        usedPercentage = (double)(used / total) * (double)100;
+    }
+
+    if (DEBUG)
+    {
+        std::cout << "Storage Utilization is " << usedPercentage << "\n";
+        std::cout << "Total: " << total
+                  << " Available: " << available
+                  << " Used:" << used << "\n";
+    }
+
+    return usedPercentage;
+}
+
 /** Map of read function for each health sensors supported */
 std::map<std::string, std::function<double()>> readSensors = {
-    {"CPU", readCPUUtilization}, {"Memory", readMemoryUtilization}};
+    {"CPU", readCPUUtilization}, {"Memory", readMemoryUtilization}, {"Storage", readStorageUtilization}};
 
 void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
 {
