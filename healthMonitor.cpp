@@ -3,6 +3,7 @@
 #include "healthMonitor.hpp"
 
 #include <phosphor-logging/log.hpp>
+#include <sdbusplus/server/manager.hpp>
 #include <sdeventplus/event.hpp>
 
 #include <fstream>
@@ -391,6 +392,9 @@ int main()
 
     // Request service bus name
     bus.request_name(HEALTH_BUS_NAME);
+
+    // Add object manager to sensor node
+    sdbusplus::server::manager::manager objManager(bus, SENSOR_OBJPATH);
 
     // Attach the bus to sd_event to service user requests
     bus.attach_event(event.get(), SD_EVENT_PRIORITY_NORMAL);
