@@ -1,0 +1,71 @@
+syntax = "proto2";
+
+package bmcmetrics.metricproto;
+
+message BmcMemoryMetric {
+  optional int32 mem_available = 1;
+  optional int32 slab = 2;
+  optional int32 kernel_stack = 3;
+}
+
+message BmcUptimeMetric {
+  optional float uptime = 1; // Uptime (wall clock time)
+  optional float idle_process_time = 2; // Idle process time across all cores
+}
+
+message BmcDiskSpaceMetric {
+  optional int32 rwfs_kib_available = 1; // Free space in RWFS in KiB
+}
+
+message BmcProcStatMetricOld {
+  message BmcProcStat {
+    optional string cmdline = 1; // complete command line
+    optional string comm = 2;  // command name
+    optional float  utime = 3; // Time (seconds) in user mode
+    optional float  stime = 4; // Time (seconds) in kernel mode
+  }
+  repeated BmcProcStat stats = 10;
+}
+
+message BmcFdStatMetricOld {
+  message BmcFdStat {
+    optional string cmdline = 1; // complete command line
+    optional string comm = 2;    // command name
+    optional int32  fd_count = 3; // count of open FD's
+  }
+  repeated BmcFdStat stats = 10;
+}
+
+// The following messages use string tables to save space
+message BmcProcStatMetric {
+  message BmcProcStat {
+    optional int32 sidx_cmdline = 1; // complete command line
+    optional float  utime = 2; // Time (seconds) in user mode
+    optional float  stime = 3; // Time (seconds) in kernel mode
+  }
+  repeated BmcProcStat stats = 10;
+}
+
+message BmcFdStatMetric {
+  message BmcFdStat {
+    optional int32 sidx_cmdline = 1; // complete command line
+    optional int32  fd_count = 2; // count of open FD's
+  }
+  repeated BmcFdStat stats = 10;
+}
+
+message BmcStringTable {
+  message StringEntry {
+    optional string value = 1;
+  }
+  repeated StringEntry entries = 10;
+}
+
+message BmcMetricSnapshot {
+  optional BmcStringTable        string_table  = 1;
+  optional BmcMemoryMetric       memory_metric = 2;
+  optional BmcUptimeMetric       uptime_metric = 3;
+  optional BmcDiskSpaceMetric storage_space_metric = 4;
+  optional BmcProcStatMetric     procstat_metric = 5;
+  optional BmcFdStatMetric       fdstat_metric = 6;
+}
