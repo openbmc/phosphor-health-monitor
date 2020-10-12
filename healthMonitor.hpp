@@ -40,6 +40,7 @@ struct HealthConfig
     bool warningLog;
     std::string criticalTgt;
     std::string warningTgt;
+    std::string path;
 };
 
 class HealthSensor : public healthIfaces
