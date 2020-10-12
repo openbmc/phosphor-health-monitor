@@ -10,6 +10,7 @@
 #include <iostream>
 #include <numeric>
 #include <sstream>
+#include <stdlib.h>
 
 extern "C"
 {
@@ -41,7 +42,7 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization()
+double readCPUUtilization(std::string path)
 {
     std::ifstream fileStat("/proc/stat");
     if (!fileStat.is_open())
@@ -107,7 +108,7 @@ double readCPUUtilization()
     return activePercValue;
 }
 
-double readMemoryUtilization()
+double readMemoryUtilization(std::string path)
 {
     struct sysinfo s_info;
 
@@ -127,8 +128,33 @@ double readMemoryUtilization()
     return memUsePerc;
 }
 
+double readStorageUtilization(std::string path)
+{
+
+    double value = 0;
+    std::string word;
+    std::string cmd = "df -k " + path + " | tail -1 | cut -c52-54";
+    FILE *fp = popen(cmd.c_str(), "r");
+
+    if(fp != NULL)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            word += fgetc(fp);
+        }
+        value = atof(word.c_str());
+
+        if (DEBUG)
+            std::cout << value << "\n";
+    }
+
+    pclose(fp);
+
+    return value;
+}
+
 /** Map of read function for each health sensors supported */
-std::map<std::string, std::function<double()>> readSensors = {
+std::map<std::string, std::function<double(std::string path)>> readSensors = {
     {"CPU", readCPUUtilization}, {"Memory", readMemoryUtilization}};
 
 void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
@@ -147,6 +173,9 @@ void HealthSensor::initHealthSensor()
     std::string logMsg = sensorConfig.name + " Health Sensor initialized";
     log<level::INFO>(logMsg.c_str());
 
+    if (sensorConfig.name != "CPU" && sensorConfig.name != "Memory")
+       readSensors.insert({sensorConfig.name, readStorageUtilization});
+
     /* Look for sensor read functions */
     if (readSensors.find(sensorConfig.name) == readSensors.end())
     {
@@ -155,7 +184,7 @@ void HealthSensor::initHealthSensor()
     }
 
     /* Read Sensor values */
-    auto value = readSensors[sensorConfig.name]();
+    auto value = readSensors[sensorConfig.name](sensorConfig.path);
 
     if (value < 0)
     {
@@ -231,7 +260,7 @@ void HealthSensor::checkSensorThreshold(const double value)
 void HealthSensor::readHealthSensor()
 {
     /* Read current sensor value */
-    double value = readSensors[sensorConfig.name]();
+    double value = readSensors[sensorConfig.name](sensorConfig.path);
     if (value < 0)
     {
         log<level::ERR>("Reading Sensor Utilization failed",
@@ -267,6 +296,7 @@ void printConfig(HealthConfig& cfg)
     std::cout << "Warning log: " << (int)cfg.warningLog << "\n";
     std::cout << "Critical Target: " << cfg.criticalTgt << "\n";
     std::cout << "Warning Target: " << cfg.warningTgt << "\n\n";
+    std::cout << "Path : " << cfg.path << "\n\n";
 }
 
 /* Create dbus utilization sensor object for each configured sensors */
@@ -337,6 +367,7 @@ void HealthMon::getConfigData(Json& data, HealthConfig& cfg)
             cfg.warningTgt = warningData.value("Target", "");
         }
     }
+    cfg.path = data.value("Path", "");
 }
 
 std::vector<HealthConfig> HealthMon::getHealthConfig()
@@ -354,7 +385,7 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
     for (auto& j : data.items())
     {
         auto key = j.key();
-        if (readSensors.find(key) != readSensors.end())
+        if (readSensors.find(key) != readSensors.end() || (key != "CPU" && key != "Memory") )
         {
             HealthConfig cfg = HealthConfig();
             cfg.name = j.key();
