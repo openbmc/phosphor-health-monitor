@@ -30,5 +30,19 @@
             "Target": "reboot.target"
         }
     }
+  },
+  "Storage_RW" : {
+    "Path" : "/run/initramfs/rw",
+    "Frequency" : 1,
+    "Window_size": 120,
+    "Threshold":
+    {
+        "Critical":
+        {
+            "Value": 85.0,
+            "Log": true,
+            "Target": "reboot.target"
+        }
+    }
   }
 }
