@@ -13,6 +13,7 @@
 
 extern "C"
 {
+#include <sys/statvfs.h>
 #include <sys/sysinfo.h>
 }
 
@@ -41,8 +42,10 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization()
+double readCPUUtilization(std::string path)
 {
+    /* Unused var: path */
+    std::ignore = path;
     std::ifstream fileStat("/proc/stat");
     if (!fileStat.is_open())
     {
@@ -107,8 +110,10 @@ double readCPUUtilization()
     return activePercValue;
 }
 
-double readMemoryUtilization()
+double readMemoryUtilization(std::string path)
 {
+    /* Unused var: path */
+    std::ignore = path;
     struct sysinfo s_info;
 
     sysinfo(&s_info);
@@ -127,9 +132,84 @@ double readMemoryUtilization()
     return memUsePerc;
 }
 
+double readStorageUtilization(std::string path)
+{
+
+    struct statvfs buffer{};
+    int ret = statvfs(path.c_str(), &buffer);
+    double total = 0;
+    double available = 0;
+    double used = 0;
+    double usedPercentage = 0;
+
+    if (ret != 0)
+    {
+        auto e = errno;
+        std::cerr << "Error from statvfs" << e << std::endl;
+        return 0;
+    }
+    else
+    {
+        total = buffer.f_blocks * (buffer.f_frsize / 1024);
+        available = buffer.f_bfree * (buffer.f_frsize / 1024);
+        used = total - available;
+        usedPercentage = (used / total) * 100;
+
+        if (DEBUG)
+        {
+            std::cout << "Total:" << total << "\n";
+            std::cout << "Available:" << available << "\n";
+            std::cout << "Used:" << used << "\n";
+            std::cout << "Storage utilization is:" << usedPercentage << "\n";
+        }
+    }
+
+    return usedPercentage;
+}
+
+double readInodeUtilization(std::string path)
+{
+
+    struct statvfs buffer{};
+    int ret = statvfs(path.c_str(), &buffer);
+    double totalInodes = 0;
+    double availableInodes = 0;
+    double used = 0;
+    double usedPercentage = 0;
+
+    if (ret != 0)
+    {
+        auto e = errno;
+        std::cerr << "Error from statvfs" << e << std::endl;
+        return 0;
+    }
+    else
+    {
+        totalInodes = buffer.f_files;
+        availableInodes = buffer.f_ffree;
+        used = totalInodes - availableInodes;
+        usedPercentage = (used / totalInodes) * 100;
+
+        if (DEBUG)
+        {
+            std::cout << "Total Inodes:" << totalInodes << "\n";
+            std::cout << "Available Inodes:" << availableInodes << "\n";
+            std::cout << "Used:" << used << "\n";
+            std::cout << "Inodes utilization is:" << usedPercentage << "\n";
+        }
+    }
+
+    return usedPercentage;
+}
+
+constexpr auto storage = "Storage";
+constexpr auto inode = "Inode";
 /** Map of read function for each health sensors supported */
-std::map<std::string, std::function<double()>> readSensors = {
-    {"CPU", readCPUUtilization}, {"Memory", readMemoryUtilization}};
+std::map<std::string, std::function<double(std::string path)>> readSensors = {
+    {"CPU", readCPUUtilization},
+    {"Memory", readMemoryUtilization},
+    {storage, readStorageUtilization},
+    {inode, readInodeUtilization}};
 
 void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
 {
@@ -147,15 +227,26 @@ void HealthSensor::initHealthSensor()
     std::string logMsg = sensorConfig.name + " Health Sensor initialized";
     log<level::INFO>(logMsg.c_str());
 
-    /* Look for sensor read functions */
-    if (readSensors.find(sensorConfig.name) == readSensors.end())
+    /* Look for sensor read functions and Read Sensor values */
+    double value;
+
+    if (readSensors.count(sensorConfig.name))
+    {
+        value = readSensors[sensorConfig.name](sensorConfig.path);
+    }
+    else if (sensorConfig.name.rfind(storage, 0) == 0)
+    {
+        value = readSensors[storage](sensorConfig.path);
+    }
+    else if (sensorConfig.name.rfind(inode, 0) == 0)
+    {
+        value = readSensors[inode](sensorConfig.path);
+    }
+    else
     {
         log<level::ERR>("Sensor read function not available");
         return;
     }
-
-    /* Read Sensor values */
-    auto value = readSensors[sensorConfig.name]();
 
     if (value < 0)
     {
@@ -231,7 +322,21 @@ void HealthSensor::checkSensorThreshold(const double value)
 void HealthSensor::readHealthSensor()
 {
     /* Read current sensor value */
-    double value = readSensors[sensorConfig.name]();
+    double value;
+
+    if (sensorConfig.name.rfind(storage, 0) == 0)
+    {
+        value = readSensors[storage](sensorConfig.path);
+    }
+    else if (sensorConfig.name.rfind(inode, 0) == 0)
+    {
+        value = readSensors[inode](sensorConfig.path);
+    }
+    else
+    {
+        value = readSensors[sensorConfig.name](sensorConfig.path);
+    }
+
     if (value < 0)
     {
         log<level::ERR>("Reading Sensor Utilization failed",
@@ -267,6 +372,7 @@ void printConfig(HealthConfig& cfg)
     std::cout << "Warning log: " << (int)cfg.warningLog << "\n";
     std::cout << "Critical Target: " << cfg.criticalTgt << "\n";
     std::cout << "Warning Target: " << cfg.warningTgt << "\n\n";
+    std::cout << "Path : " << cfg.path << "\n\n";
 }
 
 /* Create dbus utilization sensor object for each configured sensors */
@@ -337,6 +443,7 @@ void HealthMon::getConfigData(Json& data, HealthConfig& cfg)
             cfg.warningTgt = warningData.value("Target", "");
         }
     }
+    cfg.path = data.value("Path", "");
 }
 
 std::vector<HealthConfig> HealthMon::getHealthConfig()
@@ -354,7 +461,10 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
     for (auto& j : data.items())
     {
         auto key = j.key();
-        if (readSensors.find(key) != readSensors.end())
+        /* key need match default value in map readSensors or match the key
+         * start with "Storage" or "Inode" */
+        if (readSensors.find(key) != readSensors.end() ||
+            (key.rfind(storage, 0) == 0) || (key.rfind(inode, 0) == 0))
         {
             HealthConfig cfg = HealthConfig();
             cfg.name = j.key();
