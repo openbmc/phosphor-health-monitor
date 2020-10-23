@@ -10,6 +10,7 @@
 #include <iostream>
 #include <numeric>
 #include <sstream>
+#include <sys/vfs.h>
 
 extern "C"
 {
@@ -127,9 +128,59 @@ double readMemoryUtilization()
     return memUsePerc;
 }
 
-/** Map of read function for each health sensors supported */
+std::string ReadFileIntoString(const char* file_name)
+{
+    std::stringstream ss;
+    std::ifstream ifs(file_name);
+    while (ifs.good()) {
+        std::string line;
+        std::getline(ifs, line);
+        ss << line << std::endl;
+    }
+    return ss.str();
+}
+
+/** Detailed memory usage data is the contents of /proc/meminfo. */
+std::string readMemoryUsageDetails()
+{
+    return ReadFileIntoString("/proc/meminfo");
+}
+
+/** This function returns the percentage of free RWFS space. */
+double readFreeDiskspace()
+{
+    struct statfs fs_stat;
+    // Lets loopyloop through the argvs
+    constexpr char* rwfs = "/";
+    if (statfs(rwfs, &fs_stat) >= 0) {
+        return 100.0 * fs_stat.f_bfree / fs_stat.f_blocks;
+    }
+    log<level::ERR>("File system data not available");
+    return 0;
+}
+
+/** Detailed free disk space information is the number of KiB available. */
+std::string readFreeDiskspaceDetails() {
+    struct statfs fs_stat;
+    // Lets loopyloop through the argvs
+    constexpr char* rwfs = "/";
+    if (statfs(rwfs, &fs_stat) >= 0) {
+        return std::to_string(fs_stat.f_bfree * fs_stat.f_bsize);
+    }
+    log<level::ERR>("File system data not available");
+    return "0";
+}
+
+/** Map of read function for each health sensor supported */
 std::map<std::string, std::function<double()>> readSensors = {
-    {"CPU", readCPUUtilization}, {"Memory", readMemoryUtilization}};
+    {"CPU", readCPUUtilization}, {"Memory", readMemoryUtilization},
+    {"Diskspace", readFreeDiskspace} };
+
+/** Mapping of detail-reading function for each health sensor supported */
+std::map<std::string, std::function<std::string()>> readSensorDetails = {
+    { "Memory", readMemoryUsageDetails },
+    { "Diskspace", readFreeDiskspaceDetails },
+};
 
 void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
 {
@@ -140,6 +191,11 @@ void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
 void HealthSensor::setSensorValueToDbus(const double value)
 {
     ValueIface::value(value);
+}
+
+void HealthSensor::setSensorMessageToDbus(const std::string& message)
+{
+    EventInterface::message(message);
 }
 
 void HealthSensor::initHealthSensor()
@@ -171,10 +227,22 @@ void HealthSensor::initHealthSensor()
     }
 
     /* Initialize unit value (Percent) for utilization sensor */
-    ValueIface::unit(ValueIface::Unit::Percent);
+    //ValueIface::unit(ValueIface::Unit::Percent);
 
     setSensorValueToDbus(value);
 
+    /* Initialize sensor details (std::string) */
+    if (readSensorDetails.find(sensorConfig.name) == readSensorDetails.end())
+    {
+        log<level::ERR>("Sensor detail read function not available");
+        return;
+    }
+    else
+    {
+        std::string details = readSensorDetails[sensorConfig.name]();
+        setSensorMessageToDbus(details);
+    }
+    
     /* Start the timer for reading sensor data at regular interval */
     readTimer.restart(std::chrono::milliseconds(sensorConfig.freq * 1000));
 }
@@ -254,6 +322,13 @@ void HealthSensor::readHealthSensor()
 
     /* Check the sensor threshold  and log required message */
     checkSensorThreshold(avgValue);
+    
+    /* Update sensor details */
+    auto itr = readSensorDetails.find(sensorConfig.name);
+    if (itr != readSensorDetails.end()) {
+        std::string details = itr->second();
+        setSensorMessageToDbus(details);
+    }
 }
 
 void printConfig(HealthConfig& cfg)

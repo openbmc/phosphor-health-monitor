@@ -7,6 +7,10 @@ project(
     ],
 )
 
+protoc = find_program('protoc', required: false)
+proto_dep = dependency('protobuf', required: false).partial_dependency(compile_args : false,
+  link_args : true, links : true, includes : true)
+
 executable(
     'health-monitor',
     [
@@ -20,6 +24,31 @@ executable(
     ],
     install: true,
     install_dir: get_option('bindir')
+)
+
+gen = generator(protoc,
+  output: [
+	'@BASENAME@.pb.cc', '@BASENAME@.pb.h'
+  ],
+  arguments : ['--proto_path=@CURRENT_SOURCE_DIR@', '--cpp_out=@BUILD_DIR@', '@INPUT@'])
+generated = gen.process(['metricblob.proto'])
+
+# This is the IPMI-based implementation.
+shared_library(
+  'metrics',
+  [
+    'ipmi/main.cpp',
+    'ipmi/metric.cpp',
+    'ipmi/handler.cpp',
+  ],
+  generated,
+  install: true,
+  install_dir: '/usr/lib/blob-ipmid/',
+  dependencies:[
+    dependency('phosphor-logging'),
+    dependency('protobuf'),
+    dependency('phosphor-ipmi-blobs'),
+  ]
 )
 
 install_data(sources : 'bmc_health_config.json', install_dir : '/etc/healthMon')

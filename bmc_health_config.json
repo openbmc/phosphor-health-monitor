@@ -4,18 +4,18 @@
     "Window_size": 120,
     "Threshold":
     {
-        "Critical":
-        {
-            "Value": 90.0,
-            "Log": true,
-            "Target": "reboot.target"
-        },
-        "Warning":
-        {
-          "Value": 80.0,
-          "Log": false,
-          "Target": "systemd unit file"
-        }
+      "Critical":
+      {
+          "Value": 90.0,
+          "Log": true,
+          "Target": "reboot.target"
+      },
+      "Warning":
+      {
+        "Value": 80.0,
+        "Log": false,
+        "Target": "systemd unit file"
+      }
     }
   },
   "Memory" : {
@@ -23,12 +23,25 @@
     "Window_size": 120,
     "Threshold":
     {
-        "Critical":
-        {
-            "Value": 85.0,
-            "Log": true,
-            "Target": "reboot.target"
-        }
+      "Critical":
+      {
+          "Value": 85.0,
+          "Log": true,
+          "Target": "reboot.target"
+      }
+    }
+  },
+  "Diskspace": {
+    "Frequency": 10,
+    "Window_size": 120,
+    "Threshold":
+    {
+      "Critical":
+      {
+          "Value": 100000.0,
+          "Log": true,
+          "Target": "Invalid target"
+      }
     }
   }
 }
