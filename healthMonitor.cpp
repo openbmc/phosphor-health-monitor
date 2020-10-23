@@ -142,6 +142,11 @@ void HealthSensor::setSensorValueToDbus(const double value)
     ValueIface::value(value);
 }
 
+void HealthSensor::setSensorMessageToDbus(const std::string& message)
+{
+    EventInterface::message(message);
+}
+
 void HealthSensor::initHealthSensor()
 {
     std::string logMsg = sensorConfig.name + " Health Sensor initialized";
