@@ -3,6 +3,7 @@
 #include <sdeventplus/clock.hpp>
 #include <sdeventplus/event.hpp>
 #include <sdeventplus/utility/timer.hpp>
+#include <xyz/openbmc_project/Logging/Event/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Critical/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Warning/server.hpp>
 #include <xyz/openbmc_project/Sensor/Value/server.hpp>
@@ -25,9 +26,12 @@ using CriticalInterface =
 using WarningInterface =
     sdbusplus::xyz::openbmc_project::Sensor::Threshold::server::Warning;
 
+using EventInterface =
+    sdbusplus::xyz::openbmc_project::Logging::server::Event;
+
 using healthIfaces =
     sdbusplus::server::object::object<ValueIface, CriticalInterface,
-                                      WarningInterface>;
+                                      WarningInterface, EventInterface>;
 
 struct HealthConfig
 {
@@ -73,6 +77,8 @@ class HealthSensor : public healthIfaces
     void initHealthSensor();
     /** @brief Set sensor value utilization to health sensor D-bus  */
     void setSensorValueToDbus(const double value);
+    /** @brief Set sensor message to health sensor D-bus  */
+    void setSensorMessageToDbus(const std::string&);
     /** @brief Set Sensor Threshold to D-bus at beginning */
     void setSensorThreshold(double criticalHigh, double warningHigh);
     /** @brief Check Sensor threshold and update alarm and log */
