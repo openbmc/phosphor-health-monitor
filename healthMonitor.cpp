@@ -41,6 +41,19 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
+std::string ReadFileIntoString(const char* file_name)
+{
+    std::stringstream ss;
+    std::ifstream ifs(file_name);
+    while (ifs.good())
+    {
+        std::string line;
+        std::getline(ifs, line);
+        ss << line << std::endl;
+    }
+    return ss.str();
+}
+
 double readCPUUtilization()
 {
     std::ifstream fileStat("/proc/stat");
@@ -107,6 +120,7 @@ double readCPUUtilization()
     return activePercValue;
 }
 
+/** Reads the percentage of memory used. */
 double readMemoryUtilization()
 {
     struct sysinfo s_info;
@@ -127,9 +141,20 @@ double readMemoryUtilization()
     return memUsePerc;
 }
 
+/** Detailed memory usage data is the contents of /proc/meminfo. */
+std::string readMemoryUsageDetails()
+{
+    return ReadFileIntoString("/proc/meminfo");
+}
+
 /** Map of read function for each health sensors supported */
 std::map<std::string, std::function<double()>> readSensors = {
     {"CPU", readCPUUtilization}, {"Memory", readMemoryUtilization}};
+
+/** Mapping of detail-reading function for each health sensor supported */
+std::map<std::string, std::function<std::string()>> readSensorDetails = {
+    {"Memory", readMemoryUsageDetails},
+};
 
 void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
 {
@@ -179,6 +204,12 @@ void HealthSensor::initHealthSensor()
     ValueIface::unit(ValueIface::Unit::Percent);
 
     setSensorValueToDbus(value);
+    
+    /* Initialize sensor detail message */
+    auto it = readSensorDetails.find(sensorConfig.name);
+    if (it != readSensorDetails.end()) {
+        setSensorMessageToDbus(it->second());
+    }
 
     /* Start the timer for reading sensor data at regular interval */
     readTimer.restart(std::chrono::milliseconds(sensorConfig.freq * 1000));
@@ -257,6 +288,12 @@ void HealthSensor::readHealthSensor()
     /* Set this new value to dbus */
     setSensorValueToDbus(avgValue);
 
+    /* Set sensor detail message to dbus */
+    auto it = readSensorDetails.find(sensorConfig.name);
+    if (it != readSensorDetails.end()) {
+        setSensorMessageToDbus(it->second());
+    }
+    
     /* Check the sensor threshold  and log required message */
     checkSensorThreshold(avgValue);
 }
