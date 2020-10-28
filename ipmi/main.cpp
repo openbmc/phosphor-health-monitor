@@ -1,3 +1,4 @@
+#include "handler.hpp"
 #include <blobs-ipmid/blobs.hpp>
 #include <phosphor-logging/elog.hpp>
 
@@ -22,5 +23,6 @@ extern "C"
 
 std::unique_ptr<blobs::GenericBlobInterface> createHandler()
 {
-    return nullptr;
+    auto handler = std::make_unique<blobs::MetricBlobHandler>();
+    return std::move(handler);
 }
