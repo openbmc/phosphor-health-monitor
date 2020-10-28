@@ -22,6 +22,20 @@ executable(
     install_dir: get_option('bindir')
 )
 
+# IPMI blob handler that accompanies the daemon
+shared_library(
+  'metrics',
+  [
+    'ipmi/main.cpp',
+  ],
+  install_dir: '/usr/lib/blob-ipmid/',
+  dependencies:[
+    dependency('phosphor-logging'),
+    dependency('phosphor-ipmi-blobs'),
+  ],
+  version: '0'
+)
+
 install_data(sources : 'bmc_health_config.json', install_dir : '/etc/healthMon')
 
 conf_data = configuration_data()
