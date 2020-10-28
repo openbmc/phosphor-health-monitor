@@ -27,7 +27,9 @@ shared_library(
   'metrics',
   [
     'ipmi/main.cpp',
+    'ipmi/handler.cpp',
   ],
+  install: true,
   install_dir: '/usr/lib/blob-ipmid/',
   dependencies:[
     dependency('phosphor-logging'),
