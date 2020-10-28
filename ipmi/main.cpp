@@ -1,3 +1,5 @@
+#include "metricblob.pb.h"
+
 #include <blobs-ipmid/blobs.hpp>
 #include <phosphor-logging/elog.hpp>
 
