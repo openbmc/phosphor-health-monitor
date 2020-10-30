@@ -32,6 +32,7 @@ shared_library(
   [
     'ipmi/main.cpp',
     'ipmi/handler.cpp',
+    'ipmi/metric.cpp',
   ],
   install: true,
   install_dir: '/usr/lib/blob-ipmid/',

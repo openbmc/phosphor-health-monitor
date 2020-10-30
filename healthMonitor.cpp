@@ -201,7 +201,7 @@ void HealthSensor::initHealthSensor()
     }
 
     /* Initialize unit value (Percent) for utilization sensor */
-    ValueIface::unit(ValueIface::Unit::Percent);
+    //ValueIface::unit(ValueIface::Unit::Percent);
 
     setSensorValueToDbus(value);
 

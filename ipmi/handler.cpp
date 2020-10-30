@@ -74,8 +74,18 @@ bool MetricBlobHandler::open(uint16_t session, uint16_t flags,
     {
         return false;
     }
-
-    return false;
+    if (path == "/metric/snapshot")
+    {
+        std::unique_ptr<metric_blob::BmcHealthSnapshot> bhs =
+            std::make_unique<metric_blob::BmcHealthSnapshot>();
+        bhs.get()->doWork();
+        sessions_[session] = std::move(bhs);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 std::vector<uint8_t> MetricBlobHandler::read(uint16_t session, uint32_t offset,
