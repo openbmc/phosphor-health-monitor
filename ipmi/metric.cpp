@@ -1,4 +1,5 @@
 #include "metric.hpp"
+
 #include "metricblob.pb.h"
 
 #include <sys/statvfs.h>
@@ -29,20 +30,103 @@ namespace metric_blob
 using namespace phosphor::logging;
 
 void BmcHealthSnapshot::doWork()
-{ // In worker thread
+{
     bmcmetrics::metricproto::BmcMetricSnapshot snapshot;
+
+    // Open DBus
+    sd_bus* bus;
+    int r;
+    r = sd_bus_open_system(&bus);
+    if (r < 0)
+    {
+        printf("Could not connect to system dbus: %s\n", strerror(-r));
+    }
+
     // Memory info
-    // Todo
+    //
+    // busctl  call xyz.openbmc_project.HealthMon
+    //    /xyz/openbmc_project/sensors/utilization/Memory
+    //    org.freedesktop.DBus.Properties
+    //    Get ss
+    //    xyz.openbmc_project.Logging.Event
+    //    Message
+    // std::string buf_meminfo = ReadFileIntoString("/proc/meminfo");
+    sd_bus_error error = SD_BUS_ERROR_NULL;
+    sd_bus_message* reply;
+
+    r = sd_bus_call_method(bus, "xyz.openbmc_project.HealthMon",
+                           "/xyz/openbmc_project/sensors/utilization/Memory",
+                           "org.freedesktop.DBus.Properties", "Get", &error,
+                           &reply, "ss", "xyz.openbmc_project.Logging.Event",
+                           "Message");
+
+    if (r < 0)
+    {
+        printf("Could not get property of the Memory health monitor object\n");
+    }
+
+    r = sd_bus_message_enter_container(reply, 'v', "s");
+    if (r < 0)
+    {
+        printf("Could not open the message container");
+    }
+
+    const char* s;
+    r = sd_bus_message_read(reply, "s", &s);
+    if (r < 0)
+    {
+        printf("Could not read string value from message");
+    }
+
+    r = sd_bus_message_exit_container(reply);
+    if (r < 0)
+    {
+        printf("Could not exit container");
+    }
+
+    sd_bus_close(bus);
+
+    std::string buf_meminfo(s);
+
+    {
+        const std::unordered_map<
+            std::string,
+            void (bmcmetrics::metricproto::BmcMemoryMetric::*)(int)>
+            kw2fn = {
+                {"MemAvailable:",
+                 &bmcmetrics::metricproto::BmcMemoryMetric::set_mem_available},
+                {"Slab:", &bmcmetrics::metricproto::BmcMemoryMetric::set_slab},
+                {"KernelStack:",
+                 &bmcmetrics::metricproto::BmcMemoryMetric::set_kernel_stack},
+            };
+        bmcmetrics::metricproto::BmcMemoryMetric m;
+        for (auto x : kw2fn)
+        {
+            std::string_view sv(buf_meminfo.data());
+            size_t p = sv.find(x.first);
+            if (p != std::string::npos)
+            {
+                sv = sv.substr(p + x.first.size());
+                p = sv.find("kB");
+                if (p != std::string::npos)
+                {
+                    sv = sv.substr(0, p);
+                    (m.*(x.second))(std::atoi(sv.data()));
+                }
+            }
+        }
+        *(snapshot.mutable_memory_metric()) = m;
+    }
 
     // Uptime info
     // Todo
-    
+
     // Storage space info
     // Todo
 
     // Proc stat info
     // Todo
-    
+
     // FD stat
     // Todo
 
