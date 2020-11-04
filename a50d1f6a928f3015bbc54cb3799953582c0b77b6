@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e9129ed_1939cdf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000271
+      },
+      "writtenOn": "2020-11-04T22:30:01Z",
+      "side": 1,
+      "message": "I am not sure if it is right interface to use for any random message string. I am not clear about where this will be used as I don\u0027t see its usage in your patch. If it is for logging then this interface is fine.\n\nI personally don\u0027t mind using this interface for message string but would like to know more details about its property and usage.",
+      "range": {
+        "startLine": 15,
+        "startChar": 1,
+        "endLine": 15,
+        "endChar": 59
+      },
+      "revId": "a50d1f6a928f3015bbc54cb3799953582c0b77b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
