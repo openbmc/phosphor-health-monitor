@@ -22,6 +22,30 @@
       "revId": "a50d1f6a928f3015bbc54cb3799953582c0b77b6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5754de7b_3055144b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2020-11-04T23:06:25Z",
+      "side": 1,
+      "message": "It is used in a later change in the chain:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-health-monitor/+/37818/1/ipmi/metric.cpp#57\n\nThe interface is used to pass a string from the health-monitor daemon to the IPMI handler. The string contains a more detailed sensor reading (more detailed compared to the existing one).\n\nFor example, for memory usage, its contents will be the contents of /proc/meminfo, as described in the next change in the chain: https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-health-monitor/+/37682/2\n\nThere doesn\u0027t seem to be a property of String type in the the existing Sensor interfaces, so I needed to add some interface. I chose the Logging interface on an arbitrary basis; it is purely because it has a String property in it. It is not exactly for logging in the common way logging is done, it is still BMC health metric \"sensor\" data. I would like to know if there is a better choice than using this interface.",
+      "parentUuid": "2e9129ed_1939cdf8",
+      "range": {
+        "startLine": 15,
+        "startChar": 1,
+        "endLine": 15,
+        "endChar": 59
+      },
+      "revId": "a50d1f6a928f3015bbc54cb3799953582c0b77b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
