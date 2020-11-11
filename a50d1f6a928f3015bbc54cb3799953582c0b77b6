@@ -46,6 +46,23 @@
       "revId": "a50d1f6a928f3015bbc54cb3799953582c0b77b6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "600356c1_8f1f14ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-11T12:17:34Z",
+      "side": 1,
+      "message": "What is the content of these messages?  It seems like you\u0027re expecting them to be a programmatic format, but there is no definition of that format by having a free-form string.  Looking later on it looks like one example is that you\u0027re basically using the output format of /proc/meminfo.  How do we know we won\u0027t mess something up in the future by changing the format of the string and break your ipmi-blob-handler?",
+      "revId": "a50d1f6a928f3015bbc54cb3799953582c0b77b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
