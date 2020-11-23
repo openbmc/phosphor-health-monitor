@@ -468,7 +468,26 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
             HealthConfig cfg = HealthConfig();
             cfg.name = j.key();
             getConfigData(j.value(), cfg);
-            cfgs.push_back(cfg);
+            if (key.rfind(storage, 0) == 0 || key.rfind(inode, 0) == 0)
+            {
+                struct statvfs buffer
+                {};
+                int ret = statvfs(cfg.path.c_str(), &buffer);
+                if (ret != 0)
+                {
+                    auto e = errno;
+                    std::cerr << "Error from cfg.name: " << cfg.name <<", path:" << cfg.path  << std::endl;
+                    std::cerr << "Error from statvfs" << e << std::endl;
+                }
+                else
+                {
+                    cfgs.push_back(cfg);
+                }
+            }
+            else
+            {
+                cfgs.push_back(cfg);
+            }
             if (DEBUG)
                 printConfig(cfg);
         }
