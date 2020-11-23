@@ -146,7 +146,8 @@ double readStorageUtilization(std::string path)
     if (ret != 0)
     {
         auto e = errno;
-        std::cerr << "Error from statvfs" << e << std::endl;
+        std::cerr << "Error from statvfs: " << strerror(e)
+                  << ",path:" << path << std::endl;
         return 0;
     }
 
@@ -180,7 +181,8 @@ double readInodeUtilization(std::string path)
     if (ret != 0)
     {
         auto e = errno;
-        std::cerr << "Error from statvfs" << e << std::endl;
+        std::cerr << "Error from statvfs: " << strerror(e)
+                  << ",path:" << path << std::endl;
         return 0;
     }
 
@@ -456,18 +458,34 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
     if (DEBUG)
         std::cout << "Config json data:\n" << data << "\n\n";
 
-    /* Get CPU config data */
+    /* Get data items from config json data*/
     for (auto& j : data.items())
     {
         auto key = j.key();
         /* key need match default value in map readSensors or match the key
          * start with "Storage" or "Inode" */
-        if (readSensors.find(key) != readSensors.end() ||
-            (key.rfind(storage, 0) == 0) || (key.rfind(inode, 0) == 0))
+        bool isStorageOrInode =
+            (key.rfind(storage, 0) == 0 || key.rfind(inode, 0) == 0);
+        if (readSensors.find(key) != readSensors.end() || isStorageOrInode)
         {
             HealthConfig cfg = HealthConfig();
             cfg.name = j.key();
             getConfigData(j.value(), cfg);
+            if (isStorageOrInode)
+            {
+                struct statvfs buffer
+                {};
+                int ret = statvfs(cfg.path.c_str(), &buffer);
+                if (ret != 0)
+                {
+                    auto e = errno;
+                    std::cerr << "Error from statvfs: " << strerror(e)
+                              << ", name: " << cfg.name << ", path:" << cfg.path
+                              << ", please check your settings in config file."
+                              << std::endl;
+                    continue;
+                }
+            }
             cfgs.push_back(cfg);
             if (DEBUG)
                 printConfig(cfg);
