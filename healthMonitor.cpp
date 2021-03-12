@@ -243,7 +243,10 @@ const std::map<std::string, std::function<double(std::string path)>>
 void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
 {
     CriticalInterface::criticalHigh(criticalHigh);
+    CriticalInterface::criticalLow(0);
+
     WarningInterface::warningHigh(warningHigh);
+    WarningInterface::warningLow(0);
 }
 
 void HealthSensor::setSensorValueToDbus(const double value)
@@ -292,8 +295,10 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
 
     /* Initialize unit value (Percent) for utilization sensor */
     ValueIface::unit(ValueIface::Unit::Percent);
+    ValueIface::maxValue(127.5);
+    ValueIface::minValue(0);
 
-    ValueIface::maxValue(100);
+    ValueIface::maxValue(127.5);
     ValueIface::minValue(0);
 
     setSensorValueToDbus(value);
@@ -609,7 +614,7 @@ int main()
     healthMon = std::make_shared<phosphor::health::HealthMon>(*conn);
 
     // Add object manager to sensor node
-    sdbusplus::server::manager::manager objManager(*conn, SENSOR_OBJPATH);
+    sdbusplus::server::manager::manager objManager(*conn, "/");
 
     sdbusplus::asio::sd_event_wrapper sdEvents(io);
 
