@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e23ff501_9ec0f174",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-03-12T13:09:48Z",
+      "side": 1,
+      "message": "We should not be setting criticalLow thresholds on utilization sensors.  0 utilization is actually a *good thing*.  I could maybe see setting it to -1, but this seems like a bug in the IPMI implementation if it cannot read sensors without low thresholds set.\n\nThere was a change not too long ago to default unset thresholds to NaN.  Maybe ipmid is not handling this properly?",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb77eb88_f43ff2a5",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-03-12T13:09:48Z",
+      "side": 1,
+      "message": "This seems reasonable.",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9af3773_91bf3b8f",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-03-12T13:09:48Z",
+      "side": 1,
+      "message": "What is being solved by moving the manager to root?  At a dbus-level I do not know of any issue with having the object manager in a non-root location.  If there is an issue we should change sdbusplus to always put the object manager at root.",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
