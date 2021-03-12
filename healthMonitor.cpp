@@ -214,7 +214,10 @@ const std::map<std::string, std::function<double(std::string path)>>
 void HealthSensor::setSensorThreshold(double criticalHigh, double warningHigh)
 {
     CriticalInterface::criticalHigh(criticalHigh);
+    CriticalInterface::criticalLow(0);
+
     WarningInterface::warningHigh(warningHigh);
+    WarningInterface::warningLow(0);
 }
 
 void HealthSensor::setSensorValueToDbus(const double value)
@@ -264,6 +267,8 @@ void HealthSensor::initHealthSensor()
 
     /* Initialize unit value (Percent) for utilization sensor */
     ValueIface::unit(ValueIface::Unit::Percent);
+    ValueIface::maxValue(100);
+    ValueIface::minValue(0);
 
     setSensorValueToDbus(value);
 
@@ -522,7 +527,7 @@ int main()
     bus.request_name(HEALTH_BUS_NAME);
 
     // Add object manager to sensor node
-    sdbusplus::server::manager::manager objManager(bus, SENSOR_OBJPATH);
+    sdbusplus::server::manager::manager objManager(bus, "/");
 
     // Attach the bus to sd_event to service user requests
     bus.attach_event(event.get(), SD_EVENT_PRIORITY_NORMAL);
