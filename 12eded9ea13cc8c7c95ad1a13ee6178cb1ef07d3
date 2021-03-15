@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "73ed0872_be146ad8",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2021-03-15T05:19:50Z",
+      "side": 1,
+      "message": "This change is used to compatible with https://github.com/openbmc/intel-ipmi-oem/blob/master/include/sensorutils.hpp#L164. If there is a threshold, both the max and min values must be exist. I think we can set the default as 0.001 for this sensor.",
+      "parentUuid": "e23ff501_9ec0f174",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb77eb88_f43ff2a5",
         "filename": "healthMonitor.cpp",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ab0a03_293d3ba2",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2021-03-15T05:19:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fb77eb88_f43ff2a5",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +119,24 @@
       "side": 1,
       "message": "Isn\u0027t that a bug in the IPMI handler then?  It should not assume that the ObjectManager is at root because that is not required by the dbus specification.",
       "parentUuid": "fcf58dd3_5bbffc3a",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01262158_2ae8b217",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2021-03-15T05:19:50Z",
+      "side": 1,
+      "message": "Currently all these other dbus sensors are using the / for the GetManagedObjects. prefer to change this sensor to compatible with others",
+      "parentUuid": "1774ed86_d0d9437c",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
