@@ -194,6 +194,24 @@
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f932f62_a59b191c",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000107
+      },
+      "writtenOn": "2021-03-16T00:53:37Z",
+      "side": 1,
+      "message": "YES! this phosphor-hwmon is incompatible with the \"sensor list\" too. But it is not used since it is replaced by the hwmontemp in dbus-sensors",
+      "parentUuid": "8b487587_29f242bc",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
