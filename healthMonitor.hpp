@@ -1,8 +1,12 @@
 #include <nlohmann/json.hpp>
+#include <phosphor-logging/log.hpp>
 #include <sdbusplus/bus.hpp>
+#include <sdbusplus/message.hpp>
 #include <sdeventplus/clock.hpp>
 #include <sdeventplus/event.hpp>
 #include <sdeventplus/utility/timer.hpp>
+#include <xyz/openbmc_project/Association/Definitions/server.hpp>
+#include <xyz/openbmc_project/Association/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Critical/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Warning/server.hpp>
 #include <xyz/openbmc_project/Sensor/Value/server.hpp>
@@ -16,6 +20,8 @@ namespace phosphor
 namespace health
 {
 
+using namespace phosphor::logging;
+
 using Json = nlohmann::json;
 using ValueIface = sdbusplus::xyz::openbmc_project::Sensor::server::Value;
 
@@ -25,9 +31,18 @@ using CriticalInterface =
 using WarningInterface =
     sdbusplus::xyz::openbmc_project::Sensor::Threshold::server::Warning;
 
+using AssociationInterface =
+    sdbusplus::xyz::openbmc_project::server::Association;
+
+using AssociationDefinitionInterface =
+    sdbusplus::xyz::openbmc_project::Association::server::Definitions;
+
 using healthIfaces =
     sdbusplus::server::object::object<ValueIface, CriticalInterface,
-                                      WarningInterface>;
+                                      WarningInterface,
+                                      AssociationDefinitionInterface>;
+
+using AssociationTuple = std::tuple<std::string, std::string, std::string>;
 
 struct HealthConfig
 {
@@ -59,19 +74,20 @@ class HealthSensor : public healthIfaces
      * @param[in] objPath - The Dbus path of health sensor
      */
     HealthSensor(sdbusplus::bus::bus& bus, const char* objPath,
-                 HealthConfig& sensorConfig) :
+                 HealthConfig& sensorConfig,
+                 const std::vector<std::string>& chassisIds) :
         healthIfaces(bus, objPath),
         bus(bus), sensorConfig(sensorConfig),
         timerEvent(sdeventplus::Event::get_default()),
         readTimer(timerEvent, std::bind(&HealthSensor::readHealthSensor, this))
     {
-        initHealthSensor();
+        initHealthSensor(chassisIds);
     }
 
     /** @brief list of sensor data values */
     std::deque<double> valQueue;
-
-    void initHealthSensor();
+    /** @brief Initialize sensor, set default value and association */
+    void initHealthSensor(const std::vector<std::string>& chassisIds);
     /** @brief Set sensor value utilization to health sensor D-bus  */
     void setSensorValueToDbus(const double value);
     /** @brief Set Sensor Threshold to D-bus at beginning */
@@ -88,7 +104,6 @@ class HealthSensor : public healthIfaces
     sdeventplus::Event timerEvent;
     /** @brief Sensor Read Timer */
     sdeventplus::utility::Timer<sdeventplus::ClockId::Monotonic> readTimer;
-
     /** @brief Read sensor at regular intrval */
     void readHealthSensor();
 };
@@ -109,15 +124,58 @@ class HealthMon
      */
     HealthMon(sdbusplus::bus::bus& bus) : bus(bus)
     {
-        // read json file
+        // Find all chassis in the system
+        sdbusplus::message::message msg = bus.new_method_call(
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+        // Signature of GetSubTreePaths: sias
+        msg.append("/xyz/openbmc_project/inventory/system");
+        msg.append(2);
+        msg.append(
+            std::
+                vector<std::
+                           string>{"xyz.openbmc_project.Inventory.Item."
+                                   "Chassis"}); // FIXME:
+                                                // Dbus-sensors use
+                                                // "xyz.openbmc_project.Inventory.Item.System"
+                                                // here but I can't
+                                                // seem to find any
+                                                // chassis using
+                                                // this parameter. I
+                                                // had to use
+                                                // Chassis
+        sdbusplus::message::message reply = bus.call(msg, 0);
+        std::vector<std::string> chassisIds;
+        if (!strcmp(reply.get_signature(), "as"))
+        {
+            reply.read(chassisIds);
+            log<level::INFO>(std::string("Found " +
+                                         std::to_string(chassisIds.size()) +
+                                         " chassis:")
+                                 .c_str());
+            for (const std::string_view chassisId : chassisIds)
+            {
+                log<level::INFO>(chassisId.data());
+            }
+        }
+        else
+        {
+            log<level::WARNING>(
+                "Did not find any chassis, cannot create association");
+        }
+
+        // Read JSON file
         sensorConfigs = getHealthConfig();
-        createHealthSensors();
+
+        // Create health sensors
+        createHealthSensors(chassisIds);
     }
 
-    /** @brief Parsing Health config JSON file  */
+    /** @brief Parse Health config JSON file  */
     Json parseConfigFile(std::string configFile);
 
-    /** @brief reading config for each health sensor component */
+    /** @brief Read config for each health sensor component */
     void getConfigData(Json& data, HealthConfig& cfg);
 
     /** @brief Map of the object HealthSensor */
@@ -125,7 +183,7 @@ class HealthMon
         healthSensors;
 
     /** @brief Create sensors for health monitoring */
-    void createHealthSensors();
+    void createHealthSensors(const std::vector<std::string>& chassisIds);
 
   private:
     sdbusplus::bus::bus& bus;
