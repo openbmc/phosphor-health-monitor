@@ -2,7 +2,6 @@
 
 #include "healthMonitor.hpp"
 
-#include <phosphor-logging/log.hpp>
 #include <sdbusplus/server/manager.hpp>
 #include <sdeventplus/event.hpp>
 
@@ -222,7 +221,7 @@ void HealthSensor::setSensorValueToDbus(const double value)
     ValueIface::value(value);
 }
 
-void HealthSensor::initHealthSensor()
+void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
 {
     std::string logMsg = sensorConfig.name + " Health Sensor initialized";
     log<level::INFO>(logMsg.c_str());
@@ -266,6 +265,14 @@ void HealthSensor::initHealthSensor()
     ValueIface::unit(ValueIface::Unit::Percent);
 
     setSensorValueToDbus(value);
+
+    // Associate the sensor to chassis
+    std::vector<AssociationTuple> associationTuples;
+    for (const std::string_view chassisId : chassisIds)
+    {
+        associationTuples.emplace_back("chassis", "all_sensors", chassisId);
+    }
+    AssociationDefinitionInterface::associations(associationTuples);
 
     /* Start the timer for reading sensor data at regular interval */
     readTimer.restart(std::chrono::milliseconds(sensorConfig.freq * 1000));
@@ -377,13 +384,13 @@ void printConfig(HealthConfig& cfg)
 }
 
 /* Create dbus utilization sensor object for each configured sensors */
-void HealthMon::createHealthSensors()
+void HealthMon::createHealthSensors(const std::vector<std::string>& chassisIds)
 {
     for (auto& cfg : sensorConfigs)
     {
         std::string objPath = std::string(HEALTH_SENSOR_PATH) + cfg.name;
-        auto healthSensor =
-            std::make_shared<HealthSensor>(bus, objPath.c_str(), cfg);
+        auto healthSensor = std::make_shared<HealthSensor>(bus, objPath.c_str(),
+                                                           cfg, chassisIds);
         healthSensors.emplace(cfg.name, healthSensor);
 
         std::string logMsg = cfg.name + " Health Sensor created";
@@ -508,7 +515,6 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
  */
 int main()
 {
-
     // Get a default event loop
     auto event = sdeventplus::Event::get_default();
 
