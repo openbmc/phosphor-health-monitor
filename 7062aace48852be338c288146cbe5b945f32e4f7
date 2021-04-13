@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "112a0adc_839dcedb",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000271
+      },
+      "writtenOn": "2021-04-13T18:34:11Z",
+      "side": 1,
+      "message": "this has already in .hpp file so not required here",
+      "revId": "7062aace48852be338c288146cbe5b945f32e4f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae9c0fd_50fdb7da",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1000271
+      },
+      "writtenOn": "2021-04-13T18:34:11Z",
+      "side": 1,
+      "message": "Is this really required? Is old event call not working?",
+      "revId": "7062aace48852be338c288146cbe5b945f32e4f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
