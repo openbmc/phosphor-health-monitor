@@ -3,6 +3,8 @@
 #include "healthMonitor.hpp"
 
 #include <phosphor-logging/log.hpp>
+#include <sdbusplus/asio/object_server.hpp>
+#include <sdbusplus/asio/sd_event.hpp>
 #include <sdbusplus/server/manager.hpp>
 #include <sdeventplus/event.hpp>
 
@@ -382,8 +384,8 @@ void HealthMon::createHealthSensors()
     for (auto& cfg : sensorConfigs)
     {
         std::string objPath = std::string(HEALTH_SENSOR_PATH) + cfg.name;
-        auto healthSensor =
-            std::make_shared<HealthSensor>(bus, objPath.c_str(), cfg);
+        auto healthSensor = std::make_shared<HealthSensor>(
+            bus, objectServer, objPath.c_str(), cfg);
         healthSensors.emplace(cfg.name, healthSensor);
 
         std::string logMsg = cfg.name + " Health Sensor created";
@@ -508,25 +510,27 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
  */
 int main()
 {
+    boost::asio::io_context io;
 
-    // Get a default event loop
-    auto event = sdeventplus::Event::get_default();
+    // DBus connection
+    auto conn = std::make_shared<sdbusplus::asio::connection>(io);
 
-    // Get a handle to system dbus
-    auto bus = sdbusplus::bus::new_default();
+    // Request a name on the bus
+    conn->request_name(HEALTH_BUS_NAME);
+
+    // Add object server to map a sensor to its chassis
+    sdbusplus::asio::object_server objectServer(conn);
 
     // Create an health monitor object
-    phosphor::health::HealthMon healthMon(bus);
-
-    // Request service bus name
-    bus.request_name(HEALTH_BUS_NAME);
+    phosphor::health::HealthMon healthMon(*conn, objectServer);
 
     // Add object manager to sensor node
-    sdbusplus::server::manager::manager objManager(bus, SENSOR_OBJPATH);
+    sdbusplus::server::manager::manager objManager(*conn, SENSOR_OBJPATH);
 
-    // Attach the bus to sd_event to service user requests
-    bus.attach_event(event.get(), SD_EVENT_PRIORITY_NORMAL);
-    event.loop();
+    // Add the sd_event wrapper to the io object to process the event loop
+    sdbusplus::asio::sd_event_wrapper sdEvents(io);
+
+    io.run();
 
     return 0;
 }

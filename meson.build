@@ -17,6 +17,7 @@ executable(
         dependency('sdbusplus'),
         dependency('phosphor-dbus-interfaces'),
         dependency('sdeventplus'),
+        dependency('threads'),
     ],
     install: true,
     install_dir: get_option('bindir')

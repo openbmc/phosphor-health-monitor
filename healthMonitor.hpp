@@ -1,4 +1,5 @@
 #include <nlohmann/json.hpp>
+#include <sdbusplus/asio/object_server.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdeventplus/clock.hpp>
 #include <sdeventplus/event.hpp>
@@ -29,6 +30,8 @@ using healthIfaces =
     sdbusplus::server::object::object<ValueIface, CriticalInterface,
                                       WarningInterface>;
 
+using Association = std::tuple<std::string, std::string, std::string>;
+
 struct HealthConfig
 {
     std::string name;
@@ -58,14 +61,29 @@ class HealthSensor : public healthIfaces
      * @param[in] bus     - Handle to system dbus
      * @param[in] objPath - The Dbus path of health sensor
      */
-    HealthSensor(sdbusplus::bus::bus& bus, const char* objPath,
-                 HealthConfig& sensorConfig) :
+    HealthSensor(sdbusplus::bus::bus& bus,
+                 sdbusplus::asio::object_server& objectServer,
+                 const char* objPath, HealthConfig& sensorConfig) :
         healthIfaces(bus, objPath),
-        bus(bus), sensorConfig(sensorConfig),
+        bus(bus), objectServer(objectServer), sensorConfig(sensorConfig),
         timerEvent(sdeventplus::Event::get_default()),
         readTimer(timerEvent, std::bind(&HealthSensor::readHealthSensor, this))
     {
         initHealthSensor();
+        association = objectServer.add_interface(
+            objPath, "xyz.openbmc_project.Association.Definitions");
+        itemAssoc = objectServer.add_interface(
+            objPath, "xyz.openbmc_project.Association.Definitions");
+
+        const std::string boardPath =
+            "/xyz/openbmc_project/inventory/system/chassis";
+
+        itemAssoc->register_property("Associations",
+                                     std::vector<Association>{
+                                         {"chassis", "all_sensors", boardPath},
+                                         {"inventory", "sensors", boardPath},
+                                     });
+        itemAssoc->initialize();
     }
 
     /** @brief list of sensor data values */
@@ -82,6 +100,9 @@ class HealthSensor : public healthIfaces
   private:
     /** @brief sdbusplus bus client connection. */
     sdbusplus::bus::bus& bus;
+    sdbusplus::asio::object_server& objectServer;
+    std::shared_ptr<sdbusplus::asio::dbus_interface> itemAssoc;
+
     /** @brief Sensor config from config file */
     HealthConfig& sensorConfig;
     /** @brief the Event Loop structure */
@@ -89,6 +110,7 @@ class HealthSensor : public healthIfaces
     /** @brief Sensor Read Timer */
     sdeventplus::utility::Timer<sdeventplus::ClockId::Monotonic> readTimer;
 
+    std::shared_ptr<sdbusplus::asio::dbus_interface> association;
     /** @brief Read sensor at regular intrval */
     void readHealthSensor();
 };
@@ -107,7 +129,10 @@ class HealthMon
      *
      * @param[in] bus     - Handle to system dbus
      */
-    HealthMon(sdbusplus::bus::bus& bus) : bus(bus)
+    HealthMon(sdbusplus::bus::bus& bus,
+              sdbusplus::asio::object_server& objectServer) :
+        bus(bus),
+        objectServer(objectServer)
     {
         // read json file
         sensorConfigs = getHealthConfig();
@@ -129,6 +154,7 @@ class HealthMon
 
   private:
     sdbusplus::bus::bus& bus;
+    sdbusplus::asio::object_server& objectServer;
     std::vector<HealthConfig> sensorConfigs;
     std::vector<HealthConfig> getHealthConfig();
 };
