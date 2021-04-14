@@ -33,6 +33,24 @@
       "revId": "7062aace48852be338c288146cbe5b945f32e4f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4939087f_106dbb13",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-04-14T00:42:13Z",
+      "side": 1,
+      "message": "The old event call is working fine, it\u0027s because the dependency brought in by the object_server.\n\nThe dependency is as follows:\n1. I added association using an object_server.\n2. object_server requires an sdbusplus::asio::connection.\n3. sdbusplus::asio::connection needs an io_context.\n4. I replaced the original main loop with an io_context event loop.\n\nI feel there should be a better way too and if there is a way to add association without using an object_server, the io_context can be removed.",
+      "parentUuid": "bae9c0fd_50fdb7da",
+      "revId": "7062aace48852be338c288146cbe5b945f32e4f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
