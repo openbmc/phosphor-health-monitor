@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6756ee76_1ae9365a",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-04-15T00:36:45Z",
+      "side": 1,
+      "message": "Some notes, when a user loads WebUI-Vue\u0027s Sensors page:\n\n1) WebUI sends request GET /redfish/v1/Chassis/ to get the list of chassis\n2) BMCWeb enters collection_util::getCollectionMembers\n3) BMCWeb sends a DBus method call that is equivalent to\n\n  dbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTreePaths string:\"/xyz/openbmc_project/inventory\" int32:0 array:string:\"xyz.openbmc_project.Inventory.Item.Board\",\"xyz.openbmc_project.Inventory.Item.Chassis\"\n\nOn my test QEMU setup that\u0027s configured with one chassis named \"chassis\", the response will be a string array of size 1:\n\n  [\"/xyz/openbmc_project/inventory/system/chassis\"]\n\n4) WebUI checks the response and sends GET /redfish/v1/Chassis/\u003cChassisID\u003e/Sensors for each of the chassis\n\n5) For each URI above, BMCWeb enters Chassis::doGet\n6) BMCWeb sends a DBus method call that is equivalent to\n  dbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/inventory/system/chassis/all_sensors org.freedesktop.DBus.Properties.Get string:\"xyz.openbmc_project.Association\" string:\"endpoints\"\n\nThe DBus response on my test setup is:\n\n  variant array [\n    string \"/xyz/openbmc_project/sensors/utilization/CPU\"\n    string \"/xyz/openbmc_project/sensors/utilization/Storage_RW\"\n    string \"/xyz/openbmc_project/sensors/utilization/Memory\"\n  ]\n\n7) WebUI-Vue sees these sensors.\n\nThe association phase largely follows what dbus-sensors is doing (https://github.com/openbmc/dbus-sensors/blob/master/src/Utils.cpp#L437), but I\u0027m not quite sure what the value of invSysPaths is and will continue to look into it.",
+      "revId": "9d4605a1dfcc05fc70b3edc728feeda9a3899631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
