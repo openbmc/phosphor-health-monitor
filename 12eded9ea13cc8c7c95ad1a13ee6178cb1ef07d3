@@ -266,6 +266,24 @@
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9a9d98a_1c3ccd4a",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2021-04-23T02:31:24Z",
+      "side": 1,
+      "message": "I noticed this as well: the `ipmitool sdr elist` command is broken, by the lack of this linkage. I\u0027m using something based on intel-ipmi-oem, and it requires ObjectManager at root. I didn\u0027t think it could be put anywhere else, because how else would services know how to find it?\n\nI hope this patch makes it in, it solves a lot of compatibility problems with intel-ipmi-oem.",
+      "parentUuid": "15ace630_6eedde81",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
