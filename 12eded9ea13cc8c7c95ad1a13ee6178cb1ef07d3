@@ -284,6 +284,24 @@
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07ab4c7b_f88f2393",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000271
+      },
+      "writtenOn": "2021-04-26T20:40:16Z",
+      "side": 1,
+      "message": "Can we fix this ipmi handling in intel-ipmi-oem. I know this may require to change all dbus-sensors. You may avoid if you can look at dynamic path first and if you don\u0027t find then look at root.",
+      "parentUuid": "c9a9d98a_1c3ccd4a",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
