@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d55a3d9_31aee355",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-04-30T16:07:12Z",
+      "side": 1,
+      "message": "I think there is libmapper that you could use also, isn\u0027t there?",
+      "revId": "63b607aef20d008ab0a80f84c1d75004bb78f8e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f13f6764_f6f4957b",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-04-30T16:07:12Z",
+      "side": 1,
+      "message": "I think we need to do something here to be more specific about the Chassis we\u0027re looking for being the one representing the BMC itself.  Should this be the Inventory.Item.BMC?\n\nWe have a multi-host system we are supporting which will have 5 Chassis objects.  These sensors are only associated with the full system chassis / BMC, so we shouldn\u0027t make associations into the compute card chassis element.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 59
+      },
+      "revId": "63b607aef20d008ab0a80f84c1d75004bb78f8e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
