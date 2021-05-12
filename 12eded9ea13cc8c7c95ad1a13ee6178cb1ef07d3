@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "4c0cb694_e2f3201c",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-05-12T17:44:56Z",
+      "side": 1,
+      "message": "Agree with patrick, this should be set to quiet_nan if it\u0027s not present.\n\nUnless I\u0027m missing something, this patch does nothing to ensure that the Min and Max properties exist and are populated.  This is changing the Critical Interface.",
+      "parentUuid": "27466467_68fd2260",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb77eb88_f43ff2a5",
         "filename": "healthMonitor.cpp",
         "patchSetId": 1
