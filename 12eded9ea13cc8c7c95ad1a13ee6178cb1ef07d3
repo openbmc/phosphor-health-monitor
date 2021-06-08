@@ -374,6 +374,24 @@
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55d0be7f_8b8bd0dd",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2021-06-08T20:45:01Z",
+      "side": 1,
+      "message": "\u003e \u003e Moving to ObjectManager (which was discussed a while back) was done as an optimization for this ipmi handler, as it allows parsing all the dbus sensors in one shot, which sped up things like ipmitool sensor list.\n\u003e \n\u003e Even if it was done as an optimization, it is still wrong.\n\nAssuming we wanted to have an object manager instance in phosphor-health-monitor, where should it go in your opinion?  Maybe we could come up with a consistent place to put it for a sensor daeemon?  I\u0027m happy to write the dbus-sensors patch if we can get agreement that root is the wrong place for this.\n\n\u003e  There is no certainty that the ObjectManager will exist at \"/\" and most freedesktop applications do not.  Why are we expecting that our applications will, especially when many of them do not?\n\nSo in terms of a consistent way for sensor daemons to publish, where can a daemon expect the object manager interface to exist?\n\n\u003e \n\u003e I don\u0027t really understand _how_ this was an optimization anyhow.  The code in intel-ipmi-oem which calls this ObjectManager call already makes a call to getSensorConnection -\u003e getSensorSubtree which is a mapper call!  Everything it needed to make the call to the objects themselves should have came back in that original mapper call.\n\nAt the time the mapper didn\u0027t track ObjectManager (digging back into my memory a bit) so there was no way to to a GetSubTree call that would return \"here\u0027s where the object manager for this resource tree lies\".  I\u0027m not sure if that\u0027s changed since Spinler did a bunch of updates to the C++ mapper, so maybe there\u0027s a way to do that now?  The primary optimization was that by assuming we knew where the object manager interface was, we could call it and get all the sensors in one dbus message, instead of calling GetAll on the each sensor N times the 5 or so interfaces we needed to grab.  This cut the number of dbus messages to run a sensor list down by about an order of 20-40X.\n\nThe key here is that we were able to use ObjectManager commands at all.\n\n\n\n\n\nFor the moment this is a pretty minimal and noninvasive change that solves a problem, doesn\u0027t disobey any dbus interfaces, and I personally think it should merge.  At such time as we have a way to do this better, it\u0027s a relatively noninvasive change to move the object object manager location if we can agree on a better one.  With that said, I\u0027m not the maintainer here, so it\u0027s up to you, but I think having phosphor-health-monitor not being compatible with ipmi-dynamic limits it\u0027s usefulness to people.",
+      "parentUuid": "dc18fd94_1f7ac9e6",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
