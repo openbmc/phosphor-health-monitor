@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "37431166_777edb64",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-06-15T08:39:22Z",
+      "side": 1,
+      "message": "I assume libmapper refers to openbmc/phosphor-objmgr, if my understanding is correct, it seems I need to do the following in order to make use of libmapper:\n\n1) It looks for my purpose, the closest match in libmapper is \"mapper_subtree_async\".\n2) \"mapper_subtree_async\" accepts an \"op\" parameter that controls its operation. So far there is only one op available: \"Wait until all objects that has some interface to disappear from the namespace\". This is not what I need as I only need to look up the SubTreePaths for objects that has the Inventory.Item.Bmc interface.\n3) It appears \"async_subtree_getpaths\" (used by mapper_subtree_async) is able to fetch the subtree paths, however this function is defined static in mapper.c and therefore not easily accessible to the outside.\n4) It turns out \"async_subtree_getpaths\" is just calling \"sd_bus_call_method_async\". This means if I bridge all the gaps to make use of libmapper by calling async_subtree_getpaths, I would be doing extra work just to end up with the same thing as what I\u0027m already doing: make a method call to the ObjectMapper to retrieve the subtree paths.\n5) On top of this, I need to find a way to convert an sdbusplus::bus::bus\u0026 to a sd_bus* since libmapper uses the latter. It appears the sdbusplus::bus::bus::get() method is protected so this usage is not supported/encouraged?",
+      "parentUuid": "3d55a3d9_31aee355",
+      "revId": "63b607aef20d008ab0a80f84c1d75004bb78f8e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f13f6764_f6f4957b",
         "filename": "healthMonitor.hpp",
         "patchSetId": 8
@@ -30,6 +48,30 @@
       "writtenOn": "2021-04-30T16:07:12Z",
       "side": 1,
       "message": "I think we need to do something here to be more specific about the Chassis we\u0027re looking for being the one representing the BMC itself.  Should this be the Inventory.Item.BMC?\n\nWe have a multi-host system we are supporting which will have 5 Chassis objects.  These sensors are only associated with the full system chassis / BMC, so we shouldn\u0027t make associations into the compute card chassis element.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 59
+      },
+      "revId": "63b607aef20d008ab0a80f84c1d75004bb78f8e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deca0023_e5e0a06a",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-06-15T08:39:22Z",
+      "side": 1,
+      "message": "Changed the criteria for subtree search to \"xyz.openbmc_project.Inventory.Item.Bmc\". This means some logic in BMCWeb needs to be updated accordingly to read these sensors, I guess this could go to some separate discussion?",
+      "parentUuid": "f13f6764_f6f4957b",
       "range": {
         "startLine": 132,
         "startChar": 0,
