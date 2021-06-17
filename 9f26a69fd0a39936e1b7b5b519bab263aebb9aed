@@ -304,6 +304,30 @@
       "revId": "9f26a69fd0a39936e1b7b5b519bab263aebb9aed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b9132e8_02f2486a",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-06-17T09:31:35Z",
+      "side": 1,
+      "message": "Some findings regarding phosphor-logging:\n\n1) The log function expects a const char* or char* as the first parameter, I guess to make it accept std::string as the first parameter one could specialize the template in log.hpp:\n\n    template\u003clevel L, typename... Entry\u003e\n    void log(const std::string\u0026 msg, Entry... e) {\n      log\u003cL\u003e(msg.c_str(), std::forward\u003cEntry\u003e(e)...);\n    }\n\n2) Some ways of sending a log message appear to be supported by using sd_journal_send but are not easy with phosphor::logging::log, one example is as follows:\n\n    sd_journal_send(\"MESSAGE\u003d%d+%d\u003d%d(%s)\", 1, 2, 3, \"hello\");\n\n    (should send \"1+2\u003d3(hello)\" to the system journal)\n\nThis appears to be hard to achieve using phosphor::logging because a) phosphor::logging expects all parameters in an entry to be const char* or char*, so the user has to call std::to_string on the numbers; b) it expects Msg to be a C-string, and puts the transaction tuple immediately after msg_tuple, so the user won\u0027t have an opportunity to add parameters to msg_tuple.\n\nIt appears it\u0027s possible to \"abuse\" the phosphor::logging::log function to achieve the effect in the example by a) overwriting the MESSAGE variable with a new entry, and b) use std::tuple instead of entry to circumvent the requirement that all entry elements must be C-strings (added in patchset 13.)",
+      "parentUuid": "6204f800_96d276dd",
+      "range": {
+        "startLine": 147,
+        "startChar": 24,
+        "endLine": 147,
+        "endChar": 30
+      },
+      "revId": "9f26a69fd0a39936e1b7b5b519bab263aebb9aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
