@@ -328,6 +328,30 @@
       "revId": "9f26a69fd0a39936e1b7b5b519bab263aebb9aed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99861bfc_33304534",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-06-24T19:16:57Z",
+      "side": 1,
+      "message": "Removed the variables in the latest change.",
+      "parentUuid": "5b9132e8_02f2486a",
+      "range": {
+        "startLine": 147,
+        "startChar": 24,
+        "endLine": 147,
+        "endChar": 30
+      },
+      "revId": "9f26a69fd0a39936e1b7b5b519bab263aebb9aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
