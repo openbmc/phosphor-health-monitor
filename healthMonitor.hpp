@@ -1,3 +1,4 @@
+#include <fmt/format.h>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/bus.hpp>
@@ -20,6 +21,31 @@ namespace health
 {
 
 using namespace phosphor::logging;
+
+const char* SystemInventoryPath = "/xyz/openbmc_project/inventory/system";
+
+bool FindSystemInventoryInObjectMapper(sdbusplus::bus::bus& bus)
+{
+    sdbusplus::message::message msg =
+        bus.new_method_call("xyz.openbmc_project.ObjectMapper",
+                            "/xyz/openbmc_project/object_mapper",
+                            "xyz.openbmc_project.ObjectMapper", "GetObject");
+    msg.append(SystemInventoryPath);
+    msg.append(std::vector<std::string>{});
+
+    bool ret = false;
+
+    try
+    {
+        sdbusplus::message::message reply = bus.call(msg, 0);
+        ret = true; // The system inventory path exists
+    }
+    catch (const std::exception& e)
+    {
+        return false; // The path not exist
+    }
+    return ret;
+}
 
 using Json = nlohmann::json;
 using ValueIface = sdbusplus::xyz::openbmc_project::Sensor::server::Value;
@@ -122,36 +148,50 @@ class HealthMon
     {
         std::vector<std::string> bmcIds = {};
 
-        // Find all BMCs (DBus objects implementing the
-        // Inventory.Item.Bmc interface that may be created by
-        // configuring the Inventory Manager)
-        sdbusplus::message::message msg = bus.new_method_call(
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
-
-        // Search term
-        msg.append("/xyz/openbmc_project/inventory/system");
-
-        // Limit the depth to 2. Example of "depth":
-        // /xyz/openbmc_project/inventory/system/chassis has a depth of 1
-        // since it has 1 '/' after "/xyz/openbmc_project/inventory/system".
-        msg.append(2);
-
-        // Must have the Inventory.Item.Bmc interface
-        msg.append(
-            std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Bmc"});
-
-        sdbusplus::message::message reply = bus.call(msg, 0);
-        if (reply.get_signature() == std::string("as"))
+        if (FindSystemInventoryInObjectMapper(bus))
         {
-            reply.read(bmcIds);
-            log<level::INFO>("BMC inventory found");
+            try
+            {
+                // Find all BMCs (DBus objects implementing the
+                // Inventory.Item.Bmc interface that may be created by
+                // configuring the Inventory Manager)
+                sdbusplus::message::message msg = bus.new_method_call(
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+
+                // Search term
+                msg.append(SystemInventoryPath);
+
+                // Limit the depth to 2. Example of "depth":
+                // /xyz/openbmc_project/inventory/system/chassis has a depth of
+                // 1 since it has 1 '/' after
+                // "/xyz/openbmc_project/inventory/system".
+                msg.append(2);
+
+                // Must have the Inventory.Item.Bmc interface
+                msg.append(std::vector<std::string>{
+                    "xyz.openbmc_project.Inventory.Item.Bmc"});
+
+                sdbusplus::message::message reply = bus.call(msg, 0);
+                reply.read(bmcIds);
+                log<level::INFO>("BMC inventory found");
+            }
+            catch (std::exception& e)
+            {
+                log<level::ERR>(
+                    fmt::format("Exception occurred while calling %s",
+                                SystemInventoryPath)
+                        .c_str());
+            }
         }
         else
         {
-            log<level::WARNING>(
-                "Did not find BMC inventory, cannot create association");
+            log<level::ERR>(
+                fmt::format("Path {} does not exist in ObjectMapper, cannot "
+                            "create association",
+                            SystemInventoryPath)
+                    .c_str());
         }
 
         // Read JSON file
