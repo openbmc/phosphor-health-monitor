@@ -513,7 +513,7 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
 /**
  * @brief Main
  */
-int main()
+int main(int argc, char** argv)
 {
     // Get a default event loop
     auto event = sdeventplus::Event::get_default();

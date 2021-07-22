@@ -1,3 +1,5 @@
+#include "xmlparse.hpp"
+
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/bus.hpp>
@@ -18,6 +20,63 @@ namespace phosphor
 {
 namespace health
 {
+
+bool FindInventorySystemInObjectMapper(sdbusplus::bus::bus& bus)
+{
+
+    // 1. Make sure Object Mapper is present
+    std::vector<std::string> s = bus.list_names_acquired();
+    const char* mapper_service = "xyz.openbmc_project.ObjectMapper";
+    if (std::find(s.begin(), s.end(), mapper_service) == s.end())
+    {
+        return false;
+    }
+
+    // 2. Traverse Object Mapper's object tree
+    std::vector<std::string> paths = {"/"};
+
+    const char* system_path = "/xyz/openbmc_project/inventory/system";
+
+    bool found = false;
+    while (!paths.empty() && !found)
+    {
+        std::vector<std::string> next;
+        for (const std::string& p : paths)
+        {
+
+            if (p == system_path)
+            {
+                found = true;
+                break;
+            }
+
+            sdbusplus::message::message msg = bus.new_method_call(
+                "xyz.openbmc_project.ObjectMapper", p.c_str(),
+                "org.freedesktop.DBus.Introspectable", "Introspect");
+            sdbusplus::message::message reply = bus.call(msg, 0);
+            std::string x;
+            reply.read(x);
+
+            XMLNode* t = ParseXML(x);
+            std::vector<std::string> children = t->GetChildNodeNames();
+            delete t;
+            for (const std::string& ch : children)
+            {
+                std::string ch_path = p;
+                if (p.back() == '/')
+                {}
+                else
+                {
+                    ch_path.push_back('/');
+                }
+                ch_path += ch;
+                next.push_back(ch_path);
+            }
+        }
+        paths = next;
+    }
+    return found;
+}
 
 using namespace phosphor::logging;
 
@@ -122,36 +181,47 @@ class HealthMon
     {
         std::vector<std::string> bmcIds = {};
 
-        // Find all BMCs (DBus objects implementing the
-        // Inventory.Item.Bmc interface that may be created by
-        // configuring the Inventory Manager)
-        sdbusplus::message::message msg = bus.new_method_call(
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+        bool hasSystemPath = FindInventorySystemInObjectMapper(bus);
 
-        // Search term
-        msg.append("/xyz/openbmc_project/inventory/system");
-
-        // Limit the depth to 2. Example of "depth":
-        // /xyz/openbmc_project/inventory/system/chassis has a depth of 1
-        // since it has 1 '/' after "/xyz/openbmc_project/inventory/system".
-        msg.append(2);
-
-        // Must have the Inventory.Item.Bmc interface
-        msg.append(
-            std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Bmc"});
-
-        sdbusplus::message::message reply = bus.call(msg, 0);
-        if (reply.get_signature() == std::string("as"))
+        if (hasSystemPath)
         {
-            reply.read(bmcIds);
-            log<level::INFO>("BMC inventory found");
+            // Find all BMCs (DBus objects implementing the
+            // Inventory.Item.Bmc interface that may be created by
+            // configuring the Inventory Manager)
+            sdbusplus::message::message msg = bus.new_method_call(
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+
+            // Search term
+            msg.append("/xyz/openbmc_project/inventory/system");
+
+            // Limit the depth to 2. Example of "depth":
+            // /xyz/openbmc_project/inventory/system/chassis has a depth of 1
+            // since it has 1 '/' after "/xyz/openbmc_project/inventory/system".
+            msg.append(2);
+
+            // Must have the Inventory.Item.Bmc interface
+            msg.append(std::vector<std::string>{
+                "xyz.openbmc_project.Inventory.Item.Bmc"});
+
+            sdbusplus::message::message reply = bus.call(msg, 0);
+            if (reply.get_signature() == std::string("as"))
+            {
+                reply.read(bmcIds);
+                log<level::INFO>("BMC inventory found");
+            }
+            else
+            {
+                log<level::WARNING>(
+                    "Did not find BMC inventory, cannot create association");
+            }
         }
         else
         {
             log<level::WARNING>(
-                "Did not find BMC inventory, cannot create association");
+                "Did not find /xyz/openbmc_project/inventory/system, cannot "
+                "reate association");
         }
 
         // Read JSON file
