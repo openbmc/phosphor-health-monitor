@@ -1,3 +1,5 @@
+#include <fmt/format.h>
+
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/bus.hpp>
@@ -18,6 +20,30 @@ namespace phosphor
 {
 namespace health
 {
+
+const char* InventoryPath = "/xyz/openbmc_project/inventory";
+
+// Used for identifying the BMC inventory creation signal
+const char* BMCActivationPath = "/xyz/openbmc_project/inventory/bmc/activation";
+
+bool FindSystemInventoryInObjectMapper(sdbusplus::bus::bus& bus)
+{
+    sdbusplus::message::message msg =
+        bus.new_method_call("xyz.openbmc_project.ObjectMapper",
+                            "/xyz/openbmc_project/object_mapper",
+                            "xyz.openbmc_project.ObjectMapper", "GetObject");
+    msg.append(InventoryPath);
+    msg.append(std::vector<std::string>{});
+
+    try
+    {
+        sdbusplus::message::message reply = bus.call(msg, 0);
+        return true;
+    }
+    catch (const std::exception& e)
+    {}
+    return false;
+}
 
 using Json = nlohmann::json;
 using ValueIface = sdbusplus::xyz::openbmc_project::Sensor::server::Value;
@@ -112,51 +138,19 @@ class HealthMon
     HealthMon& operator=(HealthMon&&) = delete;
     virtual ~HealthMon() = default;
 
+    /** @brief Recreates sensor objects and their association if possible
+     */
+    void recreateSensors();
+
     /** @brief Constructs HealthMon
      *
      * @param[in] bus     - Handle to system dbus
      */
     HealthMon(sdbusplus::bus::bus& bus) : bus(bus)
     {
-        PHOSPHOR_LOG2_USING;
-        std::vector<std::string> bmcIds = {};
-
-        // Find all BMCs (DBus objects implementing the
-        // Inventory.Item.Bmc interface that may be created by
-        // configuring the Inventory Manager)
-        sdbusplus::message::message msg = bus.new_method_call(
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
-
-        // Search term
-        msg.append("/xyz/openbmc_project/inventory/system");
-
-        // Limit the depth to 2. Example of "depth":
-        // /xyz/openbmc_project/inventory/system/chassis has a depth of 1
-        // since it has 1 '/' after "/xyz/openbmc_project/inventory/system".
-        msg.append(2);
-
-        // Must have the Inventory.Item.Bmc interface
-        msg.append(
-            std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Bmc"});
-
-        sdbusplus::message::message reply = bus.call(msg, 0);
-        if (reply.get_signature() == std::string("as"))
-        {
-            reply.read(bmcIds);
-            info("BMC inventory found");
-        }
-        else
-        {
-            warning("Did not find BMC inventory, cannot create association");
-        }
-
         // Read JSON file
         sensorConfigs = getHealthConfig();
-
-        // Create health sensors
-        createHealthSensors(bmcIds);
+        recreateSensors();
     }
 
     /** @brief Parse Health config JSON file  */
