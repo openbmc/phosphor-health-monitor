@@ -1,3 +1,5 @@
+#include <mapper.h>
+
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/bus.hpp>
@@ -20,6 +22,31 @@ namespace health
 {
 
 using namespace phosphor::logging;
+
+bool FindInventorySystemInObjectMapper()
+{
+    int r;
+    sd_bus* bus;
+    r = sd_bus_default(&bus);
+    if (r < 0)
+    {
+        log<level::ERR>("Could not open default bus for calling ObjectMapper");
+        return false;
+    }
+
+    sd_bus_message* reply;
+    r = mapper_get_object(bus, "/xyz/openbmc_project/inventory/system", &reply);
+    if (r < 0)
+    {
+        log<level::ERR>("Could not call mapper_get_object");
+        return false;
+    }
+
+    sd_bus_message_unref(reply);
+    sd_bus_close(bus);
+
+    return true;
+}
 
 using Json = nlohmann::json;
 using ValueIface = sdbusplus::xyz::openbmc_project::Sensor::server::Value;
@@ -122,36 +149,47 @@ class HealthMon
     {
         std::vector<std::string> bmcIds = {};
 
-        // Find all BMCs (DBus objects implementing the
-        // Inventory.Item.Bmc interface that may be created by
-        // configuring the Inventory Manager)
-        sdbusplus::message::message msg = bus.new_method_call(
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+        bool hasSystemPath = FindInventorySystemInObjectMapper();
 
-        // Search term
-        msg.append("/xyz/openbmc_project/inventory/system");
-
-        // Limit the depth to 2. Example of "depth":
-        // /xyz/openbmc_project/inventory/system/chassis has a depth of 1
-        // since it has 1 '/' after "/xyz/openbmc_project/inventory/system".
-        msg.append(2);
-
-        // Must have the Inventory.Item.Bmc interface
-        msg.append(
-            std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Bmc"});
-
-        sdbusplus::message::message reply = bus.call(msg, 0);
-        if (reply.get_signature() == std::string("as"))
+        if (hasSystemPath)
         {
-            reply.read(bmcIds);
-            log<level::INFO>("BMC inventory found");
+            // Find all BMCs (DBus objects implementing the
+            // Inventory.Item.Bmc interface that may be created by
+            // configuring the Inventory Manager)
+            sdbusplus::message::message msg = bus.new_method_call(
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+
+            // Search term
+            msg.append("/xyz/openbmc_project/inventory/system");
+
+            // Limit the depth to 2. Example of "depth":
+            // /xyz/openbmc_project/inventory/system/chassis has a depth of 1
+            // since it has 1 '/' after "/xyz/openbmc_project/inventory/system".
+            msg.append(2);
+
+            // Must have the Inventory.Item.Bmc interface
+            msg.append(std::vector<std::string>{
+                "xyz.openbmc_project.Inventory.Item.Bmc"});
+
+            sdbusplus::message::message reply = bus.call(msg, 0);
+            if (reply.get_signature() == std::string("as"))
+            {
+                reply.read(bmcIds);
+                log<level::INFO>("BMC inventory found");
+            }
+            else
+            {
+                log<level::WARNING>(
+                    "Did not find BMC inventory, cannot create association");
+            }
         }
         else
         {
             log<level::WARNING>(
-                "Did not find BMC inventory, cannot create association");
+                "Did not find /xyz/openbmc_project/inventory/system, cannot "
+                "create association");
         }
 
         // Read JSON file

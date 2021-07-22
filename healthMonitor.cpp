@@ -515,6 +515,9 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
  */
 int main()
 {
+    printf("Hey! system inventory exists: %d\n",
+           phosphor::health::FindInventorySystemInObjectMapper());
+
     // Get a default event loop
     auto event = sdeventplus::Event::get_default();
 
