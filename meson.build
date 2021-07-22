@@ -11,6 +11,7 @@ executable(
     'health-monitor',
     [
         'healthMonitor.cpp',
+        'xmlparse.cpp'
     ],
     dependencies: [
         dependency('phosphor-logging'),
