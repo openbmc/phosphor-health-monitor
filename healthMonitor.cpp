@@ -2,11 +2,19 @@
 
 #include "healthMonitor.hpp"
 
+#include <unistd.h>
+
+#include <boost/asio/deadline_timer.hpp>
+#include <sdbusplus/asio/connection.hpp>
+#include <sdbusplus/asio/object_server.hpp>
+#include <sdbusplus/asio/sd_event.hpp>
+#include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/server/manager.hpp>
 #include <sdeventplus/event.hpp>
 
 #include <fstream>
 #include <iostream>
+#include <memory>
 #include <numeric>
 #include <sstream>
 
@@ -20,6 +28,30 @@ PHOSPHOR_LOG2_USING;
 
 static constexpr bool DEBUG = false;
 static constexpr uint8_t defaultHighThreshold = 100;
+
+// Limit sensor recreation interval to 10s
+bool needUpdate;
+static constexpr int TIMER_INTERVAL = 10;
+std::shared_ptr<boost::asio::deadline_timer> sensorRecreateTimer;
+std::shared_ptr<phosphor::health::HealthMon> healthMon;
+
+void sensorRecreateTimerCallback(
+    std::shared_ptr<boost::asio::deadline_timer> timer)
+{
+    timer->expires_from_now(boost::posix_time::seconds(TIMER_INTERVAL));
+    timer->async_wait([timer](const boost::system::error_code& ec) {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+        if (needUpdate)
+        {
+            healthMon->recreateSensors();
+            needUpdate = false;
+        }
+        sensorRecreateTimerCallback(timer);
+    });
+}
 
 namespace phosphor
 {
@@ -366,6 +398,56 @@ void HealthSensor::readHealthSensor()
     checkSensorThreshold(avgValue);
 }
 
+void HealthMon::recreateSensors()
+{
+    PHOSPHOR_LOG2_USING;
+    healthSensors.clear();
+    std::vector<std::string> bmcIds = {};
+    if (FindSystemInventoryInObjectMapper(bus))
+    {
+        try
+        {
+            // Find all BMCs (DBus objects implementing the
+            // Inventory.Item.Bmc interface that may be created by
+            // configuring the Inventory Manager)
+            sdbusplus::message::message msg = bus.new_method_call(
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+
+            // Search term
+            msg.append(InventoryPath);
+
+            // Limit the depth to 2. Example of "depth":
+            // /xyz/openbmc_project/inventory/system/chassis has a depth of
+            // 1 since it has 1 '/' after
+            // "/xyz/openbmc_project/inventory/system".
+            msg.append(2);
+
+            // Must have the Inventory.Item.Bmc interface
+            msg.append(std::vector<std::string>{
+                "xyz.openbmc_project.Inventory.Item.Bmc"});
+
+            sdbusplus::message::message reply = bus.call(msg, 0);
+            reply.read(bmcIds);
+            info("BMC inventory found");
+        }
+        catch (std::exception& e)
+        {
+            error("Exception occurred while calling {PATH}: {ERROR}", "PATH",
+                  InventoryPath, "ERROR", e);
+        }
+    }
+    else
+    {
+        error("Path {PATH} does not exist in ObjectMapper, cannot "
+              "create association",
+              "PATH", InventoryPath);
+    }
+    // Create health sensors
+    createHealthSensors(bmcIds);
+}
+
 void printConfig(HealthConfig& cfg)
 {
     std::cout << "Name: " << cfg.name << "\n";
@@ -509,24 +591,47 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
  */
 int main()
 {
+    // The io_context is needed for the timer
+    boost::asio::io_context io;
+
+    // DBus connection
+    auto conn = std::make_shared<sdbusplus::asio::connection>(io);
+
+    conn->request_name(HEALTH_BUS_NAME);
+
     // Get a default event loop
     auto event = sdeventplus::Event::get_default();
 
-    // Get a handle to system dbus
-    auto bus = sdbusplus::bus::new_default();
-
     // Create an health monitor object
-    phosphor::health::HealthMon healthMon(bus);
-
-    // Request service bus name
-    bus.request_name(HEALTH_BUS_NAME);
+    healthMon = std::make_shared<phosphor::health::HealthMon>(*conn);
 
     // Add object manager to sensor node
-    sdbusplus::server::manager::manager objManager(bus, SENSOR_OBJPATH);
+    sdbusplus::server::manager::manager objManager(*conn, SENSOR_OBJPATH);
 
-    // Attach the bus to sd_event to service user requests
-    bus.attach_event(event.get(), SD_EVENT_PRIORITY_NORMAL);
-    event.loop();
+    sdbusplus::asio::sd_event_wrapper sdEvents(io);
+
+    sensorRecreateTimer = std::make_shared<boost::asio::deadline_timer>(io);
+
+    // If the SystemInventory does not exist: wait for the InterfaceAdded signal
+    auto interfacesAddedSignalHandler =
+        std::make_unique<sdbusplus::bus::match::match>(
+            static_cast<sdbusplus::bus::bus&>(*conn),
+            sdbusplus::bus::match::rules::interfacesAdded(
+                phosphor::health::BMCActivationPath),
+            [conn](sdbusplus::message::message& msg) {
+                sdbusplus::message::object_path o;
+                msg.read(o);
+                if (o.str == phosphor::health::BMCActivationPath)
+                {
+                    info("should recreate sensors now");
+                    needUpdate = true;
+                }
+            });
+
+    // Start the timer
+    io.post([]() { sensorRecreateTimerCallback(sensorRecreateTimer); });
+
+    io.run();
 
     return 0;
 }
