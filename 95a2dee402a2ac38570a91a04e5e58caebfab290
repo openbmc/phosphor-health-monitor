@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e754700_e5c9279e",
+        "filename": "xmlparse.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2021-07-27T17:26:45Z",
+      "side": 1,
+      "message": "This code is not guaranteed to be bullet-proof, but I have tested it over all the DBus services I can find on the BMC I\u0027m testing with and it seems to work fine.\n\nUpdate: removed xmlparse.cpp, xmlparse.hpp and switched to using \"mapper_get_object\" from phosphor-objmgr.",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 17
+      },
+      "revId": "95a2dee402a2ac38570a91a04e5e58caebfab290",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
