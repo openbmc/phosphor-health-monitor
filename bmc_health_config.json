@@ -18,6 +18,14 @@
         }
     }
   },
+  "CPU_User" : {
+    "Frequency" : 1,
+    "Window_size": 120
+  },
+  "CPU_Kernel" : {
+    "Frequency" : 1,
+    "Window_size": 120
+  },
   "Memory" : {
     "Frequency" : 1,
     "Window_size": 120,

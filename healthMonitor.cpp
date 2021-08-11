@@ -41,10 +41,8 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization(std::string path)
+double do_readCPUUtilization(std::string type)
 {
-    /* Unused var: path */
-    std::ignore = path;
     std::ifstream fileStat("/proc/stat");
     if (!fileStat.is_open())
     {
@@ -87,10 +85,21 @@ double readCPUUtilization(std::string path)
         activePercValue;
 
     idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
-    activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
-                 timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
-                 timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
-                 timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    if (type == "total")
+    {
+        activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
+                     timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
+                     timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
+                     timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    }
+    else if (type == "kernel")
+    {
+        activeTime = timeData[SYSTEM_IDX];
+    }
+    else if (type == "user")
+    {
+        activeTime = timeData[USER_IDX];
+    }
 
     idleTimeDiff = idleTime - preIdleTime;
     activeTimeDiff = activeTime - preActiveTime;
@@ -107,6 +116,27 @@ double readCPUUtilization(std::string path)
         std::cout << "CPU Utilization is " << activePercValue << "\n";
 
     return activePercValue;
+}
+
+double readCPUUtilizationTotal(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return do_readCPUUtilization("total");
+}
+
+double readCPUUtilizationKernel(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return do_readCPUUtilization("kernel");
+}
+
+double readCPUUtilizationUser(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return do_readCPUUtilization("user");
 }
 
 double readMemoryUtilization(std::string path)
@@ -205,7 +235,9 @@ constexpr auto storage = "Storage";
 constexpr auto inode = "Inode";
 /** Map of read function for each health sensors supported */
 const std::map<std::string, std::function<double(std::string path)>>
-    readSensors = {{"CPU", readCPUUtilization},
+    readSensors = {{"CPU", readCPUUtilizationTotal},
+                   {"CPU_User", readCPUUtilizationUser},
+                   {"CPU_Kernel", readCPUUtilizationKernel},
                    {"Memory", readMemoryUtilization},
                    {storage, readStorageUtilization},
                    {inode, readInodeUtilization}};
