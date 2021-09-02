@@ -1,5 +1,5 @@
 #include <nlohmann/json.hpp>
-#include <phosphor-logging/log.hpp>
+#include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdeventplus/clock.hpp>
@@ -18,8 +18,6 @@ namespace phosphor
 {
 namespace health
 {
-
-using namespace phosphor::logging;
 
 using Json = nlohmann::json;
 using ValueIface = sdbusplus::xyz::openbmc_project::Sensor::server::Value;
@@ -120,6 +118,7 @@ class HealthMon
      */
     HealthMon(sdbusplus::bus::bus& bus) : bus(bus)
     {
+        PHOSPHOR_LOG2_USING;
         std::vector<std::string> bmcIds = {};
 
         // Find all BMCs (DBus objects implementing the
@@ -146,12 +145,11 @@ class HealthMon
         if (reply.get_signature() == std::string("as"))
         {
             reply.read(bmcIds);
-            log<level::INFO>("BMC inventory found");
+            info("BMC inventory found");
         }
         else
         {
-            log<level::WARNING>(
-                "Did not find BMC inventory, cannot create association");
+            warning("Did not find BMC inventory, cannot create association");
         }
 
         // Read JSON file

@@ -16,6 +16,8 @@ extern "C"
 #include <sys/sysinfo.h>
 }
 
+PHOSPHOR_LOG2_USING;
+
 static constexpr bool DEBUG = false;
 static constexpr uint8_t defaultHighThreshold = 100;
 
@@ -23,8 +25,6 @@ namespace phosphor
 {
 namespace health
 {
-
-using namespace phosphor::logging;
 
 enum CPUStatesTime
 {
@@ -41,15 +41,13 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization(std::string path)
+double readCPUUtilization([[maybe_unused]] std::string path)
 {
-    /* Unused var: path */
-    std::ignore = path;
-    std::ifstream fileStat("/proc/stat");
+    auto proc_stat = "/proc/stat";
+    std::ifstream fileStat(proc_stat);
     if (!fileStat.is_open())
     {
-        log<level::ERR>("cpu file not available",
-                        entry("FILENAME = /proc/stat"));
+        error("cpu file not available: {PATH}", "PATH", proc_stat);
         return -1;
     }
 
@@ -65,7 +63,7 @@ double readCPUUtilization(std::string path)
 
     if (labelName.compare("cpu"))
     {
-        log<level::ERR>("CPU data not available");
+        error("CPU data not available");
         return -1;
     }
 
@@ -78,7 +76,7 @@ double readCPUUtilization(std::string path)
 
     if (i != NUM_CPU_STATES_TIME)
     {
-        log<level::ERR>("CPU data not correct");
+        error("CPU data not correct");
         return -1;
     }
 
@@ -223,8 +221,7 @@ void HealthSensor::setSensorValueToDbus(const double value)
 
 void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
 {
-    std::string logMsg = sensorConfig.name + " Health Sensor initialized";
-    log<level::INFO>(logMsg.c_str());
+    info("{SENSOR} Health Sensor initialized", "SENSOR", sensorConfig.name);
 
     /* Look for sensor read functions and Read Sensor values */
     double value;
@@ -242,7 +239,7 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
     }
     else if (it == readSensors.end())
     {
-        log<level::ERR>("Sensor read function not available");
+        error("Sensor read function not available");
         return;
     }
 
@@ -250,8 +247,8 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
 
     if (value < 0)
     {
-        log<level::ERR>("Reading Sensor Utilization failed",
-                        entry("NAME = %s", sensorConfig.name.c_str()));
+        error("Reading Sensor Utilization failed: {SENSOR}", "SENSOR",
+              sensorConfig.name);
         return;
     }
 
@@ -286,9 +283,9 @@ void HealthSensor::checkSensorThreshold(const double value)
         {
             CriticalInterface::criticalAlarmHigh(true);
             if (sensorConfig.criticalLog)
-                log<level::ERR>("ASSERT: Utilization Sensor has exceeded "
-                                "critical high threshold",
-                                entry("NAME = %s", sensorConfig.name.c_str()));
+                error(
+                    "ASSERT: sensor {SENSOR} is above the upper threshold critical high",
+                    "SENSOR", sensorConfig.name);
         }
     }
     else
@@ -297,9 +294,9 @@ void HealthSensor::checkSensorThreshold(const double value)
         {
             CriticalInterface::criticalAlarmHigh(false);
             if (sensorConfig.criticalLog)
-                log<level::INFO>("DEASSERT: Utilization Sensor is under "
-                                 "critical high threshold",
-                                 entry("NAME = %s", sensorConfig.name.c_str()));
+                info(
+                    "DEASSERT: sensor {SENSOR} is under the upper threshold critical high",
+                    "SENSOR", sensorConfig.name);
         }
 
         /* if warning high value is not set then return */
@@ -311,18 +308,18 @@ void HealthSensor::checkSensorThreshold(const double value)
         {
             WarningInterface::warningAlarmHigh(true);
             if (sensorConfig.warningLog)
-                log<level::ERR>("ASSERT: Utilization Sensor has exceeded "
-                                "warning high threshold",
-                                entry("NAME = %s", sensorConfig.name.c_str()));
+                error(
+                    "ASSERT: sensor {SENSOR} is above the upper threshold warning high",
+                    "SENSOR", sensorConfig.name);
         }
         else if ((value <= sensorConfig.warningHigh) &&
                  (WarningInterface::warningAlarmHigh()))
         {
             WarningInterface::warningAlarmHigh(false);
             if (sensorConfig.warningLog)
-                log<level::INFO>("DEASSERT: Utilization Sensor is under "
-                                 "warning high threshold",
-                                 entry("NAME = %s", sensorConfig.name.c_str()));
+                info(
+                    "DEASSERT: sensor {SENSOR} is under the upper threshold warning high",
+                    "SENSOR", sensorConfig.name);
         }
     }
 }
@@ -347,8 +344,8 @@ void HealthSensor::readHealthSensor()
 
     if (value < 0)
     {
-        log<level::ERR>("Reading Sensor Utilization failed",
-                        entry("NAME = %s", sensorConfig.name.c_str()));
+        error("Reading Sensor Utilization failed: {SENSOR}", "SENSOR",
+              sensorConfig.name);
         return;
     }
 
@@ -393,8 +390,7 @@ void HealthMon::createHealthSensors(const std::vector<std::string>& chassisIds)
                                                            cfg, chassisIds);
         healthSensors.emplace(cfg.name, healthSensor);
 
-        std::string logMsg = cfg.name + " Health Sensor created";
-        log<level::INFO>(logMsg.c_str(), entry("NAME = %s", cfg.name.c_str()));
+        info("{SENSOR} Health Sensor created", "SENSOR", cfg.name);
 
         /* Set configured values of crtical and warning high to dbus */
         healthSensor->setSensorThreshold(cfg.criticalHigh, cfg.warningHigh);
@@ -407,15 +403,14 @@ Json HealthMon::parseConfigFile(std::string configFile)
     std::ifstream jsonFile(configFile);
     if (!jsonFile.is_open())
     {
-        log<level::ERR>("config JSON file not found",
-                        entry("FILENAME = %s", configFile.c_str()));
+        error("config JSON file not found: {PATH}", "PATH", configFile);
     }
 
     auto data = Json::parse(jsonFile, nullptr, false);
     if (data.is_discarded())
     {
-        log<level::ERR>("config readings JSON parser failure",
-                        entry("FILENAME = %s", configFile.c_str()));
+        error("config readings JSON parser failure: {PATH}", "PATH",
+              configFile);
     }
 
     return data;
@@ -500,8 +495,7 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
         }
         else
         {
-            std::string logMsg = key + " Health Sensor not supported";
-            log<level::ERR>(logMsg.c_str(), entry("NAME = %s", key.c_str()));
+            error("{SENSOR} Health Sensor not supported", "SENSOR", key);
         }
     }
     return cfgs;
