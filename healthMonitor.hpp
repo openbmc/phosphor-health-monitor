@@ -149,17 +149,16 @@ class HealthMon
             if (reply.get_signature() == std::string("as"))
             {
                 reply.read(bmcIds);
-                log<level::INFO>("BMC inventory found");
+                info("BMC inventory found");
             }
             else
             {
-                log<level::WARNING>(
-                    "Did not find BMC inventory, cannot create association");
+                warning("Did not find BMC inventory, cannot create association");
             }
         }
         catch (const std::exception& e)
         {
-            log<level::ERR>(e.what());
+            error(e.what());
         }
 
         // Read JSON file
