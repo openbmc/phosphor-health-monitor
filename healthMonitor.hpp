@@ -142,16 +142,25 @@ class HealthMon
         msg.append(
             std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Bmc"});
 
-        sdbusplus::message::message reply = bus.call(msg, 0);
-        if (reply.get_signature() == std::string("as"))
+        // Will throw exception if /xyz/openbmc_project/inventory/system is not
+        // found
+        try
         {
-            reply.read(bmcIds);
-            log<level::INFO>("BMC inventory found");
+            sdbusplus::message::message reply = bus.call(msg, 0);
+            if (reply.get_signature() == std::string("as"))
+            {
+                reply.read(bmcIds);
+                log<level::INFO>("BMC inventory found");
+            }
+            else
+            {
+                log<level::WARNING>(
+                    "Did not find BMC inventory, cannot create association");
+            }
         }
-        else
+        catch (const std::exception& e)
         {
-            log<level::WARNING>(
-                "Did not find BMC inventory, cannot create association");
+            log<level::ERR>(e.what());
         }
 
         // Read JSON file
