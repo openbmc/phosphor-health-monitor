@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fdcb645_392bf110",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-10-22T22:05:29Z",
+      "side": 1,
+      "message": "I think this became redundant since it was added to the signal match?",
+      "revId": "036f1617ec021fc67c57069b5ed8f02f5b356f80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
