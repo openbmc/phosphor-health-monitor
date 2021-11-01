@@ -73,7 +73,7 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization([[maybe_unused]] std::string path)
+double readCPUUtilization([[maybe_unused]] std::string type)
 {
     auto proc_stat = "/proc/stat";
     std::ifstream fileStat(proc_stat);
@@ -112,22 +112,33 @@ double readCPUUtilization([[maybe_unused]] std::string path)
         return -1;
     }
 
-    static double preActiveTime = 0, preIdleTime = 0;
+    static std::unordered_map<std::string, double> preActiveTime, preIdleTime;
     double activeTime, activeTimeDiff, idleTime, idleTimeDiff, totalTime,
         activePercValue;
 
     idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
-    activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
-                 timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
-                 timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
-                 timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    if (type == "total")
+    {
+        activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
+                     timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
+                     timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
+                     timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    }
+    else if (type == "kernel")
+    {
+        activeTime = timeData[SYSTEM_IDX];
+    }
+    else if (type == "user")
+    {
+        activeTime = timeData[USER_IDX];
+    }
 
-    idleTimeDiff = idleTime - preIdleTime;
-    activeTimeDiff = activeTime - preActiveTime;
+    idleTimeDiff = idleTime - preIdleTime[type];
+    activeTimeDiff = activeTime - preActiveTime[type];
 
     /* Store current idle and active time for next calculation */
-    preIdleTime = idleTime;
-    preActiveTime = activeTime;
+    preIdleTime[type] = idleTime;
+    preActiveTime[type] = activeTime;
 
     totalTime = idleTimeDiff + activeTimeDiff;
 
@@ -139,19 +150,68 @@ double readCPUUtilization([[maybe_unused]] std::string path)
     return activePercValue;
 }
 
-double readMemoryUtilization(std::string path)
+double readCPUUtilizationTotal(std::string path)
 {
     /* Unused var: path */
     std::ignore = path;
+    return readCPUUtilization("total");
+}
+
+double readCPUUtilizationKernel(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("kernel");
+}
+
+double readCPUUtilizationUser(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("user");
+}
+
+double readMemoryUtilization([[maybe_unused]] std::string type)
+{
     struct sysinfo s_info;
 
     sysinfo(&s_info);
-    double usedRam = s_info.totalram - s_info.freeram;
+    double usedRam;
+    if (type == "") {
+        usedRam = s_info.totalram - s_info.freeram;
+    } else if (type == "Used") {
+        // Memory used by programs. Calculated as total - free - (buffer and cache).
+        usedRam = s_info.totalram - s_info.freeram - s_info.bufferram;
+    } else if (type == "Free") {
+        usedRam = s_info.freeram;
+    } else if (type == "Shared") {
+        usedRam = s_info.sharedram;
+    } else if (type == "BufferAndCache") {
+        usedRam = s_info.bufferram;
+    } else if (type == "Available") {
+        // Memory available for starting new programs without swapping.
+        // Calculated as free + (buffer and cache).
+        usedRam = s_info.freeram + s_info.bufferram;
+    } else if (type == "TotalBytes") {
+
+        // TODO:
+        // This one is a hack for accommodating both percentages and bytes.
+        // As of November 1, The DMTF discussion has still not finalized on
+        // whether bytes or percentages should be used for memory.
+        // So this is used as a temporary solution that enables both.
+
+        return s_info.totalram;
+    }
+
     double memUsePerc = usedRam / s_info.totalram * 100;
 
     if (DEBUG)
     {
-        std::cout << "Memory Utilization is " << memUsePerc << "\n";
+        if (type == "") {
+            std::cout << "Memory Utilization is " << memUsePerc << "\n";
+        } else {
+            std::cout << "Memory " << type << " is " << memUsePerc << "\n";
+        }
 
         std::cout << "TotalRam: " << s_info.totalram
                   << " FreeRam: " << s_info.freeram << "\n";
@@ -159,6 +219,42 @@ double readMemoryUtilization(std::string path)
     }
 
     return memUsePerc;
+}
+
+double readMemoryUtilizationUsed(std::string path) {
+    /* Unused var: path */
+    std::ignore = path;
+    return readMemoryUtilization("Used");
+}
+
+double readMemoryUtilizationFree(std::string path) {
+    /* Unused var: path */
+    std::ignore = path;
+    return readMemoryUtilization("Free");
+}
+
+double readMemoryUtilizationShared(std::string path) {
+    /* Unused var: path */
+    std::ignore = path;
+    return readMemoryUtilization("Shared");
+}
+
+double readMemoryUtilizationBufferAndCache(std::string path) {
+    /* Unused var: path */
+    std::ignore = path;
+    return readMemoryUtilization("BufferAndCache");
+}
+
+double readMemoryUtilizationAvailable(std::string path) {
+    /* Unused var: path */
+    std::ignore = path;
+    return readMemoryUtilization("Available");
+}
+
+double readMemoryUtilizationTotalBytes(std::string path) {
+    /* Unused var: path */
+    std::ignore = path;
+    return readMemoryUtilization("TotalBytes");
 }
 
 double readStorageUtilization(std::string path)
@@ -235,8 +331,16 @@ constexpr auto storage = "Storage";
 constexpr auto inode = "Inode";
 /** Map of read function for each health sensors supported */
 const std::map<std::string, std::function<double(std::string path)>>
-    readSensors = {{"CPU", readCPUUtilization},
+    readSensors = {{"CPU", readCPUUtilizationTotal},
+                   {"CPU_User", readCPUUtilizationUser},
+                   {"CPU_Kernel", readCPUUtilizationKernel},
                    {"Memory", readMemoryUtilization},
+                   {"Memory_TotalBytes", readMemoryUtilizationTotalBytes},
+                   {"Memory_Used", readMemoryUtilizationUsed},
+                   {"Memory_Free", readMemoryUtilizationFree},
+                   {"Memory_Shared", readMemoryUtilizationShared},
+                   {"Memory_BufferAndCache", readMemoryUtilizationBufferAndCache},
+                   {"Memory_Available", readMemoryUtilizationAvailable},
                    {storage, readStorageUtilization},
                    {inode, readInodeUtilization}};
 
