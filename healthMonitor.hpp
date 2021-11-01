@@ -139,7 +139,8 @@ class HealthMon
      *
      * @param[in] bus     - Handle to system dbus
      */
-    HealthMon(sdbusplus::bus::bus& bus) : bus(bus), bmcInventory(nullptr)
+    explicit HealthMon(sdbusplus::bus::bus& bus) :
+        bmcInventory(nullptr), bus(bus)
     {
         // Read JSON file
         sensorConfigs = getHealthConfig();

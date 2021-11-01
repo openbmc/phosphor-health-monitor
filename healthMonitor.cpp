@@ -44,7 +44,7 @@ namespace health
 // BMC_CONFIGURATION
 // BMC_INVENTORY_ITEM
 std::vector<std::string> findPathsWithType(sdbusplus::bus::bus& bus,
-                                           const std::string iface)
+                                           const std::string& iface)
 {
     PHOSPHOR_LOG2_USING;
     std::vector<std::string> ret;
@@ -105,7 +105,7 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization([[maybe_unused]] std::string path)
+double readCPUUtilization([[maybe_unused]] std::string type)
 {
     auto proc_stat = "/proc/stat";
     std::ifstream fileStat(proc_stat);
@@ -144,22 +144,33 @@ double readCPUUtilization([[maybe_unused]] std::string path)
         return -1;
     }
 
-    static double preActiveTime = 0, preIdleTime = 0;
+    static std::unordered_map<std::string, double> preActiveTime, preIdleTime;
     double activeTime, activeTimeDiff, idleTime, idleTimeDiff, totalTime,
         activePercValue;
 
     idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
-    activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
-                 timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
-                 timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
-                 timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    if (type == "total")
+    {
+        activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
+                     timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
+                     timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
+                     timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    }
+    else if (type == "kernel")
+    {
+        activeTime = timeData[SYSTEM_IDX];
+    }
+    else if (type == "user")
+    {
+        activeTime = timeData[USER_IDX];
+    }
 
-    idleTimeDiff = idleTime - preIdleTime;
-    activeTimeDiff = activeTime - preActiveTime;
+    idleTimeDiff = idleTime - preIdleTime[type];
+    activeTimeDiff = activeTime - preActiveTime[type];
 
     /* Store current idle and active time for next calculation */
-    preIdleTime = idleTime;
-    preActiveTime = activeTime;
+    preIdleTime[type] = idleTime;
+    preActiveTime[type] = activeTime;
 
     totalTime = idleTimeDiff + activeTimeDiff;
 
@@ -171,10 +182,23 @@ double readCPUUtilization([[maybe_unused]] std::string path)
     return activePercValue;
 }
 
-double readMemoryUtilization(std::string path)
+double readCPUUtilizationTotal([[maybe_unused]] const std::string& path)
 {
-    /* Unused var: path */
-    std::ignore = path;
+    return readCPUUtilization("total");
+}
+
+double readCPUUtilizationKernel([[maybe_unused]] const std::string& path)
+{
+    return readCPUUtilization("kernel");
+}
+
+double readCPUUtilizationUser([[maybe_unused]] const std::string& path)
+{
+    return readCPUUtilization("user");
+}
+
+double readMemoryUtilization([[maybe_unused]] const std::string& path)
+{
     struct sysinfo s_info;
 
     sysinfo(&s_info);
@@ -193,7 +217,7 @@ double readMemoryUtilization(std::string path)
     return memUsePerc;
 }
 
-double readStorageUtilization(std::string path)
+double readStorageUtilization([[maybe_unused]] const std::string& path)
 {
     struct statvfs buffer
     {};
@@ -227,7 +251,7 @@ double readStorageUtilization(std::string path)
     return usedPercentage;
 }
 
-double readInodeUtilization(std::string path)
+double readInodeUtilization([[maybe_unused]] const std::string& path)
 {
     struct statvfs buffer
     {};
@@ -264,8 +288,10 @@ double readInodeUtilization(std::string path)
 constexpr auto storage = "Storage";
 constexpr auto inode = "Inode";
 /** Map of read function for each health sensors supported */
-const std::map<std::string, std::function<double(std::string path)>>
-    readSensors = {{"CPU", readCPUUtilization},
+const std::map<std::string, std::function<double(const std::string& path)>>
+    readSensors = {{"CPU", readCPUUtilizationTotal},
+                   {"CPU_User", readCPUUtilizationUser},
+                   {"CPU_Kernel", readCPUUtilizationKernel},
                    {"Memory", readMemoryUtilization},
                    {storage, readStorageUtilization},
                    {inode, readInodeUtilization}};
@@ -289,7 +315,7 @@ void HealthSensor::initHealthSensor(
     /* Look for sensor read functions and Read Sensor values */
     double value;
     std::map<std::string,
-             std::function<double(std::string path)>>::const_iterator it;
+             std::function<double(const std::string& path)>>::const_iterator it;
     it = readSensors.find(sensorConfig.name);
 
     if (sensorConfig.name.rfind(storage, 0) == 0)
@@ -533,7 +559,6 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
 {
 
     std::vector<HealthConfig> cfgs;
-    HealthConfig cfg;
     auto data = parseConfigFile(HEALTH_CONFIG_FILE);
 
     // print values
