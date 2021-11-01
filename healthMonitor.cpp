@@ -2,6 +2,8 @@
 
 #include "healthMonitor.hpp"
 
+#include "i2cstats.hpp"
+
 #include <unistd.h>
 
 #include <boost/asio/deadline_timer.hpp>
@@ -144,7 +146,7 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization([[maybe_unused]] std::string path)
+double readCPUUtilization([[maybe_unused]] std::string type)
 {
     auto proc_stat = "/proc/stat";
     std::ifstream fileStat(proc_stat);
@@ -183,22 +185,33 @@ double readCPUUtilization([[maybe_unused]] std::string path)
         return -1;
     }
 
-    static double preActiveTime = 0, preIdleTime = 0;
+    static std::unordered_map<std::string, double> preActiveTime, preIdleTime;
     double activeTime, activeTimeDiff, idleTime, idleTimeDiff, totalTime,
         activePercValue;
 
     idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
-    activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
-                 timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
-                 timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
-                 timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    if (type == "total")
+    {
+        activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
+                     timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
+                     timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
+                     timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    }
+    else if (type == "kernel")
+    {
+        activeTime = timeData[SYSTEM_IDX];
+    }
+    else if (type == "user")
+    {
+        activeTime = timeData[USER_IDX];
+    }
 
-    idleTimeDiff = idleTime - preIdleTime;
-    activeTimeDiff = activeTime - preActiveTime;
+    idleTimeDiff = idleTime - preIdleTime[type];
+    activeTimeDiff = activeTime - preActiveTime[type];
 
     /* Store current idle and active time for next calculation */
-    preIdleTime = idleTime;
-    preActiveTime = activeTime;
+    preIdleTime[type] = idleTime;
+    preActiveTime[type] = activeTime;
 
     totalTime = idleTimeDiff + activeTimeDiff;
 
@@ -208,6 +221,27 @@ double readCPUUtilization([[maybe_unused]] std::string path)
         std::cout << "CPU Utilization is " << activePercValue << "\n";
 
     return activePercValue;
+}
+
+double readCPUUtilizationTotal(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("total");
+}
+
+double readCPUUtilizationKernel(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("kernel");
+}
+
+double readCPUUtilizationUser(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("user");
 }
 
 double readMemoryUtilization(std::string path)
@@ -306,7 +340,9 @@ constexpr auto storage = "Storage";
 constexpr auto inode = "Inode";
 /** Map of read function for each health sensors supported */
 const std::map<std::string, std::function<double(std::string path)>>
-    readSensors = {{"CPU", readCPUUtilization},
+    readSensors = {{"CPU", readCPUUtilizationTotal},
+                   {"CPU_User", readCPUUtilizationUser},
+                   {"CPU_Kernel", readCPUUtilizationKernel},
                    {"Memory", readMemoryUtilization},
                    {storage, readStorageUtilization},
                    {inode, readInodeUtilization}};
@@ -691,6 +727,12 @@ int main()
                     needUpdate = true;
                 }
             });
+
+    sdbusplus::bus::bus& bus = static_cast<sdbusplus::bus::bus&>(*conn);
+    std::vector<std::string> bmcInventoryPaths =
+        phosphor::health::findBmcInventoryPaths(bus);
+    I2CStats i2cstats(bus);
+    i2cstats.initializeI2CStatsDBusObjects(bmcInventoryPaths);
 
     // Start the timer
     io.post([]() { sensorRecreateTimerCallback(sensorRecreateTimer); });
