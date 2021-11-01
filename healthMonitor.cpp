@@ -21,7 +21,6 @@
 extern "C"
 {
 #include <sys/statvfs.h>
-#include <sys/sysinfo.h>
 }
 
 PHOSPHOR_LOG2_USING;
@@ -73,7 +72,7 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization([[maybe_unused]] std::string path)
+double readCPUUtilization([[maybe_unused]] std::string type)
 {
     auto proc_stat = "/proc/stat";
     std::ifstream fileStat(proc_stat);
@@ -112,22 +111,33 @@ double readCPUUtilization([[maybe_unused]] std::string path)
         return -1;
     }
 
-    static double preActiveTime = 0, preIdleTime = 0;
+    static std::unordered_map<std::string, double> preActiveTime, preIdleTime;
     double activeTime, activeTimeDiff, idleTime, idleTimeDiff, totalTime,
         activePercValue;
 
     idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
-    activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
-                 timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
-                 timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
-                 timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    if (type == "total")
+    {
+        activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
+                     timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
+                     timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
+                     timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    }
+    else if (type == "kernel")
+    {
+        activeTime = timeData[SYSTEM_IDX];
+    }
+    else if (type == "user")
+    {
+        activeTime = timeData[USER_IDX];
+    }
 
-    idleTimeDiff = idleTime - preIdleTime;
-    activeTimeDiff = activeTime - preActiveTime;
+    idleTimeDiff = idleTime - preIdleTime[type];
+    activeTimeDiff = activeTime - preActiveTime[type];
 
     /* Store current idle and active time for next calculation */
-    preIdleTime = idleTime;
-    preActiveTime = activeTime;
+    preIdleTime[type] = idleTime;
+    preActiveTime[type] = activeTime;
 
     totalTime = idleTimeDiff + activeTimeDiff;
 
@@ -139,26 +149,25 @@ double readCPUUtilization([[maybe_unused]] std::string path)
     return activePercValue;
 }
 
-double readMemoryUtilization(std::string path)
+double readCPUUtilizationTotal(std::string path)
 {
     /* Unused var: path */
     std::ignore = path;
-    struct sysinfo s_info;
+    return readCPUUtilization("total");
+}
 
-    sysinfo(&s_info);
-    double usedRam = s_info.totalram - s_info.freeram;
-    double memUsePerc = usedRam / s_info.totalram * 100;
+double readCPUUtilizationKernel(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("kernel");
+}
 
-    if (DEBUG)
-    {
-        std::cout << "Memory Utilization is " << memUsePerc << "\n";
-
-        std::cout << "TotalRam: " << s_info.totalram
-                  << " FreeRam: " << s_info.freeram << "\n";
-        std::cout << "UseRam: " << usedRam << "\n";
-    }
-
-    return memUsePerc;
+double readCPUUtilizationUser(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("user");
 }
 
 double readStorageUtilization(std::string path)
@@ -235,8 +244,9 @@ constexpr auto storage = "Storage";
 constexpr auto inode = "Inode";
 /** Map of read function for each health sensors supported */
 const std::map<std::string, std::function<double(std::string path)>>
-    readSensors = {{"CPU", readCPUUtilization},
-                   {"Memory", readMemoryUtilization},
+    readSensors = {{"CPU", readCPUUtilizationTotal},
+                   {"CPU_User", readCPUUtilizationUser},
+                   {"CPU_Kernel", readCPUUtilizationKernel},
                    {storage, readStorageUtilization},
                    {inode, readInodeUtilization}};
 
