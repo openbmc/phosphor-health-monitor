@@ -348,6 +348,7 @@ void HealthSensor::checkSensorThreshold(const double value)
         if (!CriticalInterface::criticalAlarmHigh())
         {
             CriticalInterface::criticalAlarmHigh(true);
+            CriticalInterface::criticalHighAlarmAsserted(value);
             if (sensorConfig.criticalLog)
                 error(
                     "ASSERT: sensor {SENSOR} is above the upper threshold critical high",
@@ -359,6 +360,7 @@ void HealthSensor::checkSensorThreshold(const double value)
         if (CriticalInterface::criticalAlarmHigh())
         {
             CriticalInterface::criticalAlarmHigh(false);
+            CriticalInterface::criticalHighAlarmDeasserted(value);
             if (sensorConfig.criticalLog)
                 info(
                     "DEASSERT: sensor {SENSOR} is under the upper threshold critical high",
@@ -373,6 +375,7 @@ void HealthSensor::checkSensorThreshold(const double value)
             (!WarningInterface::warningAlarmHigh()))
         {
             WarningInterface::warningAlarmHigh(true);
+            WarningInterface::warningHighAlarmAsserted(value);
             if (sensorConfig.warningLog)
                 error(
                     "ASSERT: sensor {SENSOR} is above the upper threshold warning high",
@@ -382,6 +385,7 @@ void HealthSensor::checkSensorThreshold(const double value)
                  (WarningInterface::warningAlarmHigh()))
         {
             WarningInterface::warningAlarmHigh(false);
+            WarningInterface::warningHighAlarmDeasserted(value);
             if (sensorConfig.warningLog)
                 info(
                     "DEASSERT: sensor {SENSOR} is under the upper threshold warning high",
