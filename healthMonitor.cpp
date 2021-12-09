@@ -2,6 +2,8 @@
 
 #include "healthMonitor.hpp"
 
+#include "i2cstats.hpp"
+
 #include <unistd.h>
 
 #include <boost/asio/deadline_timer.hpp>
@@ -821,6 +823,11 @@ int main()
             catch (const std::exception& e)
             {}
         });
+
+    std::vector<std::string> bmcInventoryPaths =
+        phosphor::health::findPathsWithType(*conn, BMC_INVENTORY_ITEM);
+    I2CStats i2cstats(*conn);
+    i2cstats.initializeI2CStatsDBusObjects(bmcInventoryPaths);
 
     // Start the timer
     io.post(
