@@ -2,6 +2,8 @@
 
 #include "healthMonitor.hpp"
 
+#include "i2cstats.hpp"
+
 #include <unistd.h>
 
 #include <boost/asio/deadline_timer.hpp>
@@ -240,8 +242,14 @@ double readInodeUtilization(std::string path)
     return usedPercentage;
 }
 
+double readI2CStats(std::string path)
+{
+    return 0;
+}
+
 constexpr auto storage = "Storage";
 constexpr auto inode = "Inode";
+constexpr auto i2c = "I2C_";
 /** Map of read function for each health sensors supported */
 const std::map<std::string, std::function<double(std::string path)>>
     readSensors = {{"CPU", readCPUUtilizationTotal},
@@ -278,6 +286,10 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
     else if (sensorConfig.name.rfind(inode, 0) == 0)
     {
         it = readSensors.find(inode);
+    }
+    else if (sensorConfig.name.rfind(i2c, 0) == 0)
+    {
+        it = readSensors.find(i2c);
     }
     else if (it == readSensors.end())
     {
@@ -560,7 +572,14 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
          * start with "Storage" or "Inode" */
         bool isStorageOrInode =
             (key.rfind(storage, 0) == 0 || key.rfind(inode, 0) == 0);
-        if (readSensors.find(key) != readSensors.end() || isStorageOrInode)
+        /* do special processing for I2C counters */
+        bool isI2C = (key.rfind(i2c, 0) == 0);
+
+        if (isI2C)
+        {
+            printf("Should create i2c monitoring for %s\n", key.c_str());
+        }
+        else if (readSensors.find(key) != readSensors.end() || isStorageOrInode)
         {
             HealthConfig cfg = HealthConfig();
             cfg.name = j.key();
@@ -622,10 +641,12 @@ int main()
 
     sensorRecreateTimer = std::make_shared<boost::asio::deadline_timer>(io);
 
+    sdbusplus::bus::bus& bus = static_cast<sdbusplus::bus::bus&>(*conn);
+
     // If the SystemInventory does not exist: wait for the InterfaceAdded signal
     auto interfacesAddedSignalHandler =
         std::make_unique<sdbusplus::bus::match::match>(
-            static_cast<sdbusplus::bus::bus&>(*conn),
+            bus,
             sdbusplus::bus::match::rules::interfacesAdded(
                 phosphor::health::BMCActivationPath),
             [conn](sdbusplus::message::message& msg) {
@@ -637,6 +658,10 @@ int main()
                     needUpdate = true;
                 }
             });
+
+    // Create an I2Cstats object for I2C statistics
+    I2CStats i2cStats(bus);
+    i2cStats.initializeI2CStatsDBusObjects();
 
     // Start the timer
     io.post([]() { sensorRecreateTimerCallback(sensorRecreateTimer); });
