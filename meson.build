@@ -17,10 +17,26 @@ else
     nlohmann_json = dependency('nlohmann_json')
 endif
 
+sdbusplus_dep = dependency('sdbusplus', required: false)
+if sdbusplus_dep.found() and sdbusplus_dep.type_name() != 'internal'
+  sdbusplusplus_prog = find_program('sdbus++', native: true)
+else
+  sdbusplus_proj = subproject('sdbusplus', required: true)
+  sdbusplus_dep = sdbusplus_proj.get_variable('sdbusplus_dep')
+  sdbusplusplus_prog = sdbusplus_proj.get_variable('sdbusplusplus_prog')
+endif
+
+phosphor_health_monitor_root = meson.current_source_dir()
+phosphor_health_monitor_headers = include_directories('.')
+
+subdir('xyz/openbmc_project/I2C/I2CStats')
+
 executable(
     'health-monitor',
     [
         'healthMonitor.cpp',
+        'i2cstats.cpp',
+        'i2ctopology.cpp',
     ],
     dependencies: [
         dependency('phosphor-dbus-interfaces'),
@@ -28,6 +44,7 @@ executable(
         dependency('sdbusplus'),
         dependency('sdeventplus'),
         nlohmann_json,
+        i2cstats_dbus_dep
     ],
     install: true,
     install_dir: get_option('bindir')
