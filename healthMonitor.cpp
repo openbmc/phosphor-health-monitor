@@ -2,6 +2,8 @@
 
 #include "healthMonitor.hpp"
 
+#include "i2cstats.hpp"
+
 #include <unistd.h>
 
 #include <boost/asio/deadline_timer.hpp>
@@ -714,7 +716,9 @@ int main()
     healthMon = std::make_shared<phosphor::health::HealthMon>(*conn);
 
     // Add object manager to sensor node
-    sdbusplus::server::manager::manager objManager(*conn, SENSOR_OBJPATH);
+    sdbusplus::server::manager::manager sensorObjManager(*conn, SENSOR_OBJPATH);
+    sdbusplus::server::manager::manager inventoryObjManager(*conn,
+                                                            INVENTORY_OBJPATH);
 
     sdbusplus::asio::sd_event_wrapper sdEvents(io);
 
@@ -769,6 +773,11 @@ int main()
             catch (const std::exception& e)
             {}
         });
+
+    std::vector<std::string> bmcInventoryPaths =
+        phosphor::health::findPathsWithType(*conn, BMC_INVENTORY_ITEM);
+    I2CStats i2cstats(*conn);
+    i2cstats.initializeI2CStatsDBusObjects(bmcInventoryPaths);
 
     // Start the timer
     io.post(
