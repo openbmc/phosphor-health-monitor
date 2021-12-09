@@ -2,6 +2,8 @@
 
 #include "healthMonitor.hpp"
 
+#include "i2cstats.hpp"
+
 #include <unistd.h>
 
 #include <boost/asio/deadline_timer.hpp>
@@ -682,6 +684,12 @@ int main()
                 needUpdate = true;
             }
         });
+
+    sdbusplus::bus::bus& bus = static_cast<sdbusplus::bus::bus&>(*conn);
+    std::vector<std::string> bmcInventoryPaths =
+        phosphor::health::findBmcInventoryPaths(bus);
+    I2CStats i2cstats(bus);
+    i2cstats.initializeI2CStatsDBusObjects(bmcInventoryPaths);
 
     // Start the timer
     io.post([]() { sensorRecreateTimerCallback(sensorRecreateTimer); });
