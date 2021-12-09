@@ -26,6 +26,8 @@ executable(
     'health-monitor',
     [
         'healthMonitor.cpp',
+        'i2cstats.cpp',
+        'i2ctopology.cpp',
     ],
     dependencies: [
         dependency(
