@@ -19,29 +19,10 @@ namespace phosphor
 namespace health
 {
 
+// Inventory path published by either EntityManager or InventoryManager.
 const char* InventoryPath = "/xyz/openbmc_project/inventory";
 
-// Used for identifying the BMC inventory creation signal
-const char* BMCActivationPath = "/xyz/openbmc_project/inventory/bmc/activation";
-
-bool FindSystemInventoryInObjectMapper(sdbusplus::bus::bus& bus)
-{
-    sdbusplus::message::message msg =
-        bus.new_method_call("xyz.openbmc_project.ObjectMapper",
-                            "/xyz/openbmc_project/object_mapper",
-                            "xyz.openbmc_project.ObjectMapper", "GetObject");
-    msg.append(InventoryPath);
-    msg.append(std::vector<std::string>{});
-
-    try
-    {
-        sdbusplus::message::message reply = bus.call(msg, 0);
-        return true;
-    }
-    catch (const std::exception& e)
-    {}
-    return false;
-}
+const char* BMCInventoryInterface = "xyz.openbmc_project.Inventory.Item.Bmc";
 
 using Json = nlohmann::json;
 using ValueIface = sdbusplus::xyz::openbmc_project::Sensor::server::Value;
