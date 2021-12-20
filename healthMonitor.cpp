@@ -2,6 +2,8 @@
 
 #include "healthMonitor.hpp"
 
+#include "i2cstats.hpp"
+
 #include <unistd.h>
 
 #include <boost/asio/deadline_timer.hpp>
@@ -21,7 +23,6 @@
 extern "C"
 {
 #include <sys/statvfs.h>
-#include <sys/sysinfo.h>
 }
 
 PHOSPHOR_LOG2_USING;
@@ -73,7 +74,7 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
-double readCPUUtilization([[maybe_unused]] std::string path)
+double readCPUUtilization([[maybe_unused]] std::string type)
 {
     auto proc_stat = "/proc/stat";
     std::ifstream fileStat(proc_stat);
@@ -112,22 +113,33 @@ double readCPUUtilization([[maybe_unused]] std::string path)
         return -1;
     }
 
-    static double preActiveTime = 0, preIdleTime = 0;
+    static std::unordered_map<std::string, double> preActiveTime, preIdleTime;
     double activeTime, activeTimeDiff, idleTime, idleTimeDiff, totalTime,
         activePercValue;
 
     idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
-    activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
-                 timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
-                 timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
-                 timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    if (type == "total")
+    {
+        activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
+                     timeData[SYSTEM_IDX] + timeData[IRQ_IDX] +
+                     timeData[SOFTIRQ_IDX] + timeData[STEAL_IDX] +
+                     timeData[GUEST_USER_IDX] + timeData[GUEST_NICE_IDX];
+    }
+    else if (type == "kernel")
+    {
+        activeTime = timeData[SYSTEM_IDX];
+    }
+    else if (type == "user")
+    {
+        activeTime = timeData[USER_IDX];
+    }
 
-    idleTimeDiff = idleTime - preIdleTime;
-    activeTimeDiff = activeTime - preActiveTime;
+    idleTimeDiff = idleTime - preIdleTime[type];
+    activeTimeDiff = activeTime - preActiveTime[type];
 
     /* Store current idle and active time for next calculation */
-    preIdleTime = idleTime;
-    preActiveTime = activeTime;
+    preIdleTime[type] = idleTime;
+    preActiveTime[type] = activeTime;
 
     totalTime = idleTimeDiff + activeTimeDiff;
 
@@ -139,26 +151,25 @@ double readCPUUtilization([[maybe_unused]] std::string path)
     return activePercValue;
 }
 
-double readMemoryUtilization(std::string path)
+double readCPUUtilizationTotal(std::string path)
 {
     /* Unused var: path */
     std::ignore = path;
-    struct sysinfo s_info;
+    return readCPUUtilization("total");
+}
 
-    sysinfo(&s_info);
-    double usedRam = s_info.totalram - s_info.freeram;
-    double memUsePerc = usedRam / s_info.totalram * 100;
+double readCPUUtilizationKernel(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("kernel");
+}
 
-    if (DEBUG)
-    {
-        std::cout << "Memory Utilization is " << memUsePerc << "\n";
-
-        std::cout << "TotalRam: " << s_info.totalram
-                  << " FreeRam: " << s_info.freeram << "\n";
-        std::cout << "UseRam: " << usedRam << "\n";
-    }
-
-    return memUsePerc;
+double readCPUUtilizationUser(std::string path)
+{
+    /* Unused var: path */
+    std::ignore = path;
+    return readCPUUtilization("user");
 }
 
 double readStorageUtilization(std::string path)
@@ -231,12 +242,19 @@ double readInodeUtilization(std::string path)
     return usedPercentage;
 }
 
+double readI2CStats(std::string path)
+{
+    return 0;
+}
+
 constexpr auto storage = "Storage";
 constexpr auto inode = "Inode";
+constexpr auto i2c = "I2C_";
 /** Map of read function for each health sensors supported */
 const std::map<std::string, std::function<double(std::string path)>>
-    readSensors = {{"CPU", readCPUUtilization},
-                   {"Memory", readMemoryUtilization},
+    readSensors = {{"CPU", readCPUUtilizationTotal},
+                   {"CPU_User", readCPUUtilizationUser},
+                   {"CPU_Kernel", readCPUUtilizationKernel},
                    {storage, readStorageUtilization},
                    {inode, readInodeUtilization}};
 
@@ -251,7 +269,8 @@ void HealthSensor::setSensorValueToDbus(const double value)
     ValueIface::value(value);
 }
 
-void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
+void HealthSensor::initHealthSensor(
+    const std::vector<std::string>& bmcInventoryPaths)
 {
     info("{SENSOR} Health Sensor initialized", "SENSOR", sensorConfig.name);
 
@@ -268,6 +287,10 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
     else if (sensorConfig.name.rfind(inode, 0) == 0)
     {
         it = readSensors.find(inode);
+    }
+    else if (sensorConfig.name.rfind(i2c, 0) == 0)
+    {
+        it = readSensors.find(i2c);
     }
     else if (it == readSensors.end())
     {
@@ -295,11 +318,11 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
 
     setSensorValueToDbus(value);
 
-    // Associate the sensor to chassis
+    // Associate the utilization sensor to a BMC inventory.
     std::vector<AssociationTuple> associationTuples;
-    for (const auto& chassisId : chassisIds)
+    for (const auto& chassisId : bmcInventoryPaths)
     {
-        associationTuples.push_back({"bmc", "all_sensors", chassisId});
+        associationTuples.push_back({"bmc", "bmc_diagnostic_data", chassisId});
     }
     AssociationDefinitionInterface::associations(associationTuples);
 
@@ -418,11 +441,9 @@ void HealthMon::recreateSensors()
             // Search term
             msg.append(InventoryPath);
 
-            // Limit the depth to 2. Example of "depth":
-            // /xyz/openbmc_project/inventory/system/chassis has a depth of
-            // 1 since it has 1 '/' after
-            // "/xyz/openbmc_project/inventory/system".
-            msg.append(2);
+            // Limit the depth to 0 to match objects created by both
+            // EntityManager or InventoryManager.
+            msg.append(0);
 
             // Must have the Inventory.Item.Bmc interface
             msg.append(std::vector<std::string>{
@@ -463,13 +484,14 @@ void printConfig(HealthConfig& cfg)
 }
 
 /* Create dbus utilization sensor object for each configured sensors */
-void HealthMon::createHealthSensors(const std::vector<std::string>& chassisIds)
+void HealthMon::createHealthSensors(
+    const std::vector<std::string>& bmcInventoryPaths)
 {
     for (auto& cfg : sensorConfigs)
     {
         std::string objPath = std::string(HEALTH_SENSOR_PATH) + cfg.name;
-        auto healthSensor = std::make_shared<HealthSensor>(bus, objPath.c_str(),
-                                                           cfg, chassisIds);
+        auto healthSensor = std::make_shared<HealthSensor>(
+            bus, objPath.c_str(), cfg, bmcInventoryPaths);
         healthSensors.emplace(cfg.name, healthSensor);
 
         info("{SENSOR} Health Sensor created", "SENSOR", cfg.name);
@@ -550,7 +572,14 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
          * start with "Storage" or "Inode" */
         bool isStorageOrInode =
             (key.rfind(storage, 0) == 0 || key.rfind(inode, 0) == 0);
-        if (readSensors.find(key) != readSensors.end() || isStorageOrInode)
+        /* do special processing for I2C counters */
+        bool isI2C = (key.rfind(i2c, 0) == 0);
+
+        if (isI2C)
+        {
+            printf("Should create i2c monitoring for %s\n", key.c_str());
+        }
+        else if (readSensors.find(key) != readSensors.end() || isStorageOrInode)
         {
             HealthConfig cfg = HealthConfig();
             cfg.name = j.key();
@@ -612,10 +641,12 @@ int main()
 
     sensorRecreateTimer = std::make_shared<boost::asio::deadline_timer>(io);
 
+    sdbusplus::bus::bus& bus = static_cast<sdbusplus::bus::bus&>(*conn);
+
     // If the SystemInventory does not exist: wait for the InterfaceAdded signal
     auto interfacesAddedSignalHandler =
         std::make_unique<sdbusplus::bus::match::match>(
-            static_cast<sdbusplus::bus::bus&>(*conn),
+            bus,
             sdbusplus::bus::match::rules::interfacesAdded(
                 phosphor::health::BMCActivationPath),
             [conn](sdbusplus::message::message& msg) {
@@ -627,6 +658,10 @@ int main()
                     needUpdate = true;
                 }
             });
+
+    // Create an I2Cstats object for I2C statistics
+    I2CStats i2cStats(bus);
+    i2cStats.initializeI2CStatsDBusObjects();
 
     // Start the timer
     io.post([]() { sensorRecreateTimerCallback(sensorRecreateTimer); });
