@@ -6,9 +6,13 @@
 #include <sdeventplus/event.hpp>
 #include <sdeventplus/utility/timer.hpp>
 #include <xyz/openbmc_project/Association/Definitions/server.hpp>
+#include <xyz/openbmc_project/Inventory/Item/Bmc/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Critical/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Warning/server.hpp>
 #include <xyz/openbmc_project/Sensor/Value/server.hpp>
+
+constexpr char BMC_INVENTORY_ITEM[] = "xyz.openbmc_project.Inventory.Item.Bmc";
+constexpr char BMC_CONFIGURATION[] = "xyz.openbmc_project.Configuration.Bmc";
 
 #include <deque>
 #include <limits>
@@ -59,6 +63,9 @@ using AssociationDefinitionInterface =
 using healthIfaces =
     sdbusplus::server::object_t<ValueIface, CriticalInterface, WarningInterface,
                                 AssociationDefinitionInterface>;
+
+using BmcInterface = sdbusplus::server::object::object<
+    sdbusplus::xyz::openbmc_project::Inventory::Item::server::Bmc>;
 
 using AssociationTuple = std::tuple<std::string, std::string, std::string>;
 
@@ -128,6 +135,15 @@ class HealthSensor : public healthIfaces
     void startUnit(const std::string& sysdUnit);
 };
 
+class BmcInventory : public BmcInterface
+{
+  public:
+    BmcInventory() = delete;
+    BmcInventory(sdbusplus::bus::bus& bus, const char* objPath) :
+        BmcInterface(bus, objPath)
+    {}
+};
+
 class HealthMon
 {
   public:
@@ -166,8 +182,18 @@ class HealthMon
     /** @brief Create sensors for health monitoring */
     void createHealthSensors(const std::vector<std::string>& bmcIds);
 
+    /** @brief Create the BMC Inventory object */
+    void createBmcInventoryIfNotCreated();
+
+    /** @brief Check whether health-monitor has created the Item.Bmc inventory
+     * item that represents the current BMC. As of current, the inventory item
+     * is created upon seeing an xyz.openbmc_project.Configuration.Bmc item
+     * created with the "exposes" field. */
+    bool bmcInventoryCreated();
+
   private:
     sdbusplus::bus_t& bus;
+    std::shared_ptr<BmcInventory> bmcInventory;
     std::vector<HealthConfig> sensorConfigs;
     std::vector<HealthConfig> getHealthConfig();
 };
