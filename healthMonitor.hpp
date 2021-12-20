@@ -21,9 +21,6 @@ namespace health
 
 const char* InventoryPath = "/xyz/openbmc_project/inventory";
 
-// Used for identifying the BMC inventory creation signal
-const char* BMCActivationPath = "/xyz/openbmc_project/inventory/bmc/activation";
-
 bool FindSystemInventoryInObjectMapper(sdbusplus::bus::bus& bus)
 {
     sdbusplus::message::message msg =
