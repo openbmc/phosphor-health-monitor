@@ -35,28 +35,60 @@ static constexpr int TIMER_INTERVAL = 10;
 std::shared_ptr<boost::asio::deadline_timer> sensorRecreateTimer;
 std::shared_ptr<phosphor::health::HealthMon> healthMon;
 
-void sensorRecreateTimerCallback(
-    std::shared_ptr<boost::asio::deadline_timer> timer)
-{
-    timer->expires_from_now(boost::posix_time::seconds(TIMER_INTERVAL));
-    timer->async_wait([timer](const boost::system::error_code& ec) {
-        if (ec == boost::asio::error::operation_aborted)
-        {
-            return;
-        }
-        if (needUpdate)
-        {
-            healthMon->recreateSensors();
-            needUpdate = false;
-        }
-        sensorRecreateTimerCallback(timer);
-    });
-}
-
 namespace phosphor
 {
 namespace health
 {
+
+// Example values for iface:
+// BMC_CONFIGURATION
+// BMC_INVENTORY_ITEM
+std::vector<std::string> findPathsWithType(sdbusplus::bus::bus& bus,
+                                           const std::string iface)
+{
+    PHOSPHOR_LOG2_USING;
+    std::vector<std::string> ret;
+    try
+    {
+        // Find all BMCs (DBus objects implementing the
+        // Inventory.Item.Bmc interface that may be created by
+        // configuring the Inventory Manager)
+        sdbusplus::message::message msg = bus.new_method_call(
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
+
+        // No limit for paths for all the paths that may be touched
+        // in this daemon
+        msg.append("/");
+
+        // Limit the depth to 0 to match both objects created by
+        // EntityManager and by InventoryManager
+        msg.append(0);
+
+        // The endpoint of the Association Definition must have
+        // the Inventory.Item.Bmc interface
+        msg.append(std::vector<std::string>{iface});
+
+        sdbusplus::message::message reply = bus.call(msg, 0);
+        reply.read(ret);
+
+        if (!ret.empty())
+        {
+            info("{IFACE} found", "IFACE", iface);
+        }
+        else
+        {
+            info("{IFACE} not found", "IFACE", iface);
+        }
+    }
+    catch (std::exception& e)
+    {
+        error("Exception occurred while calling {PATH}: {ERROR}", "PATH",
+              InventoryPath, "ERROR", e);
+    }
+    return ret;
+}
 
 enum CPUStatesTime
 {
@@ -251,7 +283,8 @@ void HealthSensor::setSensorValueToDbus(const double value)
     ValueIface::value(value);
 }
 
-void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
+void HealthSensor::initHealthSensor(
+    const std::vector<std::string>& bmcInventoryPaths)
 {
     info("{SENSOR} Health Sensor initialized", "SENSOR", sensorConfig.name);
 
@@ -299,10 +332,12 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
     setSensorValueToDbus(value);
 
     // Associate the sensor to chassis
+    // This connects the DBus object to a Chassis.
+
     std::vector<AssociationTuple> associationTuples;
-    for (const auto& chassisId : chassisIds)
+    for (const auto& chassisId : bmcInventoryPaths)
     {
-        associationTuples.push_back({"bmc", "all_sensors", chassisId});
+        associationTuples.push_back({"bmc", "bmc_diagnostic_data", chassisId});
     }
     AssociationDefinitionInterface::associations(associationTuples);
 
@@ -405,50 +440,11 @@ void HealthMon::recreateSensors()
 {
     PHOSPHOR_LOG2_USING;
     healthSensors.clear();
-    std::vector<std::string> bmcIds = {};
-    if (FindSystemInventoryInObjectMapper(bus))
-    {
-        try
-        {
-            // Find all BMCs (DBus objects implementing the
-            // Inventory.Item.Bmc interface that may be created by
-            // configuring the Inventory Manager)
-            sdbusplus::message::message msg = bus.new_method_call(
-                "xyz.openbmc_project.ObjectMapper",
-                "/xyz/openbmc_project/object_mapper",
-                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
 
-            // Search term
-            msg.append(InventoryPath);
-
-            // Limit the depth to 2. Example of "depth":
-            // /xyz/openbmc_project/inventory/system/chassis has a depth of
-            // 1 since it has 1 '/' after
-            // "/xyz/openbmc_project/inventory/system".
-            msg.append(2);
-
-            // Must have the Inventory.Item.Bmc interface
-            msg.append(std::vector<std::string>{
-                "xyz.openbmc_project.Inventory.Item.Bmc"});
-
-            sdbusplus::message::message reply = bus.call(msg, 0);
-            reply.read(bmcIds);
-            info("BMC inventory found");
-        }
-        catch (std::exception& e)
-        {
-            error("Exception occurred while calling {PATH}: {ERROR}", "PATH",
-                  InventoryPath, "ERROR", e);
-        }
-    }
-    else
-    {
-        error("Path {PATH} does not exist in ObjectMapper, cannot "
-              "create association",
-              "PATH", InventoryPath);
-    }
-    // Create health sensors
-    createHealthSensors(bmcIds);
+    // Find BMC inventory paths and create health sensors
+    std::vector<std::string> bmcInventoryPaths =
+        findPathsWithType(bus, BMC_INVENTORY_ITEM);
+    createHealthSensors(bmcInventoryPaths);
 }
 
 void printConfig(HealthConfig& cfg)
@@ -466,13 +462,14 @@ void printConfig(HealthConfig& cfg)
 }
 
 /* Create dbus utilization sensor object for each configured sensors */
-void HealthMon::createHealthSensors(const std::vector<std::string>& chassisIds)
+void HealthMon::createHealthSensors(
+    const std::vector<std::string>& bmcInventoryPaths)
 {
     for (auto& cfg : sensorConfigs)
     {
         std::string objPath = std::string(HEALTH_SENSOR_PATH) + cfg.name;
-        auto healthSensor = std::make_shared<HealthSensor>(bus, objPath.c_str(),
-                                                           cfg, chassisIds);
+        auto healthSensor = std::make_shared<HealthSensor>(
+            bus, objPath.c_str(), cfg, bmcInventoryPaths);
         healthSensors.emplace(cfg.name, healthSensor);
 
         info("{SENSOR} Health Sensor created", "SENSOR", cfg.name);
@@ -586,8 +583,75 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
     return cfgs;
 }
 
+// Two caveats here.
+// 1. The BMC Inventory will only show up by the nearest ObjectMapper polling
+// interval.
+// 2. InterfacesAdded events will are not emitted like they are with E-M.
+void HealthMon::createBmcInventoryIfNotCreated()
+{
+    if (bmcInventory == nullptr)
+    {
+        info("createBmcInventory");
+        bmcInventory = std::make_shared<phosphor::health::BmcInventory>(
+            bus, "/xyz/openbmc_project/inventory/bmc");
+    }
+}
+
+bool HealthMon::bmcInventoryCreated()
+{
+    return bmcInventory != nullptr;
+}
+
 } // namespace health
 } // namespace phosphor
+
+void sensorRecreateTimerCallback(
+    std::shared_ptr<boost::asio::deadline_timer> timer,
+    sdbusplus::bus::bus& bus)
+{
+    timer->expires_from_now(boost::posix_time::seconds(TIMER_INTERVAL));
+    timer->async_wait([timer, &bus](const boost::system::error_code& ec) {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            info("sensorRecreateTimer aborted");
+            return;
+        }
+
+        // When Entity-manager is already running
+        if (!needUpdate)
+        {
+            if (!healthMon->bmcInventoryCreated())
+            {
+                if (!phosphor::health::findPathsWithType(bus, BMC_CONFIGURATION)
+                         .empty())
+                {
+                    healthMon->createBmcInventoryIfNotCreated();
+                    needUpdate = true;
+                }
+            }
+        }
+        else
+        {
+
+            // If this daemon maintains its own DBus object, we must make sure
+            // the object is registered to ObjectMapper
+            if (phosphor::health::findPathsWithType(bus, BMC_INVENTORY_ITEM)
+                    .empty())
+            {
+                info(
+                    "BMC inventory item not registered to Object Mapper yet, waiting for next iteration");
+            }
+            else
+            {
+                info(
+                    "BMC inventory item registered to Object Mapper, creating sensors now");
+                healthMon->recreateSensors();
+                needUpdate = false;
+            }
+        }
+        sensorRecreateTimerCallback(timer, bus);
+    });
+}
 
 /**
  * @brief Main
@@ -601,6 +665,9 @@ int main()
     auto conn = std::make_shared<sdbusplus::asio::connection>(io);
 
     conn->request_name(HEALTH_BUS_NAME);
+
+    // Unique name of conn. May look like ":1.12345".
+    const std::string unique_name = conn->get_unique_name();
 
     // Get a default event loop
     auto event = sdeventplus::Event::get_default();
@@ -616,24 +683,58 @@ int main()
     sensorRecreateTimer = std::make_shared<boost::asio::deadline_timer>(io);
 
     // If the SystemInventory does not exist: wait for the InterfaceAdded signal
-    auto interfacesAddedSignalHandler =
-        std::make_unique<sdbusplus::bus::match::match>(
-            static_cast<sdbusplus::bus::bus&>(*conn),
-            sdbusplus::bus::match::rules::interfacesAdded(
-                phosphor::health::BMCActivationPath),
-            [conn](sdbusplus::message::message& msg) {
+    auto interfacesAddedSignalHandler = std::make_unique<
+        sdbusplus::bus::match::match>(
+        static_cast<sdbusplus::bus::bus&>(*conn),
+        sdbusplus::bus::match::rules::interfacesAdded(),
+        [conn, &unique_name](sdbusplus::message::message& msg) {
+            try
+            {
                 sdbusplus::message::object_path o;
                 msg.read(o);
-                if (o.str == phosphor::health::BMCActivationPath)
+
+                using Association =
+                    std::tuple<std::string, std::string, std::string>;
+                using InterfacesAdded = std::vector<std::pair<
+                    std::string,
+                    std::vector<std::pair<
+                        std::string, std::variant<std::vector<Association>>>>>>;
+                InterfacesAdded interfacesAdded;
+                msg.read(interfacesAdded);
+
+                // If the Configuration signal comes from health-monitor itself,
+                // ignore it.
+
+                // Check if the BMC Inventory is in the interfaces created.
+                // bool hasBmcInventory     = false;
+                bool hasBmcConfiguration = false;
+                for (const auto& x : interfacesAdded)
                 {
-                    info("should recreate sensors now");
+                    if (x.first == BMC_CONFIGURATION)
+                    {
+                        if (msg.get_sender() == unique_name)
+                        {
+                            continue;
+                        }
+                        hasBmcConfiguration = true;
+                    }
+                }
+
+                if (hasBmcConfiguration)
+                {
+                    info(
+                        "BMC configuration detected, will create a corresponding Inventory item");
+                    healthMon->createBmcInventoryIfNotCreated();
                     needUpdate = true;
                 }
-            });
+            }
+            catch (const std::exception& e)
+            {}
+        });
 
     // Start the timer
-    io.post([]() { sensorRecreateTimerCallback(sensorRecreateTimer); });
-
+    io.post(
+        [conn]() { sensorRecreateTimerCallback(sensorRecreateTimer, *conn); });
     io.run();
 
     return 0;
