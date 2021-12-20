@@ -6,9 +6,13 @@
 #include <sdeventplus/event.hpp>
 #include <sdeventplus/utility/timer.hpp>
 #include <xyz/openbmc_project/Association/Definitions/server.hpp>
+#include <xyz/openbmc_project/Inventory/Item/Bmc/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Critical/server.hpp>
 #include <xyz/openbmc_project/Sensor/Threshold/Warning/server.hpp>
 #include <xyz/openbmc_project/Sensor/Value/server.hpp>
+
+constexpr char BMC_INVENTORY_ITEM[] = "xyz.openbmc_project.Inventory.Item.Bmc";
+constexpr char BMC_CONFIGURATION[] = "xyz.openbmc_project.Configuration.Bmc";
 
 #include <deque>
 #include <limits>
@@ -21,28 +25,6 @@ namespace health
 {
 
 const char* InventoryPath = "/xyz/openbmc_project/inventory";
-
-// Used for identifying the BMC inventory creation signal
-const char* BMCActivationPath = "/xyz/openbmc_project/inventory/bmc/activation";
-
-bool FindSystemInventoryInObjectMapper(sdbusplus::bus::bus& bus)
-{
-    sdbusplus::message::message msg =
-        bus.new_method_call("xyz.openbmc_project.ObjectMapper",
-                            "/xyz/openbmc_project/object_mapper",
-                            "xyz.openbmc_project.ObjectMapper", "GetObject");
-    msg.append(InventoryPath);
-    msg.append(std::vector<std::string>{});
-
-    try
-    {
-        sdbusplus::message::message reply = bus.call(msg, 0);
-        return true;
-    }
-    catch (const std::exception& e)
-    {}
-    return false;
-}
 
 using Json = nlohmann::json;
 using ValueIface = sdbusplus::xyz::openbmc_project::Sensor::server::Value;
@@ -60,6 +42,9 @@ using healthIfaces =
     sdbusplus::server::object::object<ValueIface, CriticalInterface,
                                       WarningInterface,
                                       AssociationDefinitionInterface>;
+
+using BmcInterface = sdbusplus::server::object::object<
+    sdbusplus::xyz::openbmc_project::Inventory::Item::server::Bmc>;
 
 using AssociationTuple = std::tuple<std::string, std::string, std::string>;
 
@@ -127,6 +112,15 @@ class HealthSensor : public healthIfaces
     void readHealthSensor();
 };
 
+class BmcInventory : public BmcInterface
+{
+  public:
+    BmcInventory() = delete;
+    BmcInventory(sdbusplus::bus::bus& bus, const char* objPath) :
+        BmcInterface(bus, objPath)
+    {}
+};
+
 class HealthMon
 {
   public:
@@ -145,7 +139,8 @@ class HealthMon
      *
      * @param[in] bus     - Handle to system dbus
      */
-    HealthMon(sdbusplus::bus::bus& bus) : bus(bus)
+    explicit HealthMon(sdbusplus::bus::bus& bus) :
+        bmcInventory(nullptr), bus(bus)
     {
         // Read JSON file
         sensorConfigs = getHealthConfig();
@@ -164,6 +159,13 @@ class HealthMon
 
     /** @brief Create sensors for health monitoring */
     void createHealthSensors(const std::vector<std::string>& bmcIds);
+
+    /** @brief Create the BMC Inventory object */
+    void createBmcInventoryIfNotCreated();
+
+    std::shared_ptr<BmcInventory> bmcInventory;
+
+    bool bmcInventoryCreated();
 
   private:
     sdbusplus::bus::bus& bus;
