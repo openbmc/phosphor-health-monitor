@@ -251,7 +251,8 @@ void HealthSensor::setSensorValueToDbus(const double value)
     ValueIface::value(value);
 }
 
-void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
+void HealthSensor::initHealthSensor(
+    const std::vector<std::string>& bmcInventoryPaths)
 {
     info("{SENSOR} Health Sensor initialized", "SENSOR", sensorConfig.name);
 
@@ -296,10 +297,12 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
     setSensorValueToDbus(value);
 
     // Associate the sensor to chassis
+    // This connects the DBus object to a Chassis.
+
     std::vector<AssociationTuple> associationTuples;
-    for (const auto& chassisId : chassisIds)
+    for (const auto& chassisId : bmcInventoryPaths)
     {
-        associationTuples.push_back({"bmc", "all_sensors", chassisId});
+        associationTuples.push_back({"bmc", "bmc_diagnostic_data", chassisId});
     }
     AssociationDefinitionInterface::associations(associationTuples);
 
@@ -402,7 +405,7 @@ void HealthMon::recreateSensors()
 {
     PHOSPHOR_LOG2_USING;
     healthSensors.clear();
-    std::vector<std::string> bmcIds = {};
+    std::vector<std::string> bmcInventoryPaths = {};
     if (FindSystemInventoryInObjectMapper(bus))
     {
         try
@@ -418,18 +421,17 @@ void HealthMon::recreateSensors()
             // Search term
             msg.append(InventoryPath);
 
-            // Limit the depth to 2. Example of "depth":
-            // /xyz/openbmc_project/inventory/system/chassis has a depth of
-            // 1 since it has 1 '/' after
-            // "/xyz/openbmc_project/inventory/system".
-            msg.append(2);
+            // Limit the depth to 0 to match both objects created by
+            // EntityManager and by InventoryManager
+            msg.append(0);
 
-            // Must have the Inventory.Item.Bmc interface
+            // The endpoint of the Association Definition must have
+            // the Inventory.Item.Bmc interface
             msg.append(std::vector<std::string>{
                 "xyz.openbmc_project.Inventory.Item.Bmc"});
 
             sdbusplus::message::message reply = bus.call(msg, 0);
-            reply.read(bmcIds);
+            reply.read(bmcInventoryPaths);
             info("BMC inventory found");
         }
         catch (std::exception& e)
@@ -445,7 +447,7 @@ void HealthMon::recreateSensors()
               "PATH", InventoryPath);
     }
     // Create health sensors
-    createHealthSensors(bmcIds);
+    createHealthSensors(bmcInventoryPaths);
 }
 
 void printConfig(HealthConfig& cfg)
@@ -463,13 +465,14 @@ void printConfig(HealthConfig& cfg)
 }
 
 /* Create dbus utilization sensor object for each configured sensors */
-void HealthMon::createHealthSensors(const std::vector<std::string>& chassisIds)
+void HealthMon::createHealthSensors(
+    const std::vector<std::string>& bmcInventoryPaths)
 {
     for (auto& cfg : sensorConfigs)
     {
         std::string objPath = std::string(HEALTH_SENSOR_PATH) + cfg.name;
-        auto healthSensor = std::make_shared<HealthSensor>(bus, objPath.c_str(),
-                                                           cfg, chassisIds);
+        auto healthSensor = std::make_shared<HealthSensor>(
+            bus, objPath.c_str(), cfg, bmcInventoryPaths);
         healthSensors.emplace(cfg.name, healthSensor);
 
         info("{SENSOR} Health Sensor created", "SENSOR", cfg.name);
