@@ -312,7 +312,8 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
 
 void HealthSensor::checkSensorThreshold(const double value)
 {
-    if (sensorConfig.criticalHigh && (value > sensorConfig.criticalHigh))
+    if (std::isfinite(sensorConfig.criticalHigh) &&
+        (value > sensorConfig.criticalHigh))
     {
         if (!CriticalInterface::criticalAlarmHigh())
         {
@@ -322,24 +323,22 @@ void HealthSensor::checkSensorThreshold(const double value)
                     "ASSERT: sensor {SENSOR} is above the upper threshold critical high",
                     "SENSOR", sensorConfig.name);
         }
+        return;
     }
-    else
+
+    if (CriticalInterface::criticalAlarmHigh())
     {
-        if (CriticalInterface::criticalAlarmHigh())
-        {
-            CriticalInterface::criticalAlarmHigh(false);
-            if (sensorConfig.criticalLog)
-                info(
-                    "DEASSERT: sensor {SENSOR} is under the upper threshold critical high",
-                    "SENSOR", sensorConfig.name);
-        }
+        CriticalInterface::criticalAlarmHigh(false);
+        if (sensorConfig.criticalLog)
+            info(
+                "DEASSERT: sensor {SENSOR} is under the upper threshold critical high",
+                "SENSOR", sensorConfig.name);
+    }
 
-        /* if warning high value is not set then return */
-        if (!sensorConfig.warningHigh)
-            return;
-
-        if ((value > sensorConfig.warningHigh) &&
-            (!WarningInterface::warningAlarmHigh()))
+    if (std::isfinite(sensorConfig.warningHigh) &&
+        (value > sensorConfig.warningHigh))
+    {
+        if (!WarningInterface::warningAlarmHigh())
         {
             WarningInterface::warningAlarmHigh(true);
             if (sensorConfig.warningLog)
@@ -347,15 +346,16 @@ void HealthSensor::checkSensorThreshold(const double value)
                     "ASSERT: sensor {SENSOR} is above the upper threshold warning high",
                     "SENSOR", sensorConfig.name);
         }
-        else if ((value <= sensorConfig.warningHigh) &&
-                 (WarningInterface::warningAlarmHigh()))
-        {
-            WarningInterface::warningAlarmHigh(false);
-            if (sensorConfig.warningLog)
-                info(
-                    "DEASSERT: sensor {SENSOR} is under the upper threshold warning high",
-                    "SENSOR", sensorConfig.name);
-        }
+        return;
+    }
+
+    if (WarningInterface::warningAlarmHigh())
+    {
+        WarningInterface::warningAlarmHigh(false);
+        if (sensorConfig.warningLog)
+            info(
+                "DEASSERT: sensor {SENSOR} is under the upper threshold warning high",
+                "SENSOR", sensorConfig.name);
     }
 }
 
