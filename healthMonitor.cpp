@@ -309,7 +309,8 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
 
 void HealthSensor::checkSensorThreshold(const double value)
 {
-    if (sensorConfig.criticalHigh && (value > sensorConfig.criticalHigh))
+    if (std::isfinite(sensorConfig.criticalHigh) && sensorConfig.criticalHigh &&
+        (value > sensorConfig.criticalHigh))
     {
         if (!CriticalInterface::criticalAlarmHigh())
         {
@@ -322,7 +323,8 @@ void HealthSensor::checkSensorThreshold(const double value)
     }
     else
     {
-        if (CriticalInterface::criticalAlarmHigh())
+        if (std::isfinite(sensorConfig.criticalHigh) &&
+            CriticalInterface::criticalAlarmHigh())
         {
             CriticalInterface::criticalAlarmHigh(false);
             if (sensorConfig.criticalLog)
@@ -331,8 +333,9 @@ void HealthSensor::checkSensorThreshold(const double value)
                     "SENSOR", sensorConfig.name);
         }
 
-        /* if warning high value is not set then return */
-        if (!sensorConfig.warningHigh)
+        /* if warning high value is NaN or not set then return */
+        if (!std::isfinite(sensorConfig.warningHigh) ||
+            !sensorConfig.warningHigh)
             return;
 
         if ((value > sensorConfig.warningHigh) &&
