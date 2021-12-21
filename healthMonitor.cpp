@@ -293,6 +293,9 @@ void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
     /* Initialize unit value (Percent) for utilization sensor */
     ValueIface::unit(ValueIface::Unit::Percent);
 
+    ValueIface::maxValue(100);
+    ValueIface::minValue(0);
+
     setSensorValueToDbus(value);
 
     // Associate the sensor to chassis
