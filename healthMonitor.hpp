@@ -11,6 +11,7 @@
 #include <xyz/openbmc_project/Sensor/Value/server.hpp>
 
 #include <deque>
+#include <limits>
 #include <map>
 #include <string>
 
@@ -67,8 +68,8 @@ struct HealthConfig
     std::string name;
     uint16_t freq;
     uint16_t windowSize;
-    double criticalHigh;
-    double warningHigh;
+    double criticalHigh = std::numeric_limits<double>::quiet_NaN();
+    double warningHigh = std::numeric_limits<double>::quiet_NaN();
     bool criticalLog;
     bool warningLog;
     std::string criticalTgt;
