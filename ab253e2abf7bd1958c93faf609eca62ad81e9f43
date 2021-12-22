@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "93c772ba_59d3d5ca",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-12-22T14:17:08Z",
+      "side": 1,
+      "message": "Agree, this is probably connected to the \"not set \u003d has value of 0\" assumption",
+      "parentUuid": "58db015c_483bee9a",
+      "range": {
+        "startLine": 312,
+        "startChar": 52,
+        "endLine": 312,
+        "endChar": 77
+      },
+      "revId": "ab253e2abf7bd1958c93faf609eca62ad81e9f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa7585f0_55d746ab",
         "filename": "healthMonitor.cpp",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f57fbe77_14ed2b4f",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-12-22T14:17:08Z",
+      "side": 1,
+      "message": "My idea was that it is easier to check `std::isfinite` than access dbus properties. I didn\u0027t think about the cases when the value is set outside of the app itself",
+      "parentUuid": "fa7585f0_55d746ab",
+      "range": {
+        "startLine": 326,
+        "startChar": 12,
+        "endLine": 326,
+        "endChar": 55
+      },
+      "revId": "ab253e2abf7bd1958c93faf609eca62ad81e9f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d74d22d3_243444f6",
         "filename": "healthMonitor.cpp",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2021-12-22T13:17:42Z",
       "side": 1,
       "message": "I don\u0027t think we want this part, do we?  The \"not set\" meant \"has value of 0\" previously... it is possible for a sensor to have a high threshold of 0.  Many Intel PECI sensors use a differential value rather than an absolute value for instance.\n\nMaybe we should just get rid of this short-circuiting because we end up with slightly different behavior between criticalHigh and warningHigh.",
+      "range": {
+        "startLine": 336,
+        "startChar": 40,
+        "endLine": 336,
+        "endChar": 65
+      },
+      "revId": "ab253e2abf7bd1958c93faf609eca62ad81e9f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fabeb6ca_08099b3f",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000926
+      },
+      "writtenOn": "2021-12-22T14:17:08Z",
+      "side": 1,
+      "message": "I guess that is why I initially thought that we shouldn\u0027t do anything until we have a valid threshold set",
+      "parentUuid": "d74d22d3_243444f6",
       "range": {
         "startLine": 336,
         "startChar": 40,
