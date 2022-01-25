@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d1903a5_a6fb7669",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-25T04:41:00Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 23
+      },
+      "revId": "fdbe1214dfa745301cd3900adc3dcddeebbc96dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
