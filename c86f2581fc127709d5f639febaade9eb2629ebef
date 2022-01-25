@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "888372df_ba909be2",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-01-25T04:27:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9a0ba08_b94c5cca",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 23
+      },
+      "revId": "c86f2581fc127709d5f639febaade9eb2629ebef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d07bf20a_c88dbfee",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-25T01:18:28Z",
       "side": 1,
       "message": "just use *conn instead?",
+      "range": {
+        "startLine": 733,
+        "startChar": 48,
+        "endLine": 733,
+        "endChar": 51
+      },
+      "revId": "c86f2581fc127709d5f639febaade9eb2629ebef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c24a6c93_bc292303",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-01-25T04:27:32Z",
+      "side": 1,
+      "message": "Sorry I messed up the series of changes somehow, these I2CStats should all go to the next change, 49607. The issues pointed here are corrected.\n\nThis is changed to *conn.",
+      "parentUuid": "d07bf20a_c88dbfee",
       "range": {
         "startLine": 733,
         "startChar": 48,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7989046e_01363494",
+        "filename": "i2cstats.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-01-25T04:27:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d47f9db_3f288979",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "c86f2581fc127709d5f639febaade9eb2629ebef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08777b1c_ad1a703d",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ec30ec5_740900b1",
+        "filename": "i2cstats.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-01-25T04:27:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08777b1c_ad1a703d",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "c86f2581fc127709d5f639febaade9eb2629ebef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3beabb76_7f8bee33",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-01-25T01:18:28Z",
       "side": 1,
       "message": "use asio context instead? any reason we need the synchronous dbus",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "c86f2581fc127709d5f639febaade9eb2629ebef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0ddab6d_81aaec0a",
+        "filename": "i2cstats.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-01-25T04:27:32Z",
+      "side": 1,
+      "message": "It turns out the object class (sdbusplus::server::object::object\u003c...\u003e) has an sdbusplus::bus::bus\u0026 as a member, so I thought it was needed for the derived class (I2CStatsDBusObject) as well. It\u0027s now removed from the derived class.",
+      "parentUuid": "3beabb76_7f8bee33",
       "range": {
         "startLine": 41,
         "startChar": 4,

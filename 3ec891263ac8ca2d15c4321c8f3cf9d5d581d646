@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "5cf375e5_224d2b4f",
         "filename": "healthMonitor.cpp",
@@ -20,10 +21,10 @@
         "endChar": 38
       },
       "revId": "3ec891263ac8ca2d15c4321c8f3cf9d5d581d646",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2a5ae834_8ff34c87",
         "filename": "healthMonitor.cpp",
@@ -44,8 +45,31 @@
         "endChar": 38
       },
       "revId": "3ec891263ac8ca2d15c4321c8f3cf9d5d581d646",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "209ac2bc_264ad935",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-01-25T04:27:32Z",
+      "side": 1,
+      "message": "Update: switching to using associations, so the DBus object names should not matter now, and should not be used to determine that this utilization sensor is about the BMC rather than the host. The utilization sensors are now to be found by following the associations.",
+      "parentUuid": "2a5ae834_8ff34c87",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 38
+      },
+      "revId": "3ec891263ac8ca2d15c4321c8f3cf9d5d581d646",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
