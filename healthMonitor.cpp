@@ -197,24 +197,35 @@ double readCPUUtilizationUser([[maybe_unused]] const std::string& path)
     return readCPUUtilization("user");
 }
 
-double readMemoryUtilization([[maybe_unused]] const std::string& path)
+double readMemoryUtilization(const std::string& path)
 {
     struct sysinfo s_info;
 
     sysinfo(&s_info);
-    double usedRam = s_info.totalram - s_info.freeram;
-    double memUsePerc = usedRam / s_info.totalram * 100;
 
-    if (DEBUG)
-    {
-        std::cout << "Memory Utilization is " << memUsePerc << "\n";
+    if (path.empty()) {
+        double usedRam = s_info.totalram - s_info.freeram;
+        double memUsePerc = usedRam / s_info.totalram * 100;
+        if (DEBUG)
+        {
+            std::cout << "Memory Utilization is " << memUsePerc << "\n";
 
-        std::cout << "TotalRam: " << s_info.totalram
-                  << " FreeRam: " << s_info.freeram << "\n";
-        std::cout << "UseRam: " << usedRam << "\n";
+            std::cout << "TotalRam: " << s_info.totalram
+                    << " FreeRam: " << s_info.freeram << "\n";
+            std::cout << "UseRam: " << usedRam << "\n";
+        }
+        return memUsePerc;
     }
 
-    return memUsePerc;
+    if (path == "AvailableBytes") {
+        return s_info.freeram * s_info.mem_unit;
+    }
+
+    return 0;
+}
+
+double readMemoryAvailableBytes([[maybe_unused]] const std::string& path) {
+    return readMemoryUtilization("AvailableBytes");
 }
 
 double readStorageUtilization([[maybe_unused]] const std::string& path)
@@ -293,6 +304,7 @@ const std::map<std::string, std::function<double(const std::string& path)>>
                    {"CPU_User", readCPUUtilizationUser},
                    {"CPU_Kernel", readCPUUtilizationKernel},
                    {"Memory", readMemoryUtilization},
+                   {"Memory_AvailableBytes", readMemoryAvailableBytes},
                    {storage, readStorageUtilization},
                    {inode, readInodeUtilization}};
 
