@@ -203,7 +203,7 @@ auto readCPUUtilizationUser([[maybe_unused]] const std::string& path)
     return readCPUUtilization(CPUUtilizationType::USER);
 }
 
-double readMemoryUtilization([[maybe_unused]] const std::string& path)
+double readMemoryUtilization(const std::string& path)
 {
     /* Unused var: path */
     std::ignore = path;
@@ -238,13 +238,18 @@ double readMemoryUtilization([[maybe_unused]] const std::string& path)
         return std::numeric_limits<double>::quiet_NaN();
     }
 
-    if (DEBUG)
+    if (path.empty())
     {
         std::cout << "MemTotal: " << memTotal << " MemAvailable: " << memAvail
                   << std::endl;
     }
 
     return (memTotal - memAvail) / memTotal * 100;
+}
+
+double readMemoryAvailableBytes([[maybe_unused]] const std::string& path)
+{
+    return readMemoryUtilization("AvailableBytes");
 }
 
 double readStorageUtilization([[maybe_unused]] const std::string& path)
@@ -330,6 +335,7 @@ const std::map<std::string, std::function<double(const std::string& path)>>
                    {"CPU_Kernel", readCPUUtilizationKernel},
                    {"CPU_User", readCPUUtilizationUser},
                    {"Memory", readMemoryUtilization},
+                   {"Memory_AvailableBytes", readMemoryAvailableBytes},
                    {storage, readStorageUtilization},
                    {inode, readInodeUtilization}};
 
