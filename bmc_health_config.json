@@ -1,71 +1,27 @@
 {
   "CPU" : {
-    "Frequency" : 1,
-    "Window_size": 120,
-    "Threshold":
-    {
-      "Critical":
-      {
-          "Value": 90.0,
-          "Log": true,
-          "Target": "systemd unit file"
-      },
-      "Warning":
-      {
-        "Value": 80.0,
-        "Log": false,
-        "Target": "systemd unit file"
-      }
-    }
+    "Frequency" : 10,
+    "Window_size": 30
   },
   "CPU_User" : {
-    "Frequency" : 1,
-    "Window_size": 120,
-    "Threshold": {
-      "Critical":
-      {
-          "Value": 90.0,
-          "Log": true,
-          "Target": "systemd unit file"
-      },
-      "Warning":
-      {
-          "Value": 80.0,
-          "Log": false,
-          "Target": "systemd unit file"
-      }
-    }
+    "Frequency" : 10,
+    "Window_size": 30
   },
   "CPU_Kernel" : {
-    "Frequency" : 1,
-    "Window_size": 120,
-    "Threshold": {
-      "Critical":
-      {
-          "Value": 90.0,
-          "Log": true,
-          "Target": "systemd unit file"
-      },
-      "Warning":
-      {
-        "Value": 80.0,
-        "Log": false,
-        "Target": "systemd unit file"
-      }
-    }
+    "Frequency" : 10,
+    "Window_size": 30
+  },
+  "Memory" : {
+    "Frequency" : 10,
+    "Window_size": 30
+  },
+  "Memory_AvailableBytes1" : {
+    "Frequency" : 10,
+    "Window_size": 30
   },
   "Storage_RW" : {
     "Path" : "/run/initramfs/rw",
-    "Frequency" : 1,
-    "Window_size": 120,
-    "Threshold":
-    {
-      "Critical":
-      {
-          "Value": 85.0,
-          "Log": true,
-          "Target": "systemd unit file"
-      }
-    }
+    "Frequency" : 10,
+    "Window_size": 30
   }
 }
