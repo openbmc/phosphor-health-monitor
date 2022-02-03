@@ -31,6 +31,10 @@
         }
     }
   },
+  "Memory_AvailableBytes" : {
+    "Frequency" : 10,
+    "Window_size": 30
+  },
   "Storage_RW" : {
     "Path" : "/run/initramfs/rw",
     "Frequency" : 1,
