@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d21ad56f_fc31550e",
+        "filename": "bmc_health_config.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-17T17:54:06Z",
+      "side": 0,
+      "message": "Why\u0027d we remove the memory one?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 4
+      },
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a8db1e_3ccbaf77",
+        "filename": "bmc_health_config.json",
+        "patchSetId": 18
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-17T17:54:06Z",
+      "side": 0,
+      "message": "Is there a reason for removing the \"reboot.target\" from this file and replacing them with an invalid string?",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
