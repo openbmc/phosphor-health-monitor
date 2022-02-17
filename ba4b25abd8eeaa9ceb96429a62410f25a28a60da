@@ -47,6 +47,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "138573e1_43f5cceb",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:47:53Z",
+      "side": 1,
+      "message": "Removed \"[[maybe_unused]]\".",
+      "parentUuid": "5216df8f_30f4bd48",
+      "range": {
+        "startLine": 108,
+        "startChar": 26,
+        "endLine": 108,
+        "endChar": 42
+      },
+      "revId": "ba4b25abd8eeaa9ceb96429a62410f25a28a60da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4771541d_8bae5ae0",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:47:53Z",
+      "side": 1,
+      "message": "Changed to const std::string\u0026.",
+      "parentUuid": "fd10fe64_fb13796c",
+      "range": {
+        "startLine": 108,
+        "startChar": 43,
+        "endLine": 108,
+        "endChar": 54
+      },
+      "revId": "ba4b25abd8eeaa9ceb96429a62410f25a28a60da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bf62e11_39d8d572",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-17T17:54:06Z",
       "side": 1,
       "message": "how about `auto` on all these?",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 6
+      },
+      "revId": "ba4b25abd8eeaa9ceb96429a62410f25a28a60da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e99005ca_79ee6c70",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:47:53Z",
+      "side": 1,
+      "message": "Changed the types of those calling \"readCPUUtilization\" to \"double\".",
+      "parentUuid": "1bf62e11_39d8d572",
       "range": {
         "startLine": 185,
         "startChar": 0,
