@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee3fd4f0_65861811",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:43:18Z",
+      "side": 1,
+      "message": "TODO: This will change after we enable Entity Manager to export an BMC Item (rather than just BMC Configuration) from a Board object as a child DBus object (rather than as an interface of the board object itself)",
+      "range": {
+        "startLine": 705,
+        "startChar": 35,
+        "endLine": 705,
+        "endChar": 52
+      },
+      "revId": "30ea11296e2b378fc8a48ffc84ea69d8790f6d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

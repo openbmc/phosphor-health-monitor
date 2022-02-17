@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d88b033_976e83c4",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:43:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fea0195_f3f2a2b2",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 52
+      },
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1e38ea9_098894b7",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-17T18:15:22Z",
       "side": 1,
       "message": "`debug` seems more appropriate on these.  Seems like a rather chatty message.",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c83c957_186f7696",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:43:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1e38ea9_098894b7",
       "range": {
         "startLine": 78,
         "startChar": 12,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65f52054_46d0f202",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:43:18Z",
+      "side": 1,
+      "message": "Right, I figured since readSensors is a const map, we could only get a const iterator here. I switched to auto since it makes the code a bit more succinct.\n\nI wonder what is the purpose of getting a const decltype of readSensors then casting the const away? I haven\u0027t encountered this pattern before.",
+      "parentUuid": "1012df9e_46f296a8",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 45
+      },
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9bfe09a1_fcc4d760",
         "filename": "healthMonitor.cpp",
         "patchSetId": 10
@@ -83,6 +155,24 @@
       "writtenOn": "2022-02-17T18:15:22Z",
       "side": 1,
       "message": "debug?  delete it?",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ff89e8_febb50a1",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:43:18Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "9bfe09a1_fcc4d760",
       "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -104,6 +194,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f218af19_faeceb8c",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:43:18Z",
+      "side": 1,
+      "message": "It was for debug purposes and is now removed.",
+      "parentUuid": "3a10013b_1fc6d62c",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fd99c31_769072d1",
@@ -121,6 +229,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc328428_2ad0085a",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:43:18Z",
+      "side": 1,
+      "message": "Moved into the Lambda and changed to conn-\u003eget_unique_name().",
+      "parentUuid": "5fd99c31_769072d1",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcea2951_d7e246ef",
@@ -134,6 +260,24 @@
       "writtenOn": "2022-02-17T18:15:22Z",
       "side": 1,
       "message": "No matter what you do with line 666, I think that a comment here would be useful.  \"ignore signals from ourselves\"\n\n\nIt seems like this short circuit should be much earlier.  Can\u0027t it be a return right at the beginning of the function?",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c716c66d_584a5a9d",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-02-17T20:43:18Z",
+      "side": 1,
+      "message": "Yes, it should be good to short-circuit earlier. Plus we can actually short-circuit all InterfacesAdded signals emitted by the daemon itself.\n\nMoved to the beginning of the lambda.",
+      "parentUuid": "fcea2951_d7e246ef",
       "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
