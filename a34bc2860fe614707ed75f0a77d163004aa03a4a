@@ -22,6 +22,120 @@
       },
       "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1e38ea9_098894b7",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-17T18:15:22Z",
+      "side": 1,
+      "message": "`debug` seems more appropriate on these.  Seems like a rather chatty message.",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1012df9e_46f296a8",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-17T18:15:22Z",
+      "side": 1,
+      "message": "`auto it \u003d readSensors.find(...)`\n\nIf you for some reason want to be explicit that `it` is a const_iterator, then you can `const_cast\u003cconst decltype(readSensors)\u003e(readSensors)` first, but it looks like it is already a `const std::map` on line 265.",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 45
+      },
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bfe09a1_fcc4d760",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-17T18:15:22Z",
+      "side": 1,
+      "message": "debug?  delete it?",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a10013b_1fc6d62c",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-17T18:15:22Z",
+      "side": 1,
+      "message": "I can\u0027t tell what we should do about this.  Is it really info?  Is it error?  Is it debug?  What happens if we see one in the real world?",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fd99c31_769072d1",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-17T18:15:22Z",
+      "side": 1,
+      "message": "Since the `conn` is already saved in the lambda do we also need the string here?  Would it be more obvious what\u0027s going on if this `get_unique_name` were on line 711?",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcea2951_d7e246ef",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-02-17T18:15:22Z",
+      "side": 1,
+      "message": "No matter what you do with line 666, I think that a comment here would be useful.  \"ignore signals from ourselves\"\n\n\nIt seems like this short circuit should be much earlier.  Can\u0027t it be a return right at the beginning of the function?",
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
