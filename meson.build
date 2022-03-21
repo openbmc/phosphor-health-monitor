@@ -14,12 +14,7 @@ if cpp.has_header('nlohmann/json.hpp')
     nlohmann_json = declare_dependency()
 else
     subproject('nlohmann-json')
-    nlohmann_json = declare_dependency(
-        include_directories: [
-            'subprojects/nlohmann-json/single_include',
-            'subprojects/nlohmann-json/single_include/nlohmann',
-        ]
-    )
+    nlohmann_json = dependency('nlohmann_json')
 endif
 
 executable(
@@ -28,25 +23,10 @@ executable(
         'healthMonitor.cpp',
     ],
     dependencies: [
-        dependency(
-            'phosphor-dbus-interfaces',
-            fallback: [
-                'phosphor-dbus-interfaces',
-                'phosphor_dbus_interfaces_dep',
-            ],
-        ),
-        dependency(
-            'phosphor-logging',
-            fallback: [ 'phosphor-logging', 'phosphor_logging_dep' ],
-        ),
-        dependency(
-            'sdbusplus',
-            fallback: [ 'sdbusplus', 'sdbusplus_dep' ],
-        ),
-        dependency(
-            'sdeventplus',
-            fallback: [ 'sdeventplus', 'sdeventplus_dep' ],
-        ),
+        dependency('phosphor-dbus-interfaces'),
+        dependency('phosphor-logging'),
+        dependency('sdbusplus'),
+        dependency('sdeventplus'),
         nlohmann_json,
     ],
     install: true,
