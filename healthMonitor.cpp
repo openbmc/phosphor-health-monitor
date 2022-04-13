@@ -132,7 +132,7 @@ double readCPUUtilization(enum CPUUtilizationType type)
     ss >> labelName;
 
     if (DEBUG)
-        std::cout << "CPU stats first Line is " << firstLine << "\n";
+        debug("CPU stats first Line is: {LINE}", "LINE", firstLine);
 
     if (labelName.compare("cpu"))
     {
@@ -190,7 +190,7 @@ double readCPUUtilization(enum CPUUtilizationType type)
     activePercValue = (100.0 * activeTimeDiff) / totalTimeDiff;
 
     if (DEBUG)
-        std::cout << "CPU Utilization is " << activePercValue << "\n";
+        debug("CPU Utilization is {VALUE}", "VALUE", activePercValue);
 
     return activePercValue;
 }
@@ -247,8 +247,8 @@ double readMemoryUtilization([[maybe_unused]] const std::string& path)
 
     if (DEBUG)
     {
-        std::cout << "MemTotal: " << memTotal << " MemAvailable: " << memAvail
-                  << std::endl;
+        debug("MemTotal: {VALUE}", "VALUE", memTotal);
+        debug("MemAvailable: {VALUE}", "VALUE", memAvail);
     }
 
     return (memTotal - memAvail) / memTotal * 100;
@@ -267,8 +267,8 @@ double readStorageUtilization([[maybe_unused]] const std::string& path)
     if (ret != 0)
     {
         auto e = errno;
-        std::cerr << "Error from statvfs: " << strerror(e) << ",path: " << path
-                  << std::endl;
+        error("Error from statvfs: {ERROR}; {PATH}", "ERROR", strerror(e),
+              "PATH", path);
         return 0;
     }
 
@@ -279,10 +279,10 @@ double readStorageUtilization([[maybe_unused]] const std::string& path)
 
     if (DEBUG)
     {
-        std::cout << "Total:" << total << "\n";
-        std::cout << "Available:" << available << "\n";
-        std::cout << "Used:" << used << "\n";
-        std::cout << "Storage utilization is:" << usedPercentage << "\n";
+        debug("Storage Total: {VALUE}", "VALUE", total);
+        debug("Available: {VALUE}", "VALUE", available);
+        debug("Used: {VALUE}", "VALUE", used);
+        debug("Storage Utilization: {VALUE}", "VALUE", usedPercentage);
     }
 
     return usedPercentage;
@@ -301,8 +301,8 @@ double readInodeUtilization([[maybe_unused]] const std::string& path)
     if (ret != 0)
     {
         auto e = errno;
-        std::cerr << "Error from statvfs: " << strerror(e) << ",path: " << path
-                  << std::endl;
+        error("Error from statvfs on {PATH}: {ERROR}", "PATH", path, "ERROR",
+              strerror(e));
         return 0;
     }
 
@@ -313,10 +313,10 @@ double readInodeUtilization([[maybe_unused]] const std::string& path)
 
     if (DEBUG)
     {
-        std::cout << "Total Inodes:" << totalInodes << "\n";
-        std::cout << "Available Inodes:" << availableInodes << "\n";
-        std::cout << "Used:" << used << "\n";
-        std::cout << "Inodes utilization is:" << usedPercentage << "\n";
+        debug("Total Inodes: {VALUE}", "VALUE", totalInodes);
+        debug("Available Inodes: {VALUE}", "VALUE", availableInodes);
+        debug("Used: {VALUE}", "VALUE", used);
+        debug("Inodes utilization is: {VALUE}", "VALUE", usedPercentage);
     }
 
     return usedPercentage;
@@ -540,16 +540,16 @@ void HealthMon::recreateSensors()
 
 void printConfig(HealthConfig& cfg)
 {
-    std::cout << "Name: " << cfg.name << "\n";
-    std::cout << "Freq: " << (int)cfg.freq << "\n";
-    std::cout << "Window Size: " << (int)cfg.windowSize << "\n";
-    std::cout << "Critical value: " << (int)cfg.criticalHigh << "\n";
-    std::cout << "warning value: " << (int)cfg.warningHigh << "\n";
-    std::cout << "Critical log: " << (int)cfg.criticalLog << "\n";
-    std::cout << "Warning log: " << (int)cfg.warningLog << "\n";
-    std::cout << "Critical Target: " << cfg.criticalTgt << "\n";
-    std::cout << "Warning Target: " << cfg.warningTgt << "\n\n";
-    std::cout << "Path : " << cfg.path << "\n\n";
+    debug("Name: {VALUE}", "VALUE", cfg.name);
+    debug("Freq: {VALUE}", "VALUE", cfg.freq);
+    debug("Window Size: {VALUE}", "VALUE", cfg.windowSize);
+    debug("Critical value: {VALUE}", "VALUE", cfg.criticalHigh);
+    debug("warning value: {VALUE}", "VALUE", cfg.warningHigh);
+    debug("Critical log: {VALUE}", "VALUE", cfg.criticalLog);
+    debug("Warning log: {VALUE}", "VALUE", cfg.warningLog);
+    debug("Critical Target: {VALUE}", "VALUE", cfg.criticalTgt);
+    debug("Warning Target: {VALUE}", "VALUE", cfg.warningTgt);
+    debug("Path: {VALUE}", "VALUE", cfg.path);
 }
 
 /* Create dbus utilization sensor object for each configured sensors */
@@ -628,7 +628,7 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
 
     // print values
     if (DEBUG)
-        std::cout << "Config json data:\n" << data << "\n\n";
+        debug("Config json data: {VALUE}", "VALUE", data.dump(2));
 
     /* Get data items from config json data*/
     for (auto& j : data.items())
@@ -651,11 +651,9 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
                 if (ret != 0)
                 {
                     auto e = errno;
-                    std::cerr << "Error from statvfs: " << strerror(e)
-                              << ", name: " << cfg.name
-                              << ", path: " << cfg.path
-                              << ", please check your settings in config file."
-                              << std::endl;
+                    error("Error from statvfs: {ERROR}; ({NAME}, {PATH})",
+                          "ERROR", strerror(e), "NAME", cfg.name, "PATH",
+                          cfg.path);
                     continue;
                 }
             }
@@ -786,8 +784,8 @@ int main()
         catch (const std::exception& e)
         {
             error(
-                "Exception occurred while processing interfacesAdded:  {EXCEPTION}",
-                "EXCEPTION", e.what());
+                "Exception occurred while processing interfacesAdded: {ERROR}",
+                "ERROR", e);
             return;
         }
 
