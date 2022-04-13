@@ -132,7 +132,7 @@ double readCPUUtilization(enum CPUUtilizationType type)
     ss >> labelName;
 
     if (DEBUG)
-        std::cout << "CPU stats first Line is " << firstLine << "\n";
+        debug("CPU stats first Line is: {LINE}", "LINE", firstLine);
 
     if (labelName.compare("cpu"))
     {
@@ -190,7 +190,7 @@ double readCPUUtilization(enum CPUUtilizationType type)
     activePercValue = (100.0 * activeTimeDiff) / totalTimeDiff;
 
     if (DEBUG)
-        std::cout << "CPU Utilization is " << activePercValue << "\n";
+        debug("CPU Utilization is {VALUE}", "VALUE", activePercValue);
 
     return activePercValue;
 }
@@ -247,8 +247,8 @@ double readMemoryUtilization([[maybe_unused]] const std::string& path)
 
     if (DEBUG)
     {
-        std::cout << "MemTotal: " << memTotal << " MemAvailable: " << memAvail
-                  << std::endl;
+        debug("MemTotal: {VALUE}", "VALUE", memTotal);
+        debug("MemAvailable: {VALUE}", "VALUE", memAvail);
     }
 
     return (memTotal - memAvail) / memTotal * 100;
@@ -279,10 +279,10 @@ double readStorageUtilization([[maybe_unused]] const std::string& path)
 
     if (DEBUG)
     {
-        std::cout << "Total:" << total << "\n";
-        std::cout << "Available:" << available << "\n";
-        std::cout << "Used:" << used << "\n";
-        std::cout << "Storage utilization is:" << usedPercentage << "\n";
+        debug("Storage Total: {VALUE}", "VALUE", total);
+        debug("Available: {VALUE}", "VALUE", available);
+        debug("Used: {VALUE}", "VALUE", used);
+        debug("Storage Utilization: {VALUE}", "VALUE", usedPercentage);
     }
 
     return usedPercentage;
@@ -301,8 +301,8 @@ double readInodeUtilization([[maybe_unused]] const std::string& path)
     if (ret != 0)
     {
         auto e = errno;
-        std::cerr << "Error from statvfs: " << strerror(e) << ",path: " << path
-                  << std::endl;
+        error("Error from statvfs on {PATH}: {ERROR}", "PATH", path, "ERROR",
+              strerror(e));
         return 0;
     }
 
@@ -313,10 +313,10 @@ double readInodeUtilization([[maybe_unused]] const std::string& path)
 
     if (DEBUG)
     {
-        std::cout << "Total Inodes:" << totalInodes << "\n";
-        std::cout << "Available Inodes:" << availableInodes << "\n";
-        std::cout << "Used:" << used << "\n";
-        std::cout << "Inodes utilization is:" << usedPercentage << "\n";
+        debug("Total Inodes: {VALUE}", "VALUE", totalInodes);
+        debug("Available Inodes: {VALUE}", "VALUE", availableInodes);
+        debug("Used: {VALUE}", "VALUE", used);
+        debug("Inodes utilization is: {VALUE}", "VALUE", usedPercentage);
     }
 
     return usedPercentage;
