@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83c49f55_2bc7bbeb",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-04-20T21:34:57Z",
+      "side": 1,
+      "message": "can you just delete the variable name, and remove the \"[[maybe_unused]]\" because it is always unused.",
+      "range": {
+        "startLine": 227,
+        "startChar": 68,
+        "endLine": 227,
+        "endChar": 72
+      },
+      "revId": "4639c31f0ffb87847f7711d738f393e7e674b59e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "508838ff_b70f9d9f",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-04-20T21:34:57Z",
+      "side": 1,
+      "message": "I am new to this code base, but I would prefer a simpler, more verbose implementation \n\n```\n    struct sysinfo s_info;\n\n    sysinfo(\u0026s_info);\n\n    return s_info.freeram * s_info.mem_unit;\n```\n\nRather then reusing the logic in readMemoryUtilization",
+      "range": {
+        "startLine": 228,
+        "startChar": 4,
+        "endLine": 230,
+        "endChar": 0
+      },
+      "revId": "4639c31f0ffb87847f7711d738f393e7e674b59e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

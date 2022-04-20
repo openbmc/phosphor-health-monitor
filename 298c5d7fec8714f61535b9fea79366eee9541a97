@@ -16,6 +16,23 @@
       "message": "Not sure what is a good way to represent AvailableBytes:\n\n1. Use utilization sensor and ignore the \"Percent\" unit. Set the raw value to the number of bytes.\n2. Add a Bytes unit to utilization sensor. (https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/51779) however there are concerns with adding a Bytes unit.\n3. Use some other DBus method?",
       "revId": "298c5d7fec8714f61535b9fea79366eee9541a97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13d96849_a8b1b242",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-04-20T21:34:57Z",
+      "side": 1,
+      "message": "I have no power here.\n\nFree to disregard ",
+      "revId": "298c5d7fec8714f61535b9fea79366eee9541a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
