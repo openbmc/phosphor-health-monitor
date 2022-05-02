@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26bcad13_61189a37",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-05-02T21:22:47Z",
+      "side": 1,
+      "message": "There\u0027s a big difference here.\n\nThreshold min/max are not the same as the sensor value min/max!\n\nThresholds are optional. However, the sensor value itself needs a min and max to be established, in order for IPMI to scale the value properly (to quantize it into a single byte, a limitation of IPMI).\n\nThis test only tests for the existence of the sensor value min and max. It does not require thresholds:\n\nhttps://github.com/openbmc/intel-ipmi-oem/blob/master/include/sensorutils.hpp#L164\n\nPlease set the sensor value min and max appropriately, when constructing the sensor. For a utilization percentage, 0.0 to 127.5 is a good IPMI range. This gives an increment of 0.5 per bit.",
+      "parentUuid": "ac1fc743_27dcb1f0",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb77eb88_f43ff2a5",
         "filename": "healthMonitor.cpp",
         "patchSetId": 1
