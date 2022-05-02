@@ -1,6 +1,24 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a0a87f1_8791ff54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-02T08:41:16Z",
+      "side": 1,
+      "message": "Some findings about this change and the situation:\n\n* All other sensor daemons (virtual sensor and dbus-sensors) install ObjectMapper to \"/\"\n* The bigger question that has been discovered more recently is about the design of the Utilization Sensors themselves (see comments on change 51779). We will continue to use utilization sensors in the downstream (because we don\u0027t have much choice) and hope to provide hints for how this may be addressed.",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "e23ff501_9ec0f174",
         "filename": "healthMonitor.cpp",
@@ -14,10 +32,10 @@
       "side": 1,
       "message": "We should not be setting criticalLow thresholds on utilization sensors.  0 utilization is actually a *good thing*.  I could maybe see setting it to -1, but this seems like a bug in the IPMI implementation if it cannot read sensors without low thresholds set.\n\nThere was a change not too long ago to default unset thresholds to NaN.  Maybe ipmid is not handling this properly?",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "73ed0872_be146ad8",
         "filename": "healthMonitor.cpp",
@@ -32,10 +50,10 @@
       "message": "This change is used to compatible with https://github.com/openbmc/intel-ipmi-oem/blob/master/include/sensorutils.hpp#L164. If there is a threshold, both the max and min values must be exist. I think we can set the default as 0.001 for this sensor.",
       "parentUuid": "e23ff501_9ec0f174",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "27466467_68fd2260",
         "filename": "healthMonitor.cpp",
@@ -50,10 +68,10 @@
       "message": "\u003e If there is a threshold, both the max and min values must be exist.\n\nWhy?  At a dbus level this is not true.  Again this feels like a bug in this IPMI handler.",
       "parentUuid": "73ed0872_be146ad8",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4c0cb694_e2f3201c",
         "filename": "healthMonitor.cpp",
@@ -68,10 +86,10 @@
       "message": "Agree with patrick, this should be set to quiet_nan if it\u0027s not present.\n\nUnless I\u0027m missing something, this patch does nothing to ensure that the Min and Max properties exist and are populated.  This is changing the Critical Interface.",
       "parentUuid": "27466467_68fd2260",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ac1fc743_27dcb1f0",
         "filename": "healthMonitor.cpp",
@@ -86,10 +104,10 @@
       "message": "\u003e Agree with patrick, this should be set to quiet_nan if it\u0027s not present.\n\u003e \n\u003e Unless I\u0027m missing something, this patch does nothing to ensure that the Min and Max properties exist and are populated.  This is changing the Critical Interface.\n\nNevermind.... I see the diff below.  I was looking at the wrong patch in another context.",
       "parentUuid": "4c0cb694_e2f3201c",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fb77eb88_f43ff2a5",
         "filename": "healthMonitor.cpp",
@@ -103,10 +121,10 @@
       "side": 1,
       "message": "This seems reasonable.",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c4ab0a03_293d3ba2",
         "filename": "healthMonitor.cpp",
@@ -121,10 +139,10 @@
       "message": "Ack",
       "parentUuid": "fb77eb88_f43ff2a5",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a9af3773_91bf3b8f",
         "filename": "healthMonitor.cpp",
@@ -138,10 +156,10 @@
       "side": 1,
       "message": "What is being solved by moving the manager to root?  At a dbus-level I do not know of any issue with having the object manager in a non-root location.  If there is an issue we should change sdbusplus to always put the object manager at root.",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fcf58dd3_5bbffc3a",
         "filename": "healthMonitor.cpp",
@@ -156,10 +174,10 @@
       "message": "This change is used to compatible with the below sensors map query, it is using \"/\" as the query point:\nhttps://github.com/openbmc/intel-ipmi-oem/blob/master/src/sensorcommands.cpp#L242",
       "parentUuid": "a9af3773_91bf3b8f",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1774ed86_d0d9437c",
         "filename": "healthMonitor.cpp",
@@ -174,10 +192,10 @@
       "message": "Isn\u0027t that a bug in the IPMI handler then?  It should not assume that the ObjectManager is at root because that is not required by the dbus specification.",
       "parentUuid": "fcf58dd3_5bbffc3a",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "01262158_2ae8b217",
         "filename": "healthMonitor.cpp",
@@ -192,10 +210,10 @@
       "message": "Currently all these other dbus sensors are using the / for the GetManagedObjects. prefer to change this sensor to compatible with others",
       "parentUuid": "1774ed86_d0d9437c",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3c8e8290_3fc0fc9c",
         "filename": "healthMonitor.cpp",
@@ -210,10 +228,10 @@
       "message": "I do not agree with working around a bug in another piece of code.  The conventions in most standard Linux dbus applications is to put the object manager at the level where dynamic objects exist.\n\nAs an example, org.gnome.DisplayManager only has the ObjectManager object at /org/gnome/DisplayManager/Displays.",
       "parentUuid": "01262158_2ae8b217",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8b487587_29f242bc",
         "filename": "healthMonitor.cpp",
@@ -228,10 +246,10 @@
       "message": "Also, phosphor-hwmon does not put the ObjectManager at the root, but at /xyz/openbmc_project/sensors.  So this IPMI provider is also broken for that sensor provider.\n\nhttps://github.com/openbmc/phosphor-hwmon/blob/master/readd.cpp#L83",
       "parentUuid": "3c8e8290_3fc0fc9c",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6f932f62_a59b191c",
         "filename": "healthMonitor.cpp",
@@ -246,10 +264,10 @@
       "message": "YES! this phosphor-hwmon is incompatible with the \"sensor list\" too. But it is not used since it is replaced by the hwmontemp in dbus-sensors",
       "parentUuid": "8b487587_29f242bc",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ed3618dc_b077f44a",
         "filename": "healthMonitor.cpp",
@@ -264,10 +282,10 @@
       "message": "It might not be used on *your* system but lots of systems do indeed use phosphor-hwmon.",
       "parentUuid": "6f932f62_a59b191c",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "14c14594_09b26e93",
         "filename": "healthMonitor.cpp",
@@ -282,10 +300,10 @@
       "message": "I see! Maybe some platforms are not using dbus-sensors too. Let me find a way to fix the compatibility issues. At least no any error for \"sensor list\" command.",
       "parentUuid": "ed3618dc_b077f44a",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "15ace630_6eedde81",
         "filename": "healthMonitor.cpp",
@@ -300,10 +318,10 @@
       "message": "Looking at that IPMI code again, I’m surprised to see it is making calls to GetManagedObjects /object manager. I don’t know of many other pieces of code doing this.\n\nThe typical alternative in OpenBMC code is to use a mapper query, which should return the same information. It is also quite possible that mapper would be faster because it uses a process which cannot be blocked on hardware (like many of the sensor objects).",
       "parentUuid": "14c14594_09b26e93",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c9a9d98a_1c3ccd4a",
         "filename": "healthMonitor.cpp",
@@ -318,10 +336,10 @@
       "message": "I noticed this as well: the `ipmitool sdr elist` command is broken, by the lack of this linkage. I\u0027m using something based on intel-ipmi-oem, and it requires ObjectManager at root. I didn\u0027t think it could be put anywhere else, because how else would services know how to find it?\n\nI hope this patch makes it in, it solves a lot of compatibility problems with intel-ipmi-oem.",
       "parentUuid": "15ace630_6eedde81",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "07ab4c7b_f88f2393",
         "filename": "healthMonitor.cpp",
@@ -336,10 +354,10 @@
       "message": "Can we fix this ipmi handling in intel-ipmi-oem. I know this may require to change all dbus-sensors. You may avoid if you can look at dynamic path first and if you don\u0027t find then look at root.",
       "parentUuid": "c9a9d98a_1c3ccd4a",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "704b50e1_cd7728dd",
         "filename": "healthMonitor.cpp",
@@ -354,10 +372,10 @@
       "message": "For what it\u0027s worth, the code in question used to call the mapper, which was significantly slower, as calling to every individual sensor path caused significantly more dbus traffic.  Moving to ObjectManager (which was discussed a while back) was done as an optimization for this ipmi handler, as it allows parsing all the dbus sensors in one shot, which sped up things like ipmitool sensor list.",
       "parentUuid": "07ab4c7b_f88f2393",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dc18fd94_1f7ac9e6",
         "filename": "healthMonitor.cpp",
@@ -372,10 +390,10 @@
       "message": "\u003e Moving to ObjectManager (which was discussed a while back) was done as an optimization for this ipmi handler, as it allows parsing all the dbus sensors in one shot, which sped up things like ipmitool sensor list.\n\nEven if it was done as an optimization, it is still wrong.  There is no certainty that the ObjectManager will exist at \"/\" and most freedesktop applications do not.  Why are we expecting that our applications will, especially when many of them do not?\n\nI don\u0027t really understand _how_ this was an optimization anyhow.  The code in intel-ipmi-oem which calls this ObjectManager call already makes a call to getSensorConnection -\u003e getSensorSubtree which is a mapper call!  Everything it needed to make the call to the objects themselves should have came back in that original mapper call.",
       "parentUuid": "704b50e1_cd7728dd",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "55d0be7f_8b8bd0dd",
         "filename": "healthMonitor.cpp",
@@ -390,8 +408,25 @@
       "message": "\u003e \u003e Moving to ObjectManager (which was discussed a while back) was done as an optimization for this ipmi handler, as it allows parsing all the dbus sensors in one shot, which sped up things like ipmitool sensor list.\n\u003e \n\u003e Even if it was done as an optimization, it is still wrong.\n\nAssuming we wanted to have an object manager instance in phosphor-health-monitor, where should it go in your opinion?  Maybe we could come up with a consistent place to put it for a sensor daeemon?  I\u0027m happy to write the dbus-sensors patch if we can get agreement that root is the wrong place for this.\n\n\u003e  There is no certainty that the ObjectManager will exist at \"/\" and most freedesktop applications do not.  Why are we expecting that our applications will, especially when many of them do not?\n\nSo in terms of a consistent way for sensor daemons to publish, where can a daemon expect the object manager interface to exist?\n\n\u003e \n\u003e I don\u0027t really understand _how_ this was an optimization anyhow.  The code in intel-ipmi-oem which calls this ObjectManager call already makes a call to getSensorConnection -\u003e getSensorSubtree which is a mapper call!  Everything it needed to make the call to the objects themselves should have came back in that original mapper call.\n\nAt the time the mapper didn\u0027t track ObjectManager (digging back into my memory a bit) so there was no way to to a GetSubTree call that would return \"here\u0027s where the object manager for this resource tree lies\".  I\u0027m not sure if that\u0027s changed since Spinler did a bunch of updates to the C++ mapper, so maybe there\u0027s a way to do that now?  The primary optimization was that by assuming we knew where the object manager interface was, we could call it and get all the sensors in one dbus message, instead of calling GetAll on the each sensor N times the 5 or so interfaces we needed to grab.  This cut the number of dbus messages to run a sensor list down by about an order of 20-40X.\n\nThe key here is that we were able to use ObjectManager commands at all.\n\n\n\n\n\nFor the moment this is a pretty minimal and noninvasive change that solves a problem, doesn\u0027t disobey any dbus interfaces, and I personally think it should merge.  At such time as we have a way to do this better, it\u0027s a relatively noninvasive change to move the object object manager location if we can agree on a better one.  With that said, I\u0027m not the maintainer here, so it\u0027s up to you, but I think having phosphor-health-monitor not being compatible with ipmi-dynamic limits it\u0027s usefulness to people.",
       "parentUuid": "dc18fd94_1f7ac9e6",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "458b6373_aea0cd0d",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-02T08:41:16Z",
+      "side": 1,
+      "message": "Recently we happen to be changing the path for the ObjManager for a downstream workaround, and now I think I know how to summarize the above comments:\n\n1) ipmid makes an equivalent of `busctl call xyz.openbmc_project.HealthMon / org.freedesktop.DBus.ObjectManager GetManagedObjects` to populate the SDRs. This, plus the absence of the ObjectManager at \"/\", is the cause of the original failure for `ipmitool sdr elist`.\n2) The path the ObjManager is installed to would affect which objects are reported to the Mapper. The reason for changing the path to \"/\" is for the \"/xyz/openbmc_project/inventory/bmc\" object created by p-h-m in our workaround to be picked up by E-M.\n3) About where the other sensor daemons install the ObjManager:\n   - VirtualSensor installs ObjManager to \"/\" (https://github.com/openbmc/phosphor-virtual-sensor/blob/a959678ca810529e886adc40bcc4c8c59c0ee0e4/virtualSensor.cpp#L950)\n   - All dbus-sensor daemons use sdbusplus object server which automatically installs ObjManager to \"/\" (https://github.com/openbmc/sdbusplus/blob/a1fa6e5e1f15b60e84279279a3ea9f5160d5a193/include/sdbusplus/asio/object_server.hpp#L802)\n     - FanSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/FanMain.cpp#L473\n     - ADCsensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/ADCSensorMain.cpp#L318\n     - CPUSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/CPUSensorMain.cpp#L709\n     - ExternalSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/ExternalSensorMain.cpp#L354\n     - HwmonTempSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/HwmonTempMain.cpp#L466\n     - IntrusionSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/IntrusionSensorMain.cpp#L428\n     - NVMeSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/NVMeSensorMain.cpp#L226\n     - PSUSensor\u0027s object_mapper: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/PSUSensorMain.cpp#L1044\n\n\nSo, it seems adopting an object_server is the easiest way for health-monitor\u0027s sensors to be picked up by `ipmitool sdr elist` and be consistent with every other daemon. Also, this allows the \"optimization of ObjManager -\u003e ObjMapper\" dbus calls could be resolved simultaneously (perhaps enumerate the sensors via the Mapper to avoid the issue of a variable ObjManager path)\n\nA more concerning issue is this seems to be exactly \"following the trap of IPMI where \u0027everything is a sensor\u0027\", as described in change 51779. The comment on change 51779 further says \"maybe utilization sensors was not the right decision\". So what would be the longer term plan? Do we want to scrap utilization sensors and come up with something to replace it? Please advise on how we can disentangle ourselves from this impasse.\n\nIn the meantime, we will probably continue to use and \"abuse\" (by abuse I think of storing JSONs or arbitrary strings) the utilization sensors because an architectural change is too costly. During this process, we\u0027ll have more findings about the abilities and limitations of this current framework, but a higher-level guidance on how this repository may evolve is also very helpful and appreciated.",
+      "parentUuid": "55d0be7f_8b8bd0dd",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
