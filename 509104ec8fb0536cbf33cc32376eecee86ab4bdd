@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d15bb1c_458dc2b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-10T21:51:19Z",
+      "side": 1,
+      "message": "Rebased this change a bit.\n\nIt appears ipmitool does show readings now, although only raw readings:\n\n    busctl introspect xyz.openbmc_project.HealthMon /xyz/openbmc_project/sensors/utilization/CPU\n    .MaxValue   property  d   100                                      emits-change writable\n    .MinValue   property  d   0                                        emits-change writable\n    .Unit       property  s   \"xyz.openbmc_project.Sensor.Value.Unit.… emits-change writable\n    .Value      property  d   9.29536                                  emits-change writable\n\nFor Storage_RW, its reading is 27.6389.                            emits-change writable\n\n    root@izumi:/tmp# ipmitool sensor list\n    ...\n    CPU           | 0x18    | discrete   | 0x0000| na     | na     | na     | na     | na     | na\n    Storage_RW    | 0x47    | discrete   | 0x0000| na     | na     | na     | na     | na     | na\n\n    ...\n\nWith maxValue set to 100, the raw readings are roughly the linear map from (0,100) to (0,255):\nFor CPU:        9.295*255/100 \u003d 23.70 \u003d~ 24 (0x18)\nFor Storage_RW: 27.6389*255/100 \u003d 70.479 \u003d~ 71 (0x47)\n\nWith maxValue set to 127.5, the above measurements should become around 0x13 (floor(9.295*2+1) \u003d 19 \u003d 0x13) and 0x38 (floor(27.6*2+1) \u003d 56 \u003d 0x38).\n\nIt seems we still want to fix the units of those \"Utilization Sensors\", I think the fix can go into another change.\n\nChanged the line that manually installs an object mapper to \"/\" to using an sdbusplus::asio::object_server to be consistent with other sensor daemons.",
+      "revId": "509104ec8fb0536cbf33cc32376eecee86ab4bdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

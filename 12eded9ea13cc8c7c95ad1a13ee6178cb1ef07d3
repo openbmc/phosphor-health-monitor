@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3651c171_94ed99a1",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-10T21:51:19Z",
+      "side": 1,
+      "message": "Changed maxValue to 127.5, such that the raw value of those sensors is roughly 2*(their original value).\n\nThere doesn\u0027t seem to be errors regarding \"minValue is unusable\" during my experiment, and the issue is actually this sensor being reported as a \"discrete sensor\" rather than a \"threshold sensor\" in ipmitool, so resolving this comment for now and tracking the fix for sensor type and unit separately.",
+      "parentUuid": "26bcad13_61189a37",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb77eb88_f43ff2a5",
@@ -443,6 +461,24 @@
       "side": 1,
       "message": "Recently we happen to be changing the path for the ObjManager for a downstream workaround, and now I think I know how to summarize the above comments:\n\n1) ipmid makes an equivalent of `busctl call xyz.openbmc_project.HealthMon / org.freedesktop.DBus.ObjectManager GetManagedObjects` to populate the SDRs. This, plus the absence of the ObjectManager at \"/\", is the cause of the original failure for `ipmitool sdr elist`.\n2) The path the ObjManager is installed to would affect which objects are reported to the Mapper. The reason for changing the path to \"/\" is for the \"/xyz/openbmc_project/inventory/bmc\" object created by p-h-m in our workaround to be picked up by E-M.\n3) About where the other sensor daemons install the ObjManager:\n   - VirtualSensor installs ObjManager to \"/\" (https://github.com/openbmc/phosphor-virtual-sensor/blob/a959678ca810529e886adc40bcc4c8c59c0ee0e4/virtualSensor.cpp#L950)\n   - All dbus-sensor daemons use sdbusplus object server which automatically installs ObjManager to \"/\" (https://github.com/openbmc/sdbusplus/blob/a1fa6e5e1f15b60e84279279a3ea9f5160d5a193/include/sdbusplus/asio/object_server.hpp#L802)\n     - FanSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/FanMain.cpp#L473\n     - ADCsensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/ADCSensorMain.cpp#L318\n     - CPUSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/CPUSensorMain.cpp#L709\n     - ExternalSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/ExternalSensorMain.cpp#L354\n     - HwmonTempSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/HwmonTempMain.cpp#L466\n     - IntrusionSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/IntrusionSensorMain.cpp#L428\n     - NVMeSensor\u0027s object_server: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/NVMeSensorMain.cpp#L226\n     - PSUSensor\u0027s object_mapper: https://github.com/openbmc/dbus-sensors/blob/f69fbf998745bf006748c3b6ba6558443b560d21/src/PSUSensorMain.cpp#L1044\n\n\nSo, it seems adopting an object_server is the easiest way for health-monitor\u0027s sensors to be picked up by `ipmitool sdr elist` and be consistent with every other daemon. Also, this allows the \"optimization of ObjManager -\u003e ObjMapper\" dbus calls could be resolved simultaneously (perhaps enumerate the sensors via the Mapper to avoid the issue of a variable ObjManager path)\n\nA more concerning issue is this seems to be exactly \"following the trap of IPMI where \u0027everything is a sensor\u0027\", as described in change 51779. The comment on change 51779 further says \"maybe utilization sensors was not the right decision\". So what would be the longer term plan? Do we want to scrap utilization sensors and come up with something to replace it? Please advise on how we can disentangle ourselves from this impasse.\n\nIn the meantime, we will probably continue to use and \"abuse\" (by abuse I think of storing JSONs or arbitrary strings) the utilization sensors because an architectural change is too costly. During this process, we\u0027ll have more findings about the abilities and limitations of this current framework, but a higher-level guidance on how this repository may evolve is also very helpful and appreciated.",
       "parentUuid": "55d0be7f_8b8bd0dd",
+      "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d5efad5_5702a214",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-10T21:51:19Z",
+      "side": 1,
+      "message": "Not sure what to do to best proceed, so switched to an object_server. This does not fundamentally resolve the issues pointed out in this thread, but it should bring phosphor-health-monitor on par with the other sensor daemons.",
+      "parentUuid": "458b6373_aea0cd0d",
       "revId": "12eded9ea13cc8c7c95ad1a13ee6178cb1ef07d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
