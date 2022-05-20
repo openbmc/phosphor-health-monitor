@@ -24,6 +24,47 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ad5c63c_019a6653",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-20T21:02:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "691765e0_979fbd55",
+      "range": {
+        "startLine": 10,
+        "startChar": 63,
+        "endLine": 11,
+        "endChar": 73
+      },
+      "revId": "30db4a754a2a10ccffc640936b97bc7d8710b1d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3046a9e_36e372c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-20T21:02:20Z",
+      "side": 1,
+      "message": "It seems the reason the values are shown as raw hex values and not a floating point number is because ipmitool sees `IS_THRESHOLD_SENSOR(s)\u003d\u003d0`, and prints the values with `ipmi_sensor_print_fc_discrete`. This function would further check if the sensor \"has an analog value\". If the sensor doesn\u0027t have an analog value, it is printed as raw hex value.\n\nOn my system, ipmitool gets the values from libdynamiccmds.so.0, which is part of the code in the \"dbus-sdr\" folder of the phosphor-ipmi-host recipe. What dbus-sdr does is roughly as follows:\n  1. \"GetSubTree\" for list of sensors.\n  2. For each GetSubTree result, iterate its (service, path) pair, do GetObject, and do GetProperties.\n  3. Encode the DBus properties into IPMI SDR response using the ipmiStorageGetSDR function in dbus-sdr/sensorcommands.cpp.\n\nFrom ipmitool\u0027s point of view, we have the following 2 choices we can do in dbus-sdr:\n  1) Make utilization sensors threshold sensors.\n  2) Give utilization sensors analog values.\n\nEither way, we need dbus-sdr to recognize utilization sensors. That change is here: https://gerrit.openbmc.org/c/openbmc/phosphor-host-ipmid/+/53864\n\nThis change does #1, will look into how to do #2 if #1 turns out not to be the right choice.\n\nThe outcome with #1 can be:\n```\nBefore:  Storage_RW       | 0x37       | discrete   | 0x0000| na        | na        | na        | na        | na        | na\n\nAfter:   Storage_RW       | 34.104     | unspecified | ok    | na        | 0.000     | 0.000     | 85.064    | 99.176    | na\n```\n\n(The RWFS space decreased between the two tests, so the usage is higher in the second run. One can see the threshold (85% and 99%) show up.)",
+      "revId": "30db4a754a2a10ccffc640936b97bc7d8710b1d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b1ac5d7_486edc1b",
@@ -58,6 +99,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6fc3b7b_b9b60fd7",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-20T21:02:20Z",
+      "side": 1,
+      "message": "Yes indeed, the reason it\u0027s shown as raw hex number and not a percentage appear to be due to the information passed to ipmitool from dbus-sdr.\n\nWhen it\u0027s shown as an analog value, the value reported by ipmitool gets correctly scaled to the range set here.\n\nWill try to figure out a few ways to fix this dbus-sdr (the two choices mentioned in the first comment, I\u0027ve only figured out the easier one, #1)",
+      "parentUuid": "8661fed1_a1a786df",
+      "revId": "30db4a754a2a10ccffc640936b97bc7d8710b1d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "998e69c0_1b136213",
@@ -71,6 +130,24 @@
       "writtenOn": "2022-05-17T13:19:50Z",
       "side": 1,
       "message": "We\u0027re now setting maxValue twice.",
+      "revId": "30db4a754a2a10ccffc640936b97bc7d8710b1d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df9d0498_b1ac6ee6",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-20T21:02:20Z",
+      "side": 1,
+      "message": "Removed the duplicates.",
+      "parentUuid": "998e69c0_1b136213",
       "revId": "30db4a754a2a10ccffc640936b97bc7d8710b1d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
