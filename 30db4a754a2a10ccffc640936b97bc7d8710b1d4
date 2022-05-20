@@ -65,6 +65,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "977f6ada_24ce36b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-20T21:15:37Z",
+      "side": 1,
+      "message": "Update: With low thresholds set to NaN, ipmitool output looks like the following:\n\n```\nStorage_RW | 34.104 | unspecified | ok | na | na | na | 85.064 | 99.176 | na\n```\n\nJust need to figure out how to fix the unit.",
+      "revId": "30db4a754a2a10ccffc640936b97bc7d8710b1d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b1ac5d7_486edc1b",
@@ -78,6 +95,24 @@
       "writtenOn": "2022-05-17T13:19:50Z",
       "side": 1,
       "message": "Is 0 actually appropriate?  Wouldn\u0027t 0 be a \"good\" value in many cases?  By setting to 0 here you are actually asserting a threshold when we have a completely idle CPU or we have an empty filesystem.\n\nWe now have in the YAML (and I don\u0027t know if it was there when this ocde was originally written or not):\n\n```\n    - name: CriticalLow\n      type: double\n      default: NaN\n      description: \u003e\n          The lower bound of the critical threshold.  A value of \u0027NaN\u0027 is used\n          to indicate there is no threshold of this type.\n```\n\nI\u0027m sort of confused why we have certain endpoints that are _requiring_ all the thresholds when we have explicitly defined this as a valid state.  By exempting the initialization here we\u0027ll get NaN by default.",
+      "revId": "30db4a754a2a10ccffc640936b97bc7d8710b1d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b0fb89_43b28cf8",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-20T21:15:37Z",
+      "side": 1,
+      "message": "Agreed defaulting the low thresholds to NaNs makes sense, since the warning will not trigger due to \"any value \u003c NaN\" giving false. A threshold of NaN also shows up nicely in ipmitool as \"na\".",
+      "parentUuid": "0b1ac5d7_486edc1b",
       "revId": "30db4a754a2a10ccffc640936b97bc7d8710b1d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
