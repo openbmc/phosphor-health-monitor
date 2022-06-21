@@ -627,7 +627,7 @@ int main()
             [conn](sdbusplus::message::message& msg) {
                 sdbusplus::message::object_path o;
                 msg.read(o);
-                if (o.str == phosphor::health::BMCActivationPath)
+                if (!needUpdate && o.str == phosphor::health::BMCActivationPath)
                 {
                     info("should recreate sensors now");
                     needUpdate = true;
