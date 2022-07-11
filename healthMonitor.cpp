@@ -322,9 +322,12 @@ void HealthSensor::checkSensorThreshold(const double value)
         {
             CriticalInterface::criticalAlarmHigh(true);
             if (sensorConfig.criticalLog)
+            {
                 error(
                     "ASSERT: sensor {SENSOR} is above the upper threshold critical high",
                     "SENSOR", sensorConfig.name);
+                callThresholdTarget(sensorConfig.criticalTgt);
+            }
         }
         return;
     }
@@ -345,9 +348,12 @@ void HealthSensor::checkSensorThreshold(const double value)
         {
             WarningInterface::warningAlarmHigh(true);
             if (sensorConfig.warningLog)
+            {
                 error(
                     "ASSERT: sensor {SENSOR} is above the upper threshold warning high",
                     "SENSOR", sensorConfig.name);
+                callThresholdTarget(sensorConfig.warningTgt);
+            }
         }
         return;
     }
@@ -402,6 +408,21 @@ void HealthSensor::readHealthSensor()
 
     /* Check the sensor threshold  and log required message */
     checkSensorThreshold(avgValue);
+}
+
+void HealthSensor::callThresholdTarget(const std::string targetFile)
+{
+    if (targetFile.empty())
+    {
+        return;
+    }
+
+    auto method = bus.new_method_call("org.freedesktop.systemd1",
+                                      "/org/freedesktop/systemd1",
+                                      "org.freedesktop.systemd1.Manager",
+                                      "StartUnit");
+    method.append(targetFile, "replace");
+    bus.call_noreply(method);
 }
 
 void HealthMon::recreateSensors()
