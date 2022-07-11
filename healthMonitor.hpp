@@ -125,6 +125,8 @@ class HealthSensor : public healthIfaces
     sdeventplus::utility::Timer<sdeventplus::ClockId::Monotonic> readTimer;
     /** @brief Read sensor at regular intrval */
     void readHealthSensor();
+    /** @brief Start configured threshold systemd unit */
+    void startUnit(const std::string& sysdUnit);
 };
 
 class HealthMon
