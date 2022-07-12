@@ -16,6 +16,81 @@
       "message": "@Sui, can you take a look at this and give opinions?",
       "revId": "b782923c16bb63b1e105511055b6d4ed877d61d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d1278f0_589d6b46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-07-12T20:17:21Z",
+      "side": 1,
+      "message": "I tested locally and the daemon can call the specified systemd unit as expected, so this works for me. (+1 because it works for me, leaving +2 to maintainers)",
+      "revId": "b782923c16bb63b1e105511055b6d4ed877d61d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d5cb19e_3d7122ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-07-12T20:17:21Z",
+      "side": 1,
+      "message": "Sure I\u0027ll test locally and also take a look.",
+      "parentUuid": "9e31d74a_237fe13e",
+      "revId": "b782923c16bb63b1e105511055b6d4ed877d61d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66f50ab9_fb41d30b",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-07-12T20:17:21Z",
+      "side": 1,
+      "message": "I can see this function is similar to https://github.com/openbmc/phosphor-state-manager/blob/master/chassis_state_manager.cpp#L471 so it should be good.\n\nNit: my preference is to use `sdbusplus::message::message msg` instead of `auto method`, because some style guides recommend using auto only \"if it makes the code clearer to readers who aren\u0027t familiar with the project, or if it makes the code safer\" (https://google.github.io/styleguide/cppguide.html#Type_deduction). In this case it may be easier to have an sdbusplus::message::message.",
+      "revId": "b782923c16bb63b1e105511055b6d4ed877d61d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16f88c11_7d20c04e",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-07-12T20:17:21Z",
+      "side": 1,
+      "message": "Maybe call this \"void startUnit(const std::string\u0026 sysdUnit);\" similarly to chassis_state_manager? This makes the code a bit more clear.",
+      "range": {
+        "startLine": 129,
+        "startChar": 9,
+        "endLine": 129,
+        "endChar": 28
+      },
+      "revId": "b782923c16bb63b1e105511055b6d4ed877d61d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
