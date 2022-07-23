@@ -417,7 +417,7 @@ void HealthSensor::startUnit(const std::string& sysdUnit)
         return;
     }
 
-    sdbusplus::message::message msg = bus.new_method_call(
+    sdbusplus::message_t msg = bus.new_method_call(
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "StartUnit");
     msg.append(sysdUnit, "replace");
@@ -436,7 +436,7 @@ void HealthMon::recreateSensors()
             // Find all BMCs (DBus objects implementing the
             // Inventory.Item.Bmc interface that may be created by
             // configuring the Inventory Manager)
-            sdbusplus::message::message msg = bus.new_method_call(
+            sdbusplus::message_t msg = bus.new_method_call(
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
                 "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
@@ -454,7 +454,7 @@ void HealthMon::recreateSensors()
             msg.append(std::vector<std::string>{
                 "xyz.openbmc_project.Inventory.Item.Bmc"});
 
-            sdbusplus::message::message reply = bus.call(msg, 0);
+            sdbusplus::message_t reply = bus.call(msg, 0);
             reply.read(bmcIds);
             info("BMC inventory found");
         }
@@ -640,11 +640,11 @@ int main()
 
     // If the SystemInventory does not exist: wait for the InterfaceAdded signal
     auto interfacesAddedSignalHandler =
-        std::make_unique<sdbusplus::bus::match::match>(
-            static_cast<sdbusplus::bus::bus&>(*conn),
+        std::make_unique<sdbusplus::bus::match_t>(
+            static_cast<sdbusplus::bus_t&>(*conn),
             sdbusplus::bus::match::rules::interfacesAdded(
                 phosphor::health::BMCActivationPath),
-            [conn](sdbusplus::message::message& msg) {
+            [conn](sdbusplus::message_t& msg) {
                 sdbusplus::message::object_path o;
                 msg.read(o);
                 if (!needUpdate && o.str == phosphor::health::BMCActivationPath)

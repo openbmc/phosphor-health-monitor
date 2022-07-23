@@ -25,9 +25,9 @@ const char* InventoryPath = "/xyz/openbmc_project/inventory";
 // Used for identifying the BMC inventory creation signal
 const char* BMCActivationPath = "/xyz/openbmc_project/inventory/bmc/activation";
 
-bool FindSystemInventoryInObjectMapper(sdbusplus::bus::bus& bus)
+bool FindSystemInventoryInObjectMapper(sdbusplus::bus_t& bus)
 {
-    sdbusplus::message::message msg =
+    sdbusplus::message_t msg =
         bus.new_method_call("xyz.openbmc_project.ObjectMapper",
                             "/xyz/openbmc_project/object_mapper",
                             "xyz.openbmc_project.ObjectMapper", "GetObject");
@@ -36,7 +36,7 @@ bool FindSystemInventoryInObjectMapper(sdbusplus::bus::bus& bus)
 
     try
     {
-        sdbusplus::message::message reply = bus.call(msg, 0);
+        sdbusplus::message_t reply = bus.call(msg, 0);
         return true;
     }
     catch (const std::exception& e)
@@ -57,9 +57,8 @@ using AssociationDefinitionInterface =
     sdbusplus::xyz::openbmc_project::Association::server::Definitions;
 
 using healthIfaces =
-    sdbusplus::server::object::object<ValueIface, CriticalInterface,
-                                      WarningInterface,
-                                      AssociationDefinitionInterface>;
+    sdbusplus::server::object_t<ValueIface, CriticalInterface, WarningInterface,
+                                AssociationDefinitionInterface>;
 
 using AssociationTuple = std::tuple<std::string, std::string, std::string>;
 
@@ -92,7 +91,7 @@ class HealthSensor : public healthIfaces
      * @param[in] bus     - Handle to system dbus
      * @param[in] objPath - The Dbus path of health sensor
      */
-    HealthSensor(sdbusplus::bus::bus& bus, const char* objPath,
+    HealthSensor(sdbusplus::bus_t& bus, const char* objPath,
                  HealthConfig& sensorConfig,
                  const std::vector<std::string>& bmcIds) :
         healthIfaces(bus, objPath),
@@ -116,7 +115,7 @@ class HealthSensor : public healthIfaces
 
   private:
     /** @brief sdbusplus bus client connection. */
-    sdbusplus::bus::bus& bus;
+    sdbusplus::bus_t& bus;
     /** @brief Sensor config from config file */
     HealthConfig& sensorConfig;
     /** @brief the Event Loop structure */
@@ -147,7 +146,7 @@ class HealthMon
      *
      * @param[in] bus     - Handle to system dbus
      */
-    HealthMon(sdbusplus::bus::bus& bus) : bus(bus)
+    HealthMon(sdbusplus::bus_t& bus) : bus(bus)
     {
         // Read JSON file
         sensorConfigs = getHealthConfig();
@@ -168,7 +167,7 @@ class HealthMon
     void createHealthSensors(const std::vector<std::string>& bmcIds);
 
   private:
-    sdbusplus::bus::bus& bus;
+    sdbusplus::bus_t& bus;
     std::vector<HealthConfig> sensorConfigs;
     std::vector<HealthConfig> getHealthConfig();
 };
