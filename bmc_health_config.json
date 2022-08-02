@@ -8,13 +8,13 @@
         {
             "Value": 90.0,
             "Log": true,
-            "Target": "reboot.target"
+            "Target": ""
         },
         "Warning":
         {
-          "Value": 80.0,
-          "Log": false,
-          "Target": "systemd unit file"
+            "Value": 80.0,
+            "Log": false,
+            "Target": ""
         }
     }
   },
@@ -27,7 +27,7 @@
         {
             "Value": 85.0,
             "Log": true,
-            "Target": "reboot.target"
+            "Target": ""
         }
     }
   },
@@ -41,7 +41,7 @@
         {
             "Value": 85.0,
             "Log": true,
-            "Target": "reboot.target"
+            "Target": ""
         }
     }
   }
