@@ -256,50 +256,12 @@ void HealthSensor::setSensorValueToDbus(const double value)
 
 void HealthSensor::initHealthSensor(const std::vector<std::string>& chassisIds)
 {
-    info("{SENSOR} Health Sensor initialized", "SENSOR", sensorConfig.name);
-
-    /* Look for sensor read functions and Read Sensor values */
-    double value;
-    std::map<std::string,
-             std::function<double(std::string path)>>::const_iterator it;
-    it = readSensors.find(sensorConfig.name);
-
-    if (sensorConfig.name.rfind(storage, 0) == 0)
-    {
-        it = readSensors.find(storage);
-    }
-    else if (sensorConfig.name.rfind(inode, 0) == 0)
-    {
-        it = readSensors.find(inode);
-    }
-    else if (it == readSensors.end())
-    {
-        error("Sensor read function not available");
-        return;
-    }
-
-    value = it->second(sensorConfig.path);
-
-    if (value < 0)
-    {
-        error("Reading Sensor Utilization failed: {SENSOR}", "SENSOR",
-              sensorConfig.name);
-        return;
-    }
-
-    /* Initialize value queue with initial sensor reading */
-    for (int i = 0; i < sensorConfig.windowSize; i++)
-    {
-        valQueue.push_back(value);
-    }
-
     /* Initialize unit value (Percent) for utilization sensor */
     ValueIface::unit(ValueIface::Unit::Percent);
 
     ValueIface::maxValue(100);
     ValueIface::minValue(0);
-
-    setSensorValueToDbus(value);
+    ValueIface::value(std::numeric_limits<double>::quiet_NaN());
 
     // Associate the sensor to chassis
     std::vector<AssociationTuple> associationTuples;
@@ -394,9 +356,17 @@ void HealthSensor::readHealthSensor()
     }
 
     /* Remove first item from the queue */
-    valQueue.pop_front();
+    if (valQueue.size() >= sensorConfig.windowSize)
+    {
+        valQueue.pop_front();
+    }
     /* Add new item at the back */
     valQueue.push_back(value);
+    /* Wait until the queue is filled with enough reference*/
+    if (valQueue.size() < sensorConfig.windowSize)
+    {
+        return;
+    }
 
     /* Calculate average values for the given window size */
     double avgValue = 0;
