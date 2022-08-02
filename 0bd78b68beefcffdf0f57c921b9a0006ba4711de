@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48887200_d7d9133d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2022-08-02T11:47:11Z",
+      "side": 1,
+      "message": "Hi Maintainers, this patch is for fixing the Romulus QEMU reboot issue\n\nPlease kindly have a check with the link below\nhttps://gerrit.openbmc.org/c/openbmc/openbmc/+/55429/comments/c27d5046_e6edece3",
+      "revId": "0bd78b68beefcffdf0f57c921b9a0006ba4711de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
