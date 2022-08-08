@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89eddc6a_db072157",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-08T16:13:14Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 192,
+        "startChar": 30,
+        "endLine": 192,
+        "endChar": 46
+      },
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0ca981_1ed773d9",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-08T16:13:14Z",
+      "side": 1,
+      "message": "rename for the bmcInventoryPaths",
+      "range": {
+        "startLine": 333,
+        "startChar": 21,
+        "endLine": 333,
+        "endChar": 30
+      },
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4767963d_4d39bc4e",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-08T16:13:14Z",
+      "side": 1,
+      "message": "reformat this to fit line limit.",
+      "range": {
+        "startLine": 695,
+        "startChar": 14,
+        "endLine": 696,
+        "endChar": 106
+      },
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1f88810_5f069341",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-08T16:13:14Z",
+      "side": 1,
+      "message": "does this have to be public?",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6faed8_6136cdbe",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-08T16:13:14Z",
+      "side": 1,
+      "message": "Add a brief description like the other.",
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
