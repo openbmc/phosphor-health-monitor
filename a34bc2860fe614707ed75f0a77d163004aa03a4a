@@ -142,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fd6de33_60342296",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-08-08T09:22:51Z",
+      "side": 1,
+      "message": "It seems\n`const_cast\u003cconst decltype(readSensors)\u003e(readSensors)`\nfails with error\n\u003e invalid use of ‘const_cast’ with type ‘const std::map\u003cstd::__cxx11::basic_string\u003cchar\u003e, std::function\u003cdouble(const std::__cxx11::basic_string\u003cchar\u003e\u0026)\u003e \u003e’, which is not a pointer, reference, nor a pointer-to-data-member type\n.\n\nActually, all of the following four const_casts fail to compile with the same error:\n```\n        const int a \u003d 3;\n        int b \u003d 3;\n        printf(typeid(const_cast\u003cconst int\u003e(a)).name());\n        printf(typeid(const_cast\u003cint\u003e(a)).name());\n        printf(typeid(const_cast\u003cconst int\u003e(b)).name());\n        printf(typeid(const_cast\u003cint\u003e(b)).name());\n```\n\nGetting a `decltype(readSensors)::const_iterator` with `find()` works. Trying to get a `decltype(readSensor)::iterator` fails to compile with an error mentioning readSensors can\u0027t be converted to its non-const type.\n\nWith `auto it\u003dreadSensors.find(...)`, `typeof(it)` is a const_iterator.\n\nI guess I\u0027ll just use an auto type here, if there is no objection.",
+      "parentUuid": "65f52054_46d0f202",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 45
+      },
+      "revId": "a34bc2860fe614707ed75f0a77d163004aa03a4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bfe09a1_fcc4d760",
