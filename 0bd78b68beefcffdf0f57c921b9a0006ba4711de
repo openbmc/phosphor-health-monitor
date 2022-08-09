@@ -16,6 +16,40 @@
       "message": "Hi Maintainers, this patch is for fixing the Romulus QEMU reboot issue\n\nPlease kindly have a check with the link below\nhttps://gerrit.openbmc.org/c/openbmc/openbmc/+/55429/comments/c27d5046_e6edece3",
       "revId": "0bd78b68beefcffdf0f57c921b9a0006ba4711de",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7725b008_0dff3403",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-08-09T22:03:14Z",
+      "side": 1,
+      "message": "I tested locally, the code works as expected. Values start showing up after \"window_size * interval\" passes.\n\nCurrently a utilization sensor defaults to value 0 when created. I wonder if initializing to NaN would be better? Would like to hear the comments from maintainers.",
+      "revId": "0bd78b68beefcffdf0f57c921b9a0006ba4711de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58a18cb0_08c82116",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-08-09T22:03:14Z",
+      "side": 1,
+      "message": "With the initial value unpopulated, the reading will become zero.\nDo we want to set the initial reading to `std::numeric_limits\u003cdouble\u003e::quiet_NaN()`?\nMaybe the maintainer can give some recommentation.",
+      "revId": "0bd78b68beefcffdf0f57c921b9a0006ba4711de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
