@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd295a50_4f667f3c",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-08-10T00:05:42Z",
+      "side": 1,
+      "message": "Removing this directives caused the following errors in the CI, so I have to keep them:\n```\n../healthMonitor.cpp:106:39: error: unused parameter ‘path’ [-Werror\u003dunused-parameter]\n```",
+      "parentUuid": "89eddc6a_db072157",
+      "range": {
+        "startLine": 192,
+        "startChar": 30,
+        "endLine": 192,
+        "endChar": 46
+      },
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f0ca981_1ed773d9",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a2499df_8a96d0e1",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-08-10T00:05:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f0ca981_1ed773d9",
+      "range": {
+        "startLine": 333,
+        "startChar": 21,
+        "endLine": 333,
+        "endChar": 30
+      },
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4767963d_4d39bc4e",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-08T16:13:14Z",
       "side": 1,
       "message": "reformat this to fit line limit.",
+      "range": {
+        "startLine": 695,
+        "startChar": 14,
+        "endLine": 696,
+        "endChar": 106
+      },
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "116a365c_48a560cb",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-08-10T00:05:42Z",
+      "side": 1,
+      "message": "Hmm interesting, this line is 107 chars long and still passed CI.\nRephrased this to make the line shorter.",
+      "parentUuid": "4767963d_4d39bc4e",
       "range": {
         "startLine": 695,
         "startChar": 14,
@@ -106,6 +178,48 @@
       "writtenOn": "2022-08-08T16:13:14Z",
       "side": 1,
       "message": "Add a brief description like the other.",
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56c77585_44c9ea37",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-08-10T00:05:42Z",
+      "side": 1,
+      "message": "Moved to the private section.",
+      "parentUuid": "b1f88810_5f069341",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "736c3d58_8cc07a98",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-08-10T00:05:42Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3f6faed8_6136cdbe",
       "revId": "862f7b318ade5d4eca9cd9a9c2858439390d04ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
