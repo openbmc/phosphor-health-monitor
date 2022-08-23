@@ -139,6 +139,49 @@ double readCPUUtilization([[maybe_unused]] std::string path)
     return activePercValue;
 }
 
+
+double readMemoryAvailPerc()
+{
+    std::ifstream meminfo("/proc/meminfo");
+    std::string line;
+    double memTotal = -1;
+    double memAvail = -1;
+
+    if (!meminfo.is_open())
+    {
+        error("/proc/meminfo file not found");
+        return -1;
+    }
+
+    while (std::getline(meminfo, line))
+    {
+        std::string name;
+        double value;
+        std::istringstream iss(line);
+
+        if(!(iss >> name >> value))
+        {
+            continue;
+        }
+
+        if (name.starts_with("MemTotal"))
+        {
+            memTotal = value;
+        }
+        else if (name.starts_with("MemAvailable"))
+        {
+            memAvail = value;
+        }
+    }
+
+    if (memTotal < 0 || memAvail < 0)
+    {
+        return -1;
+    }
+
+    return memAvail / memTotal * 100;
+}
+
 double readMemoryUtilization(std::string path)
 {
     /* Unused var: path */
@@ -147,15 +190,25 @@ double readMemoryUtilization(std::string path)
 
     sysinfo(&s_info);
     double usedRam = s_info.totalram - s_info.freeram;
+    double memAvailPerc = readMemoryAvailPerc();
     double memUsePerc = usedRam / s_info.totalram * 100;
 
     if (DEBUG)
     {
-        std::cout << "Memory Utilization is " << memUsePerc << "\n";
+        std::cout << "Memory Used Utilization is " << memUsePerc << "\n";
+        std::cout << "Memory Unavaliable Percentage is "
+                  << (100 - memAvailPerc) << "\n";
 
         std::cout << "TotalRam: " << s_info.totalram
                   << " FreeRam: " << s_info.freeram << "\n";
         std::cout << "UseRam: " << usedRam << "\n";
+    }
+
+    if (memAvailPerc >= 0)
+    {
+        // Use "100 - memAvailPerc" represent memory utilization if memAvailPerc
+        // is available
+        return (100 - memAvailPerc);
     }
 
     return memUsePerc;
