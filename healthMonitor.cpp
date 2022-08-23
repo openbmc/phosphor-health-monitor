@@ -143,22 +143,44 @@ double readMemoryUtilization(std::string path)
 {
     /* Unused var: path */
     std::ignore = path;
-    struct sysinfo s_info;
+    std::ifstream meminfo("/proc/meminfo");
+    std::string line;
+    double memTotal = -1;
+    double memAvail = -1;
 
-    sysinfo(&s_info);
-    double usedRam = s_info.totalram - s_info.freeram;
-    double memUsePerc = usedRam / s_info.totalram * 100;
+    while (std::getline(meminfo, line))
+    {
+        std::string name;
+        double value;
+        std::istringstream iss(line);
+
+        if (!(iss >> name >> value))
+        {
+            continue;
+        }
+
+        if (name.starts_with("MemTotal"))
+        {
+            memTotal = value;
+        }
+        else if (name.starts_with("MemAvailable"))
+        {
+            memAvail = value;
+        }
+    }
+
+    if (memTotal < 0 || memAvail < 0)
+    {
+        return -1;
+    }
 
     if (DEBUG)
     {
-        std::cout << "Memory Utilization is " << memUsePerc << "\n";
-
-        std::cout << "TotalRam: " << s_info.totalram
-                  << " FreeRam: " << s_info.freeram << "\n";
-        std::cout << "UseRam: " << usedRam << "\n";
+        std::cout << "MemTotal: " << memTotal << " MemAvailable: "
+                  << memAvail << std::endl;
     }
 
-    return memUsePerc;
+    return (memTotal - memAvail) / memTotal * 100;
 }
 
 double readStorageUtilization(std::string path)
