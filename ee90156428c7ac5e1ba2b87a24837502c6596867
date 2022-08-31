@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43022672_e343151b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-08-31T12:58:11Z",
+      "side": 1,
+      "message": "+1 in principle.  You\u0027ll have to come up with a unique object key...",
+      "revId": "ee90156428c7ac5e1ba2b87a24837502c6596867",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
