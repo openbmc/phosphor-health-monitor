@@ -38,7 +38,7 @@ install_data(sources : 'bmc_health_config.json', install_dir : '/etc/healthMon')
 conf_data = configuration_data()
 conf_data.set('HEALTH_CONFIG_FILE', '"/etc/healthMon/bmc_health_config.json"')
 conf_data.set('HEALTH_BUS_NAME', '"xyz.openbmc_project.HealthMon"')
-conf_data.set('HEALTH_SENSOR_PATH', '"/xyz/openbmc_project/sensors/utilization/"')
+conf_data.set('HEALTH_SENSOR_PATH', '"/xyz/openbmc_project/sensors/health/"')
 conf_data.set('SENSOR_OBJPATH', '"/xyz/openbmc_project/sensors"')
 
 configure_file(output : 'config.h',
