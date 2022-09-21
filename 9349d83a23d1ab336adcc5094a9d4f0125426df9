@@ -16,6 +16,23 @@
       "message": "Context: https://gerrit.openbmc.org/c/openbmc/phosphor-host-ipmid/+/53864\n\nIn the above change, we are adding a category \"Management Subsystem Health\" to file `include/dbus-sdr/sdrutils.hpp` in the dbus-sdr module of phosphor-host-ipmid, so that dbus-sdr can pick up the sensors exported by phosphor-health-monitor.\n\nThe key of the lookup table is directly derived from the DBus paths of the sensor objects, which are currently \"utilization\". This change updates \"utilization\" to \"health\" to better reflect the category name \"Management Subsystem Health\".",
       "revId": "9349d83a23d1ab336adcc5094a9d4f0125426df9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d2f870b_e4ea3b8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-09-21T17:09:41Z",
+      "side": 1,
+      "message": "This violates https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L15",
+      "revId": "9349d83a23d1ab336adcc5094a9d4f0125426df9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
