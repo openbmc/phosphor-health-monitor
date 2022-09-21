@@ -33,6 +33,24 @@
       "message": "This violates https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L15",
       "revId": "9349d83a23d1ab336adcc5094a9d4f0125426df9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b38e98a1_5735e92a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-09-21T17:19:37Z",
+      "side": 1,
+      "message": "Updated a comment in change 53864 where the question of whether \"utilization\" should be \"health\" was asked.",
+      "parentUuid": "6d2f870b_e4ea3b8f",
+      "revId": "9349d83a23d1ab336adcc5094a9d4f0125426df9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
