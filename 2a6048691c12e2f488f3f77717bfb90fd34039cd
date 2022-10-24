@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5ba811e_42acdd20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-24T20:32:30Z",
+      "side": 1,
+      "message": "Please add documentation of the association to phosphor-dbus-interfaces and follow the new requirements on association naming.",
+      "revId": "2a6048691c12e2f488f3f77717bfb90fd34039cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32b7cf76_709dca89",
         "filename": "healthMonitor.cpp",
         "patchSetId": 18
