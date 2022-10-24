@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eaf9c80_8256ebe0",
+        "filename": "bmc_health_config.json",
+        "patchSetId": 25
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-24T20:31:06Z",
+      "side": 1,
+      "message": "Why did we add `reboot.target` into all of these as default configs?  I thought we explicitly didn\u0027t want that because it caused problems in CI on some systems.\n\nPlease put these Target changes into a separate commit which can be discussed on its own merits.",
+      "revId": "426b5b185be40552904f0bda5c567db351814e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5756a510_a310903c",
+        "filename": "bmc_health_config.json",
+        "patchSetId": 25
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-24T20:31:06Z",
+      "side": 1,
+      "message": "Why are we rebooting the BMC to \"fix\" a storage problem?  That doesn\u0027t seem like a likely solution.",
+      "revId": "426b5b185be40552904f0bda5c567db351814e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "816d2522_1383f31c",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-24T20:31:06Z",
+      "side": 1,
+      "message": "Can we use an enumeration instead of arbitary strings?",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 1
+      },
+      "revId": "426b5b185be40552904f0bda5c567db351814e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
