@@ -22,6 +22,30 @@
       },
       "revId": "5e05266251a56ac241f9e018a4b3bd0b5bfaf232",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a4b8f4_15a271b5",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T11:11:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4569376_54d8f9bd",
+      "range": {
+        "startLine": 291,
+        "startChar": 19,
+        "endLine": 292,
+        "endChar": 60
+      },
+      "revId": "5e05266251a56ac241f9e018a4b3bd0b5bfaf232",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

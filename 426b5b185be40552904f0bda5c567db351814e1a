@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c7035e_114ec441",
+        "filename": "bmc_health_config.json",
+        "patchSetId": 25
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T11:11:08Z",
+      "side": 1,
+      "message": "I found this is causing issues using QEMU as well.\nRemoved \"reboot.target\".",
+      "parentUuid": "6eaf9c80_8256ebe0",
+      "revId": "426b5b185be40552904f0bda5c567db351814e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5756a510_a310903c",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1917a31b_ee1c167a",
+        "filename": "bmc_health_config.json",
+        "patchSetId": 25
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T11:11:08Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "5756a510_a310903c",
+      "revId": "426b5b185be40552904f0bda5c567db351814e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "816d2522_1383f31c",
@@ -48,6 +84,30 @@
       "writtenOn": "2022-10-24T20:31:06Z",
       "side": 1,
       "message": "Can we use an enumeration instead of arbitary strings?",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 1
+      },
+      "revId": "426b5b185be40552904f0bda5c567db351814e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efcf346e_d0d3254d",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T11:11:08Z",
+      "side": 1,
+      "message": "Switched to enumerations now.",
+      "parentUuid": "816d2522_1383f31c",
       "range": {
         "startLine": 183,
         "startChar": 0,
