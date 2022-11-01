@@ -46,6 +46,30 @@
       },
       "revId": "30ea11296e2b378fc8a48ffc84ea69d8790f6d5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0892cfe8_c66b9288",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-11-01T18:23:48Z",
+      "side": 1,
+      "message": "My latest understanding of the situation is:\n\n- Entity-Manager does not expose an Inventory.Item.Bmc, it will only expose a Configuration.Bmc.\n- This is being experimented with in https://gerrit.openbmc.org/c/openbmc/entity-manager/+/56769 .\n- In case of multiple-BMC systems, there might be multiple Configuration.Bmc items. We need to find a way for indicating the different BMCs on a system and for indicating \"which BMC is the current BMC\", but that\u0027s out of the scope of this change (it is for change 56769).\n \n- With the current implementation of phosphor-health-monitor, it acts as an Entity Manager reactor, it listens to the \"Configuration.Bmc\" creation event and creates one and only Inventory.Item.Bmc, that also happens to represent the \"current BMC\". This logic should also work in the presence of multiple \"Configuration.Bmc\" objects.\n\nSo it seems with the current implementation the logic works, and we can marge for now if there are no objections, and make changes later according to Entity Manager if needed.",
+      "parentUuid": "b09d098a_411c4328",
+      "range": {
+        "startLine": 705,
+        "startChar": 35,
+        "endLine": 705,
+        "endChar": 52
+      },
+      "revId": "30ea11296e2b378fc8a48ffc84ea69d8790f6d5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
