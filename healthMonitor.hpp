@@ -2,6 +2,7 @@
 #include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/message.hpp>
+#include <sdbusplus/server/manager.hpp>
 #include <sdeventplus/clock.hpp>
 #include <sdeventplus/event.hpp>
 #include <sdeventplus/utility/timer.hpp>
@@ -162,7 +163,8 @@ class HealthMon
      *
      * @param[in] bus     - Handle to system dbus
      */
-    HealthMon(sdbusplus::bus_t& bus) : bus(bus)
+    HealthMon(sdbusplus::bus_t& bus) :
+        bus(bus), sensorsObjectManager(bus, "/xyz/openbmc_project/sensors")
     {
         // Read JSON file
         sensorConfigs = getHealthConfig();
@@ -193,6 +195,7 @@ class HealthMon
     sdbusplus::bus_t& bus;
     std::vector<HealthConfig> sensorConfigs;
     std::vector<HealthConfig> getHealthConfig();
+    sdbusplus::server::manager_t sensorsObjectManager;
 };
 
 } // namespace health
