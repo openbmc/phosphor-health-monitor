@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e70e2586_849d7e2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-11-22T17:18:27Z",
+      "side": 1,
+      "message": "Thanks for fixing this ! This was added back by mistake during a previous commit.",
+      "revId": "a31cdfd2240e4d2007f34e406d14bb5cd5264acd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
