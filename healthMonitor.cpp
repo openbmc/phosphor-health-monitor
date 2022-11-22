@@ -378,12 +378,6 @@ void HealthSensor::initHealthSensor(
         return;
     }
 
-    /* Initialize value queue with initial sensor reading */
-    for (int i = 0; i < sensorConfig.windowSize; i++)
-    {
-        valQueue.push_back(value);
-    }
-
     /* Initialize unit value (Percent) for utilization sensor */
     ValueIface::unit(ValueIface::Unit::Percent);
 
