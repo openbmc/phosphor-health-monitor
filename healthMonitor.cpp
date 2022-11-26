@@ -43,7 +43,7 @@ namespace health
 // Example values for iface:
 // BMC_CONFIGURATION
 // BMC_INVENTORY_ITEM
-std::vector<std::string> findPathsWithType(sdbusplus::bus::bus& bus,
+std::vector<std::string> findPathsWithType(sdbusplus::bus_t& bus,
                                            const std::string& iface)
 {
     PHOSPHOR_LOG2_USING;
@@ -52,7 +52,7 @@ std::vector<std::string> findPathsWithType(sdbusplus::bus::bus& bus,
     // Find all BMCs (DBus objects implementing the
     // Inventory.Item.Bmc interface that may be created by
     // configuring the Inventory Manager)
-    sdbusplus::message::message msg = bus.new_method_call(
+    sdbusplus::message_t msg = bus.new_method_call(
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
@@ -695,8 +695,7 @@ bool HealthMon::bmcInventoryCreated()
 } // namespace phosphor
 
 void sensorRecreateTimerCallback(
-    std::shared_ptr<boost::asio::deadline_timer> timer,
-    sdbusplus::bus::bus& bus)
+    std::shared_ptr<boost::asio::deadline_timer> timer, sdbusplus::bus_t& bus)
 {
     timer->expires_from_now(boost::posix_time::seconds(TIMER_INTERVAL));
     timer->async_wait([timer, &bus](const boost::system::error_code& ec) {
@@ -771,7 +770,7 @@ int main()
         sdbusplus::bus::match_t>(
         static_cast<sdbusplus::bus_t&>(*conn),
         sdbusplus::bus::match::rules::interfacesAdded(),
-        [conn](sdbusplus::message::message& msg) {
+        [conn](sdbusplus::message_t& msg) {
             using Association =
                 std::tuple<std::string, std::string, std::string>;
             using InterfacesAdded = std::vector<std::pair<

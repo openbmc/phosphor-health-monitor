@@ -64,7 +64,7 @@ using healthIfaces =
     sdbusplus::server::object_t<ValueIface, CriticalInterface, WarningInterface,
                                 AssociationDefinitionInterface>;
 
-using BmcInterface = sdbusplus::server::object::object<
+using BmcInterface = sdbusplus::server::object_t<
     sdbusplus::xyz::openbmc_project::Inventory::Item::server::Bmc>;
 
 using AssociationTuple = std::tuple<std::string, std::string, std::string>;
@@ -139,7 +139,7 @@ class BmcInventory : public BmcInterface
 {
   public:
     BmcInventory() = delete;
-    BmcInventory(sdbusplus::bus::bus& bus, const char* objPath) :
+    BmcInventory(sdbusplus::bus_t& bus, const char* objPath) :
         BmcInterface(bus, objPath)
     {}
 };
