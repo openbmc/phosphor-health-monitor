@@ -1,0 +1,9 @@
+Code-Review+2: Patrick Williams <patrick@stwcx.xyz>
+Code-Review+1: Brandon Kim <brandonkim@google.com>
+Code-Review+1: Sui Chen <suichen@google.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Patrick Williams <patrick@stwcx.xyz>
+Submitted-at: Tue, 29 Nov 2022 20:54:52 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/phosphor-health-monitor/+/58905
+Project: openbmc/phosphor-health-monitor
+Branch: refs/heads/master
