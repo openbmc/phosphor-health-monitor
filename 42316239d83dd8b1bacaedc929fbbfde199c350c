@@ -16,6 +16,24 @@
       "message": "Do we need to do anything with the root object manager?  Should we put the object manager at .../sensors all the time?  What do we do about the inventory object created sometimes for the BMC object?",
       "revId": "42316239d83dd8b1bacaedc929fbbfde199c350c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf55614_ab0ea516",
+        "filename": "healthMonitor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-29T20:49:24Z",
+      "side": 1,
+      "message": "We didn\u0027t need to touch other object managers I believe.\n\nThe other objects including inventory ones are still under root\n\nhttps://github.com/openbmc/phosphor-health-monitor/blob/master/healthMonitor.cpp#L756\nhttps://github.com/openbmc/sdbusplus/blob/master/include/sdbusplus/asio/object_server.hpp#L779\n\nAny concerns about this? We probably should put inventory items into ../inventory but that can be fixed in a separate commit. I would imagine it\u0027s a commit like this but use \"/xyz/openbmc_project/inventory\" as the path",
+      "parentUuid": "47bab0b3_99a377de",
+      "revId": "42316239d83dd8b1bacaedc929fbbfde199c350c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
