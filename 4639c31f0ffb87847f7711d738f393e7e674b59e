@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d018b651_8ea6f3ea",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-12-29T01:22:53Z",
+      "side": 1,
+      "message": "not relevant on patch set 9",
+      "parentUuid": "3613bdd0_30406ea6",
+      "range": {
+        "startLine": 227,
+        "startChar": 68,
+        "endLine": 227,
+        "endChar": 72
+      },
+      "revId": "4639c31f0ffb87847f7711d738f393e7e674b59e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "508838ff_b70f9d9f",
@@ -61,6 +85,30 @@
       "writtenOn": "2022-04-20T21:34:57Z",
       "side": 1,
       "message": "I am new to this code base, but I would prefer a simpler, more verbose implementation \n\n```\n    struct sysinfo s_info;\n\n    sysinfo(\u0026s_info);\n\n    return s_info.freeram * s_info.mem_unit;\n```\n\nRather then reusing the logic in readMemoryUtilization",
+      "range": {
+        "startLine": 228,
+        "startChar": 4,
+        "endLine": 230,
+        "endChar": 0
+      },
+      "revId": "4639c31f0ffb87847f7711d738f393e7e674b59e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "318d49bc_274c41b1",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-12-29T01:22:53Z",
+      "side": 1,
+      "message": "not relevant on patch set 9",
+      "parentUuid": "508838ff_b70f9d9f",
       "range": {
         "startLine": 228,
         "startChar": 4,
