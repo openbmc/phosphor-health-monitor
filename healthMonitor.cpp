@@ -103,6 +103,10 @@ enum CPUStatesTime
     NUM_CPU_STATES_TIME
 };
 
+// # cat /proc/stat|grep 'cpu '
+// cpu  5750423 14827 1572788 9259794 1317 0 28879 0 0 0
+static_assert(NUM_CPU_STATES_TIME == 10);
+
 enum CPUUtilizationType
 {
     USER = 0,
@@ -149,12 +153,15 @@ double readCPUUtilization(enum CPUUtilizationType type)
         return -1;
     }
 
-    static std::unordered_map<enum CPUUtilizationType, double> preActiveTime,
-        preIdleTime;
-    double activeTime, activeTimeDiff, idleTime, idleTimeDiff, totalTime,
-        activePercValue;
+    static std::unordered_map<enum CPUUtilizationType, uint64_t> preActiveTime,
+        preTotalTime;
 
-    idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
+    // These are actually Jiffies. On the BMC, 1 jiffy usually corresponds to
+    // 0.01 second.
+    uint64_t activeTime = 0, activeTimeDiff = 0, totalTime = 0,
+             totalTimeDiff = 0;
+    double activePercValue = 0;
+
     if (type == TOTAL)
     {
         activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
@@ -171,16 +178,16 @@ double readCPUUtilization(enum CPUUtilizationType type)
         activeTime = timeData[USER_IDX];
     }
 
-    idleTimeDiff = idleTime - preIdleTime[type];
+    totalTime = std::accumulate(std::begin(timeData), std::end(timeData), 0);
+
     activeTimeDiff = activeTime - preActiveTime[type];
+    totalTimeDiff = totalTime - preTotalTime[type];
 
     /* Store current idle and active time for next calculation */
-    preIdleTime[type] = idleTime;
     preActiveTime[type] = activeTime;
+    preTotalTime[type] = totalTime;
 
-    totalTime = idleTimeDiff + activeTimeDiff;
-
-    activePercValue = activeTimeDiff / totalTime * 100;
+    activePercValue = (100.0 * activeTimeDiff) / totalTimeDiff;
 
     if (DEBUG)
         std::cout << "CPU Utilization is " << activePercValue << "\n";
