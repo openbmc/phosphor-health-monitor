@@ -121,7 +121,7 @@ double readCPUUtilization(enum CPUUtilizationType type)
     }
 
     std::string firstLine, labelName;
-    std::size_t timeData[NUM_CPU_STATES_TIME];
+    uint64_t timeData[NUM_CPU_STATES_TIME];
 
     std::getline(fileStat, firstLine);
     std::stringstream ss(firstLine);
@@ -149,12 +149,12 @@ double readCPUUtilization(enum CPUUtilizationType type)
         return -1;
     }
 
-    static std::unordered_map<enum CPUUtilizationType, double> preActiveTime,
-        preIdleTime;
-    double activeTime, activeTimeDiff, idleTime, idleTimeDiff, totalTime,
-        activePercValue;
+    static std::unordered_map<enum CPUUtilizationType, uint64_t> preActiveTime,
+        preTotalTime;
+    uint64_t activeTime = 0, activeTimeDiff = 0, totalTime = 0,
+             totalTimeDiff = 0;
+    double activePercValue = 0;
 
-    idleTime = timeData[IDLE_IDX] + timeData[IOWAIT_IDX];
     if (type == TOTAL)
     {
         activeTime = timeData[USER_IDX] + timeData[NICE_IDX] +
@@ -171,16 +171,20 @@ double readCPUUtilization(enum CPUUtilizationType type)
         activeTime = timeData[USER_IDX];
     }
 
-    idleTimeDiff = idleTime - preIdleTime[type];
+    totalTime = 0;
+    for (i = 0; i < NUM_CPU_STATES_TIME; i++)
+    {
+        totalTime += timeData[i];
+    }
+
     activeTimeDiff = activeTime - preActiveTime[type];
+    totalTimeDiff = totalTime - preTotalTime[type];
 
     /* Store current idle and active time for next calculation */
-    preIdleTime[type] = idleTime;
     preActiveTime[type] = activeTime;
+    preTotalTime[type] = totalTime;
 
-    totalTime = idleTimeDiff + activeTimeDiff;
-
-    activePercValue = activeTimeDiff / totalTime * 100;
+    activePercValue = 100.0 * activeTimeDiff / totalTimeDiff;
 
     if (DEBUG)
         std::cout << "CPU Utilization is " << activePercValue << "\n";
