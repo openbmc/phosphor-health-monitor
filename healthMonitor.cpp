@@ -821,8 +821,9 @@ int main()
         });
 
     // Start the timer
-    io.post(
-        [conn]() { sensorRecreateTimerCallback(sensorRecreateTimer, *conn); });
+    boost::asio::post(io, [conn]() {
+        sensorRecreateTimerCallback(sensorRecreateTimer, *conn);
+    });
     io.run();
 
     return 0;
