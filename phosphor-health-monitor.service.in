@@ -4,6 +4,7 @@ Description=BMC health monitoring
 [Service]
 ExecStart=@bindir@/health-monitor
 Type=dbus
+Restart=always
 BusName=xyz.openbmc_project.HealthMon
 SyslogIdentifier=phosphor-health-monitor
 
