@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bcbaa68_fe9fbd3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2023-04-20T22:22:18Z",
+      "side": 1,
+      "message": "Will \"strike back\" after I complete dbus-vis UI overhaul",
+      "revId": "5d4af5c86c99c552454c781159ddb88de1fa8aef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
