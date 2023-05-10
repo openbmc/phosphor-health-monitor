@@ -591,7 +591,6 @@ Json HealthMon::parseConfigFile(std::string configFile)
 
 void HealthMon::getConfigData(Json& data, HealthConfig& cfg)
 {
-
     static const Json empty{};
 
     /* Default frerquency of sensor polling is 1 second */
@@ -606,8 +605,8 @@ void HealthMon::getConfigData(Json& data, HealthConfig& cfg)
         auto criticalData = threshold.value("Critical", empty);
         if (!criticalData.empty())
         {
-            cfg.criticalHigh =
-                criticalData.value("Value", defaultHighThreshold);
+            cfg.criticalHigh = criticalData.value("Value",
+                                                  defaultHighThreshold);
             cfg.criticalLog = criticalData.value("Log", true);
             cfg.criticalTgt = criticalData.value("Target", "");
         }
@@ -624,7 +623,6 @@ void HealthMon::getConfigData(Json& data, HealthConfig& cfg)
 
 std::vector<HealthConfig> HealthMon::getHealthConfig()
 {
-
     std::vector<HealthConfig> cfgs;
     auto data = parseConfigFile(HEALTH_CONFIG_FILE);
 
@@ -638,8 +636,8 @@ std::vector<HealthConfig> HealthMon::getHealthConfig()
         auto key = j.key();
         /* key need match default value in map readSensors or match the key
          * start with "Storage" or "Inode" */
-        bool isStorageOrInode =
-            (key.rfind(storage, 0) == 0 || key.rfind(inode, 0) == 0);
+        bool isStorageOrInode = (key.rfind(storage, 0) == 0 ||
+                                 key.rfind(inode, 0) == 0);
         if (readSensors.find(key) != readSensors.end() || isStorageOrInode)
         {
             HealthConfig cfg = HealthConfig();
@@ -719,7 +717,6 @@ void sensorRecreateTimerCallback(
         }
         else
         {
-
             // If this daemon maintains its own DBus object, we must make sure
             // the object is registered to ObjectMapper
             if (phosphor::health::findPathsWithType(bus, BMC_INVENTORY_ITEM)
@@ -767,58 +764,57 @@ int main()
     sensorRecreateTimer = std::make_shared<boost::asio::deadline_timer>(io);
 
     // If the SystemInventory does not exist: wait for the InterfaceAdded signal
-    auto interfacesAddedSignalHandler = std::make_unique<
-        sdbusplus::bus::match_t>(
-        static_cast<sdbusplus::bus_t&>(*conn),
-        sdbusplus::bus::match::rules::interfacesAdded(),
-        [conn](sdbusplus::message_t& msg) {
-            using Association =
-                std::tuple<std::string, std::string, std::string>;
-            using InterfacesAdded = std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<
-                    std::string, std::variant<std::vector<Association>>>>>>;
+    auto interfacesAddedSignalHandler =
+        std::make_unique<sdbusplus::bus::match_t>(
+            static_cast<sdbusplus::bus_t&>(*conn),
+            sdbusplus::bus::match::rules::interfacesAdded(),
+            [conn](sdbusplus::message_t& msg) {
+        using Association = std::tuple<std::string, std::string, std::string>;
+        using InterfacesAdded = std::vector<std::pair<
+            std::string,
+            std::vector<std::pair<std::string,
+                                  std::variant<std::vector<Association>>>>>>;
 
-            sdbusplus::message::object_path o;
-            InterfacesAdded interfacesAdded;
+        sdbusplus::message::object_path o;
+        InterfacesAdded interfacesAdded;
 
-            try
-            {
-                msg.read(o);
-                msg.read(interfacesAdded);
-            }
-            catch (const std::exception& e)
-            {
-                error(
-                    "Exception occurred while processing interfacesAdded:  {EXCEPTION}",
-                    "EXCEPTION", e.what());
-                return;
-            }
+        try
+        {
+            msg.read(o);
+            msg.read(interfacesAdded);
+        }
+        catch (const std::exception& e)
+        {
+            error(
+                "Exception occurred while processing interfacesAdded:  {EXCEPTION}",
+                "EXCEPTION", e.what());
+            return;
+        }
 
-            // Ignore any signal coming from health-monitor itself.
-            if (msg.get_sender() == conn->get_unique_name())
-            {
-                return;
-            }
+        // Ignore any signal coming from health-monitor itself.
+        if (msg.get_sender() == conn->get_unique_name())
+        {
+            return;
+        }
 
-            // Check if the BMC Inventory is in the interfaces created.
-            bool hasBmcConfiguration = false;
-            for (const auto& x : interfacesAdded)
+        // Check if the BMC Inventory is in the interfaces created.
+        bool hasBmcConfiguration = false;
+        for (const auto& x : interfacesAdded)
+        {
+            if (x.first == BMC_CONFIGURATION)
             {
-                if (x.first == BMC_CONFIGURATION)
-                {
-                    hasBmcConfiguration = true;
-                }
+                hasBmcConfiguration = true;
             }
+        }
 
-            if (hasBmcConfiguration)
-            {
-                info(
-                    "BMC configuration detected, will create a corresponding Inventory item");
-                healthMon->createBmcInventoryIfNotCreated();
-                needUpdate = true;
-            }
-        });
+        if (hasBmcConfiguration)
+        {
+            info(
+                "BMC configuration detected, will create a corresponding Inventory item");
+            healthMon->createBmcInventoryIfNotCreated();
+            needUpdate = true;
+        }
+            });
 
     // Start the timer
     boost::asio::post(io, [conn]() {
