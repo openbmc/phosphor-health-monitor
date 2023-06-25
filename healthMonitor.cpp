@@ -4,7 +4,7 @@
 
 #include <unistd.h>
 
-#include <boost/asio/deadline_timer.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/object_server.hpp>
 #include <sdbusplus/asio/sd_event.hpp>
@@ -32,7 +32,7 @@ static constexpr uint8_t defaultHighThreshold = 100;
 // Limit sensor recreation interval to 10s
 bool needUpdate;
 static constexpr int TIMER_INTERVAL = 10;
-std::shared_ptr<boost::asio::deadline_timer> sensorRecreateTimer;
+std::shared_ptr<boost::asio::steady_timer> sensorRecreateTimer;
 std::shared_ptr<phosphor::health::HealthMon> healthMon;
 
 namespace phosphor
@@ -694,9 +694,9 @@ bool HealthMon::bmcInventoryCreated()
 } // namespace phosphor
 
 void sensorRecreateTimerCallback(
-    std::shared_ptr<boost::asio::deadline_timer> timer, sdbusplus::bus_t& bus)
+    std::shared_ptr<boost::asio::steady_timer> timer, sdbusplus::bus_t& bus)
 {
-    timer->expires_from_now(boost::posix_time::seconds(TIMER_INTERVAL));
+    timer->expires_after(std::chrono::seconds(TIMER_INTERVAL));
     timer->async_wait([timer, &bus](const boost::system::error_code& ec) {
         if (ec == boost::asio::error::operation_aborted)
         {
@@ -761,7 +761,7 @@ int main()
 
     sdbusplus::asio::sd_event_wrapper sdEvents(io);
 
-    sensorRecreateTimer = std::make_shared<boost::asio::deadline_timer>(io);
+    sensorRecreateTimer = std::make_shared<boost::asio::steady_timer>(io);
 
     // If the SystemInventory does not exist: wait for the InterfaceAdded signal
     auto interfacesAddedSignalHandler =
