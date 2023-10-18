@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abf6259e_5bf61621",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-10-18T12:45:58Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be necessary.  The subproject-wrap files should have all necessary fallback information.\n\nCan you elaborate what was going wrong?",
+      "revId": "2d565e14950db8b2592ea311517590c24bd33092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
