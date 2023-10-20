@@ -814,7 +814,7 @@ int main()
             healthMon->createBmcInventoryIfNotCreated();
             needUpdate = true;
         }
-            });
+    });
 
     // Start the timer
     boost::asio::post(io, [conn]() {
