@@ -8,15 +8,6 @@ project(
     meson_version: '>=1.1.1',
 )
 
-cpp = meson.get_compiler('cpp')
-
-if cpp.has_header('nlohmann/json.hpp')
-    nlohmann_json = declare_dependency()
-else
-    subproject('nlohmann-json')
-    nlohmann_json = dependency('nlohmann_json')
-endif
-
 executable(
     'health-monitor',
     [
@@ -27,7 +18,7 @@ executable(
         dependency('phosphor-logging'),
         dependency('sdbusplus'),
         dependency('sdeventplus'),
-        nlohmann_json,
+        dependency('nlohmann_json', include_type: 'system')
     ],
     install: true,
     install_dir: get_option('bindir')
