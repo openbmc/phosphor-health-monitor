@@ -8,17 +8,27 @@ project(
     meson_version: '>=1.1.1',
 )
 
+phosphor_logging_dep = dependency('phosphor-logging')
+phosphor_dbus_interfaces_dep = dependency('phosphor-dbus-interfaces')
+sdbusplus_dep = dependency('sdbusplus')
+sdeventplus_dep = dependency('sdeventplus')
+nlohmann_json_dep = dependency('nlohmann_json', include_type: 'system')
+base_deps = [
+    phosphor_logging_dep,
+    phosphor_dbus_interfaces_dep,
+    sdbusplus_dep,
+    sdeventplus_dep,
+    nlohmann_json_dep
+]
+
 executable(
     'health-monitor',
     [
         'healthMonitor.cpp',
+        'health_metric_config.cpp',
     ],
     dependencies: [
-        dependency('phosphor-dbus-interfaces'),
-        dependency('phosphor-logging'),
-        dependency('sdbusplus'),
-        dependency('sdeventplus'),
-        dependency('nlohmann_json', include_type: 'system')
+        base_deps
     ],
     install: true,
     install_dir: get_option('bindir')
@@ -45,3 +55,7 @@ configure_file(
   configuration: conf_data,
   install: true,
   install_dir: systemd.get_variable('systemdsystemunitdir'))
+
+if get_option('tests').allowed()
+  subdir('test')
+endif
