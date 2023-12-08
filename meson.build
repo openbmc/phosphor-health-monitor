@@ -4,14 +4,20 @@ project(
     version: '1.0',
     default_options: [
         'cpp_std=c++23',
+        'tests=' + (meson.is_subproject() ? 'disabled' : 'auto'),
     ],
     meson_version: '>=1.1.1',
 )
+
+if not get_option('tests').disabled()
+  subdir('test')
+endif
 
 executable(
     'health-monitor',
     [
         'healthMonitor.cpp',
+        'health_metric_config.cpp',
     ],
     dependencies: [
         dependency('phosphor-dbus-interfaces'),
