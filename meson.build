@@ -30,6 +30,8 @@ executable(
     [
         'healthMonitor.cpp',
         'health_metric_config.cpp',
+        'health_metric.cpp',
+        'health_utils.cpp',
     ],
     dependencies: [
         base_deps
