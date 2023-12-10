@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/lg2.hpp>
 
+#include <cmath>
 #include <fstream>
 #include <unordered_map>
 #include <utility>
@@ -79,6 +80,10 @@ void from_json(const json& j, HealthMetric& self)
         }
 
         auto config = value.template get<Threshold>();
+        if (!std::isfinite(config.value))
+        {
+            throw std::invalid_argument("Invalid threshold value");
+        }
 
         // ThresholdIntf::Bound::Upper is the only use case for
         // ThresholdIntf::Bound
