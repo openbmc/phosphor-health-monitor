@@ -32,6 +32,7 @@ executable(
         'health_metric_config.cpp',
         'health_metric.cpp',
         'health_utils.cpp',
+        'health_metric_collection.cpp',
     ],
     dependencies: [
         base_deps
