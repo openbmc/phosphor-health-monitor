@@ -36,3 +36,21 @@ test(
         include_directories: '../',
     )
 )
+
+test(
+    'test_health_metric',
+    executable(
+        'test_health_metric',
+        'test_health_metric.cpp',
+        '../health_metric.cpp',
+        '../health_utils.cpp',
+        dependencies: [
+            gtest_dep,
+            gmock_dep,
+            phosphor_logging_dep,
+            phosphor_dbus_interfaces_dep,
+            sdbusplus_dep
+        ],
+        include_directories: '../',
+    )
+)
