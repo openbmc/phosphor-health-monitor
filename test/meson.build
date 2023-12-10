@@ -54,3 +54,23 @@ test(
         include_directories: '../',
     )
 )
+
+test(
+    'test_health_metric_collection',
+    executable(
+        'test_health_metric_collection',
+        'test_health_metric_collection.cpp',
+        '../health_metric_collection.cpp',
+        '../health_metric.cpp',
+        '../health_metric_config.cpp',
+        '../health_utils.cpp',
+        dependencies: [
+            gtest_dep,
+            gmock_dep,
+            dependency('phosphor-logging'),
+            dependency('phosphor-dbus-interfaces'),
+            dependency('sdbusplus'),
+        ],
+        include_directories: '../',
+    )
+)
