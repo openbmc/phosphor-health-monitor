@@ -1,0 +1,565 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a90e69c_8db7448d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "This repository is phosphor-health-monitor, so there is no need for this prefix.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f71a04a3_d7579bc9",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Would it be possible to use the strings from the Metrics.Value for these?  I understand these are likely coming from JSON but it seems like those strings could still be valid options?",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7c2671b_8dde48ef",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Suggest using modern nested namespace declaration:\n\n```\nnamespace phosphor::health::metric::config\n{\n}\n```",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca922961_ba8f992e",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Prefer lowercase for namespaces (just json).",
+      "range": {
+        "startLine": 54,
+        "startChar": 6,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd9934c_36d1198d",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "This is this namespace ... what is this accomplishing?",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4727343_6564b0aa",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "This isn\u0027t obvious what this is for.",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdfa6492_afeb65d6",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Some comments on the purpose of these would be nice.",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4445402_cf6a66bb",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Honestly, I\u0027d rather just have the strings embedded here if this is the only use of them.  Otherwise there is a lot of indirection.",
+      "range": {
+        "startLine": 65,
+        "startChar": 5,
+        "endLine": 65,
+        "endChar": 14
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1378282_ee6c5ca5",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Is it possible to forward declare this and then move the implementation to the bottom and/or another file?",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5a9aaa2_831a4bbc",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "This is an example where I\u0027d rather have something like the following if you\u0027re just trying to avoid magics.\n\n```\nconstexpr auto collectionFrequency \u003d ...;\n healthMetricConfig.collectionFrequency \u003d jsonObj.value(collectionFrequency, ...);\n```\n\nHaving to bounce all around the file when reviewing is more work.",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90330ba6_d267825f",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Suggest moving down to 187.  No need to forward declare.\n\nAlso `ThresholdConfig config{};` or `auto config \u003d ThresholdConfig();`.  No need to repeat yourself.",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f52c3d6_da15ec4e",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Don\u0027t duplicate this search from 179.  Save it in a local.",
+      "range": {
+        "startLine": 186,
+        "startChar": 33,
+        "endLine": 186,
+        "endChar": 71
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a4ddd1_62375977",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "`const auto\u0026` to avoid a copy?",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 16
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f31b75dd_33362619",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "How do we know that these `.value` calls return the appropriate type for the storage location?  Is there some magic where nlohmann::json gives a `json` type back for the `value` function and the conversion constructor calls a `get\u003cType\u003e` under the covers that throws?",
+      "range": {
+        "startLine": 187,
+        "startChar": 42,
+        "endLine": 187,
+        "endChar": 47
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f224325_8094e2f7",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Does the existing code return an empty json?  This seems dangerous because it means that mistakes in config changes are not quickly detected (via a std::terminate of uncaught exception) and instead someone would have to notice the Metrics missing or this particular journal entry (much less likely).",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "207faf4f_9d2705b6",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Why false/is_discarded here?  Can\u0027t we throw an exception and fail-fast?",
+      "range": {
+        "startLine": 209,
+        "startChar": 47,
+        "endLine": 210,
+        "endChar": 28
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "516c90d7_35300135",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "`std::to_underlying(metricType)`  (replace all `int` casts in the logging code)\n\nAt one point I considered adding direct support in lg2 for sdbusplus enumerations but I don\u0027t think I ever implemented it.",
+      "range": {
+        "startLine": 227,
+        "startChar": 25,
+        "endLine": 227,
+        "endChar": 40
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a43f36fe_87532947",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Suggest some sort of typedef for this.  You\u0027ve ended up repeating this type 3 times now (return in hpp, return in cpp, here).",
+      "range": {
+        "startLine": 254,
+        "startChar": 4,
+        "endLine": 254,
+        "endChar": 57
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00324870_ae90b90a",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Don\u0027t repeat the same search multiple times.",
+      "range": {
+        "startLine": 270,
+        "startChar": 13,
+        "endLine": 270,
+        "endChar": 37
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a54ccca8_398ba6a2",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Not necessary.",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6abb713a_cf34325f",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Not necessary.",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "932031c3_6b1d044f",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Is there a `decltype(...)` we can use to get this from the generated code from Threshold?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2a6346_ed108e86",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Default initializers?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61160fef_145a8540",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "unordered_map?",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 8
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "204ac6c9_0733f0c2",
+        "filename": "meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "I don\u0027t think it is possible for phosphor-health-monitor to be a subproject, so just make this `auto`, which it should be by default in the options.  (I think you can drop this)",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3bead5_6dd5de08",
+        "filename": "meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "`if get_option(\u0027tests\u0027).allowed()` -- more modern option",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bddc77e_cb7a0653",
+        "filename": "test/meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:24:06Z",
+      "side": 1,
+      "message": "Add variables for each of these in the top level rather than repeating.  You might add something like `base_deps \u003d [ ... ]` also.\n\n```\nphosphor_logging_dep \u003d\nphosphor_dbus_interfaces_dep \u003d\nsdbusplus_dep \u003d\nnlohmann_json_dep \u003d\n```",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
