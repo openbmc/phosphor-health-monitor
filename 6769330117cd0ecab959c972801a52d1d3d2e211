@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3654fac5_0d83be4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:30:34Z",
+      "side": 1,
+      "message": "I don\u0027t really like doing this where you add a header file in one commit and the code in another.  It\u0027s really hard to tell if you\u0027ve got a decent API if you can\u0027t see any of the code of how it is used.",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 56
+      },
+      "revId": "6769330117cd0ecab959c972801a52d1d3d2e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062966d8_66844e21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:30:34Z",
+      "side": 1,
+      "message": "Drop prefix.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "6769330117cd0ecab959c972801a52d1d3d2e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c30a8f8_3ecd8480",
+        "filename": "health_metric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:30:34Z",
+      "side": 1,
+      "message": "Please use the `sdbusplus::server::...` namespace path instead of the one with server at the end (better is to use the `aserver` classes but I know the daemon isn\u0027t using async right now).",
+      "range": {
+        "startLine": 20,
+        "startChar": 23,
+        "endLine": 20,
+        "endChar": 78
+      },
+      "revId": "6769330117cd0ecab959c972801a52d1d3d2e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ff8f7fe_302668d3",
+        "filename": "health_metric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:30:34Z",
+      "side": 1,
+      "message": "This isn\u0027t an Interface.\n\nbtw, `ValueInterface::namespace_path` is the same.  server inherits common.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 76
+      },
+      "revId": "6769330117cd0ecab959c972801a52d1d3d2e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3c0517f_de8ec352",
+        "filename": "health_metric.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-12-12T22:30:34Z",
+      "side": 1,
+      "message": "Is it necessary for everything to be virtual?  I guess this is due to mocking?  Would be nice if virtual could be avoided as much as possible.",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 11
+      },
+      "revId": "6769330117cd0ecab959c972801a52d1d3d2e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
