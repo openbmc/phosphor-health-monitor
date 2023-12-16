@@ -33,6 +33,7 @@ executable(
         'health_metric.cpp',
         'health_utils.cpp',
         'health_metric_collection.cpp',
+        'health_monitor.cpp',
     ],
     dependencies: [
         base_deps
