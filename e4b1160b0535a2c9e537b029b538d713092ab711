@@ -24,6 +24,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e15e19c8_fcf49bee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Thanks for review.",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f71a04a3_d7579bc9",
@@ -41,6 +58,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d411dbf_77c7fd25",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "We don\u0027t have these values defined in Metrics.Value. It has paths with / delimiters, for example cpu/user, memory/free, etc.",
+      "parentUuid": "f71a04a3_d7579bc9",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7c2671b_8dde48ef",
@@ -54,6 +89,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Suggest using modern nested namespace declaration:\n\n```\nnamespace phosphor::health::metric::config\n{\n}\n```",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "feb878b6_573da240",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7c2671b_8dde48ef",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -87,6 +146,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d2fca5d_d201b7f2",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca922961_ba8f992e",
+      "range": {
+        "startLine": 54,
+        "startChar": 6,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fd9934c_36d1198d",
@@ -100,6 +183,24 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "This is this namespace ... what is this accomplishing?",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3a855d_7e9408a5",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fd9934c_36d1198d",
       "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -123,6 +224,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f0c4e2c_55c8246f",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Currently health monitor only has logic for upper thresholds, so just defining the default constexpr for that.",
+      "parentUuid": "e4727343_6564b0aa",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdfa6492_afeb65d6",
         "filename": "health_metric_config.cpp",
         "patchSetId": 7
@@ -134,6 +253,24 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Some comments on the purpose of these would be nice.",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8d58b21_73eb6315",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdfa6492_afeb65d6",
       "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -151,6 +288,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Honestly, I\u0027d rather just have the strings embedded here if this is the only use of them.  Otherwise there is a lot of indirection.",
+      "range": {
+        "startLine": 65,
+        "startChar": 5,
+        "endLine": 65,
+        "endChar": 14
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bea248c_cc2fb4bb",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e4445402_cf6a66bb",
       "range": {
         "startLine": 65,
         "startChar": 5,
@@ -180,6 +341,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e66f8af5_6d102058",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Sorry, i tried but it doesn\u0027t seem to work.",
+      "parentUuid": "b1378282_ee6c5ca5",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d5a9aaa2_831a4bbc",
         "filename": "health_metric_config.cpp",
         "patchSetId": 7
@@ -191,6 +370,24 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "This is an example where I\u0027d rather have something like the following if you\u0027re just trying to avoid magics.\n\n```\nconstexpr auto collectionFrequency \u003d ...;\n healthMetricConfig.collectionFrequency \u003d jsonObj.value(collectionFrequency, ...);\n```\n\nHaving to bounce all around the file when reviewing is more work.",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87f28e60_4404e9cd",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d5a9aaa2_831a4bbc",
       "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -208,6 +405,24 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Suggest moving down to 187.  No need to forward declare.\n\nAlso `ThresholdConfig config{};` or `auto config \u003d ThresholdConfig();`.  No need to repeat yourself.",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "511a5e65_dbd9dc78",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "90330ba6_d267825f",
       "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -248,6 +463,54 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "`const auto\u0026` to avoid a copy?",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 16
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea0bb4a0_96d0fa8b",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4f52c3d6_da15ec4e",
+      "range": {
+        "startLine": 186,
+        "startChar": 33,
+        "endLine": 186,
+        "endChar": 71
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c5f272b_40768341",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "thresholdType is just an enum type, do we really need a reference here?",
+      "parentUuid": "28a4ddd1_62375977",
       "range": {
         "startLine": 186,
         "startChar": 12,
@@ -300,6 +563,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81609a11_c151cb3d",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "This is what existing code does https://github.com/openbmc/phosphor-health-monitor/blob/master/healthMonitor.cpp#L581.\n\nBut now we have changed the flow. We are not mandating the json file as default config is in code. If platform wants to over-ride only then they will provide the json file. Hence i have marked the message a warning and returned empty json.",
+      "parentUuid": "0f224325_8094e2f7",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "207faf4f_9d2705b6",
         "filename": "health_metric_config.cpp",
         "patchSetId": 7
@@ -311,6 +592,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Why false/is_discarded here?  Can\u0027t we throw an exception and fail-fast?",
+      "range": {
+        "startLine": 209,
+        "startChar": 47,
+        "endLine": 210,
+        "endChar": 28
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf210ed_9fbc45f2",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "This is what we have in existing code https://github.com/openbmc/phosphor-health-monitor/blob/master/healthMonitor.cpp#L581. We can just break if there are errors. Please let me know.",
+      "parentUuid": "207faf4f_9d2705b6",
       "range": {
         "startLine": 209,
         "startChar": 47,
@@ -344,6 +649,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d62afe_af689c52",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "516c90d7_35300135",
+      "range": {
+        "startLine": 227,
+        "startChar": 25,
+        "endLine": 227,
+        "endChar": 40
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a43f36fe_87532947",
@@ -357,6 +686,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Suggest some sort of typedef for this.  You\u0027ve ended up repeating this type 3 times now (return in hpp, return in cpp, here).",
+      "range": {
+        "startLine": 254,
+        "startChar": 4,
+        "endLine": 254,
+        "endChar": 57
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f6aa2c_ca0d94f4",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a43f36fe_87532947",
       "range": {
         "startLine": 254,
         "startChar": 4,
@@ -390,6 +743,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea777240_49a1ec47",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "00324870_ae90b90a",
+      "range": {
+        "startLine": 270,
+        "startChar": 13,
+        "endLine": 270,
+        "endChar": 37
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a54ccca8_398ba6a2",
@@ -403,6 +780,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Not necessary.",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f42f14e_45d65ed0",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a54ccca8_398ba6a2",
       "range": {
         "startLine": 41,
         "startChar": 7,
@@ -436,6 +837,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1629bf37_99b86b06",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6abb713a_cf34325f",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "932031c3_6b1d044f",
@@ -449,6 +874,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Is there a `decltype(...)` we can use to get this from the generated code from Threshold?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dee165b6_4243c6fa",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "No this type doesn\u0027t exist in the generated code since it has a config for the threshold as well.",
+      "parentUuid": "932031c3_6b1d044f",
       "range": {
         "startLine": 84,
         "startChar": 0,
@@ -522,6 +971,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd55f21a_a4ed4dad",
+        "filename": "meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "204ac6c9_0733f0c2",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a3bead5_6dd5de08",
@@ -539,6 +1006,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "158f21b9_04fe2512",
+        "filename": "meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0a3bead5_6dd5de08",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bddc77e_cb7a0653",
@@ -552,6 +1037,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "Add variables for each of these in the top level rather than repeating.  You might add something like `base_deps \u003d [ ... ]` also.\n\n```\nphosphor_logging_dep \u003d\nphosphor_dbus_interfaces_dep \u003d\nsdbusplus_dep \u003d\nnlohmann_json_dep \u003d\n```",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57247146_6d36e123",
+        "filename": "test/meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-16T02:54:23Z",
+      "side": 1,
+      "message": "I am getting an error when using base_deps in test/meson.build.\n\nHow to make them accessible in other meson.build files?",
+      "parentUuid": "3bddc77e_cb7a0653",
       "range": {
         "startLine": 31,
         "startChar": 0,
