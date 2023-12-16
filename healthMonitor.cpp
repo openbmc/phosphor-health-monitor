@@ -2,6 +2,8 @@
 
 #include "healthMonitor.hpp"
 
+#include "health_monitor.hpp"
+
 #include <unistd.h>
 
 #include <boost/asio/steady_timer.hpp>
@@ -753,6 +755,11 @@ int main()
 
     // Create an health monitor object
     healthMon = std::make_shared<phosphor::health::HealthMon>(*conn);
+
+    info("Creating health monitor");
+    std::shared_ptr<phosphor::health::monitor::HealthMonitor> healthMonitor =
+        std::make_shared<phosphor::health::monitor::HealthMonitor>(*conn);
+    healthMonitor->run();
 
     // Add object manager through object_server
     sdbusplus::asio::object_server objectServer(conn);
