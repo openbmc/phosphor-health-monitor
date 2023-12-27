@@ -264,6 +264,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea3f908a_97702df1",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f0c4e2c_55c8246f",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdfa6492_afeb65d6",
@@ -377,6 +395,24 @@
       "side": 1,
       "message": "Sorry, i tried but it doesn\u0027t seem to work.",
       "parentUuid": "b1378282_ee6c5ca5",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b52c56_39d9cdcd",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e66f8af5_6d102058",
       "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -545,6 +581,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c18346f1_54bc859e",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "Discussed with @Patrick, so no change needed on this.",
+      "parentUuid": "1c5f272b_40768341",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 16
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f31b75dd_33362619",
@@ -558,6 +618,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "How do we know that these `.value` calls return the appropriate type for the storage location?  Is there some magic where nlohmann::json gives a `json` type back for the `value` function and the conversion constructor calls a `get\u003cType\u003e` under the covers that throws?",
+      "range": {
+        "startLine": 187,
+        "startChar": 42,
+        "endLine": 187,
+        "endChar": 47
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75dabccb_bd203a5e",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "Discussed with @Patrick and this is automatically being handled.",
+      "parentUuid": "f31b75dd_33362619",
       "range": {
         "startLine": 187,
         "startChar": 42,
@@ -603,6 +687,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "487d7981_936e8445",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "Discussed with Patrick on this.\n1. Changed the warning message to info in case json file is not found since now the default config is in code.\n2. Changed parse API to throw exception in case parsing fails and fail fast rather than just continuing.",
+      "parentUuid": "81609a11_c151cb3d",
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "207faf4f_9d2705b6",
@@ -640,6 +742,30 @@
       "side": 1,
       "message": "This is what we have in existing code https://github.com/openbmc/phosphor-health-monitor/blob/master/healthMonitor.cpp#L581. We can just break if there are errors. Please let me know.",
       "parentUuid": "207faf4f_9d2705b6",
+      "range": {
+        "startLine": 209,
+        "startChar": 47,
+        "endLine": 210,
+        "endChar": 28
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aef09cf_c24e7d6e",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaf210ed_9fbc45f2",
       "range": {
         "startLine": 209,
         "startChar": 47,
@@ -955,6 +1081,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "674e30a6_2af72361",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "We already have default values being used when we read the json config (in case a value doesn\u0027t exist), hence don\u0027t see a need to specify it again here.",
+      "parentUuid": "eb2a6346_ed108e86",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61160fef_145a8540",
@@ -968,6 +1118,30 @@
       "writtenOn": "2023-12-12T22:24:06Z",
       "side": 1,
       "message": "unordered_map?",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 8
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee490c74_8ff06c92",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "Discussed with Patrick and will continue to use map since this is a small container size and using unordered_map will need a hash function specification.",
+      "parentUuid": "61160fef_145a8540",
       "range": {
         "startLine": 92,
         "startChar": 5,
@@ -1085,6 +1259,30 @@
       "side": 1,
       "message": "I am getting an error when using base_deps in test/meson.build.\n\nHow to make them accessible in other meson.build files?",
       "parentUuid": "3bddc77e_cb7a0653",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81f72aac_df28e4ec",
+        "filename": "test/meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-27T19:25:17Z",
+      "side": 1,
+      "message": "I tried it again but i still see the same error. Can you please point me to specific examples in openbmc repo which does this inclusion from top level meson file in subdir meson files?",
+      "parentUuid": "57247146_6d36e123",
       "range": {
         "startLine": 31,
         "startChar": 0,
