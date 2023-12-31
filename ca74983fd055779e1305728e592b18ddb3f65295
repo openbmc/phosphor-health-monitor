@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "83e5820c_daa42e24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-31T22:31:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdb35249_4c545ca7",
+      "range": {
+        "startLine": 11,
+        "startChar": 72,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "ca74983fd055779e1305728e592b18ddb3f65295",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "19627fdf_6cd12bc5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca9209b_1a7e237b",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-31T22:31:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "368bcb9c_123b2dea",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 18
+      },
+      "revId": "ca74983fd055779e1305728e592b18ddb3f65295",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b327956c_ce207489",
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3bb72ba_f9a8e582",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-31T22:31:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b327956c_ce207489",
+      "range": {
+        "startLine": 286,
+        "startChar": 4,
+        "endLine": 286,
+        "endChar": 12
+      },
+      "revId": "ca74983fd055779e1305728e592b18ddb3f65295",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ec22da0_d45ce303",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-12-31T07:47:57Z",
       "side": 1,
       "message": "Camel case",
+      "range": {
+        "startLine": 20,
+        "startChar": 15,
+        "endLine": 20,
+        "endChar": 31
+      },
+      "revId": "ca74983fd055779e1305728e592b18ddb3f65295",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfd00d86_ca4ba928",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2023-12-31T22:31:19Z",
+      "side": 1,
+      "message": "BMC is a acronym, hence cannot use lower case for it.",
+      "parentUuid": "5ec22da0_d45ce303",
       "range": {
         "startLine": 20,
         "startChar": 15,
