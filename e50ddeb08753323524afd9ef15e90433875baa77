@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b10a8313_245e49ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:36:45Z",
+      "side": 1,
+      "message": "Format commit msg",
+      "range": {
+        "startLine": 9,
+        "startChar": 72,
+        "endLine": 9,
+        "endChar": 74
+      },
+      "revId": "e50ddeb08753323524afd9ef15e90433875baa77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3385af7a_9d7fdf21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:36:45Z",
+      "side": 1,
+      "message": "Tested section",
+      "revId": "e50ddeb08753323524afd9ef15e90433875baa77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "928df5d3_0b039db4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:36:45Z",
+      "side": 1,
+      "message": "Nit comments. \nAnd build is failing.",
+      "revId": "e50ddeb08753323524afd9ef15e90433875baa77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fbcb3ac_df86c186",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:36:45Z",
+      "side": 1,
+      "message": "Lower camel case",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "e50ddeb08753323524afd9ef15e90433875baa77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
