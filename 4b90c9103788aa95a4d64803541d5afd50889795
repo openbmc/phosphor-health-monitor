@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6de20b3_074fb0ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "Format the commit msg so that it comes as 70-80 char per line",
+      "range": {
+        "startLine": 9,
+        "startChar": 70,
+        "endLine": 9,
+        "endChar": 76
+      },
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c405a7cf_f8a7f9a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "Nit comments.",
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2092e065_2030b201",
+        "filename": "health_metric.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "Lower camel case.",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68605b41_9d29307d",
+        "filename": "health_metric.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "Lower camel case.",
+      "range": {
+        "startLine": 19,
+        "startChar": 22,
+        "endLine": 19,
+        "endChar": 29
+      },
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e40aa29e_46cb965f",
+        "filename": "health_metric.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "Lower camel case.",
+      "range": {
+        "startLine": 21,
+        "startChar": 15,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "486cfa62_d4a27c83",
+        "filename": "health_metric.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "use static_cast",
+      "range": {
+        "startLine": 79,
+        "startChar": 14,
+        "endLine": 79,
+        "endChar": 19
+      },
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f056ec95_c1f3e13b",
+        "filename": "health_metric.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "Clean up",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 74
+      },
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c29602a_30a36aa1",
+        "filename": "health_utils.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "Lower camel case",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 25
+      },
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6feefde_c76946ed",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2023-12-31T07:20:17Z",
+      "side": 1,
+      "message": "Question:\nWhat does this do?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "4b90c9103788aa95a4d64803541d5afd50889795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
