@@ -1291,6 +1291,30 @@
       },
       "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65ccd1a_12675077",
+        "filename": "test/meson.build",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-02T12:37:38Z",
+      "side": 1,
+      "message": "Pretty much every one should be doing it this way.  Here is one particular example.\n\nhttps://github.com/openbmc/phosphor-logging/blob/972dd4f62890cf676c80270636ad63a7ca9a590a/test/meson.build#L47",
+      "parentUuid": "81f72aac_df28e4ec",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "e4b1160b0535a2c9e537b029b538d713092ab711",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
