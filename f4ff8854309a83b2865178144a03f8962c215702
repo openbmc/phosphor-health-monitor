@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43b53542_f749a251",
+        "filename": "meson.build",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-02T12:38:21Z",
+      "side": 1,
+      "message": "Here is the problem... you need to move this down.  Tests should be near the end of the file.\n\n(What\u0027s happening is that you\u0027re including the file before the dependency variables have been defined)",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 5
+      },
+      "revId": "f4ff8854309a83b2865178144a03f8962c215702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
