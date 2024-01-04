@@ -6,10 +6,10 @@
 #include <phosphor-logging/lg2.hpp>
 
 #include <fstream>
+#include <unordered_map>
+#include <utility>
 
 PHOSPHOR_LOG2_USING;
-
-constexpr auto metricNameDelimiter = "_";
 
 namespace phosphor::health::metric::config
 {
@@ -20,70 +20,69 @@ using json = nlohmann::json;
 extern json defaultHealthMetricConfig;
 
 // Valid thresholds from config
-static const std::map<std::string, ThresholdInterface::Type>
-    validThresholdTypes = {
-        {thresholdCritical, ThresholdInterface::Type::Critical},
-        {thresholdWarning, ThresholdInterface::Type::Warning}};
+static const auto validThresholdTypes =
+    std::unordered_map<std::string, ThresholdIntf::Type>{
+        {"Critical", ThresholdIntf::Type::Critical},
+        {"Warning", ThresholdIntf::Type::Warning}};
 
 // Valid metrics from config
-static const std::map<std::string, MetricType> validMetricTypes = {
-    {"CPU", MetricType::CPU},
-    {"Memory", MetricType::memory},
-    {"Storage", MetricType::storage},
-    {"Inode", MetricType::inode}};
+static const auto validTypes =
+    std::unordered_map<std::string, Type>{{"CPU", Type::cpu},
+                                          {"Memory", Type::memory},
+                                          {"Storage", Type::storage},
+                                          {"Inode", Type::inode}};
 
 // Valid submetrics from config
-static const std::map<std::string, MetricSubtype> validMetricSubtypes = {
-    {"CPU", MetricSubtype::CPUTotal},
-    {"CPU_User", MetricSubtype::CPUUser},
-    {"CPU_Kernel", MetricSubtype::CPUKernel},
-    {"Memory", MetricSubtype::memoryTotal},
-    {"Memory_Free", MetricSubtype::memoryFree},
-    {"Memory_Available", MetricSubtype::memoryAvailable},
-    {"Memory_Shared", MetricSubtype::memoryShared},
-    {"Memory_Buffered_And_Cached", MetricSubtype::memoryBufferedAndCached},
-    {"Storage_RW", MetricSubtype::storageReadWrite}};
+static const auto validSubTypes = std::unordered_map<std::string, SubType>{
+    {"CPU", SubType::cpuTotal},
+    {"CPU_User", SubType::cpuUser},
+    {"CPU_Kernel", SubType::cpuKernel},
+    {"Memory", SubType::memoryTotal},
+    {"Memory_Free", SubType::memoryFree},
+    {"Memory_Available", SubType::memoryAvailable},
+    {"Memory_Shared", SubType::memoryShared},
+    {"Memory_Buffered_And_Cached", SubType::memoryBufferedAndCached},
+    {"Storage_RW", SubType::storageReadWrite}};
 
-HealthMetricConfig getHealthMetricConfig(json& jsonObj)
+/** Deserialize a Threshold from JSON. */
+void from_json(const json& j, Threshold& self)
 {
-    constexpr auto collectionFrequency = "Frequency";
-    constexpr auto windowSize = "Window_size";
-    constexpr auto threshold = "Threshold";
-    constexpr auto thresholdVal = "Value";
-    constexpr auto thresholdLog = "Log";
-    constexpr auto thresholdTarget = "Target";
-    constexpr auto filePath = "Path";
-    HealthMetricConfig healthMetricConfig = {};
-    healthMetricConfig.collectionFrequency = jsonObj.value(collectionFrequency,
-                                                           defaultFrequency);
-    healthMetricConfig.windowSize = jsonObj.value(windowSize,
-                                                  defaultWindowSize);
-    if (jsonObj.contains(threshold))
+    self.value = j.value("Value", 100.0);
+    self.log = j.value("Log", false);
+    self.target = j.value("Target", Threshold::defaults::target);
+}
+
+/** Deserialize a HealthMetric from JSON. */
+void from_json(const json& j, HealthMetric& self)
+{
+    self.collectionFreq = std::chrono::seconds(
+        j.value("Frequency", HealthMetric::defaults::frequency.count()));
+
+    self.windowSize = j.value("Window_size",
+                              HealthMetric::defaults::windowSize);
+
+    self.path = j.value("Path", "");
+
+    auto thresholds = j.find("Threshold");
+    if (thresholds == j.end())
     {
-        for (auto& [thresholdKey, thresholdValue] : jsonObj[threshold].items())
-        {
-            auto thresholdType = validThresholdTypes.find(thresholdKey);
-            if (thresholdType == validThresholdTypes.end())
-            {
-                warning("Invalid ThresholdType: {THRESHOLD_KEY}",
-                        "THRESHOLD_KEY", thresholdKey);
-                continue;
-            }
-            auto config = ThresholdConfig();
-            config.value = thresholdValue.value(thresholdVal,
-                                                defaultHighThresholdValue);
-            config.logMessage =
-                thresholdValue.value(thresholdLog, defaultCriticalThresholdLog);
-            config.target = thresholdValue.value(thresholdTarget,
-                                                 defaultThresholdTarget);
-            healthMetricConfig.thresholdConfigs.emplace(
-                std::make_tuple(thresholdType->second,
-                                ThresholdInterface::Bound::Upper),
-                config);
-        }
+        return;
     }
-    healthMetricConfig.path = jsonObj.value(filePath, "");
-    return healthMetricConfig;
+
+    for (auto& [key, value] : thresholds->items())
+    {
+        if (!validThresholdTypes.contains(key))
+        {
+            warning("Invalid ThresholdType: {TYPE}", "TYPE", key);
+            continue;
+        }
+
+        auto config = value.template get<Threshold>();
+
+        self.thresholds.emplace(std::make_tuple(validThresholdTypes.at(key),
+                                                ThresholdIntf::Bound::Upper),
+                                config);
+    }
 }
 
 json parseConfigFile(std::string configFile)
@@ -92,88 +91,81 @@ json parseConfigFile(std::string configFile)
     if (!jsonFile.is_open())
     {
         info("config JSON file not found: {PATH}", "PATH", configFile);
-        return json();
+        return {};
     }
-    json data;
+
     try
     {
-        data = json::parse(jsonFile, nullptr, true);
+        return json::parse(jsonFile, nullptr, true);
     }
     catch (const json::parse_error& e)
     {
-        error("Failed to parse JSON config file {PATH} with error {ERROR}",
-              "PATH", configFile, "ERROR", e);
+        error("Failed to parse JSON config file {PATH}: {ERROR}", "PATH",
+              configFile, "ERROR", e);
     }
-    return data;
+
+    return {};
 }
 
-void printConfig(
-    std::map<MetricType, std::vector<HealthMetricConfig>>& healthMetricConfigs)
+void printConfig(HealthMetric::map_t& configs)
 {
-    for (auto& [metricType, healthMetricConfigList] : healthMetricConfigs)
+    for (auto& [type, configList] : configs)
     {
-        for (auto& healthMetricConfig : healthMetricConfigList)
+        for (auto& config : configList)
         {
             debug(
                 "MTYPE={MTYPE}, MNAME={MNAME} MSTYPE={MSTYPE} PATH={PATH}, FREQ={FREQ}, WSIZE={WSIZE}",
-                "MTYPE", std::to_underlying(metricType), "MNAME",
-                healthMetricConfig.metricName, "MSTYPE",
-                std::to_underlying(healthMetricConfig.metricSubtype), "PATH",
-                healthMetricConfig.path, "FREQ",
-                healthMetricConfig.collectionFrequency, "WSIZE",
-                healthMetricConfig.windowSize);
-            for (auto& [thresholdKey, thresholdConfig] :
-                 healthMetricConfig.thresholdConfigs)
+                "MTYPE", std::to_underlying(type), "MNAME", config.name,
+                "MSTYPE", std::to_underlying(config.subType), "PATH",
+                config.path, "FREQ", config.collectionFreq.count(), "WSIZE",
+                config.windowSize);
+
+            for (auto& [key, threshold] : config.thresholds)
             {
                 debug(
-                    "THRESHOLD TYPE={THRESHOLD_TYPE} THRESHOLD BOUND={THRESHOLD_BOUND} VALUE={VALUE} LOG={LOG} TARGET={TARGET}",
-                    "THRESHOLD_TYPE",
-                    std::to_underlying(
-                        get<ThresholdInterface::Type>(thresholdKey)),
-                    "THRESHOLD_BOUND",
-                    std::to_underlying(
-                        get<ThresholdInterface::Bound>(thresholdKey)),
-                    "VALUE", thresholdConfig.value, "LOG",
-                    thresholdConfig.logMessage, "TARGET",
-                    thresholdConfig.target);
+                    "THRESHOLD TYPE={TYPE} THRESHOLD BOUND={BOUND} VALUE={VALUE} LOG={LOG} TARGET={TARGET}",
+                    "TYPE", std::to_underlying(get<ThresholdIntf::Type>(key)),
+                    "BOUND", std::to_underlying(get<ThresholdIntf::Bound>(key)),
+                    "VALUE", threshold.value, "LOG", threshold.log, "TARGET",
+                    threshold.target);
             }
         }
     }
 }
 
-HealthMetricConfigs getHealthMetricConfigs()
+auto getHealthMetricConfigs() -> HealthMetric::map_t
 {
-    auto platformHealthConfig = parseConfigFile(HEALTH_CONFIG_FILE);
-    json localHealthMetricConfig(defaultHealthMetricConfig);
-    if (!platformHealthConfig.empty())
+    json mergedConfig(defaultHealthMetricConfig);
+
+    if (auto platformConfig = parseConfigFile(HEALTH_CONFIG_FILE);
+        !platformConfig.empty())
     {
-        localHealthMetricConfig.merge_patch(platformHealthConfig);
+        mergedConfig.merge_patch(platformConfig);
     }
-    HealthMetricConfigs healthMetricConfigs = {};
-    for (auto& [metricName, metricInfo] : localHealthMetricConfig.items())
+
+    HealthMetric::map_t configs = {};
+    for (auto& [name, metric] : mergedConfig.items())
     {
-        std::string metricType =
-            metricName.substr(0, metricName.find_first_of(metricNameDelimiter));
-        auto metricTypeIter = validMetricTypes.find(metricType);
-        if (metricTypeIter == validMetricTypes.end())
+        static constexpr auto nameDelimiter = "_";
+        std::string typeStr = name.substr(0, name.find_first_of(nameDelimiter));
+
+        auto type = validTypes.find(typeStr);
+        if (type == validTypes.end())
         {
-            warning("Invalid metric type: {METRIC_TYPE}", "METRIC_TYPE",
-                    metricType);
+            warning("Invalid metric type: {TYPE}", "TYPE", typeStr);
             continue;
         }
-        HealthMetricConfig healthMetricConfig =
-            getHealthMetricConfig(metricInfo);
-        healthMetricConfig.metricName = metricName;
-        auto metricSubtypeIter = validMetricSubtypes.find(metricName);
-        healthMetricConfig.metricSubtype =
-            (metricSubtypeIter != validMetricSubtypes.end()
-                 ? metricSubtypeIter->second
-                 : MetricSubtype::NA);
-        healthMetricConfigs[metricTypeIter->second].push_back(
-            healthMetricConfig);
+
+        auto config = metric.template get<HealthMetric>();
+
+        auto subType = validSubTypes.find(name);
+        config.subType = (subType != validSubTypes.end() ? subType->second
+                                                         : SubType::NA);
+
+        configs[type->second].emplace_back(std::move(config));
     }
-    printConfig(healthMetricConfigs);
-    return healthMetricConfigs;
+    printConfig(configs);
+    return configs;
 }
 
 json defaultHealthMetricConfig = R"({

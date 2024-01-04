@@ -3,9 +3,12 @@
 #include <sdbusplus/test/sdbus_mock.hpp>
 
 #include <iostream>
+#include <set>
+#include <utility>
 
 #include <gtest/gtest.h>
 
+using namespace phosphor::health;
 using namespace phosphor::health::metric::config;
 
 constexpr auto minConfigSize = 1;
@@ -16,28 +19,36 @@ TEST(HealthMonitorConfigTest, TestConfigSize)
     EXPECT_GE(healthMetricConfigs.size(), minConfigSize);
 }
 
-bool isValidSubtype(MetricType type, MetricSubtype subType)
+bool isValidSubType(metric::Type type, metric::SubType subType)
 {
     std::cout << "Metric Type: " << std::to_underlying(type)
               << " Metric SubType: " << std::to_underlying(subType)
               << std::endl;
+
+    using set_t = std::set<metric::SubType>;
+
     switch (type)
     {
-        case MetricType::CPU:
-            return (subType == MetricSubtype::CPUTotal ||
-                    subType == MetricSubtype::CPUKernel ||
-                    subType == MetricSubtype::CPUUser);
-        case MetricType::memory:
-            return (subType == MetricSubtype::memoryAvailable ||
-                    subType == MetricSubtype::memoryBufferedAndCached ||
-                    subType == MetricSubtype::memoryFree ||
-                    subType == MetricSubtype::memoryShared ||
-                    subType == MetricSubtype::memoryTotal);
-        case MetricType::storage:
-            return (subType == MetricSubtype::storageReadWrite ||
-                    subType == MetricSubtype::NA);
-        case MetricType::inode:
-            return (subType == MetricSubtype::NA);
+        case metric::Type::cpu:
+            return set_t{metric::SubType::cpuTotal, metric::SubType::cpuKernel,
+                         metric::SubType::cpuUser}
+                .contains(subType);
+
+        case metric::Type::memory:
+            return set_t{metric::SubType::memoryAvailable,
+                         metric::SubType::memoryBufferedAndCached,
+                         metric::SubType::memoryFree,
+                         metric::SubType::memoryShared,
+                         metric::SubType::memoryTotal}
+                .contains(subType);
+
+        case metric::Type::storage:
+            return set_t{metric::SubType::storageReadWrite, metric::SubType::NA}
+                .contains(subType);
+
+        case metric::Type::inode:
+            return set_t{metric::SubType::NA}.contains(subType);
+
         default:
             return false;
     }
@@ -48,15 +59,15 @@ TEST(HealthMonitorConfigTest, TestConfigValues)
     auto healthMetricConfigs = getHealthMetricConfigs();
     for (const auto& [type, configs] : healthMetricConfigs)
     {
-        EXPECT_NE(type, MetricType::unknown);
+        EXPECT_NE(type, metric::Type::unknown);
         EXPECT_GE(configs.size(), minConfigSize);
         for (const auto& config : configs)
         {
-            EXPECT_NE(config.metricName, std::string(""));
-            EXPECT_TRUE(isValidSubtype(type, config.metricSubtype));
-            EXPECT_GE(config.collectionFrequency, defaultFrequency);
-            EXPECT_GE(config.windowSize, defaultWindowSize);
-            EXPECT_GE(config.thresholdConfigs.size(), minConfigSize);
+            EXPECT_NE(config.name, std::string(""));
+            EXPECT_TRUE(isValidSubType(type, config.subType));
+            EXPECT_GE(config.collectionFreq, HealthMetric::defaults::frequency);
+            EXPECT_GE(config.windowSize, HealthMetric::defaults::windowSize);
+            EXPECT_GE(config.thresholds.size(), minConfigSize);
         }
     }
 }

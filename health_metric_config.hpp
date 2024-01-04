@@ -2,55 +2,33 @@
 
 #include <xyz/openbmc_project/Common/Threshold/server.hpp>
 
+#include <chrono>
 #include <limits>
 #include <map>
 #include <string>
 #include <vector>
 
-namespace phosphor
-{
-namespace health
-{
-namespace metric
-{
-namespace config
+namespace phosphor::health::metric
 {
 
-using ThresholdInterface =
-    sdbusplus::xyz::openbmc_project::Common::server::Threshold;
+using ThresholdIntf =
+    sdbusplus::server::xyz::openbmc_project::common::Threshold;
 
-// Default metric attribute values
-constexpr auto defaultFrequency = 1;
-constexpr auto defaultWindowSize = 1;
-constexpr auto defaultHighThresholdValue = 100.0;
-constexpr auto defaultCriticalThresholdLog = false;
-constexpr auto defaultWarningThresholdLog = false;
-constexpr auto defaultThresholdTarget = "";
-constexpr auto defaultPath = "";
-
-constexpr auto cpuMetricName = "CPU";
-
-constexpr auto thresholdTypeKeyIndex = 0;
-constexpr auto thresholdBoundKeyIndex = 1;
-
-constexpr auto thresholdCritical = "Critical";
-constexpr auto thresholdWarning = "Warning";
-
-enum class MetricType
+enum class Type
 {
-    CPU,
+    cpu,
     memory,
     storage,
     inode,
     unknown
 };
 
-enum class MetricSubtype
+enum class SubType
 {
     // CPU subtypes
-    CPUKernel,
-    CPUTotal,
-    CPUUser,
+    cpuKernel,
+    cpuTotal,
+    cpuUser,
     // Memory subtypes
     memoryAvailable,
     memoryBufferedAndCached,
@@ -62,51 +40,55 @@ enum class MetricSubtype
     NA
 };
 
-struct ThresholdConfig
+namespace config
 {
-    double value = std::numeric_limits<double>::quiet_NaN();
-    bool logMessage;
-    std::string target;
+
+using namespace std::literals::chrono_literals;
+
+struct Threshold
+{
+    double value = defaults::value;
+    bool log = false;
+    std::string target = defaults::target;
+
+    using map_t =
+        std::map<std::tuple<ThresholdIntf::Type, ThresholdIntf::Bound>,
+                 Threshold>;
+
+    struct defaults
+    {
+        static constexpr auto value = std::numeric_limits<double>::quiet_NaN();
+        static constexpr auto target = "";
+    };
 };
 
-using ThresholdConfigs =
-    std::map<std::tuple<ThresholdInterface::Type, ThresholdInterface::Bound>,
-             ThresholdConfig>;
-
-class HealthMetricConfig
+struct HealthMetric
 {
-  public:
-    virtual ~HealthMetricConfig() = default;
-    HealthMetricConfig() = default;
-    HealthMetricConfig(std::string metricName, MetricSubtype metricSubtype,
-                       size_t collectionFrequency, size_t windowSize,
-                       ThresholdConfigs thresholdConfigs, std::string& path) :
-        metricName(metricName),
-        metricSubtype(metricSubtype), collectionFrequency(collectionFrequency),
-        windowSize(windowSize), thresholdConfigs(thresholdConfigs), path(path)
-    {}
-
     /** @brief The name of the metric. */
-    std::string metricName;
+    std::string name = "unnamed";
     /** @brief The metric subtype. */
-    MetricSubtype metricSubtype;
+    SubType subType = SubType::NA;
     /** @brief The collection frequency for the metric. */
-    size_t collectionFrequency;
+    std::chrono::seconds collectionFreq = defaults::frequency;
     /** @brief The window size for the metric. */
-    size_t windowSize;
+    size_t windowSize = defaults::windowSize;
     /** @brief The threshold configs for the metric. */
-    ThresholdConfigs thresholdConfigs;
+    Threshold::map_t thresholds{};
     /** @brief The path for filesystem metric */
-    std::string path;
-};
+    std::string path = defaults::path;
 
-using HealthMetricConfigs =
-    std::map<MetricType, std::vector<HealthMetricConfig>>;
+    using map_t = std::map<Type, std::vector<HealthMetric>>;
+
+    struct defaults
+    {
+        static constexpr auto frequency = 1s;
+        static constexpr auto windowSize = 1;
+        static constexpr auto path = "";
+    };
+};
 
 /** @brief Get the health metric configs. */
-HealthMetricConfigs getHealthMetricConfigs();
+auto getHealthMetricConfigs() -> HealthMetric::map_t;
 
 } // namespace config
-} // namespace metric
-} // namespace health
-} // namespace phosphor
+} // namespace phosphor::health::metric
