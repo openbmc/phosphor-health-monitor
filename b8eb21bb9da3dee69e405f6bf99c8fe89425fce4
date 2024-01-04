@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "612ecc92_7bfd3fdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-04T19:29:36Z",
+      "side": 1,
+      "message": "Jagpal - This is the simplification of your preceding commit I mentioned.  I\u0027m fine if we just squash these together if you don\u0027t have any concerns.",
+      "revId": "b8eb21bb9da3dee69e405f6bf99c8fe89425fce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
