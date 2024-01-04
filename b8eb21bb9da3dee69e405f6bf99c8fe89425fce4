@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cba532b4_6bcb128b",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-04T20:27:13Z",
+      "side": 1,
+      "message": "Yes.  Especially if there is a precedence for it elsewhere in the project.  There are many places where you\u0027ll see an alias like this for Intf pointing to dbus-interfaces specifically.",
+      "parentUuid": "c035bf3d_bbe3c363",
+      "revId": "b8eb21bb9da3dee69e405f6bf99c8fe89425fce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1fd918df_0b5477fb",
         "filename": "health_metric_config.hpp",
         "patchSetId": 1
@@ -65,6 +83,24 @@
       "writtenOn": "2024-01-04T20:02:14Z",
       "side": 1,
       "message": "I suppose its better to name this HealthMetricConfig rather than just HealthMetric, since this is not HealthMetric but config pertaining to it.",
+      "revId": "b8eb21bb9da3dee69e405f6bf99c8fe89425fce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e118ae47_7e7ac68d",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-04T20:27:13Z",
+      "side": 1,
+      "message": "It is already in the `config` namespace though, so it is kind of redundant.  You could make an argument we could just name it `Health` since the namespace is metric::config, but I didn\u0027t go that far.\n\nOne primary purpose of using namespaces is to be able to shorten the variable and class names when you\u0027re referring to them locally.",
+      "parentUuid": "1fd918df_0b5477fb",
       "revId": "b8eb21bb9da3dee69e405f6bf99c8fe89425fce4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
