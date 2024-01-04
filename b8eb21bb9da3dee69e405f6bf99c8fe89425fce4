@@ -16,6 +16,57 @@
       "message": "Jagpal - This is the simplification of your preceding commit I mentioned.  I\u0027m fine if we just squash these together if you don\u0027t have any concerns.",
       "revId": "b8eb21bb9da3dee69e405f6bf99c8fe89425fce4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ca1881_dc866281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-04T20:02:14Z",
+      "side": 1,
+      "message": "Hi Patrick, \nThanks for the diff. I am fine to squash the two commits together. I see most of the changes are around coding style when it comes to choosing variable and type names. I can fix the next set of commits based on the style in this commit.\nThanks",
+      "revId": "b8eb21bb9da3dee69e405f6bf99c8fe89425fce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c035bf3d_bbe3c363",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-04T20:02:14Z",
+      "side": 1,
+      "message": "Is it fine to use short words rather than full words, for example Intf rather than Interface?",
+      "revId": "b8eb21bb9da3dee69e405f6bf99c8fe89425fce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fd918df_0b5477fb",
+        "filename": "health_metric_config.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-04T20:02:14Z",
+      "side": 1,
+      "message": "I suppose its better to name this HealthMetricConfig rather than just HealthMetric, since this is not HealthMetric but config pertaining to it.",
+      "revId": "b8eb21bb9da3dee69e405f6bf99c8fe89425fce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
