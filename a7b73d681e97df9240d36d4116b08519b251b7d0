@@ -536,6 +536,161 @@
       "message": "return {};",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a130d5b_30deafec",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:42:55Z",
+      "side": 1,
+      "message": "unmocked? 😊",
+      "range": {
+        "startLine": 56,
+        "startChar": 24,
+        "endLine": 56,
+        "endChar": 34
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a460b5_97439c22",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:42:55Z",
+      "side": 1,
+      "message": "I think you should generally favor `new_bus` and not `new_default`.",
+      "range": {
+        "startLine": 56,
+        "startChar": 53,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92531c06_a040bf35",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:42:55Z",
+      "side": 1,
+      "message": "Why are we getting a service name from the interface name?\n\nI\u0027d rather something obviously testing related here.",
+      "range": {
+        "startLine": 57,
+        "startChar": 39,
+        "endLine": 57,
+        "endChar": 48
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92645613_bc203df8",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:42:55Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is necessary.  This stuff is created by the bindings.  Why add an explicit test for it?",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1a28884_4fffcf2e",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:42:55Z",
+      "side": 1,
+      "message": "This is an invalid test.  We should _not_ be emitting signals as part of constructing an object (I alluded to this in the code itself).",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 8
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fc1afb6_3baaaaf8",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:42:55Z",
+      "side": 1,
+      "message": "I\u0027m not sure you have to test these, but fine if you want to leave it in place.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 8
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8bec6bf_f6b4e911",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:42:55Z",
+      "side": 1,
+      "message": "It\u0027s fine to use the mock stuff.  You could have also added a separate `context` to be a dbus client.",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 18
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
