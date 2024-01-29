@@ -1,0 +1,541 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692927a8_62113a0c",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "We should get this add to phosphor-dbus-interfaces, right?",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c5dbf0_3acb2ff9",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Would this be more readable as a switch instead of if-tree?",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e997833_9b3587d7",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Just return it?",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2c34b4f_45ca5f19",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Just \"TYPE\".",
+      "range": {
+        "startLine": 66,
+        "startChar": 49,
+        "endLine": 66,
+        "endChar": 55
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3fc1421_d1d35c6b",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "nit: spelling",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 36
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271141e7_92560637",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "This sounds like `debug`?  Seems a little chatty to leave in the final code.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3fb069_004fd358",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "I suspect you want to add `skipSignal \u003d true` parameter to all of these set calls in this function.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9570a49_6e7926f7",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Probably want minValue \u003d 0 here?",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc42410e_0912e335",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Isn\u0027t this sufficient?\n\n```\nconst auto\u0026 thresholdStr \u003d validThresholds[type];\n```\n\nThis is a minor optimization that you might consider (only so that we don\u0027t have to get the string except in the boundary conditions):\n\n```\nauto thresholdStr \u003d [\u003d]() -\u003e const auto\u0026 { return validThresholds[type]; };\n```\n\nReally, I don\u0027t think you even need any of this though...\n\n`sdbusplus::message::convert_to_string(type)` gives you what you want.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ca6b8b_936b048f",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Is there a reason you\u0027re using `at` instead of `[]`?  Generally, `at` does bounds checking and throws an exception, so it is more expensive, but you already know `contains` is true so this is wasted effort.\n\nAlso, you seem to have multiple `at` look ups of the same thing, which indicate multiple searches through the same vectors.  Each one of these `value` calls is returning an instance of the map, which is relatively expensive.\n\nMaybe something like this?\n(use different variable names)\n```\nauto v \u003d ThresholdIntf::value()\nauto t \u003d v.find(type);\nauto b \u003d (t !\u003d std::end(v) ? v.find(bound) : std::end(v));\n\nif (v !\u003d std::end(t) \u0026\u0026 b !\u003d std::end(v))\n{\n}\n```",
+      "range": {
+        "startLine": 128,
+        "startChar": 31,
+        "endLine": 128,
+        "endChar": 33
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cdf40e4_b9faef82",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Why would we have a non-finite threshold?  This seems like a configuration problem.",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 41
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebb69930_eec168b9",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Reduce the `asserted()` call by using if-initializer syntax.\n```\nif (auto asserted \u003d ThresholdIntf::asserted(); asserted.contains(threshold))\n```",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 58
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bce189bf_d91c4231",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Save this `find` call with a if-initializer too.\n\nWhy use `find(...)-\u003esecond` and not `[]`?",
+      "range": {
+        "startLine": 139,
+        "startChar": 20,
+        "endLine": 139,
+        "endChar": 53
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77cb50a7_1db62e07",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "METRIC",
+      "range": {
+        "startLine": 142,
+        "startChar": 48,
+        "endLine": 142,
+        "endChar": 53
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "965b3d39_36ce121d",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "METRIC",
+      "range": {
+        "startLine": 159,
+        "startChar": 46,
+        "endLine": 159,
+        "endChar": 51
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb836aa_27a91847",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "This seems strange.  Why not do a loop in the code and check all the thresholds at once?  What about the other threshold types?  Why don\u0027t we allow HardShutdown, for example?",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 59
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca50746e_d522607a",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Seeing these get\u003c0\u003e and get\u003c1\u003e here lead me to wonder what `value_t` even is and leaving the comment in the .hpp file.\n\n`value.foo` and `value.bar` would make this code more obvious than `get\u003cN\u003e`.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49feae98_1fefd322",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Not sure we should emit a warning every time like this.  Means we\u0027re going to emit `windowSize` warnings at the beginning of the process every time.  Maybe we should do it only when we are at 0?\n\nThis isn\u0027t really a warning is it?  Seems like debug and/or info at the maximum.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad2cc8f6_0c152823",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "METRIC",
+      "range": {
+        "startLine": 201,
+        "startChar": 33,
+        "endLine": 201,
+        "endChar": 38
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6c4bafe_23083a0c",
+        "filename": "health_metric.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Would prefer you explicitly add `paths_t` to line 29 rather than polluting the whole namespace in the header file.\n\n`using phosphor::health::utils::path_t;`.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66a2080e_d13fbc74",
+        "filename": "health_metric.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Do you think we should copy the HealthMetric into this object?  Or can we just preserve the pieces of it we immediately need?  I\u0027m a little uncomfortable with holding a reference to it, partially because I had to look through 3 different commits / classes to figure out how it all chains together.\n\nIt seems to me that once the top-level creates all of its children from the config we could drop the top-level instance (of config) to free up the memory.",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 51
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4f2b2c3_74e9e039",
+        "filename": "health_metric.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Since `create` calls `setProperties` which sets properties (all as part of the construction) you need to pass the constructor here with the `action::defer_emit` here and then sometime after you\u0027re done setting up the object you need to call this-\u003eemit_object_added.\n\nOtherwise, you\u0027re going to be emitting signals for all those initialization implying that the values changed.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b9f87f_903514ca",
+        "filename": "health_metric.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "I have absolutely no idea why idea why `value_t` is a tuple of two doubles.  What do these represent?  (please add comments at a minimum, maybe a real struct?)",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de20ca1_1d809ff2",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "I don\u0027t see any usage of this function and the doxygen is pretty terse so it is a little hard to review for correct functionality.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c551f1d_b9106730",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "```\nauto paths \u003d bus.call(msg, int32_t(0)).unpack\u003cpaths_t\u003e();\n...\nreturn paths;\n```\n\nYou need to be explicit on the type here otherwise `int` on 32 vs 64 bit will result in different type being passed into call, depending on the platform, which doesn\u0027t match the dbus interface specification for this function call.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84330071_9cdc9e6e",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "Is this useful?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b05c5111_571327f0",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T23:17:50Z",
+      "side": 1,
+      "message": "return {};",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
