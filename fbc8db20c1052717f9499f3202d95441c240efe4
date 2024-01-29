@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcba910c_2028a07c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T13:27:59Z",
+      "side": 1,
+      "message": "A few minor comments.",
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "744c607e_315b52d9",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T13:27:59Z",
+      "side": 1,
+      "message": "(I\u0027m leaving this comment after the one on the next line, so read that one first.)\n\n\nYou might want to change this to `decltype(self.collectionFreq)`?  But... why is it even needed?  Can\u0027t collectionFreq already be default-constructed from an integer?\n\nDepending on what you chose to do with line 59, will probably affect what is the best option here.",
+      "range": {
+        "startLine": 58,
+        "startChar": 26,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28b1658b_25e0ecff",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T13:27:59Z",
+      "side": 1,
+      "message": "There is no not a compile-time catch for the `.count()` being in seconds.  If someone changes the type (for example to milliseconds) they\u0027re not going to get an obvious failure here.\n\nA few options:\n1. explicitly cast this to seconds before getting the count.\n2. Add a static_assert to ensure that the type is seconds.  And/or add a static assert in the previous file to ensure that `collectionFreq` and `Healthmetric::defaults::frequency` are the same type.",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 70
+      },
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca8c7eec_02dfb6d4",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T13:27:59Z",
+      "side": 1,
+      "message": "Should the `from_json` fail if we don\u0027t have a path?  Should there be a default obviously-wrong path?\n\nAt least leave a comment here as to what the code does with any empty path so it is a little more obvious.",
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aceb5735_facdb888",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-01-29T13:27:59Z",
+      "side": 1,
+      "message": "It isn\u0027t obvious to me why this is the bound.",
+      "range": {
+        "startLine": 83,
+        "startChar": 48,
+        "endLine": 83,
+        "endChar": 75
+      },
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
