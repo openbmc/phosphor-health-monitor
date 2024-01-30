@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66b3a4c8_ba1eb71f",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-30T23:17:27Z",
+      "side": 1,
+      "message": "Why do we need a decltype here? \n\nI changed line 59 to \nself.collectionFreq \u003d std::chrono::seconds(\nj.value(\"Frequency\", std::chrono::seconds(HealthMetric::defaults::frequency).count()));",
+      "parentUuid": "744c607e_315b52d9",
+      "range": {
+        "startLine": 58,
+        "startChar": 26,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28b1658b_25e0ecff",
         "filename": "health_metric_config.cpp",
         "patchSetId": 17
@@ -54,6 +78,30 @@
       "writtenOn": "2024-01-29T13:27:59Z",
       "side": 1,
       "message": "There is no not a compile-time catch for the `.count()` being in seconds.  If someone changes the type (for example to milliseconds) they\u0027re not going to get an obvious failure here.\n\nA few options:\n1. explicitly cast this to seconds before getting the count.\n2. Add a static_assert to ensure that the type is seconds.  And/or add a static assert in the previous file to ensure that `collectionFreq` and `Healthmetric::defaults::frequency` are the same type.",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 70
+      },
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60bf6419_25e4bb59",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-30T23:17:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28b1658b_25e0ecff",
       "range": {
         "startLine": 59,
         "startChar": 29,
@@ -81,6 +129,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a09754d_a85fd0ee",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-30T23:17:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca8c7eec_02dfb6d4",
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aceb5735_facdb888",
@@ -94,6 +160,30 @@
       "writtenOn": "2024-01-29T13:27:59Z",
       "side": 1,
       "message": "It isn\u0027t obvious to me why this is the bound.",
+      "range": {
+        "startLine": 83,
+        "startChar": 48,
+        "endLine": 83,
+        "endChar": 75
+      },
+      "revId": "fbc8db20c1052717f9499f3202d95441c240efe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a6b2238_23945a42",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-30T23:17:27Z",
+      "side": 1,
+      "message": "Right now only upper bound is being used for Health Metrics Threshold. There is no use case for lower bounds at moment.",
+      "parentUuid": "aceb5735_facdb888",
       "range": {
         "startLine": 83,
         "startChar": 48,
