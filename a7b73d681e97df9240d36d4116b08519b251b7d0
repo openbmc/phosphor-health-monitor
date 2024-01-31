@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b27ef32_81f8a391",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "I am not sure where we will model this? This is just a piece of path.",
+      "parentUuid": "692927a8_62113a0c",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75c5dbf0_3acb2ff9",
         "filename": "health_metric.cpp",
         "patchSetId": 15
@@ -37,6 +61,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "Would this be more readable as a switch instead of if-tree?",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d219004f_ae416302",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c5dbf0_3acb2ff9",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +96,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "Just return it?",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38028f1c_829694c2",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e997833_9b3587d7",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -104,6 +164,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d186f65b_85915308",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3fc1421_d1d35c6b",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 36
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c82a019_b062b019",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2c34b4f_45ca5f19",
+      "range": {
+        "startLine": 66,
+        "startChar": 49,
+        "endLine": 66,
+        "endChar": 55
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "271141e7_92560637",
@@ -117,6 +225,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "This sounds like `debug`?  Seems a little chatty to leave in the final code.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86edfe9_6dc0d4b5",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Already removed this by returning within switch case itself.",
+      "parentUuid": "271141e7_92560637",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -138,6 +264,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e598c77d_9dc81f6a",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed3fb069_004fd358",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9570a49_6e7926f7",
@@ -151,6 +295,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "Probably want minValue \u003d 0 here?",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc636827_f0a3fbc3",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9570a49_6e7926f7",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -172,6 +334,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72d1ac8b_b7c47a39",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc42410e_0912e335",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64ca6b8b_936b048f",
@@ -185,6 +365,30 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "Is there a reason you\u0027re using `at` instead of `[]`?  Generally, `at` does bounds checking and throws an exception, so it is more expensive, but you already know `contains` is true so this is wasted effort.\n\nAlso, you seem to have multiple `at` look ups of the same thing, which indicate multiple searches through the same vectors.  Each one of these `value` calls is returning an instance of the map, which is relatively expensive.\n\nMaybe something like this?\n(use different variable names)\n```\nauto v \u003d ThresholdIntf::value()\nauto t \u003d v.find(type);\nauto b \u003d (t !\u003d std::end(v) ? v.find(bound) : std::end(v));\n\nif (v !\u003d std::end(t) \u0026\u0026 b !\u003d std::end(v))\n{\n}\n```",
+      "range": {
+        "startLine": 128,
+        "startChar": 31,
+        "endLine": 128,
+        "endChar": 33
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f24075a0_a464c998",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "I changed the code around to make it more clear.",
+      "parentUuid": "64ca6b8b_936b048f",
       "range": {
         "startLine": 128,
         "startChar": 31,
@@ -220,6 +424,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0bae6ecd_69d6eb3e",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Yes, i suppose there could be a Nan value or something, isn\u0027t it better to safeguard around it or better let it fail?",
+      "parentUuid": "0cdf40e4_b9faef82",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 41
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebb69930_eec168b9",
         "filename": "health_metric.cpp",
         "patchSetId": 15
@@ -231,6 +459,30 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "Reduce the `asserted()` call by using if-initializer syntax.\n```\nif (auto asserted \u003d ThresholdIntf::asserted(); asserted.contains(threshold))\n```",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 58
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bdd0dcc_569f67a3",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebb69930_eec168b9",
       "range": {
         "startLine": 133,
         "startChar": 0,
@@ -266,6 +518,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36d25f67_4373db3f",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "\u003e Why use `find(...)-\u003esecond` and not `[]`?\n\nIt fails with error -\n\n../health_metric.cpp:139:59: error: passing \u0027const phosphor::health::metric::config::Threshold::map_t\u0027 {aka \u0027const std::map\u003cstd::tuple\u003csdbusplus::common::xyz::openbmc_project::common::Threshold::Type, sdbusplus::common::xyz::openbmc_project::common::Threshold::Bound\u003e, phosphor::health::metric::config::Threshold\u003e\u0027} as \u0027this\u0027 argument discards qualifiers [-fpermissive]\n  139 |                 auto tConfig \u003d config.thresholds[threshold];\n      |                                                           ^",
+      "parentUuid": "bce189bf_d91c4231",
+      "range": {
+        "startLine": 139,
+        "startChar": 20,
+        "endLine": 139,
+        "endChar": 53
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77cb50a7_1db62e07",
         "filename": "health_metric.cpp",
         "patchSetId": 15
@@ -277,6 +553,30 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "METRIC",
+      "range": {
+        "startLine": 142,
+        "startChar": 48,
+        "endLine": 142,
+        "endChar": 53
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3932eaea_abc4d628",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77cb50a7_1db62e07",
       "range": {
         "startLine": 142,
         "startChar": 48,
@@ -300,6 +600,30 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "METRIC",
+      "range": {
+        "startLine": 159,
+        "startChar": 46,
+        "endLine": 159,
+        "endChar": 51
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc774c84_31a59b81",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "965b3d39_36ce121d",
       "range": {
         "startLine": 159,
         "startChar": 46,
@@ -335,6 +659,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac9f7059_68c52a1f",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "We start from Critical and walk our way back to lower levels.\n\nI have added other ones too now. Please check.",
+      "parentUuid": "2fb836aa_27a91847",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 59
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca50746e_d522607a",
         "filename": "health_metric.cpp",
         "patchSetId": 15
@@ -346,6 +694,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "Seeing these get\u003c0\u003e and get\u003c1\u003e here lead me to wonder what `value_t` even is and leaving the comment in the .hpp file.\n\n`value.foo` and `value.bar` would make this code more obvious than `get\u003cN\u003e`.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8be7ff5d_c0aff519",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Already added a comment in the .hpp file.\nDone",
+      "parentUuid": "ca50746e_d522607a",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -363,6 +729,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "Not sure we should emit a warning every time like this.  Means we\u0027re going to emit `windowSize` warnings at the beginning of the process every time.  Maybe we should do it only when we are at 0?\n\nThis isn\u0027t really a warning is it?  Seems like debug and/or info at the maximum.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b48602f6_b6778402",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49feae98_1fefd322",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -390,6 +774,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ac03061_3f49c0a3",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad2cc8f6_0c152823",
+      "range": {
+        "startLine": 201,
+        "startChar": 33,
+        "endLine": 201,
+        "endChar": 38
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6c4bafe_23083a0c",
@@ -403,6 +811,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "Would prefer you explicitly add `paths_t` to line 29 rather than polluting the whole namespace in the header file.\n\n`using phosphor::health::utils::path_t;`.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28abb0a4_200db21d",
+        "filename": "health_metric.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6c4bafe_23083a0c",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -430,6 +856,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d35bc56_9736fd8d",
+        "filename": "health_metric.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66a2080e_d13fbc74",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 51
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4f2b2c3_74e9e039",
@@ -447,6 +897,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1135d8e6_fe9eff08",
+        "filename": "health_metric.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4f2b2c3_74e9e039",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53b9f87f_903514ca",
@@ -460,6 +928,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "I have absolutely no idea why idea why `value_t` is a tuple of two doubles.  What do these represent?  (please add comments at a minimum, maybe a real struct?)",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fdfe363_bd721c0d",
+        "filename": "health_metric.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done, added comment.",
+      "parentUuid": "53b9f87f_903514ca",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -483,6 +969,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a23845c_7b5ed260",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "This will get used in the test and health_monitor.cpp, so i added it early to get the paths for the bmc inventory item.",
+      "parentUuid": "9de20ca1_1d809ff2",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c551f1d_b9106730",
         "filename": "health_utils.cpp",
         "patchSetId": 15
@@ -494,6 +998,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "```\nauto paths \u003d bus.call(msg, int32_t(0)).unpack\u003cpaths_t\u003e();\n...\nreturn paths;\n```\n\nYou need to be explicit on the type here otherwise `int` on 32 vs 64 bit will result in different type being passed into call, depending on the platform, which doesn\u0027t match the dbus interface specification for this function call.",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dac3d40_f6f7bee1",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c551f1d_b9106730",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -521,6 +1043,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc04e0ba_e34ea6b9",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Changed it for better.\nDone",
+      "parentUuid": "84330071_9cdc9e6e",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 9
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b05c5111_571327f0",
@@ -534,6 +1080,24 @@
       "writtenOn": "2024-01-29T23:17:50Z",
       "side": 1,
       "message": "return {};",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a57ae429_738f7c62",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Why an empty vector? Don\u0027t we need to return paths?",
+      "parentUuid": "b05c5111_571327f0",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -584,6 +1148,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd1c2971_d52a3d2a",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39a460b5_97439c22",
+      "range": {
+        "startLine": 56,
+        "startChar": 53,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed14017_79d7f76e",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a130d5b_30deafec",
+      "range": {
+        "startLine": 56,
+        "startChar": 24,
+        "endLine": 56,
+        "endChar": 34
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92531c06_a040bf35",
@@ -597,6 +1209,30 @@
       "writtenOn": "2024-01-29T23:42:55Z",
       "side": 1,
       "message": "Why are we getting a service name from the interface name?\n\nI\u0027d rather something obviously testing related here.",
+      "range": {
+        "startLine": 57,
+        "startChar": 39,
+        "endLine": 57,
+        "endChar": 48
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aadc8a39_2d3e3f06",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92531c06_a040bf35",
       "range": {
         "startLine": 57,
         "startChar": 39,
@@ -624,6 +1260,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b15804_ac11f132",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92645613_bc203df8",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1a28884_4fffcf2e",
@@ -637,6 +1291,30 @@
       "writtenOn": "2024-01-29T23:42:55Z",
       "side": 1,
       "message": "This is an invalid test.  We should _not_ be emitting signals as part of constructing an object (I alluded to this in the code itself).",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 8
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22fde94a_b94e6a9c",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1a28884_4fffcf2e",
       "range": {
         "startLine": 89,
         "startChar": 0,
@@ -670,6 +1348,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "242b6cf3_4153e502",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Keeping them for now.",
+      "parentUuid": "4fc1afb6_3baaaaf8",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 8
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8bec6bf_f6b4e911",
@@ -683,6 +1385,30 @@
       "writtenOn": "2024-01-29T23:42:55Z",
       "side": 1,
       "message": "It\u0027s fine to use the mock stuff.  You could have also added a separate `context` to be a dbus client.",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 18
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8549c20e_d25185ef",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-01-31T23:19:13Z",
+      "side": 1,
+      "message": "Using mock for now.",
+      "parentUuid": "d8bec6bf_f6b4e911",
       "range": {
         "startLine": 136,
         "startChar": 0,
