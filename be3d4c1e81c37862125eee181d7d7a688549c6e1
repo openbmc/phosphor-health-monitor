@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20a66e97_9701b916",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "I was also thinking so earlier, but i couldn\u0027t find any pro/cons of it. Do you think there are any?",
+      "parentUuid": "cb8259da_bd6b3ec1",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97ff25ed_61e700fc",
         "filename": "health_metric_collection.cpp",
         "patchSetId": 17
@@ -31,6 +49,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "Oh my... do we actually have this assumption somewhere?\n\n\nI\u0027m not actually sure what this comment is suppose to lead me to believe (except that it got copied from the existing code) since I don\u0027t see 0.01 anywhere below.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7890b13d_041e6300",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Yes, it has been copied from exiting implementation. I haven\u0027t made any major changes in this logic since its a tested piece of code and it works.",
+      "parentUuid": "97ff25ed_61e700fc",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -87,6 +129,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9c90cff_194e8726",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ce96571_91f331d4",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 33
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6825a46_4fb9806b",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0705b689_63c3613d",
+      "range": {
+        "startLine": 107,
+        "startChar": 37,
+        "endLine": 107,
+        "endChar": 43
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3def2dc_a78285cd",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "Uh... is this right?  I guess since it is a percentage to begin with.",
+      "range": {
+        "startLine": 111,
+        "startChar": 48,
+        "endLine": 111,
+        "endChar": 63
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a3d0e70_a777f922",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "For CPU, both external user as well as threshold monitoring are interested in percentages hence so.",
+      "parentUuid": "b3def2dc_a78285cd",
       "range": {
         "startLine": 111,
         "startChar": 48,
@@ -242,6 +356,96 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9770430b_c400b100",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67e2fa5e_4d8ec3fe",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a5b5811_408b41df",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d4d1ae9_a6a25d8e",
+      "range": {
+        "startLine": 178,
+        "startChar": 29,
+        "endLine": 178,
+        "endChar": 35
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bc918b5_6f64bfa8",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47563fc1_3713f64b",
+      "range": {
+        "startLine": 178,
+        "startChar": 39,
+        "endLine": 178,
+        "endChar": 48
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e38d1ac_dd054caa",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "363a1e72_8b7ae816",
+      "range": {
+        "startLine": 178,
+        "startChar": 52,
+        "endLine": 178,
+        "endChar": 62
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c03f6d85_a03b5d8b",
@@ -255,6 +459,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "SUBTYPE",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 68
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80345dc6_27c3d68c",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c03f6d85_a03b5d8b",
       "range": {
         "startLine": 207,
         "startChar": 0,
@@ -288,6 +516,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab387540_b77c7aa3",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7973d2e_b82fb3c3",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 34
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "961de43b_ba9c5208",
@@ -301,6 +553,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "TYPE",
+      "range": {
+        "startLine": 228,
+        "startChar": 49,
+        "endLine": 228,
+        "endChar": 54
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff6173d3_8e9f0fad",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "961de43b_ba9c5208",
       "range": {
         "startLine": 228,
         "startChar": 49,
@@ -336,6 +612,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b33e1475_750a6454",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Build fails with -\n\n/usr/local/include/sdbusplus/message/native_types.hpp: In instantiation of \u0027std::string sdbusplus::message::convert_to_string(T) [with T \u003d phosphor::health::metric::Type; std::string \u003d std::__cxx11::basic_string\u003cchar\u003e]\u0027:\n../health_metric_collection.cpp:249:56:   required from here\n/usr/local/include/sdbusplus/message/native_types.hpp:218:45: error: use of deleted function \u0027static std::string sdbusplus::message::details::convert_to_string\u003cT\u003e::op(T) [with T \u003d phosphor::health::metric::Type; std::string \u003d std::__cxx11::basicic_string\u003cchar\u003e]\u0027\n  218 |     return details::convert_to_string\u003cT\u003e::op(t);\n      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\n/usr/local/include/sdbusplus/message/native_types.hpp:187:24: note: declared here\n  187 |     static std::string op(T) \u003d delete;",
+      "parentUuid": "fed66f49_66dacc9c",
+      "range": {
+        "startLine": 229,
+        "startChar": 23,
+        "endLine": 229,
+        "endChar": 36
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19506ce0_dcca7945",
         "filename": "health_metric_collection.cpp",
         "patchSetId": 17
@@ -347,6 +647,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "TYPE",
+      "range": {
+        "startLine": 235,
+        "startChar": 42,
+        "endLine": 235,
+        "endChar": 47
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e37a7631_5f7fdefb",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19506ce0_dcca7945",
       "range": {
         "startLine": 235,
         "startChar": 42,
@@ -437,6 +761,90 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c776f7eb_13e62bd8",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d05839_37d56054",
+      "range": {
+        "startLine": 242,
+        "startChar": 36,
+        "endLine": 242,
+        "endChar": 42
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18cf1bb2_4b5e6153",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21d20641_997a9ff8",
+      "range": {
+        "startLine": 242,
+        "startChar": 56,
+        "endLine": 242,
+        "endChar": 64
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8b0d371_553952be",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e890aaa9_350fe4a7",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97feb274_3dc34aa2",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad4d8881_8f3dd7cb",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9af34fb_f75d5fb4",
@@ -450,6 +858,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "convert_to_string",
+      "range": {
+        "startLine": 243,
+        "startChar": 28,
+        "endLine": 243,
+        "endChar": 41
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2c8417_06f364b4",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "/usr/local/include/sdbusplus/message/native_types.hpp: In instantiation of \u0027std::string sdbusplus::message::convert_to_string(T) [with T \u003d phosphor::health::metric::SubType; std::string \u003d std::__cxx11::basic_string\u003cchar\u003e]\u0027:\n../health_metric_collection.cpp:229:97:   required from here\n/usr/local/include/sdbusplus/message/native_types.hpp:218:45: error: use of deleted function \u0027static std::string sdbusplus::message::details::convert_to_string\u003cT\u003e::op(T) [with T \u003d phosphor::health::metric::SubType; std::string \u003d std::__cxx11::basic_string\u003cchar\u003e]\u0027\n  218 |     return details::convert_to_string\u003cT\u003e::op(t);\n      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\n/usr/local/include/sdbusplus/message/native_types.hpp:187:24: note: declared here\n  187 |     static std::string op(T) \u003d delete;",
+      "parentUuid": "e9af34fb_f75d5fb4",
       "range": {
         "startLine": 243,
         "startChar": 28,
@@ -479,6 +911,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d0f6336_5998cc10",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "\u003e Would prefer the handlers do this directly.\n\nSorry, i couldn\u0027t understand the question.",
+      "parentUuid": "276f86ba_abda486c",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "790ea7d5_50957990",
         "filename": "health_metric_collection.cpp",
         "patchSetId": 17
@@ -490,6 +940,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "TYPE",
+      "range": {
+        "startLine": 262,
+        "startChar": 49,
+        "endLine": 262,
+        "endChar": 54
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8498afcf_499f4188",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "790ea7d5_50957990",
       "range": {
         "startLine": 262,
         "startChar": 49,
@@ -523,6 +997,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be2c2cbe_e11f4839",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02bacb3c_8a2121b1",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 15
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "583ef486_aa34326f",
@@ -536,6 +1034,24 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "According to this code, NA is a valid SubType.  Why are we skipping it?\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-health-monitor/+/68205/17/test/test_health_metric_config.cpp#50",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d7a9f4e_607e7fc5",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "It was crashing for one use-case and i think it was for inode only since we don\u0027t have any implementation for inode yet. Don\u0027t remember exactly on the top of my head.",
+      "parentUuid": "583ef486_aa34326f",
       "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -557,6 +1073,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a837985_ce948c7b",
+        "filename": "health_metric_collection.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45fbc63a_4bedd8d6",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7742d5cc_35111a27",
@@ -570,6 +1104,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "I suspect this is not beneficial.  `map_t` already contains the HealthMetric instance.  MetricIntf::value() is a cheap operation.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a30c9ff2_1d3e3ba2",
+        "filename": "health_metric_collection.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "This cache does the reverse flow. The file, for example /proc/meminfo gets read in one shot (for all memory metrics) in HealthMetricCollection and then values gets saved in this cache and then they are passed over to the HealthMetric.\n\nPlease let me know if you still have any questions.",
+      "parentUuid": "7742d5cc_35111a27",
       "range": {
         "startLine": 43,
         "startChar": 0,
@@ -603,6 +1161,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5413ecda_2c2d0e26",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abf3e274_9b8f90e1",
+      "range": {
+        "startLine": 43,
+        "startChar": 34,
+        "endLine": 43,
+        "endChar": 47
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f66c122d_556b2006",
@@ -616,6 +1198,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "Please sdbusplus::common::xyz::openbmc_project::metric::Value::interface , etc. rather than hard coding strings.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 47
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d221f64_2f4fd7d4",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f66c122d_556b2006",
       "range": {
         "startLine": 55,
         "startChar": 0,
@@ -643,6 +1249,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b5cb60c_21ba8524",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37aba491_0ad9771f",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43e5eb0c_0d80c58a",
@@ -662,6 +1286,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6aaabd15_477b1bbf",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "Are u referring to findPaths?",
+      "parentUuid": "43e5eb0c_0d80c58a",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3282c79_3dcd932e",
         "filename": "test/test_health_metric_collection.cpp",
         "patchSetId": 17
@@ -673,6 +1315,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "This doesn\u0027t seem really sufficient to confirm anything has been tested to me.  What properties are we expecting to be triggered here?  I think I\u0027d rather see this tested as a dbus-client with explicit watch signals.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 8
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7065560_b5c27c5d",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:33:11Z",
+      "side": 1,
+      "message": "The properties which are being tested are mentioned in valueProperties and thresholdProperties and i could see the appropriate properties changed events being generated on server side. My understanding is that its good to test the flow from HealthMetricCollection to the sdbusplus layer (via mock) as thats whats being introduced and changed here. Testing via an explicit dbus client would have been a better in case of dbus side changes. Please let me know otherwise.",
+      "parentUuid": "d3282c79_3dcd932e",
       "range": {
         "startLine": 68,
         "startChar": 0,
