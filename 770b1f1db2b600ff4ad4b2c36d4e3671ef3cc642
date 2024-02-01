@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b71c47c_32eecfc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "\u003e Use triple back-ticks escapes on these.\n\nDone\n\n\u003e What is the command you ran to get this?  That\u0027s probably helpful.\n\nbusctl tree xyz.openbmc_project.HealthMon",
+      "parentUuid": "a3cf1b97_3807e536",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 0
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cc16c54_c142efeb",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-30T00:09:52Z",
       "side": 1,
       "message": "I\u0027m slightly stumped as to what is going on here.  Else where we\u0027ve sort of created a big sd-event/ASIO loop, but then here we\u0027re calling `run` which runs the sdbusplus::async context (until completion).  Effectively the code below this point never runs.\n\nWe did request a bus name above on 753 though...",
+      "range": {
+        "startLine": 761,
+        "startChar": 0,
+        "endLine": 764,
+        "endChar": 25
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f7ce81e_1b63a2a6",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "Right now no one calls startMonitor(). I have coded up that part but haven\u0027t enabled it yet as i thought it will cause some collision with the existing interface. I was planning to do that after the disable/delete the current code. Please let me know otherwise.",
+      "parentUuid": "0cc16c54_c142efeb",
       "range": {
         "startLine": 761,
         "startChar": 0,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee57208a_bdd014c7",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "I suppose its better to make this change when we disable/delete existing code. https://gerrit.openbmc.org/c/openbmc/phosphor-health-monitor/+/68314/comment/0cc16c54_c142efeb/",
+      "parentUuid": "0eb642cd_a77eec24",
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc2c27c9_9f6e0697",
         "filename": "health_monitor.cpp",
         "patchSetId": 16
@@ -77,6 +143,30 @@
       "writtenOn": "2024-01-30T00:09:52Z",
       "side": 1,
       "message": "TYPE.",
+      "range": {
+        "startLine": 22,
+        "startChar": 53,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "253ab75e_8c354b9f",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc2c27c9_9f6e0697",
       "range": {
         "startLine": 22,
         "startChar": 53,
@@ -112,6 +202,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39288d4a_e1086f18",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "/usr/local/include/sdbusplus/message/native_types.hpp: In instantiation of \u0027std::string sdbusplus::message::convert_to_string(T) [with T \u003d phosphor::health::metric::Type; std::string \u003d std::__cxx11::basic_string\u003cchar\u003e]\u0027:\n../health_monitor.cpp:36:51:   required from here\n/usr/local/include/sdbusplus/message/native_types.hpp:218:45: error: use of deleted function \u0027static std::string sdbusplus::message::details::convert_to_string\u003cT\u003e::op(T) [with T \u003d phosphor::health::metric::Type; std::string \u003d std::__cxx11::basic_string\u003cchar\u003e]\u0027\n  218 |     return details::convert_to_string\u003cT\u003e::op(t);\n      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\n/usr/local/include/sdbusplus/message/native_types.hpp:187:24: note: declared here\n  187 |     static std::string op(T) \u003d delete;\n      |                        ^~\nninja: build stopped: subcommand failed.",
+      "parentUuid": "5262364d_99ebdcbd",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d2bc1b6_0217a0d0",
         "filename": "health_monitor.cpp",
         "patchSetId": 16
@@ -123,6 +237,30 @@
       "writtenOn": "2024-01-30T00:09:52Z",
       "side": 1,
       "message": "TYPE",
+      "range": {
+        "startLine": 35,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd40aef2_0cbc7b7c",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d2bc1b6_0217a0d0",
       "range": {
         "startLine": 35,
         "startChar": 52,
@@ -158,6 +296,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2d3ca17_de1dd191",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "This code path is not enabled yet. Flow still uses \"xyz.openbmc_project.HealthMon\"",
+      "parentUuid": "f9b83fcc_51f28d05",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 47
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47c02550_a90cf6dc",
         "filename": "health_monitor.cpp",
         "patchSetId": 16
@@ -169,6 +331,30 @@
       "writtenOn": "2024-01-30T00:09:52Z",
       "side": 1,
       "message": "How about std::chrono::seconds(5) ?",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 56
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d3cf81b_509c16a8",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47c02550_a90cf6dc",
       "range": {
         "startLine": 60,
         "startChar": 21,
@@ -202,6 +388,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6dabbc0_6e16cd62",
+        "filename": "health_monitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1507726_f373d6d0",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 54
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7388d3a7_1939f115",
@@ -215,6 +425,24 @@
       "writtenOn": "2024-01-30T00:09:52Z",
       "side": 1,
       "message": "Sometimes you use map and sometimes you use unordered_map.  It isn\u0027t always obvious why.",
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b0029a2_a2393551",
+        "filename": "health_monitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7388d3a7_1939f115",
       "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -236,6 +464,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc61da09_c568f22a",
+        "filename": "health_monitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97a2b3fb_148064e9",
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eefcfdfc_21ce6abe",
@@ -249,6 +495,24 @@
       "writtenOn": "2024-01-30T00:09:52Z",
       "side": 1,
       "message": "Would suggest using a `context` here and not a `bus` if you\u0027re trying to use the sdbusplus::async code overall.",
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0186ae6_0521d846",
+        "filename": "health_monitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-01T22:58:51Z",
+      "side": 1,
+      "message": "I think we discussed on this one. There is not much use for sdbusplus::async on the server side of the code since a cache is being maintained and updated periodically which further updates the dbus interface, hence the used the bus i think. Please let me know otherwise.",
+      "parentUuid": "eefcfdfc_21ce6abe",
       "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
