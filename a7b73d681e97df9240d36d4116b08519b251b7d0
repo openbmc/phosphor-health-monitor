@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f415d13_e7bf2c27",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-05T18:17:42Z",
+      "side": 1,
+      "message": "We should be able to have the primary BMC path added, similar to how we have the namespace now.",
+      "parentUuid": "9b27ef32_81f8a391",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75c5dbf0_3acb2ff9",
         "filename": "health_metric.cpp",
         "patchSetId": 15
@@ -448,6 +472,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8998d045_c6ac921b",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-05T18:17:42Z",
+      "side": 1,
+      "message": "Can we leave some comments as to what we\u0027re safeguarding against?  It seems strange to me that the threshold can be NaN.  Why wouldn\u0027t we just leave that threshold out of the config in that case?",
+      "parentUuid": "0bae6ecd_69d6eb3e",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 41
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ebb69930_eec168b9",
         "filename": "health_metric.cpp",
         "patchSetId": 15
@@ -671,6 +719,30 @@
       "side": 1,
       "message": "We start from Critical and walk our way back to lower levels.\n\nI have added other ones too now. Please check.",
       "parentUuid": "2fb836aa_27a91847",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 59
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5163ab11_c9e2a64d",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-05T18:17:42Z",
+      "side": 1,
+      "message": "Suggest:\n\n```\nfor (auto\u0026 type : { HardShutdown , SoftShutdown, PerformanceLoss, Critical, Warning })\n{\n    checkThreshold(type, Upper, value);\n}\n```",
+      "parentUuid": "ac9f7059_68c52a1f",
       "range": {
         "startLine": 170,
         "startChar": 0,
@@ -1098,6 +1170,24 @@
       "side": 1,
       "message": "Why an empty vector? Don\u0027t we need to return paths?",
       "parentUuid": "b05c5111_571327f0",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4345d1e_31a26dfa",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-05T18:17:42Z",
+      "side": 1,
+      "message": "The variable is no longer used because you\u0027ve created a local one on line 39.  `return {};` here is all you need.",
+      "parentUuid": "a57ae429_738f7c62",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

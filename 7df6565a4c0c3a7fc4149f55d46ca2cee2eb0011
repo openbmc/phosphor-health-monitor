@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96392ed7_89d780dc",
+        "filename": "health_metric.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-05T18:17:42Z",
+      "side": 1,
+      "message": "nit: maybe initProperties?",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 74,
+        "endChar": 32
+      },
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dbd534f_0714806e",
+        "filename": "health_metric.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-05T18:17:42Z",
+      "side": 1,
+      "message": "We can still take this by reference.",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf23752_25dfc8c8",
+        "filename": "health_utils.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-05T18:17:42Z",
+      "side": 1,
+      "message": "Variable not used.",
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
