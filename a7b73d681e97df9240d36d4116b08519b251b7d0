@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a99e5338_322542cf",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f415d13_e7bf2c27",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75c5dbf0_3acb2ff9",
@@ -494,6 +518,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c56e55b9_adf57f50",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "Moved this check to the config parsing and threw an exception there -\nstd::invalid_argument(\"Invalid threshold value\");",
+      "parentUuid": "0bae6ecd_69d6eb3e",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 41
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebb69930_eec168b9",
@@ -578,6 +626,30 @@
       "side": 1,
       "message": "\u003e Why use `find(...)-\u003esecond` and not `[]`?\n\nIt fails with error -\n\n../health_metric.cpp:139:59: error: passing \u0027const phosphor::health::metric::config::Threshold::map_t\u0027 {aka \u0027const std::map\u003cstd::tuple\u003csdbusplus::common::xyz::openbmc_project::common::Threshold::Type, sdbusplus::common::xyz::openbmc_project::common::Threshold::Bound\u003e, phosphor::health::metric::config::Threshold\u003e\u0027} as \u0027this\u0027 argument discards qualifiers [-fpermissive]\n  139 |                 auto tConfig \u003d config.thresholds[threshold];\n      |                                                           ^",
       "parentUuid": "bce189bf_d91c4231",
+      "range": {
+        "startLine": 139,
+        "startChar": 20,
+        "endLine": 139,
+        "endChar": 53
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b273ef4a_b7a5a21d",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "As per our discussion, changed this to use \".at()\".",
+      "parentUuid": "36d25f67_4373db3f",
       "range": {
         "startLine": 139,
         "startChar": 20,
@@ -743,6 +815,30 @@
       "side": 1,
       "message": "Suggest:\n\n```\nfor (auto\u0026 type : { HardShutdown , SoftShutdown, PerformanceLoss, Critical, Warning })\n{\n    checkThreshold(type, Upper, value);\n}\n```",
       "parentUuid": "ac9f7059_68c52a1f",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 59
+      },
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0661fc2_28ae95dc",
+        "filename": "health_metric.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5163ab11_c9e2a64d",
       "range": {
         "startLine": 170,
         "startChar": 0,
@@ -1057,6 +1153,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "424c5d3f_dc8200ae",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "Moved to the collection interface patch.",
+      "parentUuid": "6a23845c_7b5ed260",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c551f1d_b9106730",
@@ -1188,6 +1302,24 @@
       "side": 1,
       "message": "The variable is no longer used because you\u0027ve created a local one on line 39.  `return {};` here is all you need.",
       "parentUuid": "a57ae429_738f7c62",
+      "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3fa7d42_65c535bb",
+        "filename": "health_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4345d1e_31a26dfa",
       "revId": "a7b73d681e97df9240d36d4116b08519b251b7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

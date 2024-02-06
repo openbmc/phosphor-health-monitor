@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4ceec20_cd2a3b1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "Thanks for the review. Addressed your comments.",
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96392ed7_89d780dc",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-02-05T18:17:42Z",
       "side": 1,
       "message": "nit: maybe initProperties?",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 74,
+        "endChar": 32
+      },
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1be66bd_d2bf0471",
+        "filename": "health_metric.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96392ed7_89d780dc",
       "range": {
         "startLine": 74,
         "startChar": 19,
@@ -49,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "daa3ff27_2d81a069",
+        "filename": "health_metric.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "In another comment you had asked me to take this by value hence i changed it so -\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-health-monitor/+/68224/comment/66a2080e_d13fbc74/",
+      "parentUuid": "8dbd534f_0714806e",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fdf23752_25dfc8c8",
         "filename": "health_utils.cpp",
         "patchSetId": 18
@@ -60,6 +125,24 @@
       "writtenOn": "2024-02-05T18:17:42Z",
       "side": 1,
       "message": "Variable not used.",
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f0bf91_10de22d4",
+        "filename": "health_utils.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-06T22:33:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdf23752_25dfc8c8",
       "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
