@@ -7,7 +7,6 @@
 #include <boost/asio/steady_timer.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/object_server.hpp>
-#include <sdbusplus/asio/sd_event.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/server/manager.hpp>
 #include <sdeventplus/event.hpp>
@@ -756,8 +755,6 @@ int main()
 
     // Add object manager through object_server
     sdbusplus::asio::object_server objectServer(conn);
-
-    sdbusplus::asio::sd_event_wrapper sdEvents(io);
 
     sensorRecreateTimer = std::make_shared<boost::asio::steady_timer>(io);
 
