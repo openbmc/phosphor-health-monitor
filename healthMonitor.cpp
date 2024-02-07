@@ -757,8 +757,6 @@ int main()
     // Add object manager through object_server
     sdbusplus::asio::object_server objectServer(conn);
 
-    sdbusplus::asio::sd_event_wrapper sdEvents(io);
-
     sensorRecreateTimer = std::make_shared<boost::asio::steady_timer>(io);
 
     // If the SystemInventory does not exist: wait for the InterfaceAdded signal
