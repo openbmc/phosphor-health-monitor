@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd7c2f56_0e1ef7ff",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Moved it as class member and move the preActiveTime, preTotalTime as class memeber too.",
+      "parentUuid": "20a66e97_9701b916",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97ff25ed_61e700fc",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "Yes, it has been copied from exiting implementation. I haven\u0027t made any major changes in this logic since its a tested piece of code and it works.",
       "parentUuid": "97ff25ed_61e700fc",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 26
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffa78275_3f1ff687",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Deleted the leftover comment.",
+      "parentUuid": "7890b13d_041e6300",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -224,6 +266,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6d246df_770c9769",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Made the tuple a struct and added comment for CPU case.",
+      "parentUuid": "9a3d0e70_a777f922",
+      "range": {
+        "startLine": 111,
+        "startChar": 48,
+        "endLine": 111,
+        "endChar": 63
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2620c22d_7be6cfc0",
@@ -247,6 +313,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b27f8f67_7eaa76b0",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2620c22d_7be6cfc0",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 61
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bcee33a_0b38a46a",
@@ -260,6 +350,30 @@
       "writtenOn": "2024-01-29T23:59:20Z",
       "side": 1,
       "message": "Too much in a ternary.\n\nI think we can simplify most of these cases though.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 28
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d603e3_014fe98a",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bcee33a_0b38a46a",
       "range": {
         "startLine": 170,
         "startChar": 0,
@@ -634,6 +748,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe173223_600bcbc5",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Cannot use convert_to_string since this is not DBus defined.",
+      "parentUuid": "b33e1475_750a6454",
+      "range": {
+        "startLine": 229,
+        "startChar": 23,
+        "endLine": 229,
+        "endChar": 36
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19506ce0_dcca7945",
@@ -892,6 +1030,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f559af6_55a0f912",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Cannot use convert_to_string since this is not DBus defined.",
+      "parentUuid": "eb2c8417_06f364b4",
+      "range": {
+        "startLine": 243,
+        "startChar": 28,
+        "endLine": 243,
+        "endChar": 41
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "276f86ba_abda486c",
@@ -923,6 +1085,24 @@
       "side": 1,
       "message": "\u003e Would prefer the handlers do this directly.\n\nSorry, i couldn\u0027t understand the question.",
       "parentUuid": "276f86ba_abda486c",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e51a0b40_79564e02",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Changed this code.",
+      "parentUuid": "6d0f6336_5998cc10",
       "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -1056,6 +1236,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f236abe_d60c6841",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Added a TODO comment to remove this with explanation.",
+      "parentUuid": "3d7a9f4e_607e7fc5",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45fbc63a_4bedd8d6",
@@ -1128,6 +1326,30 @@
       "side": 1,
       "message": "This cache does the reverse flow. The file, for example /proc/meminfo gets read in one shot (for all memory metrics) in HealthMetricCollection and then values gets saved in this cache and then they are passed over to the HealthMetric.\n\nPlease let me know if you still have any questions.",
       "parentUuid": "7742d5cc_35111a27",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f7bc0a7_4559b3fb",
+        "filename": "health_metric_collection.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "As per our discussion, called the update as part of read operation rather than having it as separate action.",
+      "parentUuid": "a30c9ff2_1d3e3ba2",
       "range": {
         "startLine": 43,
         "startChar": 0,
@@ -1302,6 +1524,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8de0ae0c_ecfb79c3",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Removed the findPaths from this test.",
+      "parentUuid": "6aaabd15_477b1bbf",
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3282c79_3dcd932e",
@@ -1339,6 +1579,30 @@
       "side": 1,
       "message": "The properties which are being tested are mentioned in valueProperties and thresholdProperties and i could see the appropriate properties changed events being generated on server side. My understanding is that its good to test the flow from HealthMetricCollection to the sdbusplus layer (via mock) as thats whats being introduced and changed here. Testing via an explicit dbus client would have been a better in case of dbus side changes. Please let me know otherwise.",
       "parentUuid": "d3282c79_3dcd932e",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 8
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f90a7e_28ca3ffd",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:43:41Z",
+      "side": 1,
+      "message": "Create different test based on the config, for example, for cases where thresholds shouldn\u0027t get asserted at all.\nTest for current scenario by adding debugs and make sure there is no bug in the code.",
+      "parentUuid": "a7065560_b5c27c5d",
       "range": {
         "startLine": 68,
         "startChar": 0,
