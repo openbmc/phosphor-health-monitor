@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85f265cf_bafbc31d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:12:56Z",
+      "side": 1,
+      "message": "@Patrick, I have addressed all the comments. Can you please review it. Thanks",
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96392ed7_89d780dc",
@@ -126,6 +143,30 @@
       "side": 1,
       "message": "Save a copy (as you changed the config to non-reference member already) but pass by const-ref to this function.",
       "parentUuid": "daa3ff27_2d81a069",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "7df6565a4c0c3a7fc4149f55d46ca2cee2eb0011",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac9faa74_df9806e1",
+        "filename": "health_metric.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-08T19:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "720dbc78_3e2252d1",
       "range": {
         "startLine": 39,
         "startChar": 17,
