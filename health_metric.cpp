@@ -88,7 +88,7 @@ void HealthMetric::initProperties()
             ValueIntf::minValue(0.0, true);
         }
     }
-    ValueIntf::value(std::numeric_limits<double>::quiet_NaN());
+    ValueIntf::value(std::numeric_limits<double>::quiet_NaN(), true);
 
     using bound_map_t = std::map<ThresholdIntf::Bound, double>;
     std::map<ThresholdIntf::Type, bound_map_t> thresholds;
@@ -108,7 +108,7 @@ void HealthMetric::initProperties()
             threshold->second.emplace(bound, value.value);
         }
     }
-    ThresholdIntf::value(thresholds);
+    ThresholdIntf::value(thresholds, true);
 }
 
 void HealthMetric::checkThreshold(ThresholdIntf::Type type,
