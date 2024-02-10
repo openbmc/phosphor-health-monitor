@@ -1611,6 +1611,30 @@
       },
       "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cac213d1_6f9f0ff1",
+        "filename": "test/test_health_metric_collection.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-10T00:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43f90a7e_28ca3ffd",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 8
+      },
+      "revId": "be3d4c1e81c37862125eee181d7d7a688549c6e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
