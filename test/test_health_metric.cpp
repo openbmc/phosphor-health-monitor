@@ -24,7 +24,7 @@ class HealthMetricTest : public ::testing::Test
 {
   public:
     sdbusplus::SdBusMock sdbusMock;
-    sdbusplus::bus::bus bus = sdbusplus::get_mocked_new(&sdbusMock);
+    sdbusplus::bus_t bus = sdbusplus::get_mocked_new(&sdbusMock);
     static constexpr auto busName = "xyz.openbmc_project.test.HealthMon";
     const std::set<std::string> properties = {"Value", "MaxValue", "MinValue",
                                               "Unit"};
@@ -49,7 +49,7 @@ class HealthMetricTest : public ::testing::Test
 
 TEST_F(HealthMetricTest, TestMetricUnmockedObjectAddRemove)
 {
-    sdbusplus::bus::bus unmockedBus = sdbusplus::bus::new_bus();
+    sdbusplus::bus_t unmockedBus = sdbusplus::bus::new_bus();
     unmockedBus.request_name(busName);
     auto metric = std::make_unique<HealthMetric>(unmockedBus, Type::cpu, config,
                                                  paths_t());

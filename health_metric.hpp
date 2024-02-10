@@ -42,7 +42,7 @@ class HealthMetric : public MetricIntf
     HealthMetric(HealthMetric&&) = delete;
     virtual ~HealthMetric() = default;
 
-    HealthMetric(sdbusplus::bus::bus& bus, phosphor::health::metric::Type type,
+    HealthMetric(sdbusplus::bus_t& bus, phosphor::health::metric::Type type,
                  const config::HealthMetric& config, const paths_t& bmcPaths) :
         MetricIntf(bus, getPath(config.subType).c_str(), action::defer_emit),
         bus(bus), type(type), config(config)
@@ -67,7 +67,7 @@ class HealthMetric : public MetricIntf
     /** @brief Get the object path for the given subtype */
     auto getPath(SubType subType) -> std::string;
     /** @brief D-Bus bus connection */
-    sdbusplus::bus::bus& bus;
+    sdbusplus::bus_t& bus;
     /** @brief Metric type */
     phosphor::health::metric::Type type;
     /** @brief Metric configuration */
