@@ -224,6 +224,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc677398_4673e4b5",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-10T00:12:43Z",
+      "side": 1,
+      "message": "This is not sdbus type, hence cannot change.",
+      "parentUuid": "39288d4a_e1086f18",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d2bc1b6_0217a0d0",
@@ -513,6 +537,24 @@
       "side": 1,
       "message": "I think we discussed on this one. There is not much use for sdbusplus::async on the server side of the code since a cache is being maintained and updated periodically which further updates the dbus interface, hence the used the bus i think. Please let me know otherwise.",
       "parentUuid": "eefcfdfc_21ce6abe",
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c2e52c1_606d5ae2",
+        "filename": "health_monitor.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-10T00:12:43Z",
+      "side": 1,
+      "message": "As suggested by you based on in-person discussion, would change this in future as per need.",
+      "parentUuid": "a0186ae6_0521d846",
       "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
