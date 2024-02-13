@@ -43,7 +43,8 @@ static const auto validSubTypes = std::unordered_map<std::string, SubType>{
     {"Memory_Available", SubType::memoryAvailable},
     {"Memory_Shared", SubType::memoryShared},
     {"Memory_Buffered_And_Cached", SubType::memoryBufferedAndCached},
-    {"Storage_RW", SubType::storageReadWrite}};
+    {"Storage_RW", SubType::storageReadWrite},
+    {"Storage_TMP", SubType::storageReadWrite}};
 
 /** Deserialize a Threshold from JSON. */
 void from_json(const json& j, Threshold& self)
@@ -238,6 +239,18 @@ json defaultHealthMetricConfig = R"({
     },
     "Storage_RW": {
         "Path": "/run/initramfs/rw",
+        "Frequency": 1,
+        "Window_size": 120,
+        "Threshold": {
+            "Critical": {
+                "Value": 85.0,
+                "Log": true,
+                "Target": ""
+            }
+        }
+    },
+    "Storage_TMP": {
+        "Path": "/tmp",
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
