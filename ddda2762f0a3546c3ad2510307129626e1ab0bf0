@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20ea66dd_7c7cbc46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T19:02:10Z",
+      "side": 1,
+      "message": "Addressed the comment. Thanks",
+      "revId": "ddda2762f0a3546c3ad2510307129626e1ab0bf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "531c4b46_51352140",
@@ -24,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b88a183e_3956c514",
+        "filename": "health_metric_collection.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T19:02:10Z",
+      "side": 1,
+      "message": "Removed this change from Health Monitor and will move this to BMCWeb.",
+      "parentUuid": "531c4b46_51352140",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 46
+      },
+      "revId": "ddda2762f0a3546c3ad2510307129626e1ab0bf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a47587af_738297ef",
@@ -37,6 +78,24 @@
       "writtenOn": "2024-02-14T16:49:56Z",
       "side": 1,
       "message": "This code still isn\u0027t used in this commit... ;)",
+      "revId": "ddda2762f0a3546c3ad2510307129626e1ab0bf0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a599a03_0862c68c",
+        "filename": "health_utils.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-14T19:02:10Z",
+      "side": 1,
+      "message": "Sorry, this was getting used in UT but that was dropped in latest change. So, i have moved it to later commit now. Thanks",
+      "parentUuid": "a47587af_738297ef",
       "revId": "ddda2762f0a3546c3ad2510307129626e1ab0bf0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
