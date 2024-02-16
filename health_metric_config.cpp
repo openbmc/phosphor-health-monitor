@@ -166,6 +166,7 @@ auto getHealthMetricConfigs() -> HealthMetric::map_t
         }
 
         auto config = metric.template get<HealthMetric>();
+        config.name = name;
 
         auto subType = validSubTypes.find(name);
         config.subType = (subType != validSubTypes.end() ? subType->second
