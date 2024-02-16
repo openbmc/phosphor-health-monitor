@@ -238,6 +238,39 @@ json defaultHealthMetricConfig = R"({
             }
         }
     },
+    "Memory_Shared": {
+        "Frequency": 1,
+        "Window_size": 120,
+        "Threshold": {
+            "Critical": {
+                "Value": 85.0,
+                "Log": true,
+                "Target": ""
+            }
+        }
+    },
+    "Memory_Free": {
+        "Frequency": 1,
+        "Window_size": 120,
+        "Threshold": {
+            "Critical": {
+                "Value": 85.0,
+                "Log": true,
+                "Target": ""
+            }
+        }
+    },
+    "Memory_Buffered_And_Cached": {
+        "Frequency": 1,
+        "Window_size": 120,
+        "Threshold": {
+            "Critical": {
+                "Value": 85.0,
+                "Log": true,
+                "Target": ""
+            }
+        }
+    },
     "Storage_RW": {
         "Path": "/run/initramfs/rw",
         "Frequency": 1,
