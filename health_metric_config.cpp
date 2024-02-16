@@ -44,7 +44,7 @@ static const auto validSubTypes = std::unordered_map<std::string, SubType>{
     {"Memory_Shared", SubType::memoryShared},
     {"Memory_Buffered_And_Cached", SubType::memoryBufferedAndCached},
     {"Storage_RW", SubType::storageReadWrite},
-    {"Storage_TMP", SubType::storageReadWrite}};
+    {"Storage_TMP", SubType::storageTmp}};
 
 /** Deserialize a Threshold from JSON. */
 void from_json(const json& j, Threshold& self)
