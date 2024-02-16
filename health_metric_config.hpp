@@ -37,6 +37,7 @@ enum class SubType
     memoryTotal,
     // Storage subtypes
     storageReadWrite,
+    storageTmp,
     NA
 };
 

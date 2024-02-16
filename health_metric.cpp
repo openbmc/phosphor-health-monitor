@@ -54,6 +54,10 @@ auto HealthMetric::getPath(SubType subType) -> std::string
         {
             return std::string(BmcPath) + "/" + PathIntf::read_write_storage;
         }
+        case SubType::storageTmp:
+        {
+            return std::string(BmcPath) + "/" + PathIntf::tmp_storage;
+        }
         default:
         {
             error("Invalid Memory metric {TYPE}", "TYPE",
