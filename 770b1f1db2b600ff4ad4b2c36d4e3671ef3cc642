@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "678d1195_ceb52251",
+        "filename": "healthMonitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-19T18:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f7ce81e_1b63a2a6",
+      "range": {
+        "startLine": 761,
+        "startChar": 0,
+        "endLine": 764,
+        "endChar": 25
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0eb642cd_a77eec24",
@@ -126,6 +150,24 @@
       "side": 1,
       "message": "I suppose its better to make this change when we disable/delete existing code. https://gerrit.openbmc.org/c/openbmc/phosphor-health-monitor/+/68314/comment/0cc16c54_c142efeb/",
       "parentUuid": "0eb642cd_a77eec24",
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aeda4db_93639cc6",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-19T18:16:31Z",
+      "side": 1,
+      "message": "As we discussed, we will do it in future based on the need.",
+      "parentUuid": "ee57208a_bdd014c7",
       "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -332,6 +374,30 @@
       "side": 1,
       "message": "This code path is not enabled yet. Flow still uses \"xyz.openbmc_project.HealthMon\"",
       "parentUuid": "f9b83fcc_51f28d05",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 47
+      },
+      "revId": "770b1f1db2b600ff4ad4b2c36d4e3671ef3cc642",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141e4289_7523765b",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-19T18:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2d3ca17_de1dd191",
       "range": {
         "startLine": 49,
         "startChar": 29,
