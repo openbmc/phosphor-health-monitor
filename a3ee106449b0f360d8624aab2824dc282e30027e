@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "741c0ad9_00bed322",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-21T22:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9a88dcf_e43582f0",
+      "range": {
+        "startLine": 15,
+        "startChar": 52,
+        "endLine": 15,
+        "endChar": 57
+      },
+      "revId": "a3ee106449b0f360d8624aab2824dc282e30027e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c67f5b14_0ea5019c",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-02-21T20:04:44Z",
       "side": 1,
       "message": "We\u0027re going to end up having this in the journal every 5 seconds?\n\nI think we need to really cut down the chattiness of all the code you\u0027ve added.  Maybe a lot of these can be changed to debug?  We\u0027re going to end up way too much going into the journal.",
+      "revId": "a3ee106449b0f360d8624aab2824dc282e30027e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46ad092b_166a138f",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-21T22:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c67f5b14_0ea5019c",
       "revId": "a3ee106449b0f360d8624aab2824dc282e30027e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ba3ec81_ffde1c82",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-21T22:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0144ef1_5c22106f",
+      "revId": "a3ee106449b0f360d8624aab2824dc282e30027e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9e2dfbe_0499a0d4",
@@ -71,6 +131,30 @@
       "writtenOn": "2024-02-21T20:04:44Z",
       "side": 1,
       "message": "Why not just make this `[\u0026]()`? ;)",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "a3ee106449b0f360d8624aab2824dc282e30027e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a25700_e2358c2c",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-21T22:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9e2dfbe_0499a0d4",
       "range": {
         "startLine": 58,
         "startChar": 15,
@@ -104,6 +188,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e9e32fb_5f26d45c",
+        "filename": "health_monitor.cpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-21T22:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1587a65_c7a22151",
+      "range": {
+        "startLine": 60,
+        "startChar": 15,
+        "endLine": 60,
+        "endChar": 19
+      },
+      "revId": "a3ee106449b0f360d8624aab2824dc282e30027e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3bdcdc2_e6b91141",
@@ -117,6 +225,30 @@
       "writtenOn": "2024-02-21T20:04:44Z",
       "side": 1,
       "message": "What\u0027s the bool for?  We should avoid \"return code\" style code in favor of exceptions.",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "a3ee106449b0f360d8624aab2824dc282e30027e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93cb5990_df7c0239",
+        "filename": "health_monitor.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-21T22:05:11Z",
+      "side": 1,
+      "message": "Removed it.",
+      "parentUuid": "b3bdcdc2_e6b91141",
       "range": {
         "startLine": 24,
         "startChar": 18,
