@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e3008e_32a3d338",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-21T18:21:27Z",
+      "side": 1,
+      "message": "Don\u0027t we want memory to be free?",
+      "revId": "03e3f677e12e85e259c7cc193045d571a84da129",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
