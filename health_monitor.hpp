@@ -2,6 +2,8 @@
 
 #include "health_metric_collection.hpp"
 
+#include <sdbusplus/async.hpp>
+
 #include <unordered_map>
 
 namespace phosphor::health::monitor
@@ -14,23 +16,24 @@ class HealthMonitor
   public:
     HealthMonitor() = delete;
 
-    HealthMonitor(sdbusplus::bus_t& bus) :
-        bus(bus), configs(ConfigIntf::getHealthMetricConfigs())
+    explicit HealthMonitor(sdbusplus::async::context& ctx) :
+        ctx(ctx), configs(ConfigIntf::getHealthMetricConfigs())
     {
-        create();
+        ctx.spawn(startup());
     }
 
-    /** @brief Run the health monitor */
-    void run();
-
   private:
+    /** @brief Setup and run a new health monitor object */
+    auto startup() -> sdbusplus::async::task<>;
+    /** @brief Run the health monitor */
+    auto run() -> sdbusplus::async::task<>;
+
     using map_t = std::unordered_map<
         MetricIntf::Type,
         std::unique_ptr<CollectionIntf::HealthMetricCollection>>;
-    /** @brief Create a new health monitor object */
-    void create();
-    /** @brief D-Bus bus connection */
-    sdbusplus::bus_t& bus;
+
+    /** @brief D-Bus context */
+    sdbusplus::async::context& ctx;
     /** @brief Health metric configs */
     ConfigIntf::HealthMetric::map_t configs;
     map_t collections;

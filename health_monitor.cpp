@@ -10,12 +10,12 @@ namespace phosphor::health::monitor
 
 using namespace phosphor::health::utils;
 
-void HealthMonitor::create()
+auto HealthMonitor::startup() -> sdbusplus::async::task<>
 {
     info("Creating Health Monitor with config size {SIZE}", "SIZE",
          configs.size());
     constexpr auto BMCInventoryItem = "xyz.openbmc_project.Inventory.Item.Bmc";
-    auto bmcPaths = findPaths(bus, BMCInventoryItem);
+    auto bmcPaths = findPaths(ctx.get_bus(), BMCInventoryItem);
 
     for (auto& [type, collectionConfig] : configs)
     {
@@ -23,18 +23,24 @@ void HealthMonitor::create()
              std::to_underlying(type));
         collections[type] =
             std::make_unique<CollectionIntf::HealthMetricCollection>(
-                bus, type, collectionConfig, bmcPaths);
+                ctx.get_bus(), type, collectionConfig, bmcPaths);
     }
+
+    co_await run();
 }
 
-void HealthMonitor::run()
+auto HealthMonitor::run() -> sdbusplus::async::task<>
 {
     info("Running Health Monitor");
-    for (auto& [type, collection] : collections)
+    while (!ctx.stop_requested())
     {
-        debug("Reading Health Metric Collection for {TYPE}", "TYPE",
-              std::to_underlying(type));
-        collection->read();
+        for (auto& [type, collection] : collections)
+        {
+            debug("Reading Health Metric Collection for {TYPE}", "TYPE",
+                  std::to_underlying(type));
+            collection->read();
+        }
+        co_await sdbusplus::async::sleep_for(ctx, std::chrono::seconds(5));
     }
 }
 
@@ -50,16 +56,8 @@ int main()
     constexpr auto healthMonitorServiceName = "xyz.openbmc_project.HealthMon";
 
     info("Creating health monitor");
-    HealthMonitor healthMonitor{ctx.get_bus()};
+    HealthMonitor healthMonitor{ctx};
     ctx.request_name(healthMonitorServiceName);
-
-    ctx.spawn([&]() -> sdbusplus::async::task<> {
-        while (!ctx.stop_requested())
-        {
-            healthMonitor.run();
-            co_await sdbusplus::async::sleep_for(ctx, std::chrono::seconds(5));
-        }
-    }());
 
     ctx.run();
     return 0;
