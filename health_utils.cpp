@@ -1,6 +1,7 @@
 #include "health_utils.hpp"
 
 #include <phosphor-logging/lg2.hpp>
+#include <xyz/openbmc_project/ObjectMapper/client.hpp>
 
 PHOSPHOR_LOG2_USING;
 
@@ -20,29 +21,27 @@ void startUnit(sdbusplus::bus_t& bus, const std::string& sysdUnit)
     bus.call_noreply(msg);
 }
 
-auto findPaths(sdbusplus::bus_t& bus, const std::string& iface) -> paths_t
+auto findPaths(sdbusplus::async::context& ctx, const std::string& iface,
+               const std::string& subpath) -> sdbusplus::async::task<paths_t>
 {
-    sdbusplus::message_t msg = bus.new_method_call(
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths");
-    const char* inventoryPath = "/xyz/openbmc_project/inventory";
-
-    msg.append("/", 0, std::vector<std::string>{iface});
-
     try
     {
-        auto paths = bus.call(msg, int32_t(0)).unpack<paths_t>();
-        debug("Found {COUNT} paths for {IFACE}", "COUNT", paths.size(), "IFACE",
-              iface);
-        return paths;
+        using ObjectMapper =
+            sdbusplus::client::xyz::openbmc_project::ObjectMapper<>;
+
+        auto mapper = ObjectMapper(ctx)
+                          .service(ObjectMapper::default_service)
+                          .path(ObjectMapper::instance_path);
+
+        std::vector<std::string> ifaces = {iface};
+        co_return co_await mapper.get_sub_tree_paths(subpath, 0, ifaces);
     }
     catch (std::exception& e)
     {
         error("Exception occurred for GetSubTreePaths for {PATH}: {ERROR}",
-              "PATH", inventoryPath, "ERROR", e);
+              "PATH", subpath, "ERROR", e);
     }
-    return {};
+    co_return {};
 }
 
 } // namespace phosphor::health::utils

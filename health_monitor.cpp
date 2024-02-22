@@ -2,6 +2,8 @@
 
 #include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/async.hpp>
+#include <xyz/openbmc_project/Inventory/Item/Bmc/common.hpp>
+#include <xyz/openbmc_project/Inventory/Item/common.hpp>
 
 PHOSPHOR_LOG2_USING;
 
@@ -14,8 +16,12 @@ auto HealthMonitor::startup() -> sdbusplus::async::task<>
 {
     info("Creating Health Monitor with config size {SIZE}", "SIZE",
          configs.size());
-    constexpr auto BMCInventoryItem = "xyz.openbmc_project.Inventory.Item.Bmc";
-    auto bmcPaths = findPaths(ctx.get_bus(), BMCInventoryItem);
+
+    static constexpr auto bmcIntf = sdbusplus::common::xyz::openbmc_project::
+        inventory::item::Bmc::interface;
+    static constexpr auto invPath = sdbusplus::common::xyz::openbmc_project::
+        inventory::Item::namespace_path;
+    auto bmcPaths = co_await findPaths(ctx, bmcIntf, invPath);
 
     for (auto& [type, collectionConfig] : configs)
     {
