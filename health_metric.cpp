@@ -210,7 +210,7 @@ void HealthMetric::update(MValue value)
     if (history.size() < config.windowSize)
     {
         // Wait for the metric to have enough samples to calculate average
-        info("Not enough samples to calculate average");
+        debug("Not enough samples to calculate average");
         return;
     }
 
