@@ -180,8 +180,8 @@ auto HealthMetricCollection::readStorage() -> bool
                   strerror(e), "PATH", config.path);
             continue;
         }
-        double total = buffer.f_blocks * (buffer.f_frsize / 1024);
-        double available = buffer.f_bfree * (buffer.f_frsize / 1024);
+        double total = buffer.f_blocks * buffer.f_frsize;
+        double available = buffer.f_bfree * buffer.f_frsize;
         double availablePercent = ((available / total) * 100);
 
         debug("Storage Metric {SUBTYPE}: {TOTAL} {AVAIL} {AVAIL_PERCENT}",
