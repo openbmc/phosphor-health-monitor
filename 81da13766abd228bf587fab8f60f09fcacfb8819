@@ -1,0 +1,8 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Patrick Williams <patrick@stwcx.xyz>
+Submitted-by: Patrick Williams <patrick@stwcx.xyz>
+Submitted-at: Thu, 22 Feb 2024 18:40:31 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/phosphor-health-monitor/+/68314
+Comments-Total: 54
+Project: openbmc/phosphor-health-monitor
+Branch: refs/heads/master
