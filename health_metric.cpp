@@ -115,6 +115,28 @@ void HealthMetric::initProperties()
     ThresholdIntf::value(thresholds, true);
 }
 
+bool didThresholdViolate(ThresholdIntf::Bound bound, double thresholdValue,
+                         double value)
+{
+    switch (bound)
+    {
+        case ThresholdIntf::Bound::Lower:
+        {
+            return (value < thresholdValue);
+        }
+        case ThresholdIntf::Bound::Upper:
+        {
+            return (value > thresholdValue);
+        }
+        default:
+        {
+            error("Invalid threshold bound {BOUND}", "BOUND",
+                  std::to_underlying(bound));
+            return false;
+        }
+    }
+}
+
 void HealthMetric::checkThreshold(ThresholdIntf::Type type,
                                   ThresholdIntf::Bound bound, double value)
 {
@@ -125,7 +147,7 @@ void HealthMetric::checkThreshold(ThresholdIntf::Type type,
     {
         auto thresholdValue = thresholds[type][bound];
         auto assertions = ThresholdIntf::asserted();
-        if (value > thresholdValue)
+        if (didThresholdViolate(bound, thresholdValue, value))
         {
             if (!assertions.contains(threshold))
             {
@@ -170,6 +192,7 @@ void HealthMetric::checkThresholds(double value)
               ThresholdIntf::Type::PerformanceLoss,
               ThresholdIntf::Type::Critical, ThresholdIntf::Type::Warning})
         {
+            checkThreshold(type, ThresholdIntf::Bound::Lower, value);
             checkThreshold(type, ThresholdIntf::Bound::Upper, value);
         }
     }
