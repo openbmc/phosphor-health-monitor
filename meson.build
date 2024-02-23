@@ -37,8 +37,6 @@ executable(
     install_dir: get_option('bindir')
 )
 
-install_data(sources : 'bmc_health_config.json', install_dir : '/etc/healthMon')
-
 conf_data = configuration_data()
 conf_data.set('HEALTH_CONFIG_FILE', '"/etc/healthMon/bmc_health_config.json"')
 conf_data.set('HEALTH_BUS_NAME', '"xyz.openbmc_project.HealthMon"')
