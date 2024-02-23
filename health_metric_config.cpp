@@ -8,6 +8,7 @@
 #include <cmath>
 #include <fstream>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 
 PHOSPHOR_LOG2_USING;
@@ -21,6 +22,15 @@ using json = nlohmann::json;
 extern json defaultHealthMetricConfig;
 
 // Valid thresholds from config
+static const auto validThresholdTypesWithBound =
+    std::unordered_set<std::string>{"Critical_Lower", "Critical_Upper",
+                                    "Warning_Lower", "Warning_Upper"};
+
+static const auto validThresholdBounds =
+    std::unordered_map<std::string, ThresholdIntf::Bound>{
+        {"Lower", ThresholdIntf::Bound::Lower},
+        {"Upper", ThresholdIntf::Bound::Upper}};
+
 static const auto validThresholdTypes =
     std::unordered_map<std::string, ThresholdIntf::Type>{
         {"Critical", ThresholdIntf::Type::Critical},
@@ -74,7 +84,7 @@ void from_json(const json& j, HealthMetric& self)
 
     for (auto& [key, value] : thresholds->items())
     {
-        if (!validThresholdTypes.contains(key))
+        if (!validThresholdTypesWithBound.contains(key))
         {
             warning("Invalid ThresholdType: {TYPE}", "TYPE", key);
             continue;
@@ -86,11 +96,15 @@ void from_json(const json& j, HealthMetric& self)
             throw std::invalid_argument("Invalid threshold value");
         }
 
-        // ThresholdIntf::Bound::Upper is the only use case for
-        // ThresholdIntf::Bound
-        self.thresholds.emplace(std::make_tuple(validThresholdTypes.at(key),
-                                                ThresholdIntf::Bound::Upper),
-                                config);
+        static constexpr auto keyDelimiter = "_";
+        std::string typeStr = key.substr(0, key.find_first_of(keyDelimiter));
+        std::string boundStr = key.substr(key.find_last_of(keyDelimiter) + 1,
+                                          key.length());
+
+        self.thresholds.emplace(
+            std::make_tuple(validThresholdTypes.at(typeStr),
+                            validThresholdBounds.at(boundStr)),
+            config);
     }
 }
 
@@ -183,12 +197,12 @@ json defaultHealthMetricConfig = R"({
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
-            "Critical": {
+            "Critical_Upper": {
                 "Value": 90.0,
                 "Log": true,
                 "Target": ""
             },
-            "Warning": {
+            "Warning_Upper": {
                 "Value": 80.0,
                 "Log": false,
                 "Target": ""
@@ -199,12 +213,12 @@ json defaultHealthMetricConfig = R"({
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
-            "Critical": {
+            "Critical_Upper": {
                 "Value": 90.0,
                 "Log": true,
                 "Target": ""
             },
-            "Warning": {
+            "Warning_Upper": {
                 "Value": 80.0,
                 "Log": false,
                 "Target": ""
@@ -215,14 +229,25 @@ json defaultHealthMetricConfig = R"({
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
-            "Critical": {
+            "Critical_Upper": {
                 "Value": 90.0,
                 "Log": true,
                 "Target": ""
             },
-            "Warning": {
+            "Warning_Upper": {
                 "Value": 80.0,
                 "Log": false,
+                "Target": ""
+            }
+        }
+    },
+    "Memory": {
+        "Frequency": 1,
+        "Window_size": 120,
+        "Threshold": {
+            "Critical_Upper": {
+                "Value": 85.0,
+                "Log": true,
                 "Target": ""
             }
         }
@@ -231,8 +256,19 @@ json defaultHealthMetricConfig = R"({
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
-            "Critical": {
-                "Value": 85.0,
+            "Critical_Lower": {
+                "Value": 15.0,
+                "Log": true,
+                "Target": ""
+            }
+        }
+    },
+    "Memory_Free": {
+        "Frequency": 1,
+        "Window_size": 120,
+        "Threshold": {
+            "Critical_Lower": {
+                "Value": 15.0,
                 "Log": true,
                 "Target": ""
             }
@@ -242,7 +278,7 @@ json defaultHealthMetricConfig = R"({
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
-            "Critical": {
+            "Critical_Upper": {
                 "Value": 85.0,
                 "Log": true,
                 "Target": ""
@@ -253,7 +289,7 @@ json defaultHealthMetricConfig = R"({
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
-            "Critical": {
+            "Critical_Upper": {
                 "Value": 85.0,
                 "Log": true,
                 "Target": ""
@@ -265,8 +301,8 @@ json defaultHealthMetricConfig = R"({
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
-            "Critical": {
-                "Value": 85.0,
+            "Critical_Lower": {
+                "Value": 15.0,
                 "Log": true,
                 "Target": ""
             }
@@ -277,8 +313,8 @@ json defaultHealthMetricConfig = R"({
         "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
-            "Critical": {
-                "Value": 85.0,
+            "Critical_Lower": {
+                "Value": 15.0,
                 "Log": true,
                 "Target": ""
             }

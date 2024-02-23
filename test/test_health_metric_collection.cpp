@@ -54,7 +54,7 @@ class HealthMetricCollectionTest : public ::testing::Test
         }
     }
 
-    void updateThreshold(double value)
+    void updateThreshold(ThresholdIntf::Bound bound, double value)
     {
         for (auto& [key, values] : configs)
         {
@@ -62,7 +62,10 @@ class HealthMetricCollectionTest : public ::testing::Test
             {
                 for (auto& threshold : config.thresholds)
                 {
-                    threshold.second.value = value;
+                    if (get<ThresholdIntf::Bound>(threshold.first) == bound)
+                    {
+                        threshold.second.value = value;
+                    }
                 }
             }
         }
@@ -86,8 +89,9 @@ class HealthMetricCollectionTest : public ::testing::Test
 
 TEST_F(HealthMetricCollectionTest, TestCreation)
 {
-    // Change threshold value to 100 to avoid threshold assertion
-    updateThreshold(100);
+    // Change threshold values to avoid threshold assertion
+    updateThreshold(ThresholdIntf::Bound::Upper, 100);
+    updateThreshold(ThresholdIntf::Bound::Lower, 0);
 
     EXPECT_CALL(sdbusMock,
                 sd_bus_emit_properties_changed_strv(
@@ -124,8 +128,9 @@ TEST_F(HealthMetricCollectionTest, TestCreation)
 
 TEST_F(HealthMetricCollectionTest, TestThresholdAsserted)
 {
-    // Change threshold value to 0 to trigger threshold assertion
-    updateThreshold(0);
+    // Change threshold values to trigger threshold assertion
+    updateThreshold(ThresholdIntf::Bound::Upper, 0);
+    updateThreshold(ThresholdIntf::Bound::Lower, 100);
 
     // Test metric value property change
     EXPECT_CALL(sdbusMock,
@@ -154,7 +159,7 @@ TEST_F(HealthMetricCollectionTest, TestThresholdAsserted)
                 sd_bus_message_new_signal(IsNull(), NotNull(), NotNull(),
                                           StrEq(thresholdInterface),
                                           StrEq("AssertionChanged")))
-        .Times(11);
+        .Times(12);
 
     createCollection();
 }
