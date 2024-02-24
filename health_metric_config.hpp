@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sdbusplus/message.hpp>
 #include <xyz/openbmc_project/Common/Threshold/server.hpp>
 
 #include <chrono>
@@ -43,6 +44,18 @@ enum class SubType
 
 namespace config
 {
+
+/** Convert an enum to string. */
+template <typename T>
+auto to_string(T) -> std::string;
+
+/** Specialization of to_string for sdbusplus enum types. */
+template <typename T>
+    requires requires(T t) { sdbusplus::message::convert_to_string(t); }
+auto to_string(T t) -> std::string
+{
+    return sdbusplus::message::convert_to_string(t);
+}
 
 using namespace std::literals::chrono_literals;
 

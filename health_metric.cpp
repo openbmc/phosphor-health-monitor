@@ -162,8 +162,7 @@ void HealthMetric::checkThreshold(ThresholdIntf::Type type,
                 {
                     error(
                         "ASSERT: Health Metric {METRIC} crossed {TYPE} upper threshold",
-                        "METRIC", config.name, "TYPE",
-                        sdbusplus::message::convert_to_string(type));
+                        "METRIC", config.name, "TYPE", config::to_string(type));
                     startUnit(bus, tConfig.target);
                 }
             }
@@ -178,8 +177,7 @@ void HealthMetric::checkThreshold(ThresholdIntf::Type type,
             {
                 info(
                     "DEASSERT: Health Metric {METRIC} is below {TYPE} upper threshold",
-                    "METRIC", config.name, "TYPE",
-                    sdbusplus::message::convert_to_string(type));
+                    "METRIC", config.name, "TYPE", config::to_string(type));
             }
         }
     }
