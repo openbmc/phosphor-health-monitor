@@ -34,6 +34,24 @@
       "parentUuid": "d7b90e96_749800d3",
       "revId": "85b6b3bfd66456fc29c94a351538c458cac02c0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f90027ff_583200f2",
+        "filename": "health_metric.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-02-24T02:30:30Z",
+      "side": 1,
+      "message": "I am fine with changing the log level of this message. I was just mentioning that we should fix the amount of time it takes to show the initial value which seems to be around 10 mins at the moment (which came to my mind while looking at this patch as i used to watch for these logs for values to show up 😊). I will raise a patch for that and we can see what makes sense to fix - either window size or ctx run wait time.",
+      "parentUuid": "4f908112_593e9216",
+      "revId": "85b6b3bfd66456fc29c94a351538c458cac02c0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
