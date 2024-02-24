@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sdbusplus/message.hpp>
 #include <xyz/openbmc_project/Common/Threshold/server.hpp>
 
 #include <chrono>

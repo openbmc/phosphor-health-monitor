@@ -7,13 +7,20 @@
 
 #include <cmath>
 #include <fstream>
+#include <ranges>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
 
 PHOSPHOR_LOG2_USING;
 
-namespace phosphor::health::metric::config
+namespace phosphor::health::metric
+{
+
+auto to_string(Type t) -> std::string;
+auto to_string(SubType t) -> std::string;
+
+namespace config
 {
 
 using json = nlohmann::json;
@@ -137,20 +144,18 @@ void printConfig(HealthMetric::map_t& configs)
         for (auto& config : configList)
         {
             debug(
-                "MTYPE={MTYPE}, MNAME={MNAME} MSTYPE={MSTYPE} PATH={PATH}, FREQ={FREQ}, WSIZE={WSIZE}",
-                "MTYPE", std::to_underlying(type), "MNAME", config.name,
-                "MSTYPE", std::to_underlying(config.subType), "PATH",
-                config.path, "FREQ", config.collectionFreq.count(), "WSIZE",
-                config.windowSize);
+                "TYPE={TYPE}, NAME={NAME} SUBTYPE={SUBTYPE} PATH={PATH}, FREQ={FREQ}, WSIZE={WSIZE}",
+                "TYPE", type, "NAME", config.name, "SUBTYPE",
+                config.subType, "PATH", config.path, "FREQ",
+                config.collectionFreq.count(), "WSIZE", config.windowSize);
 
             for (auto& [key, threshold] : config.thresholds)
             {
                 debug(
                     "THRESHOLD TYPE={TYPE} THRESHOLD BOUND={BOUND} VALUE={VALUE} LOG={LOG} TARGET={TARGET}",
-                    "TYPE", std::to_underlying(get<ThresholdIntf::Type>(key)),
-                    "BOUND", std::to_underlying(get<ThresholdIntf::Bound>(key)),
-                    "VALUE", threshold.value, "LOG", threshold.log, "TARGET",
-                    threshold.target);
+                    "TYPE", get<ThresholdIntf::Type>(key), "BOUND",
+                    get<ThresholdIntf::Bound>(key), "VALUE", threshold.value,
+                    "LOG", threshold.log, "TARGET", threshold.target);
             }
         }
     }
@@ -277,4 +282,32 @@ json defaultHealthMetricConfig = R"({
     }
 })"_json;
 
-} // namespace phosphor::health::metric::config
+} // namespace config
+
+namespace details
+{
+auto reverse_map_search(const auto& m, auto v)
+{
+    if (auto match = std::ranges::find_if(
+            m, [=](const auto& p) { return p.second == v; });
+        match != std::end(m))
+    {
+        return match->first;
+    }
+    return std::format("Enum({})", std::to_underlying(v));
+}
+} // namespace details
+
+// to_string specialization for Type.
+auto to_string(Type t) -> std::string
+{
+    return details::reverse_map_search(config::validTypes, t);
+}
+
+// to_string specializaiton for SubType.
+auto to_string(SubType t) -> std::string
+{
+    return details::reverse_map_search(config::validSubTypes, t);
+}
+
+} // namespace phosphor::health::metric
