@@ -25,8 +25,7 @@ auto HealthMonitor::startup() -> sdbusplus::async::task<>
 
     for (auto& [type, collectionConfig] : configs)
     {
-        info("Creating Health Metric Collection for {TYPE}", "TYPE",
-             std::to_underlying(type));
+        info("Creating Health Metric Collection for {TYPE}", "TYPE", type);
         collections[type] =
             std::make_unique<CollectionIntf::HealthMetricCollection>(
                 ctx.get_bus(), type, collectionConfig, bmcPaths);
@@ -42,8 +41,7 @@ auto HealthMonitor::run() -> sdbusplus::async::task<>
     {
         for (auto& [type, collection] : collections)
         {
-            debug("Reading Health Metric Collection for {TYPE}", "TYPE",
-                  std::to_underlying(type));
+            debug("Reading Health Metric Collection for {TYPE}", "TYPE", type);
             collection->read();
         }
         co_await sdbusplus::async::sleep_for(ctx, std::chrono::seconds(1));
