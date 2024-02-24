@@ -159,7 +159,8 @@ auto HealthMetricCollection::readMemory() -> bool
         auto absoluteValue = memoryValues.at(config.subType);
         auto memoryTotal = memoryValues.at(MetricIntf::SubType::memoryTotal);
         double percentValue = (memoryTotal - absoluteValue) / memoryTotal * 100;
-        absoluteValue = absoluteValue * 1000;
+        // Convert kB to Bytes
+        absoluteValue = absoluteValue * 1024;
         debug("Memory Metric {SUBTYPE}: {VALUE}, {PERCENT}", "SUBTYPE",
               std::to_underlying(config.subType), "VALUE", absoluteValue,
               "PERCENT", percentValue);
