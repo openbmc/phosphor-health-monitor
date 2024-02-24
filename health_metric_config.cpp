@@ -235,13 +235,6 @@ json defaultHealthMetricConfig = R"({
     "Memory_Free": {
         "Frequency": 1,
         "Window_size": 120,
-        "Threshold": {
-            "Critical_Lower": {
-                "Value": 15.0,
-                "Log": true,
-                "Target": ""
-            }
-        }
     },
     "Memory_Shared": {
         "Frequency": 1,
