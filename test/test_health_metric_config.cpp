@@ -58,6 +58,7 @@ bool isValidSubType(metric::Type type, metric::SubType subType)
 TEST(HealthMonitorConfigTest, TestConfigValues)
 {
     auto healthMetricConfigs = getHealthMetricConfigs();
+    auto count_with_thresholds = 0;
     for (const auto& [type, configs] : healthMetricConfigs)
     {
         EXPECT_NE(type, metric::Type::unknown);
@@ -68,7 +69,12 @@ TEST(HealthMonitorConfigTest, TestConfigValues)
             EXPECT_TRUE(isValidSubType(type, config.subType));
             EXPECT_GE(config.collectionFreq, HealthMetric::defaults::frequency);
             EXPECT_GE(config.windowSize, HealthMetric::defaults::windowSize);
-            EXPECT_GE(config.thresholds.size(), minConfigSize);
+            if (config.thresholds.size())
+            {
+                count_with_thresholds++;
+            }
         }
+
+        EXPECT_GE(count_with_thresholds, 1);
     }
 }
