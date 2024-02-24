@@ -212,34 +212,10 @@ json defaultHealthMetricConfig = R"({
     "CPU_User": {
         "Frequency": 1,
         "Window_size": 120,
-        "Threshold": {
-            "Critical_Upper": {
-                "Value": 90.0,
-                "Log": true,
-                "Target": ""
-            },
-            "Warning_Upper": {
-                "Value": 80.0,
-                "Log": false,
-                "Target": ""
-            }
-        }
     },
     "CPU_Kernel": {
         "Frequency": 1,
         "Window_size": 120,
-        "Threshold": {
-            "Critical_Upper": {
-                "Value": 90.0,
-                "Log": true,
-                "Target": ""
-            },
-            "Warning_Upper": {
-                "Value": 80.0,
-                "Log": false,
-                "Target": ""
-            }
-        }
     },
     "Memory": {
         "Frequency": 1,
