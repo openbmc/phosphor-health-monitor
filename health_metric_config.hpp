@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sdbusplus/message.hpp>
 #include <xyz/openbmc_project/Common/Threshold/server.hpp>
 
 #include <chrono>
@@ -40,6 +41,9 @@ enum class SubType
     storageTmp,
     NA
 };
+
+auto to_string(Type) -> std::string;
+auto to_string(SubType) -> std::string;
 
 namespace config
 {

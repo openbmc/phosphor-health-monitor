@@ -60,8 +60,7 @@ auto HealthMetric::getPath(SubType subType) -> std::string
         }
         default:
         {
-            error("Invalid Memory metric {TYPE}", "TYPE",
-                  std::to_underlying(subType));
+            error("Invalid Memory metric {TYPE}", "TYPE", subType);
             return "";
         }
     }
@@ -130,8 +129,7 @@ bool didThresholdViolate(ThresholdIntf::Bound bound, double thresholdValue,
         }
         default:
         {
-            error("Invalid threshold bound {BOUND}", "BOUND",
-                  std::to_underlying(bound));
+            error("Invalid threshold bound {BOUND}", "BOUND", bound);
             return false;
         }
     }
@@ -162,8 +160,7 @@ void HealthMetric::checkThreshold(ThresholdIntf::Type type,
                 {
                     error(
                         "ASSERT: Health Metric {METRIC} crossed {TYPE} upper threshold",
-                        "METRIC", config.name, "TYPE",
-                        sdbusplus::message::convert_to_string(type));
+                        "METRIC", config.name, "TYPE", type);
                     startUnit(bus, tConfig.target);
                 }
             }
@@ -178,8 +175,7 @@ void HealthMetric::checkThreshold(ThresholdIntf::Type type,
             {
                 info(
                     "DEASSERT: Health Metric {METRIC} is below {TYPE} upper threshold",
-                    "METRIC", config.name, "TYPE",
-                    sdbusplus::message::convert_to_string(type));
+                    "METRIC", config.name, "TYPE", type);
             }
         }
     }

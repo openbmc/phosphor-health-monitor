@@ -44,6 +44,7 @@ test(
         'test_health_metric.cpp',
         '../health_metric.cpp',
         '../health_utils.cpp',
+        '../health_metric_config.cpp',
         dependencies: [
             gtest_dep,
             gmock_dep,

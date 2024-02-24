@@ -99,9 +99,8 @@ auto HealthMetricCollection::readCPU() -> bool
         preTotalTime[config.subType] = totalTime;
 
         activePercValue = (100.0 * activeTimeDiff) / totalTimeDiff;
-        debug("CPU Metric {SUBTYPE}: {VALUE}", "SUBTYPE",
-              std::to_underlying(config.subType), "VALUE",
-              (double)activePercValue);
+        debug("CPU Metric {SUBTYPE}: {VALUE}", "SUBTYPE", config.subType,
+              "VALUE", (double)activePercValue);
         /* For CPU, both user and monitor uses percentage values */
         metrics[config.subType]->update(MValue(activePercValue, 100));
     }
@@ -159,8 +158,7 @@ auto HealthMetricCollection::readMemory() -> bool
         auto value = memoryValues.at(config.subType) * 1024;
         auto total = memoryValues.at(MetricIntf::SubType::memoryTotal) * 1024;
         debug("Memory Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",
-              std::to_underlying(config.subType), "VALUE", value, "TOTAL",
-              total);
+              config.subType, "VALUE", value, "TOTAL", total);
         metrics[config.subType]->update(MValue(value, total));
     }
     return true;
@@ -181,8 +179,7 @@ auto HealthMetricCollection::readStorage() -> bool
         double value = buffer.f_bfree * buffer.f_frsize;
         double total = buffer.f_blocks * buffer.f_frsize;
         debug("Storage Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",
-              std::to_underlying(config.subType), "VALUE", value, "TOTAL",
-              total);
+              config.subType, "VALUE", value, "TOTAL", total);
         metrics[config.subType]->update(MValue(value, total));
     }
     return true;
@@ -218,8 +215,7 @@ void HealthMetricCollection::read()
         }
         default:
         {
-            error("Unknown health metric type {TYPE}", "TYPE",
-                  std::to_underlying(type));
+            error("Unknown health metric type {TYPE}", "TYPE", type);
             break;
         }
     }
