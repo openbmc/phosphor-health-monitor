@@ -250,13 +250,6 @@ json defaultHealthMetricConfig = R"({
     "Memory_Buffered_And_Cached": {
         "Frequency": 1,
         "Window_size": 120,
-        "Threshold": {
-            "Critical_Upper": {
-                "Value": 85.0,
-                "Log": true,
-                "Target": ""
-            }
-        }
     },
     "Storage_RW": {
         "Path": "/run/initramfs/rw",
