@@ -88,9 +88,9 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
     auto metric = std::make_unique<HealthMetric>(bus, Type::cpu, config,
                                                  paths_t());
     // Exceed the critical threshold
-    metric->update(MValue(1200, 95.0));
+    metric->update(MValue(1351, 1500));
     // Go below critical threshold but above warning threshold
-    metric->update(MValue(1200, 85.0));
+    metric->update(MValue(1399, 1500));
     // Go below warning threshold
-    metric->update(MValue(1200, 75.0));
+    metric->update(MValue(1199, 1500));
 }

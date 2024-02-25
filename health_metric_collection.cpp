@@ -103,8 +103,7 @@ auto HealthMetricCollection::readCPU() -> bool
               std::to_underlying(config.subType), "VALUE",
               (double)activePercValue);
         /* For CPU, both user and monitor uses percentage values */
-        metrics[config.subType]->update(
-            MValue(activePercValue, activePercValue));
+        metrics[config.subType]->update(MValue(activePercValue, 100));
     }
     return true;
 }
@@ -150,21 +149,19 @@ auto HealthMetricCollection::readMemory() -> bool
         }
         else if (name.starts_with("Shmem"))
         {
-            memoryValues[MetricIntf::SubType::memoryShared] = value;
+            memoryValues[MetricIntf::SubType::memoryShared] += value;
         }
     }
 
     for (auto& config : configs)
     {
-        auto absoluteValue = memoryValues.at(config.subType);
-        auto memoryTotal = memoryValues.at(MetricIntf::SubType::memoryTotal);
-        double percentValue = (memoryTotal - absoluteValue) / memoryTotal * 100;
         // Convert kB to Bytes
-        absoluteValue = absoluteValue * 1024;
-        debug("Memory Metric {SUBTYPE}: {VALUE}, {PERCENT}", "SUBTYPE",
-              std::to_underlying(config.subType), "VALUE", absoluteValue,
-              "PERCENT", percentValue);
-        metrics[config.subType]->update(MValue(absoluteValue, percentValue));
+        auto value = memoryValues.at(config.subType) * 1024;
+        auto total = memoryValues.at(MetricIntf::SubType::memoryTotal) * 1024;
+        debug("Memory Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",
+              std::to_underlying(config.subType), "VALUE", value, "TOTAL",
+              total);
+        metrics[config.subType]->update(MValue(value, total));
     }
     return true;
 }
@@ -181,14 +178,12 @@ auto HealthMetricCollection::readStorage() -> bool
                   strerror(e), "PATH", config.path);
             continue;
         }
+        double value = buffer.f_bfree * buffer.f_frsize;
         double total = buffer.f_blocks * buffer.f_frsize;
-        double available = buffer.f_bfree * buffer.f_frsize;
-        double availablePercent = ((available / total) * 100);
-
-        debug("Storage Metric {SUBTYPE}: {TOTAL} {AVAIL} {AVAIL_PERCENT}",
-              "SUBTYPE", std::to_underlying(config.subType), "TOTAL", total,
-              "AVAIL", available, "AVAIL_PERCENT", availablePercent);
-        metrics[config.subType]->update(MValue(available, availablePercent));
+        debug("Storage Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",
+              std::to_underlying(config.subType), "VALUE", value, "TOTAL",
+              total);
+        metrics[config.subType]->update(MValue(value, total));
     }
     return true;
 }

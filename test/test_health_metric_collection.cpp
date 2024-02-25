@@ -116,10 +116,10 @@ TEST_F(HealthMetricCollectionTest, TestCreation)
         .WillRepeatedly(Invoke(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
-        // Test no signal generation for threshold init properties
-        const std::set<std::string> thresholdProperties = {"Value", "Asserted"};
-        EXPECT_THAT(thresholdProperties,
-                    testing::Not(testing::Contains(names[0])));
+        // Test signal generated for Value property set
+        EXPECT_STREQ("Value", names[0]);
+        // Test no signal generation for threshold asserted
+        EXPECT_STRNE("Asserted", names[0]);
         return 0;
     }));
 
@@ -150,7 +150,9 @@ TEST_F(HealthMetricCollectionTest, TestThresholdAsserted)
         .WillRepeatedly(Invoke(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
-        EXPECT_THAT("Asserted", StrEq(names[0]));
+        // Test signal generation for threshold properties set
+        const std::set<std::string> thresholdProperties = {"Value", "Asserted"};
+        EXPECT_THAT(thresholdProperties, testing::Contains(names[0]));
         return 0;
     }));
 

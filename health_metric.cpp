@@ -104,7 +104,7 @@ void HealthMetric::initProperties()
         if (threshold == thresholds.end())
         {
             bound_map_t bounds;
-            bounds.emplace(bound, value.value);
+            bounds.emplace(bound, std::numeric_limits<double>::quiet_NaN());
             thresholds.emplace(type, bounds);
         }
         else
@@ -138,23 +138,26 @@ bool didThresholdViolate(ThresholdIntf::Bound bound, double thresholdValue,
 }
 
 void HealthMetric::checkThreshold(ThresholdIntf::Type type,
-                                  ThresholdIntf::Bound bound, double value)
+                                  ThresholdIntf::Bound bound, MValue value)
 {
     auto threshold = std::make_tuple(type, bound);
     auto thresholds = ThresholdIntf::value();
 
     if (thresholds.contains(type) && thresholds[type].contains(bound))
     {
-        auto thresholdValue = thresholds[type][bound];
+        auto tConfig = config.thresholds.at(threshold);
+        auto thresholdValue = tConfig.value / 100 * value.total;
+        thresholds[type][bound] = thresholdValue;
+        ThresholdIntf::value(thresholds);
         auto assertions = ThresholdIntf::asserted();
-        if (didThresholdViolate(bound, thresholdValue, value))
+        if (didThresholdViolate(bound, thresholdValue, value.current))
         {
             if (!assertions.contains(threshold))
             {
                 assertions.insert(threshold);
                 ThresholdIntf::asserted(assertions);
-                ThresholdIntf::assertionChanged(type, bound, true, value);
-                auto tConfig = config.thresholds.at(threshold);
+                ThresholdIntf::assertionChanged(type, bound, true,
+                                                value.current);
                 if (tConfig.log)
                 {
                     error(
@@ -170,7 +173,7 @@ void HealthMetric::checkThreshold(ThresholdIntf::Type type,
         {
             assertions.erase(threshold);
             ThresholdIntf::asserted(assertions);
-            ThresholdIntf::assertionChanged(type, bound, false, value);
+            ThresholdIntf::assertionChanged(type, bound, false, value.current);
             if (config.thresholds.find(threshold)->second.log)
             {
                 info(
@@ -182,7 +185,7 @@ void HealthMetric::checkThreshold(ThresholdIntf::Type type,
     }
 }
 
-void HealthMetric::checkThresholds(double value)
+void HealthMetric::checkThresholds(MValue value)
 {
     if (!ThresholdIntf::value().empty())
     {
@@ -205,7 +208,7 @@ void HealthMetric::update(MValue value)
     {
         history.pop_front();
     }
-    history.push_back(value.user);
+    history.push_back(value.current);
 
     if (history.size() < config.windowSize)
     {
@@ -217,7 +220,7 @@ void HealthMetric::update(MValue value)
     double average = (std::accumulate(history.begin(), history.end(), 0.0)) /
                      history.size();
     ValueIntf::value(average);
-    checkThresholds(value.monitor);
+    checkThresholds(value);
 }
 
 void HealthMetric::create(const paths_t& bmcPaths)

@@ -28,10 +28,10 @@ using MetricIntf =
 
 struct MValue
 {
-    /** @brief Value for end user consumption */
-    double user;
-    /** @brief Value for threshold monitor */
-    double monitor;
+    /** @brief Current value of metric */
+    double current;
+    /** @brief Total value of metric */
+    double total;
 };
 
 class HealthMetric : public MetricIntf
@@ -61,9 +61,9 @@ class HealthMetric : public MetricIntf
     void initProperties();
     /** @brief Check specified threshold for the given value */
     void checkThreshold(ThresholdIntf::Type type, ThresholdIntf::Bound bound,
-                        double value);
+                        MValue value);
     /** @brief Check all thresholds for the given value */
-    void checkThresholds(double value);
+    void checkThresholds(MValue value);
     /** @brief Get the object path for the given subtype */
     auto getPath(SubType subType) -> std::string;
     /** @brief D-Bus bus connection */
