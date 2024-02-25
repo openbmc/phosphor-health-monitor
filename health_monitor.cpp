@@ -46,7 +46,7 @@ auto HealthMonitor::run() -> sdbusplus::async::task<>
                   std::to_underlying(type));
             collection->read();
         }
-        co_await sdbusplus::async::sleep_for(ctx, std::chrono::seconds(5));
+        co_await sdbusplus::async::sleep_for(ctx, std::chrono::seconds(1));
     }
 }
 
