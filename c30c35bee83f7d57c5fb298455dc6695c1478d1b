@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c849ef4d_30707135",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-26T17:31:30Z",
+      "side": 1,
+      "message": "It is failing because it depends on a commit in phosphor-logging, as I wrote in the commit message.",
+      "parentUuid": "878f4b06_f8b6ba71",
+      "revId": "c30c35bee83f7d57c5fb298455dc6695c1478d1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2188caa8_01c5d01b",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-26T17:25:31Z",
       "side": 1,
       "message": "This changeset is already there in health_metric_config.hpp, do we need it again in .cpp?",
+      "revId": "c30c35bee83f7d57c5fb298455dc6695c1478d1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e467c215_dd74dd7b",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-02-26T17:31:30Z",
+      "side": 1,
+      "message": "Hmm.  I thought I removed this.  Let me fix.",
+      "parentUuid": "2188caa8_01c5d01b",
       "revId": "c30c35bee83f7d57c5fb298455dc6695c1478d1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
