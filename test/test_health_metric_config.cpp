@@ -43,10 +43,6 @@ bool isValidSubType(metric::Type type, metric::SubType subType)
                 .contains(subType);
 
         case metric::Type::storage:
-            return set_t{metric::SubType::storageReadWrite,
-                         metric::SubType::storageTmp}
-                .contains(subType);
-
         case metric::Type::inode:
             return set_t{metric::SubType::NA}.contains(subType);
 

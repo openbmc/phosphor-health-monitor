@@ -102,7 +102,7 @@ auto HealthMetricCollection::readCPU() -> bool
         debug("CPU Metric {SUBTYPE}: {VALUE}", "SUBTYPE", config.subType,
               "VALUE", (double)activePercValue);
         /* For CPU, both user and monitor uses percentage values */
-        metrics[config.subType]->update(MValue(activePercValue, 100));
+        metrics[config.name]->update(MValue(activePercValue, 100));
     }
     return true;
 }
@@ -159,7 +159,7 @@ auto HealthMetricCollection::readMemory() -> bool
         auto total = memoryValues.at(MetricIntf::SubType::memoryTotal) * 1024;
         debug("Memory Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",
               config.subType, "VALUE", value, "TOTAL", total);
-        metrics[config.subType]->update(MValue(value, total));
+        metrics[config.name]->update(MValue(value, total));
     }
     return true;
 }
@@ -180,7 +180,7 @@ auto HealthMetricCollection::readStorage() -> bool
         double total = buffer.f_blocks * buffer.f_frsize;
         debug("Storage Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",
               config.subType, "VALUE", value, "TOTAL", total);
-        metrics[config.subType]->update(MValue(value, total));
+        metrics[config.name]->update(MValue(value, total));
     }
     return true;
 }
@@ -227,12 +227,7 @@ void HealthMetricCollection::create(const MetricIntf::paths_t& bmcPaths)
 
     for (auto& config : configs)
     {
-        /* TODO: Remove this after adding iNode support */
-        if (config.subType == MetricIntf::SubType::NA)
-        {
-            continue;
-        }
-        metrics[config.subType] = std::make_unique<MetricIntf::HealthMetric>(
+        metrics[config.name] = std::make_unique<MetricIntf::HealthMetric>(
             bus, type, config, bmcPaths);
     }
 }
