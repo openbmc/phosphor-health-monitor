@@ -56,8 +56,8 @@ static const auto validSubTypes = std::unordered_map<std::string, SubType>{
     {"Memory_Available", SubType::memoryAvailable},
     {"Memory_Shared", SubType::memoryShared},
     {"Memory_Buffered_And_Cached", SubType::memoryBufferedAndCached},
-    {"Storage_RW", SubType::storageReadWrite},
-    {"Storage_TMP", SubType::storageTmp}};
+    {"Storage_RW", SubType::NA},
+    {"Storage_TMP", SubType::NA}};
 
 /** Deserialize a Threshold from JSON. */
 void from_json(const json& j, Threshold& self)
@@ -181,7 +181,8 @@ auto getHealthMetricConfigs() -> HealthMetric::map_t
         }
 
         auto config = metric.template get<HealthMetric>();
-        config.name = name;
+        config.name = name.substr(name.find_last_of(nameDelimiter) + 1,
+                                  name.length());
 
         auto subType = validSubTypes.find(name);
         config.subType = (subType != validSubTypes.end() ? subType->second

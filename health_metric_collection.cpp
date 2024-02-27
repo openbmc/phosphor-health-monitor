@@ -16,6 +16,11 @@ PHOSPHOR_LOG2_USING;
 namespace phosphor::health::metric::collection
 {
 
+auto getKey(const std::string& name, MetricIntf::SubType subType) -> std::string
+{
+    return name + "_" + std::to_string(static_cast<int>(subType));
+}
+
 auto HealthMetricCollection::readCPU() -> bool
 {
     enum CPUStatsIndex
@@ -102,7 +107,8 @@ auto HealthMetricCollection::readCPU() -> bool
         debug("CPU Metric {SUBTYPE}: {VALUE}", "SUBTYPE", config.subType,
               "VALUE", (double)activePercValue);
         /* For CPU, both user and monitor uses percentage values */
-        metrics[config.subType]->update(MValue(activePercValue, 100));
+        metrics[getKey(config.name, config.subType)]->update(
+            MValue(activePercValue, 100));
     }
     return true;
 }
@@ -159,7 +165,8 @@ auto HealthMetricCollection::readMemory() -> bool
         auto total = memoryValues.at(MetricIntf::SubType::memoryTotal) * 1024;
         debug("Memory Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",
               config.subType, "VALUE", value, "TOTAL", total);
-        metrics[config.subType]->update(MValue(value, total));
+        metrics[getKey(config.name, config.subType)]->update(
+            MValue(value, total));
     }
     return true;
 }
@@ -180,7 +187,8 @@ auto HealthMetricCollection::readStorage() -> bool
         double total = buffer.f_blocks * buffer.f_frsize;
         debug("Storage Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",
               config.subType, "VALUE", value, "TOTAL", total);
-        metrics[config.subType]->update(MValue(value, total));
+        metrics[getKey(config.name, config.subType)]->update(
+            MValue(value, total));
     }
     return true;
 }
@@ -227,13 +235,9 @@ void HealthMetricCollection::create(const MetricIntf::paths_t& bmcPaths)
 
     for (auto& config : configs)
     {
-        /* TODO: Remove this after adding iNode support */
-        if (config.subType == MetricIntf::SubType::NA)
-        {
-            continue;
-        }
-        metrics[config.subType] = std::make_unique<MetricIntf::HealthMetric>(
-            bus, type, config, bmcPaths);
+        metrics[getKey(config.name, config.subType)] =
+            std::make_unique<MetricIntf::HealthMetric>(bus, type, config,
+                                                       bmcPaths);
     }
 }
 

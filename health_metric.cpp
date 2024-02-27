@@ -12,7 +12,8 @@ namespace phosphor::health::metric
 
 using association_t = std::tuple<std::string, std::string, std::string>;
 
-auto HealthMetric::getPath(SubType subType) -> std::string
+auto HealthMetric::getPath(phosphor::health::metric::Type type,
+                           std::string name, SubType subType) -> std::string
 {
     std::string path;
     switch (subType)
@@ -50,13 +51,13 @@ auto HealthMetric::getPath(SubType subType) -> std::string
         {
             return std::string(BmcPath) + "/" + PathIntf::total_memory;
         }
-        case SubType::storageReadWrite:
+        case SubType::NA:
         {
-            return std::string(BmcPath) + "/" + PathIntf::read_write_storage;
-        }
-        case SubType::storageTmp:
-        {
-            return std::string(BmcPath) + "/" + PathIntf::tmp_storage;
+            if (type == phosphor::health::metric::Type::storage)
+            {
+                return std::string(BmcPath) + "/" + PathIntf::storage + "/" +
+                       name;
+            }
         }
         default:
         {
@@ -84,7 +85,7 @@ void HealthMetric::initProperties()
         case SubType::memoryFree:
         case SubType::memoryShared:
         case SubType::memoryTotal:
-        case SubType::storageReadWrite:
+        case SubType::NA:
         default:
         {
             ValueIntf::unit(ValueIntf::Unit::Bytes, true);
