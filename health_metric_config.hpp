@@ -36,9 +36,7 @@ enum class SubType
     memoryFree,
     memoryShared,
     memoryTotal,
-    // Storage subtypes
-    storageReadWrite,
-    storageTmp,
+    // Types for which subtype is not applicable
     NA
 };
 

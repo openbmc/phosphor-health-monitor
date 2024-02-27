@@ -1,5 +1,6 @@
 #include "health_metric.hpp"
 
+#include <boost/algorithm/string.hpp>
 #include <phosphor-logging/lg2.hpp>
 
 #include <numeric>
@@ -12,7 +13,8 @@ namespace phosphor::health::metric
 
 using association_t = std::tuple<std::string, std::string, std::string>;
 
-auto HealthMetric::getPath(SubType subType) -> std::string
+auto HealthMetric::getPath(phosphor::health::metric::Type type,
+                           std::string name, SubType subType) -> std::string
 {
     std::string path;
     switch (subType)
@@ -50,13 +52,17 @@ auto HealthMetric::getPath(SubType subType) -> std::string
         {
             return std::string(BmcPath) + "/" + PathIntf::total_memory;
         }
-        case SubType::storageReadWrite:
+        case SubType::NA:
         {
-            return std::string(BmcPath) + "/" + PathIntf::read_write_storage;
-        }
-        case SubType::storageTmp:
-        {
-            return std::string(BmcPath) + "/" + PathIntf::tmp_storage;
+            if (type == phosphor::health::metric::Type::storage)
+            {
+                static constexpr auto nameDelimiter = "_";
+                auto storageType = name.substr(
+                    name.find_last_of(nameDelimiter) + 1, name.length());
+                boost::algorithm::to_lower(storageType);
+                return std::string(BmcPath) + "/" + PathIntf::storage + "/" +
+                       storageType;
+            }
         }
         default:
         {
@@ -84,7 +90,7 @@ void HealthMetric::initProperties()
         case SubType::memoryFree:
         case SubType::memoryShared:
         case SubType::memoryTotal:
-        case SubType::storageReadWrite:
+        case SubType::NA:
         default:
         {
             ValueIntf::unit(ValueIntf::Unit::Bytes, true);
