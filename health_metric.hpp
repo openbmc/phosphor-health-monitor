@@ -44,7 +44,8 @@ class HealthMetric : public MetricIntf
 
     HealthMetric(sdbusplus::bus_t& bus, phosphor::health::metric::Type type,
                  const config::HealthMetric& config, const paths_t& bmcPaths) :
-        MetricIntf(bus, getPath(config.subType).c_str(), action::defer_emit),
+        MetricIntf(bus, getPath(type, config.name, config.subType).c_str(),
+                   action::defer_emit),
         bus(bus), type(type), config(config)
     {
         create(bmcPaths);
@@ -64,8 +65,9 @@ class HealthMetric : public MetricIntf
                         MValue value);
     /** @brief Check all thresholds for the given value */
     void checkThresholds(MValue value);
-    /** @brief Get the object path for the given subtype */
-    auto getPath(SubType subType) -> std::string;
+    /** @brief Get the object path for the given type, name and subtype */
+    auto getPath(phosphor::health::metric::Type type, std::string name,
+                 SubType subType) -> std::string;
     /** @brief D-Bus bus connection */
     sdbusplus::bus_t& bus;
     /** @brief Metric type */

@@ -45,8 +45,7 @@ class HealthMetricCollectionTest : public ::testing::Test
             for (auto& config : values)
             {
                 config.windowSize = 1;
-                if (key == MetricIntf::Type::storage &&
-                    config.subType == MetricIntf::SubType::storageReadWrite)
+                if (key == MetricIntf::Type::storage)
                 {
                     config.path = "/tmp";
                 }

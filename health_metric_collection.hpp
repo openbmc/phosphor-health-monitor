@@ -25,7 +25,7 @@ class HealthMetricCollection
     void read();
 
   private:
-    using map_t = std::unordered_map<MetricIntf::SubType,
+    using map_t = std::unordered_map<std::string,
                                      std::unique_ptr<MetricIntf::HealthMetric>>;
     using time_map_t = std::unordered_map<MetricIntf::SubType, uint64_t>;
     /** @brief Create a new health metric collection object */
