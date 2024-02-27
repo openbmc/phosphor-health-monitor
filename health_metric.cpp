@@ -12,7 +12,8 @@ namespace phosphor::health::metric
 
 using association_t = std::tuple<std::string, std::string, std::string>;
 
-auto HealthMetric::getPath(SubType subType) -> std::string
+auto HealthMetric::getPath(phosphor::health::metric::Type type,
+                           std::string name, SubType subType) -> std::string
 {
     std::string path;
     switch (subType)
@@ -50,17 +51,28 @@ auto HealthMetric::getPath(SubType subType) -> std::string
         {
             return std::string(BmcPath) + "/" + PathIntf::total_memory;
         }
-        case SubType::storageReadWrite:
+        case SubType::NA:
         {
-            return std::string(BmcPath) + "/" + PathIntf::read_write_storage;
-        }
-        case SubType::storageTmp:
-        {
-            return std::string(BmcPath) + "/" + PathIntf::tmp_storage;
+            if (type == phosphor::health::metric::Type::storage)
+            {
+                static constexpr auto nameDelimiter = "_";
+                auto storageType = name.substr(
+                    name.find_last_of(nameDelimiter) + 1, name.length());
+                std::ranges::for_each(storageType,
+                                      [](auto& c) { c = std::tolower(c); });
+                return std::string(BmcPath) + "/" + PathIntf::storage + "/" +
+                       storageType;
+            }
+            else
+            {
+                error("Invalid metric {SUBTYPE} for metric {TYPE}", "SUBTYPE",
+                      subType, "TYPE", type);
+                return "";
+            }
         }
         default:
         {
-            error("Invalid Memory metric {TYPE}", "TYPE", subType);
+            error("Invalid metric {SUBTYPE}", "SUBTYPE", subType);
             return "";
         }
     }
@@ -68,27 +80,27 @@ auto HealthMetric::getPath(SubType subType) -> std::string
 
 void HealthMetric::initProperties()
 {
-    switch (config.subType)
+    switch (type)
     {
-        case SubType::cpuTotal:
-        case SubType::cpuKernel:
-        case SubType::cpuUser:
+        case MType::cpu:
         {
             ValueIntf::unit(ValueIntf::Unit::Percent, true);
             ValueIntf::minValue(0.0, true);
             ValueIntf::maxValue(100.0, true);
             break;
         }
-        case SubType::memoryAvailable:
-        case SubType::memoryBufferedAndCached:
-        case SubType::memoryFree:
-        case SubType::memoryShared:
-        case SubType::memoryTotal:
-        case SubType::storageReadWrite:
-        default:
+        case MType::memory:
+        case MType::storage:
         {
             ValueIntf::unit(ValueIntf::Unit::Bytes, true);
             ValueIntf::minValue(0.0, true);
+            break;
+        }
+        case MType::inode:
+        case MType::unknown:
+        default:
+        {
+            throw std::invalid_argument("Invalid metric type");
         }
     }
     ValueIntf::value(std::numeric_limits<double>::quiet_NaN(), true);
