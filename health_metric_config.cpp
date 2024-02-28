@@ -36,6 +36,9 @@ static const auto validThresholdBounds =
 
 static const auto validThresholdTypes =
     std::unordered_map<std::string, ThresholdIntf::Type>{
+        {"HardShutdown", ThresholdIntf::Type::HardShutdown},
+        {"SoftShutdown", ThresholdIntf::Type::SoftShutdown},
+        {"PerformanceLoss", ThresholdIntf::Type::PerformanceLoss},
         {"Critical", ThresholdIntf::Type::Critical},
         {"Warning", ThresholdIntf::Type::Warning}};
 
