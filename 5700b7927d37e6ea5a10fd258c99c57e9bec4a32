@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8e0d04b_11cfdb46",
+        "filename": "bmc_health_config_json.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-01T15:11:17Z",
+      "side": 1,
+      "message": "Please make sure markdownlint is happy:\n\n```\n    Running markdownlint\nbmc_health_config_json.md:1 MD041/first-line-heading/first-line-h1 First line in a file should be a top-level heading [Context: \"This file outlines the format ...\"]\nbmc_health_config_json.md:68 MD040/fenced-code-language Fenced code blocks should have a language specified [Context: \"```\"]\n```",
+      "revId": "5700b7927d37e6ea5a10fd258c99c57e9bec4a32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96f44790_2d6649cf",
+        "filename": "bmc_health_config_json.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-01T15:11:17Z",
+      "side": 1,
+      "message": "one word",
+      "range": {
+        "startLine": 2,
+        "startChar": 31,
+        "endLine": 2,
+        "endChar": 40
+      },
+      "revId": "5700b7927d37e6ea5a10fd258c99c57e9bec4a32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2084506_3022302f",
+        "filename": "bmc_health_config_json.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-01T15:11:17Z",
+      "side": 1,
+      "message": "No... it indicates the total memory.",
+      "range": {
+        "startLine": 14,
+        "startChar": 35,
+        "endLine": 14,
+        "endChar": 48
+      },
+      "revId": "5700b7927d37e6ea5a10fd258c99c57e9bec4a32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1282dc2_3a94fae0",
+        "filename": "bmc_health_config_json.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-01T15:11:17Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 24,
+        "startChar": 55,
+        "endLine": 24,
+        "endChar": 63
+      },
+      "revId": "5700b7927d37e6ea5a10fd258c99c57e9bec4a32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e5aa8b4_ae540cd6",
+        "filename": "bmc_health_config_json.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-01T15:11:17Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 29,
+        "startChar": 57,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "5700b7927d37e6ea5a10fd258c99c57e9bec4a32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d24703_2c5ae830",
+        "filename": "bmc_health_config_json.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-01T15:11:17Z",
+      "side": 1,
+      "message": "Aren\u0027t you missing the interval?  Or do we not use that?",
+      "revId": "5700b7927d37e6ea5a10fd258c99c57e9bec4a32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
