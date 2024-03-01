@@ -207,7 +207,9 @@ void HealthMetric::checkThresholds(MValue value)
 
 void HealthMetric::update(MValue value)
 {
-    // Maintain window size for metric
+    ValueIntf::value(value.current);
+
+    // Maintain window size for threshold calculation
     if (history.size() >= config.windowSize)
     {
         history.pop_front();
@@ -223,7 +225,7 @@ void HealthMetric::update(MValue value)
 
     double average = (std::accumulate(history.begin(), history.end(), 0.0)) /
                      history.size();
-    ValueIntf::value(average);
+    value.current = average;
     checkThresholds(value);
 }
 
