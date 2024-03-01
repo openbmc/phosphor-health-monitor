@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39bdd228_e1085151",
+        "filename": "health_metric.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-01T22:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3593db38_177fc79d",
+      "revId": "bab06ff8ad0b89f474aa8e30c491ae8e5aa2e89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f50c6b87_4ab8ef97",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44402da2_8b304420",
+        "filename": "health_metric.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-01T22:47:57Z",
+      "side": 1,
+      "message": "I changed the switch case to check for metric type rather than subtype as units are applicable to broader categories.",
+      "parentUuid": "f50c6b87_4ab8ef97",
+      "revId": "bab06ff8ad0b89f474aa8e30c491ae8e5aa2e89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "922b72af_72ad744d",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-03-01T15:08:02Z",
       "side": 1,
       "message": "Not necessary because this is already in the p::h::m namespace.",
+      "range": {
+        "startLine": 69,
+        "startChar": 17,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "bab06ff8ad0b89f474aa8e30c491ae8e5aa2e89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "389a9457_5497de7f",
+        "filename": "health_metric.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-01T22:47:57Z",
+      "side": 1,
+      "message": "Its causing a name collision with Value from threshold, hence i added this. To avoid adding full namespace i added a alias now. Please let me know if its fine.",
+      "parentUuid": "922b72af_72ad744d",
       "range": {
         "startLine": 69,
         "startChar": 17,
