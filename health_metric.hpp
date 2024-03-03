@@ -61,6 +61,9 @@ class HealthMetric : public MetricIntf
     void create(const paths_t& bmcPaths);
     /** @brief Init properties for the health metric object */
     void initProperties();
+    /** @brief Check if specified value should be notified based on hysteresis
+     */
+    auto shouldNotify(MValue value) -> bool;
     /** @brief Check specified threshold for the given value */
     void checkThreshold(ThresholdIntf::Type type, ThresholdIntf::Bound bound,
                         MValue value);

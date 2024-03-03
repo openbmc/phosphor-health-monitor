@@ -2,6 +2,7 @@
 
 #include <phosphor-logging/lg2.hpp>
 
+#include <cmath>
 #include <numeric>
 #include <unordered_map>
 
@@ -11,6 +12,8 @@ namespace phosphor::health::metric
 {
 
 using association_t = std::tuple<std::string, std::string, std::string>;
+
+static constexpr double hysteresis = 1.0;
 
 auto HealthMetric::getPath(phosphor::health::metric::Type type,
                            std::string name, SubType subType) -> std::string
@@ -209,9 +212,19 @@ void HealthMetric::checkThresholds(MValue value)
     }
 }
 
+auto HealthMetric::shouldNotify(MValue value) -> bool
+{
+    if (std::isnan(value.current))
+    {
+        return true;
+    }
+    auto prevValue = ValueIntf::value();
+    return (std::abs(value.current - prevValue) >= hysteresis);
+}
+
 void HealthMetric::update(MValue value)
 {
-    ValueIntf::value(value.current);
+    ValueIntf::value(value.current, (!shouldNotify(value)));
 
     // Maintain window size for threshold calculation
     if (history.size() >= config.windowSize)
