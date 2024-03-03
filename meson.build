@@ -43,6 +43,7 @@ conf_data.set('HEALTH_BUS_NAME', '"xyz.openbmc_project.HealthMon"')
 conf_data.set('HEALTH_SENSOR_PATH', '"/xyz/openbmc_project/sensors/utilization/"')
 conf_data.set('SENSOR_OBJPATH', '"/xyz/openbmc_project/sensors"')
 conf_data.set('INVENTORY_OBJPATH', '"/xyz/openbmc_project/inventory"')
+conf_data.set('METRIC_HYSTERESIS', get_option('metric-hysteresis'))
 
 configure_file(output : 'config.h',
                configuration : conf_data)

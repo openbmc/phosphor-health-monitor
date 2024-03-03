@@ -1,1 +1,5 @@
+# Features
 option('tests', type: 'feature', description: 'Build tests')
+
+# Variables
+option('metric-hysteresis', type: 'integer', value: 1, description: 'The metric hysteresis.',)

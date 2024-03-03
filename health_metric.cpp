@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "health_metric.hpp"
 
 #include <phosphor-logging/lg2.hpp>
@@ -12,8 +14,6 @@ namespace phosphor::health::metric
 {
 
 using association_t = std::tuple<std::string, std::string, std::string>;
-
-static constexpr double hysteresis = 1.0;
 
 auto HealthMetric::getPath(phosphor::health::metric::Type type,
                            std::string name, SubType subType) -> std::string
@@ -219,7 +219,8 @@ auto HealthMetric::shouldNotify(MValue value) -> bool
         return true;
     }
     auto prevValue = ValueIntf::value();
-    return (std::abs(value.current - prevValue) >= hysteresis);
+    return (std::abs(value.current - prevValue) >=
+            static_cast<double>(METRIC_HYSTERESIS));
 }
 
 void HealthMetric::update(MValue value)
