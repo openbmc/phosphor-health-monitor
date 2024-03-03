@@ -62,6 +62,9 @@ class HealthMetric : public MetricIntf
     void create(const paths_t& bmcPaths);
     /** @brief Init properties for the health metric object */
     void initProperties();
+    /** @brief Check if specified value should be notified based on hysteresis
+     */
+    auto shouldNotify(MValue value) -> bool;
     /** @brief Check specified threshold for the given value */
     void checkThreshold(Type type, Bound bound, MValue value);
     /** @brief Check all thresholds for the given value */
@@ -76,6 +79,8 @@ class HealthMetric : public MetricIntf
     const config::HealthMetric config;
     /** @brief Window for metric history */
     std::deque<double> history;
+    /** @brief Last notified value for the metric change */
+    double lastNotifiedValue = 0;
 };
 
 } // namespace phosphor::health::metric
