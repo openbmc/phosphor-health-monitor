@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "health_monitor.hpp"
 
 #include <phosphor-logging/lg2.hpp>
@@ -44,7 +46,8 @@ auto HealthMonitor::run() -> sdbusplus::async::task<>
             debug("Reading Health Metric Collection for {TYPE}", "TYPE", type);
             collection->read();
         }
-        co_await sdbusplus::async::sleep_for(ctx, std::chrono::seconds(1));
+        co_await sdbusplus::async::sleep_for(
+            ctx, std::chrono::seconds(MONITOR_COLLECTION_INTERVAL));
     }
 }
 

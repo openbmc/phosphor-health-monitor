@@ -40,6 +40,7 @@ executable(
 conf_data = configuration_data()
 conf_data.set('HEALTH_CONFIG_FILE', '"/etc/healthMon/bmc_health_config.json"')
 conf_data.set('METRIC_HYSTERESIS', get_option('metric-hysteresis'))
+conf_data.set('MONITOR_COLLECTION_INTERVAL', get_option('monitor-collection-interval'))
 
 configure_file(output : 'config.h',
                configuration : conf_data)
