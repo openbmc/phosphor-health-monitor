@@ -25,7 +25,6 @@ static constexpr auto BmcPath =
 using BmcIntf = sdbusplus::xyz::openbmc_project::Inventory::Item::server::Bmc;
 using MetricIntf =
     sdbusplus::server::object_t<ValueIntf, ThresholdIntf, AssociationIntf>;
-using MType = phosphor::health::metric::Type;
 
 struct MValue
 {
@@ -38,6 +37,8 @@ struct MValue
 class HealthMetric : public MetricIntf
 {
   public:
+    using MType = phosphor::health::metric::Type;
+
     HealthMetric() = delete;
     HealthMetric(const HealthMetric&) = delete;
     HealthMetric(HealthMetric&&) = delete;
@@ -62,13 +63,11 @@ class HealthMetric : public MetricIntf
     /** @brief Init properties for the health metric object */
     void initProperties();
     /** @brief Check specified threshold for the given value */
-    void checkThreshold(ThresholdIntf::Type type, ThresholdIntf::Bound bound,
-                        MValue value);
+    void checkThreshold(Type type, Bound bound, MValue value);
     /** @brief Check all thresholds for the given value */
     void checkThresholds(MValue value);
     /** @brief Get the object path for the given type, name and subtype */
-    auto getPath(phosphor::health::metric::Type type, std::string name,
-                 SubType subType) -> std::string;
+    auto getPath(MType type, std::string name, SubType subType) -> std::string;
     /** @brief D-Bus bus connection */
     sdbusplus::bus_t& bus;
     /** @brief Metric type */

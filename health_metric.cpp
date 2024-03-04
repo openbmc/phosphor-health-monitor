@@ -12,8 +12,8 @@ namespace phosphor::health::metric
 
 using association_t = std::tuple<std::string, std::string, std::string>;
 
-auto HealthMetric::getPath(phosphor::health::metric::Type type,
-                           std::string name, SubType subType) -> std::string
+auto HealthMetric::getPath(MType type, std::string name, SubType subType)
+    -> std::string
 {
     std::string path;
     switch (subType)
@@ -53,7 +53,7 @@ auto HealthMetric::getPath(phosphor::health::metric::Type type,
         }
         case SubType::NA:
         {
-            if (type == phosphor::health::metric::Type::storage)
+            if (type == MType::storage)
             {
                 static constexpr auto nameDelimiter = "_";
                 auto storageType = name.substr(
@@ -105,12 +105,12 @@ void HealthMetric::initProperties()
     }
     ValueIntf::value(std::numeric_limits<double>::quiet_NaN(), true);
 
-    using bound_map_t = std::map<ThresholdIntf::Bound, double>;
-    std::map<ThresholdIntf::Type, bound_map_t> thresholds;
+    using bound_map_t = std::map<Bound, double>;
+    std::map<Type, bound_map_t> thresholds;
     for (const auto& [key, value] : config.thresholds)
     {
-        auto type = std::get<ThresholdIntf::Type>(key);
-        auto bound = std::get<ThresholdIntf::Bound>(key);
+        auto type = std::get<Type>(key);
+        auto bound = std::get<Bound>(key);
         auto threshold = thresholds.find(type);
         if (threshold == thresholds.end())
         {
@@ -147,8 +147,7 @@ bool didThresholdViolate(ThresholdIntf::Bound bound, double thresholdValue,
     }
 }
 
-void HealthMetric::checkThreshold(ThresholdIntf::Type type,
-                                  ThresholdIntf::Bound bound, MValue value)
+void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
 {
     auto threshold = std::make_tuple(type, bound);
     auto thresholds = ThresholdIntf::value();
@@ -197,14 +196,11 @@ void HealthMetric::checkThresholds(MValue value)
 {
     if (!ThresholdIntf::value().empty())
     {
-        for (auto type :
-             {ThresholdIntf::Type::HardShutdown,
-              ThresholdIntf::Type::SoftShutdown,
-              ThresholdIntf::Type::PerformanceLoss,
-              ThresholdIntf::Type::Critical, ThresholdIntf::Type::Warning})
+        for (auto type : {Type::HardShutdown, Type::SoftShutdown,
+                          Type::PerformanceLoss, Type::Critical, Type::Warning})
         {
-            checkThreshold(type, ThresholdIntf::Bound::Lower, value);
-            checkThreshold(type, ThresholdIntf::Bound::Upper, value);
+            checkThreshold(type, Bound::Lower, value);
+            checkThreshold(type, Bound::Upper, value);
         }
     }
 }
