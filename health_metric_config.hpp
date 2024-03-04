@@ -71,8 +71,6 @@ struct HealthMetric
     std::string name = "unnamed";
     /** @brief The metric subtype. */
     SubType subType = SubType::NA;
-    /** @brief The collection frequency for the metric. */
-    std::chrono::seconds collectionFreq = defaults::frequency;
     /** @brief The window size for the metric. */
     size_t windowSize = defaults::windowSize;
     /** @brief The threshold configs for the metric. */
@@ -84,7 +82,6 @@ struct HealthMetric
 
     struct defaults
     {
-        static constexpr auto frequency = 1s;
         static constexpr auto windowSize = 1;
         static constexpr auto path = "";
     };
