@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55247251_2c8fff50",
+        "filename": "health_metric.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-04T18:56:52Z",
+      "side": 1,
+      "message": "The problem with this is that a value that is slowly going up 1% (or less) every second will never send a property-changed signal.  You need to keep track of the last signaled value and not just the last value.",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 63
+      },
+      "revId": "5339ebf346d80d68d2c26845f011a68638d8323a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
