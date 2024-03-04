@@ -73,10 +73,6 @@ void from_json(const json& j, Threshold& self)
 /** Deserialize a HealthMetric from JSON. */
 void from_json(const json& j, HealthMetric& self)
 {
-    self.collectionFreq = std::chrono::seconds(j.value(
-        "Frequency",
-        std::chrono::seconds(HealthMetric::defaults::frequency).count()));
-
     self.windowSize = j.value("Window_size",
                               HealthMetric::defaults::windowSize);
     // Path is only valid for storage
@@ -143,10 +139,9 @@ void printConfig(HealthMetric::map_t& configs)
         for (auto& config : configList)
         {
             debug(
-                "TYPE={TYPE}, NAME={NAME} SUBTYPE={SUBTYPE} PATH={PATH}, FREQ={FREQ}, WSIZE={WSIZE}",
+                "TYPE={TYPE}, NAME={NAME} SUBTYPE={SUBTYPE} PATH={PATH}, WSIZE={WSIZE}",
                 "TYPE", type, "NAME", config.name, "SUBTYPE", config.subType,
-                "PATH", config.path, "FREQ", config.collectionFreq.count(),
-                "WSIZE", config.windowSize);
+                "PATH", config.path, "WSIZE", config.windowSize);
 
             for (auto& [key, threshold] : config.thresholds)
             {
@@ -198,7 +193,6 @@ auto getHealthMetricConfigs() -> HealthMetric::map_t
 
 json defaultHealthMetricConfig = R"({
     "CPU": {
-        "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
             "Critical_Upper": {
@@ -214,19 +208,15 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "CPU_User": {
-        "Frequency": 1,
         "Window_size": 120
     },
     "CPU_Kernel": {
-        "Frequency": 1,
         "Window_size": 120
     },
     "Memory": {
-        "Frequency": 1,
         "Window_size": 120
     },
     "Memory_Available": {
-        "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
             "Critical_Lower": {
@@ -237,11 +227,9 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "Memory_Free": {
-        "Frequency": 1,
         "Window_size": 120
     },
     "Memory_Shared": {
-        "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
             "Critical_Upper": {
@@ -252,12 +240,10 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "Memory_Buffered_And_Cached": {
-        "Frequency": 1,
         "Window_size": 120
     },
     "Storage_RW": {
         "Path": "/run/initramfs/rw",
-        "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
             "Critical_Lower": {
@@ -269,7 +255,6 @@ json defaultHealthMetricConfig = R"({
     },
     "Storage_TMP": {
         "Path": "/tmp",
-        "Frequency": 1,
         "Window_size": 120,
         "Threshold": {
             "Critical_Lower": {

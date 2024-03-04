@@ -36,7 +36,6 @@ class HealthMetricTest : public ::testing::Test
     {
         config.name = "CPU_Kernel";
         config.subType = SubType::cpuKernel;
-        config.collectionFreq = ConfigIntf::HealthMetric::defaults::frequency;
         config.windowSize = 1;
         config.thresholds = {
             {{ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper},
