@@ -22,6 +22,30 @@
       },
       "revId": "9e0193deb513f5b09cf38fa962627bbd32b3d192",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd46cefe_5639e4c5",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-06T22:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ae02f6f_3d58458e",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 26
+      },
+      "revId": "9e0193deb513f5b09cf38fa962627bbd32b3d192",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
