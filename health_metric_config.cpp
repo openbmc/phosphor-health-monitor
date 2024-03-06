@@ -75,6 +75,7 @@ void from_json(const json& j, HealthMetric& self)
 {
     self.windowSize = j.value("Window_size",
                               HealthMetric::defaults::windowSize);
+    self.hysteresis = j.value("Hysteresis", HealthMetric::defaults::hysteresis);
     // Path is only valid for storage
     self.path = j.value("Path", "");
 
@@ -139,9 +140,10 @@ void printConfig(HealthMetric::map_t& configs)
         for (auto& config : configList)
         {
             debug(
-                "TYPE={TYPE}, NAME={NAME} SUBTYPE={SUBTYPE} PATH={PATH}, WSIZE={WSIZE}",
+                "TYPE={TYPE}, NAME={NAME} SUBTYPE={SUBTYPE} PATH={PATH}, WSIZE={WSIZE}, HYSTERESIS={HYSTERESIS}",
                 "TYPE", type, "NAME", config.name, "SUBTYPE", config.subType,
-                "PATH", config.path, "WSIZE", config.windowSize);
+                "PATH", config.path, "WSIZE", config.windowSize, "HYSTERESIS",
+                config.hysteresis);
 
             for (auto& [key, threshold] : config.thresholds)
             {
@@ -194,6 +196,7 @@ auto getHealthMetricConfigs() -> HealthMetric::map_t
 json defaultHealthMetricConfig = R"({
     "CPU": {
         "Window_size": 120,
+        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Upper": {
                 "Value": 90.0,
@@ -208,16 +211,20 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "CPU_User": {
-        "Window_size": 120
+        "Window_size": 120,
+        "Hysteresis": 1.0
     },
     "CPU_Kernel": {
-        "Window_size": 120
+        "Window_size": 120,
+        "Hysteresis": 1.0
     },
     "Memory": {
-        "Window_size": 120
+        "Window_size": 120,
+        "Hysteresis": 1.0
     },
     "Memory_Available": {
         "Window_size": 120,
+        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Lower": {
                 "Value": 15.0,
@@ -227,10 +234,12 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "Memory_Free": {
-        "Window_size": 120
+        "Window_size": 120,
+        "Hysteresis": 1.0
     },
     "Memory_Shared": {
         "Window_size": 120,
+        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Upper": {
                 "Value": 85.0,
@@ -240,11 +249,13 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "Memory_Buffered_And_Cached": {
-        "Window_size": 120
+        "Window_size": 120,
+        "Hysteresis": 1.0
     },
     "Storage_RW": {
         "Path": "/run/initramfs/rw",
         "Window_size": 120,
+        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Lower": {
                 "Value": 15.0,
@@ -256,6 +267,7 @@ json defaultHealthMetricConfig = R"({
     "Storage_TMP": {
         "Path": "/tmp",
         "Window_size": 120,
+        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Lower": {
                 "Value": 15.0,
