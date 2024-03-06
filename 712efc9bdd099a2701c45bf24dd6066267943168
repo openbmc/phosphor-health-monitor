@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1817bcd_644787ef",
+        "filename": "health_metric.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-06T17:12:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1ce45a8_89336171",
+      "range": {
+        "startLine": 18,
+        "startChar": 27,
+        "endLine": 18,
+        "endChar": 53
+      },
+      "revId": "712efc9bdd099a2701c45bf24dd6066267943168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a5cd5e7_e2506557",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a80f00c_6b93c5ed",
+        "filename": "health_metric.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-06T17:12:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5cd5e7_e2506557",
+      "range": {
+        "startLine": 218,
+        "startChar": 75,
+        "endLine": 218,
+        "endChar": 79
+      },
+      "revId": "712efc9bdd099a2701c45bf24dd6066267943168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90dcb1d8_c820665a",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-03-06T13:40:11Z",
       "side": 1,
       "message": "nit: no need for the parens.",
+      "range": {
+        "startLine": 229,
+        "startChar": 36,
+        "endLine": 229,
+        "endChar": 37
+      },
+      "revId": "712efc9bdd099a2701c45bf24dd6066267943168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76ecdc95_eee84408",
+        "filename": "health_metric.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-06T17:12:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90dcb1d8_c820665a",
       "range": {
         "startLine": 229,
         "startChar": 36,
