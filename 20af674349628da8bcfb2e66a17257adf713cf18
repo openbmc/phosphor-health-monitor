@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb225bd8_ecbe690f",
+        "filename": "health_metric.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-06T01:43:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ee9d0fa_e0874c82",
+      "revId": "20af674349628da8bcfb2e66a17257adf713cf18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "247f99ea_65c7fcf4",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-03-04T18:58:33Z",
       "side": 1,
       "message": "When you add this to JSON we should treat it as a double so that someone can use partial percentages (.5% \u003d\u003d .005).\n\nMake sure you document this as a percent.",
+      "range": {
+        "startLine": 5,
+        "startChar": 45,
+        "endLine": 5,
+        "endChar": 53
+      },
+      "revId": "20af674349628da8bcfb2e66a17257adf713cf18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb861087_6cf427aa",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-03-06T01:43:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "247f99ea_65c7fcf4",
       "range": {
         "startLine": 5,
         "startChar": 45,
