@@ -16,6 +16,75 @@
       "message": "Addressed the comment. Thanks",
       "revId": "712efc9bdd099a2701c45bf24dd6066267943168",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1ce45a8_89336171",
+        "filename": "health_metric.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-06T13:40:11Z",
+      "side": 1,
+      "message": "Looks like this got reverted in a rebase of yours?",
+      "range": {
+        "startLine": 18,
+        "startChar": 27,
+        "endLine": 18,
+        "endChar": 53
+      },
+      "revId": "712efc9bdd099a2701c45bf24dd6066267943168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a5cd5e7_e2506557",
+        "filename": "health_metric.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-06T13:40:11Z",
+      "side": 1,
+      "message": "Suggest 100.0 to be clear this is a floating point.  Otherwise, the compiler might end up doing an integer conversion somewhere in here.",
+      "range": {
+        "startLine": 218,
+        "startChar": 75,
+        "endLine": 218,
+        "endChar": 79
+      },
+      "revId": "712efc9bdd099a2701c45bf24dd6066267943168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90dcb1d8_c820665a",
+        "filename": "health_metric.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-03-06T13:40:11Z",
+      "side": 1,
+      "message": "nit: no need for the parens.",
+      "range": {
+        "startLine": 229,
+        "startChar": 36,
+        "endLine": 229,
+        "endChar": 37
+      },
+      "revId": "712efc9bdd099a2701c45bf24dd6066267943168",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
