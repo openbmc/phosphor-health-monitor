@@ -73,6 +73,8 @@ struct HealthMetric
     SubType subType = SubType::NA;
     /** @brief The window size for the metric. */
     size_t windowSize = defaults::windowSize;
+    /** @brief The hysteresis for the metric */
+    double hysteresis = defaults::hysteresis;
     /** @brief The threshold configs for the metric. */
     Threshold::map_t thresholds{};
     /** @brief The path for filesystem metric */
@@ -84,6 +86,7 @@ struct HealthMetric
     {
         static constexpr auto windowSize = 1;
         static constexpr auto path = "";
+        static constexpr auto hysteresis = 1.0;
     };
 };
 

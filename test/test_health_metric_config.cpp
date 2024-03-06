@@ -64,6 +64,7 @@ TEST(HealthMonitorConfigTest, TestConfigValues)
             EXPECT_NE(config.name, std::string(""));
             EXPECT_TRUE(isValidSubType(type, config.subType));
             EXPECT_GE(config.windowSize, HealthMetric::defaults::windowSize);
+            EXPECT_GE(config.hysteresis, HealthMetric::defaults::hysteresis);
             if (config.thresholds.size())
             {
                 count_with_thresholds++;

@@ -13,8 +13,6 @@ namespace phosphor::health::metric
 
 using association_t = std::tuple<std::string, std::string, std::string>;
 
-static constexpr double hysteresis = 1.0;
-
 auto HealthMetric::getPath(MType type, std::string name, SubType subType)
     -> std::string
 {
@@ -216,7 +214,7 @@ auto HealthMetric::shouldNotify(MValue value) -> bool
     }
     auto changed = std::abs((value.current - lastNotifiedValue) /
                             lastNotifiedValue * 100.0);
-    if (changed >= hysteresis)
+    if (changed >= config.hysteresis)
     {
         lastNotifiedValue = value.current;
         return true;
