@@ -195,8 +195,6 @@ auto getHealthMetricConfigs() -> HealthMetric::map_t
 
 json defaultHealthMetricConfig = R"({
     "CPU": {
-        "Window_size": 120,
-        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Upper": {
                 "Value": 90.0,
@@ -211,20 +209,12 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "CPU_User": {
-        "Window_size": 120,
-        "Hysteresis": 1.0
     },
     "CPU_Kernel": {
-        "Window_size": 120,
-        "Hysteresis": 1.0
     },
     "Memory": {
-        "Window_size": 120,
-        "Hysteresis": 1.0
     },
     "Memory_Available": {
-        "Window_size": 120,
-        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Lower": {
                 "Value": 15.0,
@@ -234,12 +224,8 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "Memory_Free": {
-        "Window_size": 120,
-        "Hysteresis": 1.0
     },
     "Memory_Shared": {
-        "Window_size": 120,
-        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Upper": {
                 "Value": 85.0,
@@ -249,13 +235,9 @@ json defaultHealthMetricConfig = R"({
         }
     },
     "Memory_Buffered_And_Cached": {
-        "Window_size": 120,
-        "Hysteresis": 1.0
     },
     "Storage_RW": {
         "Path": "/run/initramfs/rw",
-        "Window_size": 120,
-        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Lower": {
                 "Value": 15.0,
@@ -266,8 +248,6 @@ json defaultHealthMetricConfig = R"({
     },
     "Storage_TMP": {
         "Path": "/tmp",
-        "Window_size": 120,
-        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Lower": {
                 "Value": 15.0,
