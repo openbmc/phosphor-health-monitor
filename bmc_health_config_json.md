@@ -40,6 +40,9 @@ The metric types may have the following attributes:
 - `Path`
   - The path attribute is applicable to storage metrics and indicates the
     directory path for it.
+- `Hysteresis`
+  - This indicates the percentage beyond which the metric value change (since
+    last notified) should be reported as a D-Bus signal.
 - `Threshold`
   - The following threshold levels (with bounds) are supported.
     - `HardShutdown_Lower`
@@ -71,6 +74,7 @@ Example:
 ```json
     "CPU": {
         "Window_size": 120,
+        "Hysteresis": 1.0,
         "Threshold": {
             "Critical_Upper": {
                 "Value": 90.0,
