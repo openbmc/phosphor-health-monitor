@@ -50,7 +50,8 @@ test(
             gmock_dep,
             phosphor_logging_dep,
             phosphor_dbus_interfaces_dep,
-            sdbusplus_dep
+            sdbusplus_dep,
+            nlohmann_json_dep
         ],
         include_directories: '../',
     )
@@ -70,7 +71,8 @@ test(
             gmock_dep,
             phosphor_logging_dep,
             phosphor_dbus_interfaces_dep,
-            sdbusplus_dep
+            sdbusplus_dep,
+            nlohmann_json_dep
         ],
         include_directories: '../',
     )
