@@ -29,8 +29,8 @@ The json config may have following metric types -
 - `Storage_RW`
   - This indicates the amount of available storage space
 - `Storage_`\<xxx>
-  - This indicates the amount of availble space for type depicted by `<xxx>` for
-    the location backed by path parameter.
+  - This indicates the amount of available space for type depicted by `<xxx>`
+    for the location backed by path parameter.
 
 The metric types may have the following attributes:
 

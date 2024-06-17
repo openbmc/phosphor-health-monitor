@@ -280,7 +280,7 @@ auto to_string(Type t) -> std::string
     return details::reverse_map_search(config::validTypes, t);
 }
 
-// to_string specializaiton for SubType.
+// to_string specialization for SubType.
 auto to_string(SubType t) -> std::string
 {
     return details::reverse_map_search(config::validSubTypes, t);
