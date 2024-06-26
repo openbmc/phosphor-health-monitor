@@ -34,6 +34,24 @@
       "parentUuid": "d15f1d40_638d3765",
       "revId": "edc9b36980012f8eb6cf74e5e515f73d66f21441",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49900f7f_209f30b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-06-26T07:12:28Z",
+      "side": 1,
+      "message": "I guess Vijay isn\u0027t around anymore.  That\u0027s fine, I just wanted to give him a chance to render an opinion.\n\nYes.  I\u0027m fine with this;  In another commit we should remove Vijay.\n\nI\u0027ll let Patrick +2, because he\u0027s already a maintainer here.",
+      "parentUuid": "60a39cbc_5bca3ea6",
+      "revId": "edc9b36980012f8eb6cf74e5e515f73d66f21441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
