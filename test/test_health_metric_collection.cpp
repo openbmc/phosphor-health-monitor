@@ -98,16 +98,16 @@ TEST_F(HealthMetricCollectionTest, TestCreation)
         .WillRepeatedly(Invoke(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
-        // Test no signal generation for metric init properties
-        const std::set<std::string> metricInitProperties = {"MaxValue",
-                                                            "MinValue", "Unit"};
-        EXPECT_THAT(metricInitProperties,
-                    testing::Not(testing::Contains(names[0])));
-        // Test signal generated for Value property set
-        const std::set<std::string> metricSetProperties = {"Value"};
-        EXPECT_THAT(metricSetProperties, testing::Contains(names[0]));
-        return 0;
-    }));
+                // Test no signal generation for metric init properties
+                const std::set<std::string> metricInitProperties = {
+                    "MaxValue", "MinValue", "Unit"};
+                EXPECT_THAT(metricInitProperties,
+                            testing::Not(testing::Contains(names[0])));
+                // Test signal generated for Value property set
+                const std::set<std::string> metricSetProperties = {"Value"};
+                EXPECT_THAT(metricSetProperties, testing::Contains(names[0]));
+                return 0;
+            }));
 
     EXPECT_CALL(sdbusMock,
                 sd_bus_emit_properties_changed_strv(
@@ -115,12 +115,12 @@ TEST_F(HealthMetricCollectionTest, TestCreation)
         .WillRepeatedly(Invoke(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
-        // Test signal generated for Value property set
-        EXPECT_STREQ("Value", names[0]);
-        // Test no signal generation for threshold asserted
-        EXPECT_STRNE("Asserted", names[0]);
-        return 0;
-    }));
+                // Test signal generated for Value property set
+                EXPECT_STREQ("Value", names[0]);
+                // Test no signal generation for threshold asserted
+                EXPECT_STRNE("Asserted", names[0]);
+                return 0;
+            }));
 
     createCollection();
 }
@@ -138,9 +138,9 @@ TEST_F(HealthMetricCollectionTest, TestThresholdAsserted)
         .WillRepeatedly(Invoke(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
-        EXPECT_THAT("Value", StrEq(names[0]));
-        return 0;
-    }));
+                EXPECT_THAT("Value", StrEq(names[0]));
+                return 0;
+            }));
 
     // Test threshold asserted property change
     EXPECT_CALL(sdbusMock,
@@ -149,11 +149,12 @@ TEST_F(HealthMetricCollectionTest, TestThresholdAsserted)
         .WillRepeatedly(Invoke(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
-        // Test signal generation for threshold properties set
-        const std::set<std::string> thresholdProperties = {"Value", "Asserted"};
-        EXPECT_THAT(thresholdProperties, testing::Contains(names[0]));
-        return 0;
-    }));
+                // Test signal generation for threshold properties set
+                const std::set<std::string> thresholdProperties = {"Value",
+                                                                   "Asserted"};
+                EXPECT_THAT(thresholdProperties, testing::Contains(names[0]));
+                return 0;
+            }));
 
     // Test AssertionChanged signal generation
     EXPECT_CALL(sdbusMock,

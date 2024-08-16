@@ -15,8 +15,7 @@ class HealthMetricCollection
     HealthMetricCollection(sdbusplus::bus_t& bus, MetricIntf::Type type,
                            const configs_t& configs,
                            MetricIntf::paths_t& bmcPaths) :
-        bus(bus),
-        type(type), configs(configs)
+        bus(bus), type(type), configs(configs)
     {
         create(bmcPaths);
     }

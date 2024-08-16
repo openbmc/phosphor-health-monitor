@@ -28,8 +28,8 @@ class HealthMetricTest : public ::testing::Test
     static constexpr auto busName = "xyz.openbmc_project.test.HealthMon";
     const std::set<std::string> properties = {"Value", "MaxValue", "MinValue",
                                               "Unit"};
-    const std::string objPath = std::string(PathIntf::value) + "/bmc/" +
-                                PathIntf::kernel_cpu;
+    const std::string objPath =
+        std::string(PathIntf::value) + "/bmc/" + PathIntf::kernel_cpu;
     ConfigIntf::HealthMetric config;
 
     void SetUp() override
@@ -66,26 +66,26 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
         .WillRepeatedly(Invoke(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
-        EXPECT_THAT(properties, testing::Contains(names[0]));
-        return 0;
-    }));
+                EXPECT_THAT(properties, testing::Contains(names[0]));
+                return 0;
+            }));
     EXPECT_CALL(sdbusMock, sd_bus_emit_properties_changed_strv(
                                IsNull(), StrEq(objPath),
                                StrEq(ThresholdIntf::interface), NotNull()))
         .WillRepeatedly(Invoke(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
-        EXPECT_THAT(thresholdProperties, testing::Contains(names[0]));
-        return 0;
-    }));
+                EXPECT_THAT(thresholdProperties, testing::Contains(names[0]));
+                return 0;
+            }));
     EXPECT_CALL(sdbusMock,
                 sd_bus_message_new_signal(_, _, StrEq(objPath),
                                           StrEq(ThresholdIntf::interface),
                                           StrEq("AssertionChanged")))
         .Times(4);
 
-    auto metric = std::make_unique<HealthMetric>(bus, Type::cpu, config,
-                                                 paths_t());
+    auto metric =
+        std::make_unique<HealthMetric>(bus, Type::cpu, config, paths_t());
     // Exceed the critical threshold
     metric->update(MValue(1351, 1500));
     // Go below critical threshold but above warning threshold

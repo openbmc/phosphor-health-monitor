@@ -43,11 +43,11 @@ static const auto validThresholdTypes =
         {"Warning", ThresholdIntf::Type::Warning}};
 
 // Valid metrics from config
-static const auto validTypes =
-    std::unordered_map<std::string, Type>{{"CPU", Type::cpu},
-                                          {"Memory", Type::memory},
-                                          {"Storage", Type::storage},
-                                          {"Inode", Type::inode}};
+static const auto validTypes = std::unordered_map<std::string, Type>{
+    {"CPU", Type::cpu},
+    {"Memory", Type::memory},
+    {"Storage", Type::storage},
+    {"Inode", Type::inode}};
 
 // Valid submetrics from config
 static const auto validSubTypes = std::unordered_map<std::string, SubType>{
@@ -73,8 +73,8 @@ void from_json(const json& j, Threshold& self)
 /** Deserialize a HealthMetric from JSON. */
 void from_json(const json& j, HealthMetric& self)
 {
-    self.windowSize = j.value("Window_size",
-                              HealthMetric::defaults::windowSize);
+    self.windowSize =
+        j.value("Window_size", HealthMetric::defaults::windowSize);
     self.hysteresis = j.value("Hysteresis", HealthMetric::defaults::hysteresis);
     // Path is only valid for storage
     self.path = j.value("Path", "");
@@ -101,8 +101,8 @@ void from_json(const json& j, HealthMetric& self)
 
         static constexpr auto keyDelimiter = "_";
         std::string typeStr = key.substr(0, key.find_first_of(keyDelimiter));
-        std::string boundStr = key.substr(key.find_last_of(keyDelimiter) + 1,
-                                          key.length());
+        std::string boundStr =
+            key.substr(key.find_last_of(keyDelimiter) + 1, key.length());
 
         self.thresholds.emplace(
             std::make_tuple(validThresholdTypes.at(typeStr),
@@ -184,8 +184,8 @@ auto getHealthMetricConfigs() -> HealthMetric::map_t
         config.name = name;
 
         auto subType = validSubTypes.find(name);
-        config.subType = (subType != validSubTypes.end() ? subType->second
-                                                         : SubType::NA);
+        config.subType =
+            (subType != validSubTypes.end() ? subType->second : SubType::NA);
 
         configs[type->second].emplace_back(std::move(config));
     }
