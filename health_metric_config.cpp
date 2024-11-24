@@ -236,16 +236,6 @@ json defaultHealthMetricConfig = R"({
     },
     "Memory_Buffered_And_Cached": {
     },
-    "Storage_RW": {
-        "Path": "/run/initramfs/rw",
-        "Threshold": {
-            "Critical_Lower": {
-                "Value": 15.0,
-                "Log": true,
-                "Target": ""
-            }
-        }
-    },
     "Storage_TMP": {
         "Path": "/tmp",
         "Threshold": {
