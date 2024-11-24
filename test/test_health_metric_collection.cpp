@@ -161,7 +161,7 @@ TEST_F(HealthMetricCollectionTest, TestThresholdAsserted)
                 sd_bus_message_new_signal(IsNull(), NotNull(), NotNull(),
                                           StrEq(thresholdInterface),
                                           StrEq("AssertionChanged")))
-        .Times(6);
+        .Times(5);
 
     createCollection();
 }
