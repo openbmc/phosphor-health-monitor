@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c36041ba_cd50570d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-11-25T02:09:41Z",
+      "side": 1,
+      "message": "\u003e This health check was not added that long ago (~1 year ago, in the\ninitial commit of the health_metric_config interface),\n\nThis health check was always there. You can refer to https://github.com/openbmc/phosphor-health-monitor/commit/fdf610484be702a484683847935445099c8fcef2#diff-8e469ac36fe6da76bb612089453337e38f44d3176d71e0b9eba8bad7c8b19954L62 deleted bmc_health_config.json. As part of last refactor the config was moved in code.",
+      "revId": "7e232a91bd9743c76b4f80fec232410fe5e5bb3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
