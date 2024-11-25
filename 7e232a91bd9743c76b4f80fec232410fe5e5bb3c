@@ -16,6 +16,23 @@
       "message": "\u003e This health check was not added that long ago (~1 year ago, in the\ninitial commit of the health_metric_config interface),\n\nThis health check was always there. You can refer to https://github.com/openbmc/phosphor-health-monitor/commit/fdf610484be702a484683847935445099c8fcef2#diff-8e469ac36fe6da76bb612089453337e38f44d3176d71e0b9eba8bad7c8b19954L62 deleted bmc_health_config.json. As part of last refactor the config was moved in code.",
       "revId": "7e232a91bd9743c76b4f80fec232410fe5e5bb3c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81a98d5d_3676e34f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-11-25T02:14:13Z",
+      "side": 1,
+      "message": "\u003e and I would\nconsider this specific check as niche: initramfs/initrd partitions\nnormally *shouldn\u0027t* be writable.\n\nI see on romulus, i see following as writable.\n\nroot@romulus:~# echo \"test\" \u003e /run/initramfs/rw/testFile\nroot@romulus:~# cat /run/initramfs/rw/testFile \ntest\n\nSince, the check has been there from beginning i am wondering if there is another way of handling it rather than just dropping it?",
+      "revId": "7e232a91bd9743c76b4f80fec232410fe5e5bb3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
