@@ -33,6 +33,42 @@
       "message": "\u003e and I would\nconsider this specific check as niche: initramfs/initrd partitions\nnormally *shouldn\u0027t* be writable.\n\nI see on romulus, i see following as writable.\n\nroot@romulus:~# echo \"test\" \u003e /run/initramfs/rw/testFile\nroot@romulus:~# cat /run/initramfs/rw/testFile \ntest\n\nSince, the check has been there from beginning i am wondering if there is another way of handling it rather than just dropping it?",
       "revId": "7e232a91bd9743c76b4f80fec232410fe5e5bb3c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c8bb7b_51b52b12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001289
+      },
+      "writtenOn": "2024-11-25T02:50:50Z",
+      "side": 1,
+      "message": "Oh ok, I\u0027ll amend the description",
+      "parentUuid": "c36041ba_cd50570d",
+      "revId": "7e232a91bd9743c76b4f80fec232410fe5e5bb3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d49f2338_6692ce11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001289
+      },
+      "writtenOn": "2024-11-25T02:50:50Z",
+      "side": 1,
+      "message": "If there\u0027s a simple alternative, like editing the obmc-phosphor-initramfs-image recipe to add this as a .bbappend, I\u0027d be up for that. That would still require this change though.\n\nI see that the configuration file is applied as a patch using [merge_patch](https://json.nlohmann.me/features/merge_patch/). So we could also just add a .bbappend to obmc-phosphor-image, or to machine images that don\u0027t include an initramfs, that removes the `Storage_RW` key.\n\nI\u0027d also be curious to understand the general sentiment about this check, maybe I\u0027ll ask in Discord tomorrow if people are aware of this check\u0027s existence.",
+      "parentUuid": "81a98d5d_3676e34f",
+      "revId": "7e232a91bd9743c76b4f80fec232410fe5e5bb3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
