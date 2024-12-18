@@ -13,8 +13,8 @@ namespace phosphor::health::metric
 
 using association_t = std::tuple<std::string, std::string, std::string>;
 
-auto HealthMetric::getPath(MType type, std::string name,
-                           SubType subType) -> std::string
+auto HealthMetric::getPath(MType type, std::string name, SubType subType)
+    -> std::string
 {
     std::string path;
     switch (subType)
