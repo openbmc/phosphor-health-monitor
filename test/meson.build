@@ -8,13 +8,13 @@ if not gtest_dep.found() or not gmock_dep.found()
                 dependency('threads'),
                 gtest_proj.dependency('gtest'),
                 gtest_proj.dependency('gtest_main'),
-            ]
+            ],
         )
         gmock_dep = gtest_proj.dependency('gmock')
     else
         assert(
             not get_option('tests').enabled(),
-            'Googletest is required if tests are enabled'
+            'Googletest is required if tests are enabled',
         )
     endif
 endif
@@ -31,10 +31,10 @@ test(
             phosphor_logging_dep,
             phosphor_dbus_interfaces_dep,
             sdbusplus_dep,
-            nlohmann_json_dep
+            nlohmann_json_dep,
         ],
         include_directories: '../',
-    )
+    ),
 )
 
 test(
@@ -51,10 +51,10 @@ test(
             phosphor_logging_dep,
             phosphor_dbus_interfaces_dep,
             sdbusplus_dep,
-            nlohmann_json_dep
+            nlohmann_json_dep,
         ],
         include_directories: '../',
-    )
+    ),
 )
 
 test(
@@ -72,8 +72,8 @@ test(
             phosphor_logging_dep,
             phosphor_dbus_interfaces_dep,
             sdbusplus_dep,
-            nlohmann_json_dep
+            nlohmann_json_dep,
         ],
         include_directories: '../',
-    )
+    ),
 )
