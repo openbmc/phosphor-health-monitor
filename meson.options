@@ -7,3 +7,10 @@ option(
     value: 1,
     description: 'The health monitor collection interval in seconds.',
 )
+
+option(
+    'use-average-value',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Update the metric with average value.',
+)
