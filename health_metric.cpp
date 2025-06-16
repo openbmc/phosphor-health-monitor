@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include "health_metric.hpp"
 
 #include <phosphor-logging/lg2.hpp>
@@ -225,7 +227,9 @@ auto HealthMetric::shouldNotify(MValue value) -> bool
 
 void HealthMetric::update(MValue value)
 {
+#if !MONITOR_AVERAGE_VALUE
     ValueIntf::value(value.current, !shouldNotify(value));
+#endif
 
     // Maintain window size for threshold calculation
     if (history.size() >= config.windowSize)
@@ -243,6 +247,9 @@ void HealthMetric::update(MValue value)
     double average =
         (std::accumulate(history.begin(), history.end(), 0.0)) / history.size();
     value.current = average;
+#if MONITOR_AVERAGE_VALUE
+    ValueIntf::value(value.current, !shouldNotify(value));
+#endif
     checkThresholds(value);
 }
 
