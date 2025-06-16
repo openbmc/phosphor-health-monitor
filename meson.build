@@ -39,6 +39,7 @@ conf_data.set(
     'MONITOR_COLLECTION_INTERVAL',
     get_option('monitor-collection-interval'),
 )
+conf_data.set('MONITOR_AVERAGE_VALUE', get_option('use-average-value').allowed())
 
 configure_file(output: 'config.h', configuration: conf_data)
 
