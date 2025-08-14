@@ -6,6 +6,7 @@
 #include <xyz/openbmc_project/Association/Definitions/server.hpp>
 #include <xyz/openbmc_project/Inventory/Item/Bmc/server.hpp>
 #include <xyz/openbmc_project/Metric/Value/server.hpp>
+#include <xyz/openbmc_project/Metric/Threshold/event.hpp>
 
 #include <deque>
 #include <tuple>
@@ -25,6 +26,8 @@ static constexpr auto BmcPath =
 using BmcIntf = sdbusplus::xyz::openbmc_project::Inventory::Item::server::Bmc;
 using MetricIntf =
     sdbusplus::server::object_t<ValueIntf, ThresholdIntf, AssociationIntf>;
+using MetricExceedError = sdbusplus::error::xyz::openbmc_project::metric::Threshold::ExceedThreshold;
+using MetricBelowError = sdbusplus::error::xyz::openbmc_project::metric::Threshold::BelowThreshold;
 
 struct MValue
 {
