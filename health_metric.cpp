@@ -1,5 +1,6 @@
 #include "health_metric.hpp"
 
+#include <phosphor-logging/commit.hpp>
 #include <phosphor-logging/lg2.hpp>
 
 #include <cmath>
@@ -158,6 +159,8 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
     {
         auto tConfig = config.thresholds.at(threshold);
         auto thresholdValue = tConfig.value / 100 * value.total;
+        const auto currentRatio = value.current / value.total;
+        const auto thresholdRatio = tConfig.value / 100;
         thresholds[type][bound] = thresholdValue;
         ThresholdIntf::value(thresholds);
         auto assertions = ThresholdIntf::asserted();
@@ -169,6 +172,13 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
                 ThresholdIntf::asserted(assertions);
                 ThresholdIntf::assertionChanged(type, bound, true,
                                                 value.current);
+                if (tConfig.sel)
+                {
+                    lg2::commit(MetricExceedError(
+                        "CONFIG_NAME", config.name, "CURRENT_VALUE",
+                        currentRatio, "THRESHOLD_VALUE", thresholdRatio,
+                        "THRESHOLD_TYPE", type));
+                }
                 if (tConfig.log)
                 {
                     error(
@@ -184,6 +194,12 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
             assertions.erase(threshold);
             ThresholdIntf::asserted(assertions);
             ThresholdIntf::assertionChanged(type, bound, false, value.current);
+            if (config.thresholds.find(threshold)->second.sel)
+            {
+                lg2::commit(MetricBelowError(
+                    "CONFIG_NAME", config.name, "CURRENT_VALUE", currentRatio,
+                    "THRESHOLD_VALUE", thresholdRatio, "THRESHOLD_TYPE", type));
+            }
             if (config.thresholds.find(threshold)->second.log)
             {
                 info(
