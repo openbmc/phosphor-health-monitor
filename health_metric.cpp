@@ -1,5 +1,6 @@
 #include "health_metric.hpp"
 
+#include <phosphor-logging/commit.hpp>
 #include <phosphor-logging/lg2.hpp>
 
 #include <cmath>
