@@ -52,6 +52,7 @@ struct Threshold
 {
     double value = defaults::value;
     bool log = false;
+    bool sel = false;
     std::string target = defaults::target;
 
     using map_t =
