@@ -1,5 +1,6 @@
 #include "health_metric.hpp"
 
+#include <phosphor-logging/commit.hpp>
 #include <phosphor-logging/lg2.hpp>
 
 #include <cmath>
@@ -158,6 +159,8 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
     {
         auto tConfig = config.thresholds.at(threshold);
         auto thresholdValue = tConfig.value / 100 * value.total;
+        const auto currentRatio = value.current / value.total;
+        const auto thresholdRatio = tConfig.value / 100;
         thresholds[type][bound] = thresholdValue;
         ThresholdIntf::value(thresholds);
         auto assertions = ThresholdIntf::asserted();
