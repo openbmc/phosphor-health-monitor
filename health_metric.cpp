@@ -1,6 +1,8 @@
 #include "health_metric.hpp"
 
+#include <phosphor-logging/commit.hpp>
 #include <phosphor-logging/lg2.hpp>
+#include <xyz/openbmc_project/Sensor/Threshold/event.hpp>
 
 #include <cmath>
 #include <numeric>
@@ -149,6 +151,126 @@ bool didThresholdViolate(ThresholdIntf::Bound bound, double thresholdValue,
     }
 }
 
+template <typename errorObj>
+auto logAssertThresholdHelper(sdbusplus::bus_t& bus, const std::string& metric, double currentValue,
+                              double thresholdValue)
+    -> sdbusplus::message::object_path
+{
+    auto m =
+        bus.new_method_call("xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
+                            "xyz.openbmc_project.Logging.Create", "Create");
+
+    m.append("test");
+
+    auto reply = bus.call(m);
+
+    return reply.unpack<sdbusplus::message::object_path>();
+
+    // return lg2::commit(
+    //     errorObj("SENSOR_NAME", metric, "READING_VALUE", currentValue, "UNITS",
+    //              SensorUnit::Percent, "THRESHOLD_VALUE", thresholdValue));
+}
+
+void HealthMetric::logAssertThresholds(double currentValue, Type type,
+                                       Bound bound)
+{
+    namespace errors =
+        sdbusplus::error::xyz::openbmc_project::sensor::Threshold;
+    static const std::map<std::tuple<ThresholdIntf::Type, ThresholdIntf::Bound>,
+                          std::function<sdbusplus::message::object_path(
+                              sdbusplus::bus_t&, const std::string&, double, double)>>
+        thresholdLogMap = {
+            {{ThresholdIntf::Type::HardShutdown, ThresholdIntf::Bound::Lower},
+             &logAssertThresholdHelper<
+                 errors::ReadingBelowLowerHardShutdownThreshold>},
+            {{ThresholdIntf::Type::HardShutdown, ThresholdIntf::Bound::Upper},
+             &logAssertThresholdHelper<
+                 errors::ReadingAboveUpperHardShutdownThreshold>},
+            {{ThresholdIntf::Type::SoftShutdown, ThresholdIntf::Bound::Lower},
+             &logAssertThresholdHelper<
+                 errors::ReadingBelowLowerSoftShutdownThreshold>},
+            {{ThresholdIntf::Type::SoftShutdown, ThresholdIntf::Bound::Upper},
+             &logAssertThresholdHelper<
+                 errors::ReadingAboveUpperSoftShutdownThreshold>},
+            {{ThresholdIntf::Type::PerformanceLoss,
+              ThresholdIntf::Bound::Lower},
+             &logAssertThresholdHelper<
+                 errors::ReadingBelowLowerPerformanceLossThreshold>},
+            {{ThresholdIntf::Type::PerformanceLoss,
+              ThresholdIntf::Bound::Upper},
+             &logAssertThresholdHelper<
+                 errors::ReadingAboveUpperPerformanceLossThreshold>},
+            {{ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Lower},
+             &logAssertThresholdHelper<
+                 errors::ReadingBelowLowerCriticalThreshold>},
+            {{ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper},
+             &logAssertThresholdHelper<
+                 errors::ReadingAboveUpperCriticalThreshold>},
+            {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Lower},
+             &logAssertThresholdHelper<
+                 errors::ReadingBelowLowerWarningThreshold>},
+            {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Upper},
+             &logAssertThresholdHelper<
+                 errors::ReadingAboveUpperWarningThreshold>}};
+    auto metric = config.name;
+    auto& thresholdConf = config.thresholds.at({type, bound});
+    if (thresholdConf.assertedLog)
+    {
+        // Technically we should never get here. But handle anyway.
+        lg2::error("Ignoring new log with unresolved outstanding entry: {LOG}",
+                   "LOG", std::string(*(thresholdConf.assertedLog)));
+        return;
+    }
+    try
+    {
+        thresholdConf.assertedLog = thresholdLogMap.at(
+            {type, bound})(bus, metric, currentValue, thresholdConf.value / 100);
+    }
+    // catch (std::out_of_range& e)
+    // {
+    //     lg2::commit(errors::InvalidSensorReading("SENSOR_NAME", metric));
+    // }
+    catch (std::exception& e)
+    {
+        lg2::error("Could not create threshold log entry for {METRIC}",
+                   "METRIC", metric);
+    }
+}
+
+void HealthMetric::logDeassertThresholds(double currentValue, Type type,
+                                         Bound bound)
+{
+    namespace events =
+        sdbusplus::event::xyz::openbmc_project::sensor::Threshold;
+
+    auto& thresholdConf = config.thresholds.at({type, bound});
+    if (thresholdConf.assertedLog)
+    {
+        // try
+        // {
+        //     lg2::resolve(*thresholdConf.assertedLog);
+        // }
+        // catch (std::exception& ec)
+        // {
+        //     lg2::error("Unable to resolve {LOG} : {ERROR}", "LOG",
+        //                std::string(*thresholdConf.assertedLog), "ERROR",
+        //                ec.what());
+        // }
+        thresholdConf.assertedLog.reset();
+    }
+    auto it = std::find_if(
+        config.thresholds.begin(), config.thresholds.end(),
+        [](auto& th) { return th.second.assertedLog.has_value(); });
+    // Return if there are outstanding asserts.
+    if (it != config.thresholds.end())
+    {
+        return;
+    }
+    // lg2::commit(events::SensorReadingNormalRange(
+    //     "SENSOR_NAME", config.name, "READING_VALUE", currentValue, "UNITS",
+    //     SensorUnit::Percent));
+}
+
 void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
 {
     auto threshold = std::make_tuple(type, bound);
@@ -158,6 +280,7 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
     {
         auto tConfig = config.thresholds.at(threshold);
         auto thresholdValue = tConfig.value / 100 * value.total;
+        const auto currentRatio = value.current / value.total;
         thresholds[type][bound] = thresholdValue;
         ThresholdIntf::value(thresholds);
         auto assertions = ThresholdIntf::asserted();
@@ -169,6 +292,10 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
                 ThresholdIntf::asserted(assertions);
                 ThresholdIntf::assertionChanged(type, bound, true,
                                                 value.current);
+                if (tConfig.sel)
+                {
+                    logAssertThresholds(currentRatio, type, bound);
+                }
                 if (tConfig.log)
                 {
                     error(
@@ -184,6 +311,10 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
             assertions.erase(threshold);
             ThresholdIntf::asserted(assertions);
             ThresholdIntf::assertionChanged(type, bound, false, value.current);
+            if (config.thresholds.find(threshold)->second.sel)
+            {
+                logDeassertThresholds(currentRatio, type, bound);
+            }
             if (config.thresholds.find(threshold)->second.log)
             {
                 info(

@@ -68,6 +68,8 @@ The metric types may have the following attributes:
     - `Target`
       - This indicates the systemd target which shall be run when the specific
         threshold gets asserted.
+    - `SEL` -A boolean value of true/false depicts if a critical system message
+      shall be added to phosphor-logging when threshold gets asserted.
 
 Example:
 
@@ -79,12 +81,14 @@ Example:
             "Critical_Upper": {
                 "Value": 90.0,
                 "Log": true,
-                "Target": ""
+                "Target": "",
+                "SEL": true
             },
             "Warning_Upper": {
                 "Value": 80.0,
                 "Log": false,
-                "Target": ""
+                "Target": "",
+                "SEL": false
             }
         }
     }

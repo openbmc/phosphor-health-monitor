@@ -39,9 +39,9 @@ class HealthMetricTest : public ::testing::Test
         config.windowSize = 1;
         config.thresholds = {
             {{ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper},
-             {.value = 90.0, .log = true, .target = ""}},
+             {.value = 90.0, .log = true, .sel = true, .target = ""}},
             {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Upper},
-             {.value = 80.0, .log = false, .target = ""}}};
+             {.value = 80.0, .log = false, .sel = false, .target = ""}}};
         config.path = "";
     }
 };
