@@ -6,6 +6,7 @@
 #include <chrono>
 #include <limits>
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -52,7 +53,9 @@ struct Threshold
 {
     double value = defaults::value;
     bool log = false;
+    bool sel = false;
     std::string target = defaults::target;
+    std::optional<sdbusplus::message::object_path> assertedLog;
 
     using map_t =
         std::map<std::tuple<ThresholdIntf::Type, ThresholdIntf::Bound>,
