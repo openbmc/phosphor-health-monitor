@@ -39,9 +39,9 @@ class HealthMetricTest : public ::testing::Test
         config.windowSize = 1;
         config.thresholds = {
             {{ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper},
-             {.value = 90.0, .log = true, .target = ""}},
+             {.value = 90.0, .log = true, .sel = true, .target = ""}},
             {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Upper},
-             {.value = 80.0, .log = false, .target = ""}}};
+             {.value = 80.0, .log = false, .sel = false, .target = ""}}};
         config.path = "";
     }
 };
@@ -78,6 +78,39 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
                 EXPECT_THAT(thresholdProperties, testing::Contains(names[0]));
                 return 0;
             }));
+    EXPECT_CALL(sdbusMock, sd_bus_call(_, _, _, _, _, _))
+        .WillRepeatedly(Invoke([&](sd_bus*, sd_bus_message* msg, uint64_t,
+                                   sd_bus_error*, sd_bus_message** reply,
+                                   int64_t) {
+            const char* dest = nullptr;
+            const char* path = nullptr;
+            const char* iface = nullptr;
+            const char* member = nullptr;
+
+            sd_bus_message_get_destination(msg, &dest);
+            sd_bus_message_get_path(msg, &path);
+            sd_bus_message_get_interface(msg, &iface);
+            sd_bus_message_get_member(msg, &member);
+
+            if (dest && std::string(dest) == "xyz.openbmc_project.Logging" &&
+                path && std::string(path) == "/xyz/openbmc_project/logging" &&
+                iface &&
+                std::string(iface) == "xyz.openbmc_project.Logging.Create" &&
+                member && std::string(member) == "Create")
+            {
+                if (reply)
+                {
+                    *reply = nullptr;
+                }
+                return 0;
+            }
+
+            if (reply)
+            {
+                *reply = nullptr;
+            }
+            return 0;
+        }));
     EXPECT_CALL(sdbusMock,
                 sd_bus_message_new_signal(_, _, StrEq(objPath),
                                           StrEq(ThresholdIntf::interface),
