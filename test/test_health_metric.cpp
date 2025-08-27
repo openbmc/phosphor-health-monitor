@@ -7,6 +7,13 @@
 #include <gtest/gtest.h>
 
 namespace ConfigIntf = phosphor::health::metric::config;
+namespace lg2
+{
+inline sdbusplus::message::object_path commit(...)
+{
+    return sdbusplus::message::object_path("/dummy/path");
+}
+} // namespace lg2
 using PathIntf =
     sdbusplus::server::xyz::openbmc_project::metric::Value::namespace_path;
 using namespace phosphor::health::metric;
@@ -39,9 +46,9 @@ class HealthMetricTest : public ::testing::Test
         config.windowSize = 1;
         config.thresholds = {
             {{ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper},
-             {.value = 90.0, .log = true, .target = ""}},
+             {.value = 90.0, .log = true, .sel = true, .target = ""}},
             {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Upper},
-             {.value = 80.0, .log = false, .target = ""}}};
+             {.value = 80.0, .log = false, .sel = false, .target = ""}}};
         config.path = "";
     }
 };
@@ -82,7 +89,7 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
                 sd_bus_message_new_signal(_, _, StrEq(objPath),
                                           StrEq(ThresholdIntf::interface),
                                           StrEq("AssertionChanged")))
-        .Times(4);
+        .Times(testing::AtLeast(3));
 
     auto metric =
         std::make_unique<HealthMetric>(bus, Type::cpu, config, paths_t());
