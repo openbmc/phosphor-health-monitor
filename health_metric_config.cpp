@@ -68,6 +68,7 @@ void from_json(const json& j, Threshold& self)
     self.value = j.value("Value", 100.0);
     self.log = j.value("Log", false);
     self.target = j.value("Target", Threshold::defaults::target);
+    self.sel = j.value("SEL", false);
 }
 
 /** Deserialize a HealthMetric from JSON. */
@@ -148,10 +149,11 @@ void printConfig(HealthMetric::map_t& configs)
             for (auto& [key, threshold] : config.thresholds)
             {
                 debug(
-                    "THRESHOLD TYPE={TYPE} THRESHOLD BOUND={BOUND} VALUE={VALUE} LOG={LOG} TARGET={TARGET}",
+                    "THRESHOLD TYPE={TYPE} THRESHOLD BOUND={BOUND} VALUE={VALUE} LOG={LOG} TARGET={TARGET} SEL={SEL}",
                     "TYPE", get<ThresholdIntf::Type>(key), "BOUND",
                     get<ThresholdIntf::Bound>(key), "VALUE", threshold.value,
-                    "LOG", threshold.log, "TARGET", threshold.target);
+                    "LOG", threshold.log, "TARGET", threshold.target, "SEL",
+                    threshold.sel);
             }
         }
     }
@@ -199,12 +201,14 @@ json defaultHealthMetricConfig = R"({
             "Critical_Upper": {
                 "Value": 90.0,
                 "Log": true,
-                "Target": ""
+                "Target": "",
+                "SEL": true
             },
             "Warning_Upper": {
                 "Value": 80.0,
                 "Log": false,
-                "Target": ""
+                "Target": "",
+                "SEL": false
             }
         }
     },
@@ -219,7 +223,8 @@ json defaultHealthMetricConfig = R"({
             "Critical_Lower": {
                 "Value": 15.0,
                 "Log": true,
-                "Target": ""
+                "Target": "",
+                "SEL": true
             }
         }
     },
@@ -230,7 +235,8 @@ json defaultHealthMetricConfig = R"({
             "Critical_Upper": {
                 "Value": 85.0,
                 "Log": true,
-                "Target": ""
+                "Target": "",
+                "SEL": true
             }
         }
     },
@@ -242,7 +248,8 @@ json defaultHealthMetricConfig = R"({
             "Critical_Lower": {
                 "Value": 15.0,
                 "Log": true,
-                "Target": ""
+                "Target": "",
+                "SEL": true
             }
         }
     },
@@ -252,7 +259,8 @@ json defaultHealthMetricConfig = R"({
             "Critical_Lower": {
                 "Value": 15.0,
                 "Log": true,
-                "Target": ""
+                "Target": "",
+                "SEL": true
             }
         }
     }
