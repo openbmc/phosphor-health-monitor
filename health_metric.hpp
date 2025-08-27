@@ -6,6 +6,7 @@
 #include <xyz/openbmc_project/Association/Definitions/server.hpp>
 #include <xyz/openbmc_project/Inventory/Item/Bmc/server.hpp>
 #include <xyz/openbmc_project/Metric/Value/server.hpp>
+#include <xyz/openbmc_project/Sensor/Value/common.hpp>
 
 #include <deque>
 #include <tuple>
@@ -25,6 +26,7 @@ static constexpr auto BmcPath =
 using BmcIntf = sdbusplus::xyz::openbmc_project::Inventory::Item::server::Bmc;
 using MetricIntf =
     sdbusplus::server::object_t<ValueIntf, ThresholdIntf, AssociationIntf>;
+using SensorUnit = sdbusplus::common::xyz::openbmc_project::sensor::Value::Unit;
 
 struct MValue
 {
@@ -65,6 +67,10 @@ class HealthMetric : public MetricIntf
     /** @brief Check if specified value should be notified based on hysteresis
      */
     auto shouldNotify(MValue value) -> bool;
+    virtual void logAssertThresholds(double currentValue, Type type,
+                                     Bound bound);
+    virtual void logDeassertThresholds(double currentValue, Type type,
+                                       Bound bound);
     /** @brief Check specified threshold for the given value */
     void checkThreshold(Type type, Bound bound, MValue value);
     /** @brief Check all thresholds for the given value */
@@ -76,11 +82,12 @@ class HealthMetric : public MetricIntf
     /** @brief Metric type */
     MType type;
     /** @brief Metric configuration */
-    const config::HealthMetric config;
+    config::HealthMetric config;
     /** @brief Window for metric history */
     std::deque<double> history;
     /** @brief Last notified value for the metric change */
     double lastNotifiedValue = 0;
+    friend class HealthMetricCI;
 };
 
 } // namespace phosphor::health::metric

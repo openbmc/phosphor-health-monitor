@@ -1,5 +1,6 @@
 #include "health_metric.hpp"
 
+#include <phosphor-logging/lg2.hpp>
 #include <sdbusplus/test/sdbus_mock.hpp>
 #include <xyz/openbmc_project/Metric/Value/server.hpp>
 
@@ -9,6 +10,8 @@
 namespace ConfigIntf = phosphor::health::metric::config;
 using PathIntf =
     sdbusplus::server::xyz::openbmc_project::metric::Value::namespace_path;
+using ThresholdIntf =
+    sdbusplus::server::xyz::openbmc_project::common::Threshold;
 using namespace phosphor::health::metric;
 using namespace phosphor::health::utils;
 
@@ -39,10 +42,34 @@ class HealthMetricTest : public ::testing::Test
         config.windowSize = 1;
         config.thresholds = {
             {{ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper},
-             {.value = 90.0, .log = true, .target = ""}},
+             {.value = 90.0, .log = true, .sel = true, .target = ""}},
             {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Upper},
-             {.value = 80.0, .log = false, .target = ""}}};
+             {.value = 80.0, .log = false, .sel = false, .target = ""}}};
         config.path = "";
+    }
+};
+
+class HealthMetricCI : public HealthMetric
+{
+  public:
+    HealthMetricCI(sdbusplus::bus_t& bus, MType type,
+                   const config::HealthMetric& config,
+                   const paths_t& bmcPaths) :
+        HealthMetric(bus, type, config, bmcPaths)
+    {}
+
+  private:
+    void logAssertThresholds(double currentValue, ThresholdIntf::Type type,
+                             ThresholdIntf::Bound bound) override
+    {
+        lg2::error("{TYPE} {BOUND} {VALUE}", "TYPE", type, "BOUND", bound,
+                   "VALUE", currentValue);
+    }
+    void logDeassertThresholds(double currentValue, ThresholdIntf::Type type,
+                               ThresholdIntf::Bound bound) override
+    {
+        lg2::error("{TYPE} {BOUND} {VALUE}", "TYPE", type, "BOUND", bound,
+                   "VALUE", currentValue);
     }
 };
 
@@ -85,7 +112,7 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
         .Times(4);
 
     auto metric =
-        std::make_unique<HealthMetric>(bus, Type::cpu, config, paths_t());
+        std::make_unique<HealthMetricCI>(bus, Type::cpu, config, paths_t());
     // Exceed the critical threshold
     metric->update(MValue(1351, 1500));
     // Go below critical threshold but above warning threshold
