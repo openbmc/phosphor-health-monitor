@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e63806_391602d6",
+        "filename": "health_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-09-03T20:28:18Z",
+      "side": 1,
+      "message": "I removed `suspend`, `hibernate`, etc. here because I could not find evidence that those are expected to be \"irreversible\".  We don\u0027t actually use those on the BMC anyhow.  If you can find evidence, please update the commit with a link.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "2da0b485d52bd241f91268bc5cb21ad11fad3609",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
