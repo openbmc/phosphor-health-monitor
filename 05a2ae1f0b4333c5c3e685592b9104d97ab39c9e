@@ -16,6 +16,24 @@
       "message": "Regarding:\n\n\u003e This ensures that critical system state transitions are handled safely and according to systemd\u0027s recommended semantics.\n\nCan you update this with the systemd docs that call this out? It would be helpful for future understanding when people look back at this particular change as to why it was needed",
       "revId": "05a2ae1f0b4333c5c3e685592b9104d97ab39c9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10c34f5d_1a52ed4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-09-03T20:27:07Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e3b1824e_d15808ca",
+      "revId": "05a2ae1f0b4333c5c3e685592b9104d97ab39c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
