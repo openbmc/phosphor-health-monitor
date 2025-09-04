@@ -22,6 +22,30 @@
       },
       "revId": "2da0b485d52bd241f91268bc5cb21ad11fad3609",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0de7ff6e_6b7b8b91",
+        "filename": "health_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-09-04T00:45:20Z",
+      "side": 1,
+      "message": "Thanks for the feedback.\nAs a reference, in https://github.com/systemd/systemd/blob/v257.5/src/systemctl/systemctl-start-unit.c#L226, the logic shows which targets are considered to need \"replace-irreversibly\". For targets like suspend/hibernate which we won’t use on BMC, removing them makes sense. Thanks for pointing this out.",
+      "parentUuid": "d2e63806_391602d6",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 60
+      },
+      "revId": "2da0b485d52bd241f91268bc5cb21ad11fad3609",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
