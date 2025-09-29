@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30478346_cac67f96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-09-29T21:42:04Z",
+      "side": 1,
+      "message": "+1.",
+      "parentUuid": "759f9c36_8a5fbddc",
+      "revId": "dcaa7dd108aa325fe56587bb517a7fc2c7f46721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f628673c_5daf13e1",
         "filename": "health_metric.cpp",
         "patchSetId": 6
@@ -31,6 +49,58 @@
       "writtenOn": "2025-06-16T18:22:27Z",
       "side": 1,
       "message": "Use `if constexpr`, if this is something we\u0027re going to do.\n\nI don\u0027t really understand why we would _not_ want to do this.  Need some explanation why.",
+      "revId": "dcaa7dd108aa325fe56587bb517a7fc2c7f46721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bae8e2d_05f154c1",
+        "filename": "health_metric.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-09-29T21:42:04Z",
+      "side": 1,
+      "message": "+1, This has been the default behavior, so agree need some explanation on why we need to have a meson option for this?",
+      "parentUuid": "f628673c_5daf13e1",
+      "revId": "dcaa7dd108aa325fe56587bb517a7fc2c7f46721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e90949_b6626bf3",
+        "filename": "meson.options",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-09-29T21:42:04Z",
+      "side": 1,
+      "message": "Change meson option to monitor-average-value",
+      "revId": "dcaa7dd108aa325fe56587bb517a7fc2c7f46721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae0b9758_daed4fc6",
+        "filename": "meson.options",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-09-29T21:42:04Z",
+      "side": 1,
+      "message": "The default behavior needs to be enabled.",
       "revId": "dcaa7dd108aa325fe56587bb517a7fc2c7f46721",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
