@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bce858dc_215f9137",
+        "filename": "health_metric.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-09-29T21:40:55Z",
+      "side": 1,
+      "message": "Ignore this comment as i just realized you are using this for event interface and not threshold interface. For event interface please refer to my other comment related to using Telemetry Namespace for Metric Events.",
+      "parentUuid": "d3afb781_8d64d1c5",
+      "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b94ec4e3_c9f7cd7a",
