@@ -16,6 +16,40 @@
       "message": "Hi, @patrick@stwcx.xyz @paligill@gmail.com\n\nAccording to https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/75997, I think it would also be useful to apply a similar approach in phosphor-health-monitor, so that users are notified when CPU, memory, or storage exceed their thresholds.\n\nDo you have any suggestions on this?",
       "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3afb781_8d64d1c5",
+        "filename": "health_metric.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-09-29T21:28:52Z",
+      "side": 1,
+      "message": "New Threshold interface was proposed during the health-monitor refactor, so ideally we should be using that interface instead https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Common/Threshold.interface.yaml.",
+      "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94ec4e3_c9f7cd7a",
+        "filename": "health_metric.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-09-29T21:28:52Z",
+      "side": 1,
+      "message": "Rather than using sensor events we should use metric related events from Redfish Telemetry namespace which are specifically for monitored metrics.",
+      "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
