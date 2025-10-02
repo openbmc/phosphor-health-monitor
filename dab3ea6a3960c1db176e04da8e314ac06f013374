@@ -104,6 +104,24 @@
       "parentUuid": "ee3efd4b_529cbc01",
       "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84abd5bc_b9fa06ce",
+        "filename": "health_metric.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-10-02T20:54:07Z",
+      "side": 1,
+      "message": "@zane.li.wiwynn@gmail.com I am referring to defining new events for metrics in metric namespace in phosphor-dbus-interfaces i.e, https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Metric for Redfish events in Telemtry namespace https://github.com/DMTF/Redfish-Publications/blob/main/registries/Telemetry.1.1.0.json#L1, so they can be used for Metrics.",
+      "parentUuid": "b5ba03d5_d2d9e7bf",
+      "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
