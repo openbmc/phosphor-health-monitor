@@ -1,5 +1,6 @@
 #pragma once
 
+#include "health_events.hpp"
 #include "health_metric_config.hpp"
 #include "health_utils.hpp"
 
@@ -51,11 +52,16 @@ class HealthMetric : public MetricIntf
         bus(bus), type(type), config(config)
     {
         create(bmcPaths);
+        thresholdEvent = std::make_unique<HealthEvent>(config);
         this->emit_object_added();
     }
 
     /** @brief Update the health metric with the given value */
     void update(MValue value);
+
+  protected:
+    /** @brief Metric threshold event */
+    std::unique_ptr<HealthEvent> thresholdEvent;
 
   private:
     /** @brief Create a new health metric object */
