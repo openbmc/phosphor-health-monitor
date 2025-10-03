@@ -158,6 +158,8 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
     {
         auto tConfig = config.thresholds.at(threshold);
         auto thresholdValue = tConfig.value / 100 * value.total;
+        const auto currentRatio = value.current / value.total;
+        const auto thresholdRatio = tConfig.value / 100;
         thresholds[type][bound] = thresholdValue;
         ThresholdIntf::value(thresholds);
         auto assertions = ThresholdIntf::asserted();
@@ -171,6 +173,8 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
                                                 value.current);
                 if (tConfig.log)
                 {
+                    thresholdEvent->generateThresholdEvent(
+                        type, bound, currentRatio, thresholdRatio, true);
                     error(
                         "ASSERT: Health Metric {METRIC} crossed {TYPE} upper threshold",
                         "METRIC", config.name, "TYPE", type);
@@ -186,6 +190,8 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
             ThresholdIntf::assertionChanged(type, bound, false, value.current);
             if (config.thresholds.find(threshold)->second.log)
             {
+                thresholdEvent->generateThresholdEvent(
+                    type, bound, currentRatio, thresholdRatio, false);
                 info(
                     "DEASSERT: Health Metric {METRIC} is below {TYPE} upper threshold",
                     "METRIC", config.name, "TYPE", type);

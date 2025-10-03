@@ -6,6 +6,7 @@
 #include <chrono>
 #include <limits>
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -42,6 +43,8 @@ enum class SubType
 
 auto to_string(Type) -> std::string;
 auto to_string(SubType) -> std::string;
+auto to_string(ThresholdIntf::Bound) -> std::string;
+auto to_string(ThresholdIntf::Type) -> std::string;
 
 namespace config
 {
@@ -62,6 +65,21 @@ struct Threshold
     {
         static constexpr auto value = std::numeric_limits<double>::quiet_NaN();
         static constexpr auto target = "";
+    };
+};
+
+struct ThresholdLog
+{
+    std::optional<sdbusplus::message::object_path> assertedLog =
+        defaults::assertedLog;
+
+    using map_t =
+        std::map<std::tuple<ThresholdIntf::Type, ThresholdIntf::Bound>,
+                 ThresholdLog>;
+
+    struct defaults
+    {
+        static constexpr auto assertedLog = std::nullopt;
     };
 };
 
