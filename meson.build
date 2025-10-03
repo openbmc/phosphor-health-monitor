@@ -23,6 +23,7 @@ executable(
     'health-monitor',
     [
         'health_metric_config.cpp',
+        'health_events.cpp',
         'health_metric.cpp',
         'health_utils.cpp',
         'health_metric_collection.cpp',
