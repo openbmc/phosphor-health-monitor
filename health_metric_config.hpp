@@ -2,10 +2,12 @@
 
 #include <sdbusplus/message.hpp>
 #include <xyz/openbmc_project/Common/Threshold/server.hpp>
+#include <xyz/openbmc_project/Metric/Value/server.hpp>
 
 #include <chrono>
 #include <limits>
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -14,6 +16,8 @@ namespace phosphor::health::metric
 
 using ThresholdIntf =
     sdbusplus::server::xyz::openbmc_project::common::Threshold;
+
+using MetricUnit = sdbusplus::common::xyz::openbmc_project::metric::Value::Unit;
 
 enum class Type
 {
@@ -65,6 +69,20 @@ struct Threshold
     };
 };
 
+struct ThresholdLog
+{
+    std::optional<sdbusplus::object_path> assertedLog = defaults::assertedLog;
+
+    using map_t =
+        std::map<std::tuple<ThresholdIntf::Type, ThresholdIntf::Bound>,
+                 ThresholdLog>;
+
+    struct defaults
+    {
+        static constexpr auto assertedLog = std::nullopt;
+    };
+};
+
 struct HealthMetric
 {
     /** @brief The name of the metric. */
@@ -79,6 +97,9 @@ struct HealthMetric
     Threshold::map_t thresholds{};
     /** @brief The path for filesystem metric */
     std::string path = defaults::path;
+    /** @brief Whether the normal reading event shall be logged */
+    bool logNormalEnabled = false;
+    MetricUnit unit = MetricUnit::Percent;
 
     using map_t = std::map<Type, std::vector<HealthMetric>>;
 

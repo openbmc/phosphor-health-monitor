@@ -62,6 +62,11 @@ static const auto validSubTypes = std::unordered_map<std::string, SubType>{
     {"Storage_RW", SubType::NA},
     {"Storage_TMP", SubType::NA}};
 
+static const auto metricUnits = std::unordered_map<std::string, MetricUnit>{
+    {"CPU", MetricUnit::Percent},
+    {"Memory", MetricUnit::Bytes},
+    {"Storage", MetricUnit::Bytes}};
+
 /** Deserialize a Threshold from JSON. */
 void from_json(const json& j, Threshold& self)
 {
@@ -108,6 +113,8 @@ void from_json(const json& j, HealthMetric& self)
             std::make_tuple(validThresholdTypes.at(typeStr),
                             validThresholdBounds.at(boundStr)),
             config);
+
+        self.logNormalEnabled |= config.log;
     }
 }
 
@@ -140,10 +147,10 @@ void printConfig(HealthMetric::map_t& configs)
         for (auto& config : configList)
         {
             debug(
-                "TYPE={TYPE}, NAME={NAME} SUBTYPE={SUBTYPE} PATH={PATH}, WSIZE={WSIZE}, HYSTERESIS={HYSTERESIS}",
+                "TYPE={TYPE}, NAME={NAME} SUBTYPE={SUBTYPE} PATH={PATH}, WSIZE={WSIZE}, HYSTERESIS={HYSTERESIS}, UNIT={UNIT}",
                 "TYPE", type, "NAME", config.name, "SUBTYPE", config.subType,
                 "PATH", config.path, "WSIZE", config.windowSize, "HYSTERESIS",
-                config.hysteresis);
+                config.hysteresis, "UNIT", config.unit);
 
             for (auto& [key, threshold] : config.thresholds)
             {
@@ -186,6 +193,16 @@ auto getHealthMetricConfigs() -> HealthMetric::map_t
         auto subType = validSubTypes.find(name);
         config.subType =
             (subType != validSubTypes.end() ? subType->second : SubType::NA);
+
+        auto unit = metricUnits.find(typeStr);
+        if (unit == metricUnits.end())
+        {
+            warning("Default unit (Percent): {TYPE}", "TYPE", typeStr);
+        }
+        else
+        {
+            config.unit = unit->second;
+        }
 
         configs[type->second].emplace_back(std::move(config));
     }

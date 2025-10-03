@@ -13,7 +13,6 @@ using PathInterface =
     sdbusplus::common::xyz::openbmc_project::metric::Value::namespace_path;
 using ThresholdIntf =
     sdbusplus::server::xyz::openbmc_project::common::Threshold;
-using ::testing::Invoke;
 using ::testing::IsNull;
 using ::testing::NotNull;
 using ::testing::StrEq;
@@ -48,6 +47,12 @@ class HealthMetricCollectionTest : public ::testing::Test
                 if (key == MetricIntf::Type::storage)
                 {
                     config.path = "/tmp";
+                }
+
+                // Disable logging for all thresholds in this test
+                for (auto& [thresholdName, threshold] : config.thresholds)
+                {
+                    threshold.log = false;
                 }
             }
         }
@@ -95,7 +100,7 @@ TEST_F(HealthMetricCollectionTest, TestCreation)
     EXPECT_CALL(sdbusMock,
                 sd_bus_emit_properties_changed_strv(
                     IsNull(), NotNull(), StrEq(valueInterface), NotNull()))
-        .WillRepeatedly(Invoke(
+        .WillRepeatedly(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
                 // Test no signal generation for metric init properties
@@ -107,12 +112,12 @@ TEST_F(HealthMetricCollectionTest, TestCreation)
                 const std::set<std::string> metricSetProperties = {"Value"};
                 EXPECT_THAT(metricSetProperties, testing::Contains(names[0]));
                 return 0;
-            }));
+            });
 
     EXPECT_CALL(sdbusMock,
                 sd_bus_emit_properties_changed_strv(
                     IsNull(), NotNull(), StrEq(thresholdInterface), NotNull()))
-        .WillRepeatedly(Invoke(
+        .WillRepeatedly(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
                 // Test signal generated for Value property set
@@ -120,7 +125,7 @@ TEST_F(HealthMetricCollectionTest, TestCreation)
                 // Test no signal generation for threshold asserted
                 EXPECT_STRNE("Asserted", names[0]);
                 return 0;
-            }));
+            });
 
     createCollection();
 }
@@ -135,18 +140,18 @@ TEST_F(HealthMetricCollectionTest, TestThresholdAsserted)
     EXPECT_CALL(sdbusMock,
                 sd_bus_emit_properties_changed_strv(
                     IsNull(), NotNull(), StrEq(valueInterface), NotNull()))
-        .WillRepeatedly(Invoke(
+        .WillRepeatedly(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
                 EXPECT_THAT("Value", StrEq(names[0]));
                 return 0;
-            }));
+            });
 
     // Test threshold asserted property change
     EXPECT_CALL(sdbusMock,
                 sd_bus_emit_properties_changed_strv(
                     IsNull(), NotNull(), StrEq(thresholdInterface), NotNull()))
-        .WillRepeatedly(Invoke(
+        .WillRepeatedly(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
                 // Test signal generation for threshold properties set
@@ -154,7 +159,7 @@ TEST_F(HealthMetricCollectionTest, TestThresholdAsserted)
                                                                    "Asserted"};
                 EXPECT_THAT(thresholdProperties, testing::Contains(names[0]));
                 return 0;
-            }));
+            });
 
     // Test AssertionChanged signal generation
     EXPECT_CALL(sdbusMock,

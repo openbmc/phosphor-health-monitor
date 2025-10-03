@@ -14,7 +14,6 @@ using namespace phosphor::health::utils;
 
 using ::testing::_;
 using ::testing::InSequence;
-using ::testing::Invoke;
 using ::testing::IsNull;
 using ::testing::NotNull;
 using ::testing::Pair;
@@ -39,7 +38,7 @@ class HealthMetricTest : public ::testing::Test
         config.windowSize = 1;
         config.thresholds = {
             {{ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper},
-             {.value = 90.0, .log = true, .target = ""}},
+             {.value = 90.0, .log = false, .target = ""}},
             {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Upper},
              {.value = 80.0, .log = false, .target = ""}}};
         config.path = "";
@@ -63,21 +62,21 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
     EXPECT_CALL(sdbusMock, sd_bus_emit_properties_changed_strv(
                                IsNull(), StrEq(objPath),
                                StrEq(ValueIntf::interface), NotNull()))
-        .WillRepeatedly(Invoke(
+        .WillRepeatedly(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
                 EXPECT_THAT(properties, testing::Contains(names[0]));
                 return 0;
-            }));
+            });
     EXPECT_CALL(sdbusMock, sd_bus_emit_properties_changed_strv(
                                IsNull(), StrEq(objPath),
                                StrEq(ThresholdIntf::interface), NotNull()))
-        .WillRepeatedly(Invoke(
+        .WillRepeatedly(
             [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
                 [[maybe_unused]] const char* interface, const char** names) {
                 EXPECT_THAT(thresholdProperties, testing::Contains(names[0]));
                 return 0;
-            }));
+            });
     EXPECT_CALL(sdbusMock,
                 sd_bus_message_new_signal(_, _, StrEq(objPath),
                                           StrEq(ThresholdIntf::interface),
@@ -89,7 +88,7 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
     // Exceed the critical threshold
     metric->update(MValue(1351, 1500));
     // Go below critical threshold but above warning threshold
-    metric->update(MValue(1399, 1500));
+    metric->update(MValue(1275, 1500));
     // Go below warning threshold
     metric->update(MValue(1199, 1500));
 }
