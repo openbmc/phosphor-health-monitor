@@ -108,6 +108,8 @@ void from_json(const json& j, HealthMetric& self)
             std::make_tuple(validThresholdTypes.at(typeStr),
                             validThresholdBounds.at(boundStr)),
             config);
+
+        self.logNormalEnabled |= config.log;
     }
 }
 

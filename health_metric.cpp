@@ -171,6 +171,8 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
                                                 value.current);
                 if (tConfig.log)
                 {
+                    thresholdEvent.generateThresholdEvent(
+                        type, bound, value.current, thresholdValue, true);
                     error(
                         "ASSERT: Health Metric {METRIC} crossed {TYPE} upper threshold",
                         "METRIC", config.name, "TYPE", type);
@@ -186,9 +188,17 @@ void HealthMetric::checkThreshold(Type type, Bound bound, MValue value)
             ThresholdIntf::assertionChanged(type, bound, false, value.current);
             if (config.thresholds.find(threshold)->second.log)
             {
+                thresholdEvent.generateThresholdEvent(
+                    type, bound, value.current, thresholdValue, false);
                 info(
                     "DEASSERT: Health Metric {METRIC} is below {TYPE} upper threshold",
                     "METRIC", config.name, "TYPE", type);
+            }
+            // The reading is only back to normal once all the threshold
+            // assertions have been cleared, including the unlogged ones.
+            if (assertions.empty() && config.logNormalEnabled)
+            {
+                thresholdEvent.generateNormalEvent(value.current);
             }
         }
     }
