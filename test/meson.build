@@ -42,6 +42,7 @@ test(
     executable(
         'test_health_metric',
         'test_health_metric.cpp',
+        '../health_metric_event.cpp',
         '../health_metric.cpp',
         '../health_utils.cpp',
         '../health_metric_config.cpp',
@@ -58,11 +59,35 @@ test(
 )
 
 test(
+    'test_health_metric_event',
+    executable(
+        'test_health_metric_event',
+        'test_health_metric_event.cpp',
+        'test_event.hpp',
+        '../health_metric_event.cpp',
+        '../health_metric.cpp',
+        '../health_utils.cpp',
+        '../health_metric_config.cpp',
+        dependencies: [
+            gtest_dep,
+            phosphor_logging_dep,
+            phosphor_dbus_interfaces_dep,
+            sdbusplus_dep,
+            nlohmann_json_dep,
+            dependency('threads'),
+        ],
+        include_directories: '../',
+    ),
+    is_parallel: false,  # Other tests also commit events to the xyz.openbmc_project.Logging service it simulates
+)
+
+test(
     'test_health_metric_collection',
     executable(
         'test_health_metric_collection',
         'test_health_metric_collection.cpp',
         '../health_metric_collection.cpp',
+        '../health_metric_event.cpp',
         '../health_metric.cpp',
         '../health_metric_config.cpp',
         '../health_utils.cpp',
