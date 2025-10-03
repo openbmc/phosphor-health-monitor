@@ -64,7 +64,14 @@ The metric types may have the following attributes:
         - For upper bound, the threshold gets asserted if metric value goes
           beyond the specified threshold percentage value.
     - `Log` -A boolean value of true/false depicts if a critical system message
-      shall be logged when threshold gets asserted.
+      shall be logged when threshold gets asserted. When enabled, it also logs
+      the threshold events through phosphor-logging:
+      - On assertion, an event log entry is created (e.g.
+        `xyz.openbmc_project.Metric.Threshold.TriggerNumericAboveUpperCritical`).
+      - On deassertion, the asserted event log entry is resolved, and once no
+        thresholds of the metric remain asserted, a
+        `xyz.openbmc_project.Metric.Threshold.TriggerNumericReadingNormal` event
+        is logged.
     - `Target`
       - This indicates the systemd target which shall be run when the specific
         threshold gets asserted.
