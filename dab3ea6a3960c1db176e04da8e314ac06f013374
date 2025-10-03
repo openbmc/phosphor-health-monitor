@@ -122,6 +122,24 @@
       "parentUuid": "b5ba03d5_d2d9e7bf",
       "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bf7e891_dcd248b7",
+        "filename": "health_metric.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-10-03T00:26:25Z",
+      "side": 1,
+      "message": "Got it. I’ll work on defining the new events in the metric namespace",
+      "parentUuid": "84abd5bc_b9fa06ce",
+      "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
