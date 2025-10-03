@@ -1,5 +1,6 @@
 #pragma once
 
+#include "health_events.hpp"
 #include "health_metric_config.hpp"
 #include "health_utils.hpp"
 
@@ -51,6 +52,7 @@ class HealthMetric : public MetricIntf
         bus(bus), type(type), config(config)
     {
         create(bmcPaths);
+        initEvent();
         this->emit_object_added();
     }
 
@@ -62,6 +64,8 @@ class HealthMetric : public MetricIntf
     void create(const paths_t& bmcPaths);
     /** @brief Init properties for the health metric object */
     void initProperties();
+    /** @brief Init threshold event for the metric */
+    virtual void initEvent();
     /** @brief Check if specified value should be notified based on hysteresis
      */
     auto shouldNotify(MValue value) -> bool;
@@ -81,6 +85,9 @@ class HealthMetric : public MetricIntf
     std::deque<double> history;
     /** @brief Last notified value for the metric change */
     double lastNotifiedValue = 0;
+    /** @brief Metric event */
+    std::unique_ptr<HealthEvent> thresholdEvent;
+    friend class HealthMetricCI;
 };
 
 } // namespace phosphor::health::metric
