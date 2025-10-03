@@ -1,11 +1,17 @@
 #include "health_metric.hpp"
+#include "test_server.hpp"
 
 #include <sdbusplus/test/sdbus_mock.hpp>
 #include <xyz/openbmc_project/Metric/Value/server.hpp>
 
+#include <atomic>
+#include <chrono>
+#include <thread>
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+using namespace std::literals;
 namespace ConfigIntf = phosphor::health::metric::config;
 using PathIntf =
     sdbusplus::server::xyz::openbmc_project::metric::Value::namespace_path;
@@ -32,8 +38,23 @@ class HealthMetricTest : public ::testing::Test
         std::string(PathIntf::value) + "/bmc/" + PathIntf::kernel_cpu;
     ConfigIntf::HealthMetric config;
 
-    void SetUp() override
+    // The event server runs on its own context and thread, as the health
+    // metric commits and resolves the events with blocking D-Bus calls.
+    sdbusplus::async::context ctx;
+    TestEventServer eventServer;
+    sdbusplus::server::manager_t manager;
+    std::atomic<bool> stopServer = false;
+    std::thread serverThread;
+
+    HealthMetricTest() :
+        eventServer(ctx, objPathLogging), manager(ctx, objPathLogging)
     {
+        ctx.request_name(busNameLogging);
+        serverThread = std::thread([this]() {
+            ctx.spawn(watchStop());
+            ctx.run();
+        });
+
         config.name = "CPU_Kernel";
         config.subType = SubType::cpuKernel;
         config.windowSize = 1;
@@ -42,7 +63,22 @@ class HealthMetricTest : public ::testing::Test
              {.value = 90.0, .log = true, .target = ""}},
             {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Upper},
              {.value = 80.0, .log = false, .target = ""}}};
-        config.path = "";
+        config.logNormalEnabled = true;
+    }
+
+    ~HealthMetricTest() noexcept override
+    {
+        stopServer = true;
+        serverThread.join();
+    }
+
+    auto watchStop() -> sdbusplus::async::task<>
+    {
+        while (!stopServer)
+        {
+            co_await sdbusplus::async::sleep_for(ctx, 10ms);
+        }
+        ctx.request_stop();
     }
 };
 
@@ -89,7 +125,7 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
     // Exceed the critical threshold
     metric->update(MValue(1351, 1500));
     // Go below critical threshold but above warning threshold
-    metric->update(MValue(1399, 1500));
+    metric->update(MValue(1275, 1500));
     // Go below warning threshold
     metric->update(MValue(1199, 1500));
 }

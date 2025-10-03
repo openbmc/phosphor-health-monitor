@@ -1,10 +1,16 @@
 #include "health_metric_collection.hpp"
+#include "test_server.hpp"
 
 #include <sdbusplus/test/sdbus_mock.hpp>
 #include <xyz/openbmc_project/Metric/Value/server.hpp>
 
+#include <atomic>
+#include <chrono>
+#include <thread>
+
 #include <gtest/gtest.h>
 
+using namespace std::literals;
 namespace ConfigIntf = phosphor::health::metric::config;
 namespace MetricIntf = phosphor::health::metric;
 namespace CollectionIntf = phosphor::health::metric::collection;
@@ -32,8 +38,23 @@ class HealthMetricCollectionTest : public ::testing::Test
         sdbusplus::common::xyz::openbmc_project::common::Threshold::interface;
     ConfigIntf::HealthMetric::map_t configs;
 
-    void SetUp() override
+    // The event server runs on its own context and thread, as the health
+    // metric commits and resolves the events with blocking D-Bus calls.
+    sdbusplus::async::context ctx;
+    TestEventServer eventServer;
+    sdbusplus::server::manager_t manager;
+    std::atomic<bool> stopServer = false;
+    std::thread serverThread;
+
+    HealthMetricCollectionTest() :
+        eventServer(ctx, objPathLogging), manager(ctx, objPathLogging)
     {
+        ctx.request_name(busNameLogging);
+        serverThread = std::thread([this]() {
+            ctx.spawn(watchStop());
+            ctx.run();
+        });
+
         sdbusplus::server::manager_t objManager(bus, objPath);
         bus.request_name(busName);
 
@@ -83,6 +104,21 @@ class HealthMetricCollectionTest : public ::testing::Test
                     bus, type, collectionConfig, bmcPaths);
             collections[type]->read();
         }
+    }
+
+    ~HealthMetricCollectionTest() noexcept override
+    {
+        stopServer = true;
+        serverThread.join();
+    }
+
+    auto watchStop() -> sdbusplus::async::task<>
+    {
+        while (!stopServer)
+        {
+            co_await sdbusplus::async::sleep_for(ctx, 10ms);
+        }
+        ctx.request_stop();
     }
 };
 
