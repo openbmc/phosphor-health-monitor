@@ -1,5 +1,6 @@
 #pragma once
 
+#include "health_events.hpp"
 #include "health_metric_config.hpp"
 #include "health_utils.hpp"
 
@@ -51,6 +52,7 @@ class HealthMetric : public MetricIntf
         bus(bus), type(type), config(config)
     {
         create(bmcPaths);
+        thresholdEvent = std::make_unique<HealthEvent>(config);
         this->emit_object_added();
     }
 
@@ -81,6 +83,9 @@ class HealthMetric : public MetricIntf
     std::deque<double> history;
     /** @brief Last notified value for the metric change */
     double lastNotifiedValue = 0;
+    /** @brief Metric threshold event */
+    std::unique_ptr<HealthEvent> thresholdEvent;
+    friend class HealthMetricCI;
 };
 
 } // namespace phosphor::health::metric
