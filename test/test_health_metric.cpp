@@ -9,6 +9,8 @@
 namespace ConfigIntf = phosphor::health::metric::config;
 using PathIntf =
     sdbusplus::server::xyz::openbmc_project::metric::Value::namespace_path;
+using ThresholdIntf =
+    sdbusplus::server::xyz::openbmc_project::common::Threshold;
 using namespace phosphor::health::metric;
 using namespace phosphor::health::utils;
 
@@ -18,7 +20,9 @@ using ::testing::Invoke;
 using ::testing::IsNull;
 using ::testing::NotNull;
 using ::testing::Pair;
+using ::testing::Return;
 using ::testing::StrEq;
+using ::testing::Throw;
 
 class HealthMetricTest : public ::testing::Test
 {
@@ -44,6 +48,23 @@ class HealthMetricTest : public ::testing::Test
              {.value = 80.0, .log = false, .target = ""}}};
         config.path = "";
     }
+};
+
+class HealthMetricEventTest : public HealthMetricEvent
+{
+  public:
+    explicit HealthMetricEventTest(const config::HealthMetric& config) :
+        HealthMetricEvent(config)
+    {}
+
+    MOCK_METHOD(sdbusplus::object_path, commitAssertLog,
+                (ThresholdIntf::Type, ThresholdIntf::Bound, double, double),
+                (override));
+    MOCK_METHOD(void, resolveAssertLog, (const sdbusplus::object_path&),
+                (override));
+    MOCK_METHOD(void, commitNormalLog,
+                (ThresholdIntf::Type, ThresholdIntf::Bound, double),
+                (override));
 };
 
 TEST_F(HealthMetricTest, TestMetricUnmockedObjectAddRemove)
@@ -92,4 +113,96 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
     metric->update(MValue(1399, 1500));
     // Go below warning threshold
     metric->update(MValue(1199, 1500));
+}
+
+TEST_F(HealthMetricTest, TestThresholdEventAssertDeassert)
+{
+    const auto logPath =
+        sdbusplus::object_path("/xyz/openbmc_project/logging/entry/1");
+    HealthMetricEventTest event(config);
+
+    {
+        InSequence seq;
+        EXPECT_CALL(event,
+                    commitAssertLog(ThresholdIntf::Type::Critical,
+                                    ThresholdIntf::Bound::Upper, 95.0, 90.0))
+            .WillOnce(Return(logPath));
+        EXPECT_CALL(event, resolveAssertLog(logPath)).Times(1);
+        EXPECT_CALL(event, commitNormalLog(ThresholdIntf::Type::Critical,
+                                           ThresholdIntf::Bound::Upper, 85.0))
+            .Times(1);
+    }
+
+    event.generateThresholdEvent(ThresholdIntf::Type::Critical,
+                                 ThresholdIntf::Bound::Upper, 95.0, 90.0, true);
+    event.generateThresholdEvent(ThresholdIntf::Type::Critical,
+                                 ThresholdIntf::Bound::Upper, 85.0, 90.0,
+                                 false);
+}
+
+TEST_F(HealthMetricTest, TestThresholdEventIgnoreDuplicateAssert)
+{
+    const auto logPath =
+        sdbusplus::object_path("/xyz/openbmc_project/logging/entry/1");
+    HealthMetricEventTest event(config);
+
+    // The second assert must not create a new log while the first one is
+    // still unresolved.
+    EXPECT_CALL(event, commitAssertLog(_, _, _, _)).WillOnce(Return(logPath));
+
+    event.generateThresholdEvent(ThresholdIntf::Type::Critical,
+                                 ThresholdIntf::Bound::Upper, 95.0, 90.0, true);
+    event.generateThresholdEvent(ThresholdIntf::Type::Critical,
+                                 ThresholdIntf::Bound::Upper, 96.0, 90.0, true);
+}
+
+TEST_F(HealthMetricTest, TestThresholdEventNormalAfterAllDeasserted)
+{
+    const auto criticalLog =
+        sdbusplus::object_path("/xyz/openbmc_project/logging/entry/1");
+    const auto warningLog =
+        sdbusplus::object_path("/xyz/openbmc_project/logging/entry/2");
+    HealthMetricEventTest event(config);
+
+    EXPECT_CALL(event, commitAssertLog(ThresholdIntf::Type::Critical, _, _, _))
+        .WillOnce(Return(criticalLog));
+    EXPECT_CALL(event, commitAssertLog(ThresholdIntf::Type::Warning, _, _, _))
+        .WillOnce(Return(warningLog));
+    EXPECT_CALL(event, resolveAssertLog(criticalLog)).Times(1);
+    EXPECT_CALL(event, resolveAssertLog(warningLog)).Times(1);
+    // Reading normal is only logged once no threshold remains asserted.
+    EXPECT_CALL(event, commitNormalLog(ThresholdIntf::Type::Critical, _, _))
+        .Times(0);
+    EXPECT_CALL(event, commitNormalLog(ThresholdIntf::Type::Warning,
+                                       ThresholdIntf::Bound::Upper, 75.0))
+        .Times(1);
+
+    event.generateThresholdEvent(ThresholdIntf::Type::Warning,
+                                 ThresholdIntf::Bound::Upper, 95.0, 80.0, true);
+    event.generateThresholdEvent(ThresholdIntf::Type::Critical,
+                                 ThresholdIntf::Bound::Upper, 95.0, 90.0, true);
+    event.generateThresholdEvent(ThresholdIntf::Type::Critical,
+                                 ThresholdIntf::Bound::Upper, 85.0, 90.0,
+                                 false);
+    event.generateThresholdEvent(ThresholdIntf::Type::Warning,
+                                 ThresholdIntf::Bound::Upper, 75.0, 80.0,
+                                 false);
+}
+
+TEST_F(HealthMetricTest, TestThresholdEventCommitFailure)
+{
+    HealthMetricEventTest event(config);
+
+    EXPECT_CALL(event, commitAssertLog(_, _, _, _))
+        .WillOnce(Throw(std::runtime_error("commit failed")));
+    // Nothing was committed, so there is nothing to resolve.
+    EXPECT_CALL(event, resolveAssertLog(_)).Times(0);
+    EXPECT_CALL(event, commitNormalLog(_, _, _)).Times(1);
+
+    EXPECT_NO_THROW(event.generateThresholdEvent(
+        ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper, 95.0, 90.0,
+        true));
+    EXPECT_NO_THROW(event.generateThresholdEvent(
+        ThresholdIntf::Type::Critical, ThresholdIntf::Bound::Upper, 85.0, 90.0,
+        false));
 }
