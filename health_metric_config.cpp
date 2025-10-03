@@ -108,6 +108,8 @@ void from_json(const json& j, HealthMetric& self)
             std::make_tuple(validThresholdTypes.at(typeStr),
                             validThresholdBounds.at(boundStr)),
             config);
+
+        self.logNormalEnabled |= config.log;
     }
 }
 
@@ -284,6 +286,18 @@ auto to_string(Type t) -> std::string
 auto to_string(SubType t) -> std::string
 {
     return details::reverse_map_search(config::validSubTypes, t);
+}
+
+// to_string specialization for ThresholdIntf::Bound.
+auto to_string(ThresholdIntf::Bound t) -> std::string
+{
+    return details::reverse_map_search(config::validThresholdBounds, t);
+}
+
+// to_string specialization for ThresholdIntf::Type.
+auto to_string(ThresholdIntf::Type t) -> std::string
+{
+    return details::reverse_map_search(config::validThresholdTypes, t);
 }
 
 } // namespace phosphor::health::metric
