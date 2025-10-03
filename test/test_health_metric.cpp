@@ -9,6 +9,8 @@
 namespace ConfigIntf = phosphor::health::metric::config;
 using PathIntf =
     sdbusplus::server::xyz::openbmc_project::metric::Value::namespace_path;
+using ThresholdIntf =
+    sdbusplus::server::xyz::openbmc_project::common::Threshold;
 using namespace phosphor::health::metric;
 using namespace phosphor::health::utils;
 
@@ -43,6 +45,41 @@ class HealthMetricTest : public ::testing::Test
             {{ThresholdIntf::Type::Warning, ThresholdIntf::Bound::Upper},
              {.value = 80.0, .log = false, .target = ""}}};
         config.path = "";
+    }
+};
+
+class HealthEventCI : public HealthEvent
+{
+  public:
+    HealthEventCI(const config::HealthMetric& config) : HealthEvent(config) {}
+    void generateThresholdEvent(ThresholdIntf::Type type,
+                                ThresholdIntf::Bound bound, double currentRatio,
+                                double thresholdRatio, bool assert) override
+    {
+        (void)type;
+        (void)bound;
+        (void)currentRatio;
+        (void)thresholdRatio;
+        (void)assert;
+    }
+};
+
+class HealthMetricCI : public HealthMetric
+{
+  public:
+    HealthMetricCI(sdbusplus::bus_t& bus, MType type,
+                   const config::HealthMetric& config,
+                   const paths_t& bmcPaths) :
+        HealthMetric(bus, type, config, bmcPaths)
+    {
+        thresholdEvent = createEvent(config);
+    }
+
+  protected:
+    std::unique_ptr<HealthEvent> createEvent(
+        const config::HealthMetric& config) override
+    {
+        return std::make_unique<HealthEventCI>(config);
     }
 };
 
@@ -85,7 +122,7 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
         .Times(4);
 
     auto metric =
-        std::make_unique<HealthMetric>(bus, Type::cpu, config, paths_t());
+        std::make_unique<HealthMetricCI>(bus, Type::cpu, config, paths_t());
     // Exceed the critical threshold
     metric->update(MValue(1351, 1500));
     // Go below critical threshold but above warning threshold
