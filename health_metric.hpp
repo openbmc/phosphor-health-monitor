@@ -1,6 +1,7 @@
 #pragma once
 
 #include "health_metric_config.hpp"
+#include "health_metric_event.hpp"
 #include "health_utils.hpp"
 
 #include <xyz/openbmc_project/Association/Definitions/server.hpp>
@@ -48,7 +49,8 @@ class HealthMetric : public MetricIntf
                  const config::HealthMetric& config, const paths_t& bmcPaths) :
         MetricIntf(bus, getPath(type, config.name, config.subType).c_str(),
                    action::defer_emit),
-        bus(bus), type(type), config(config)
+        bus(bus), type(type), config(config),
+        thresholdEvent(config, getPath(type, config.name, config.subType))
     {
         create(bmcPaths);
         this->emit_object_added();
@@ -77,6 +79,8 @@ class HealthMetric : public MetricIntf
     MType type;
     /** @brief Metric configuration */
     const config::HealthMetric config;
+    /** @brief Metric threshold event */
+    HealthMetricEvent thresholdEvent;
     /** @brief Window for metric history */
     std::deque<double> history;
     /** @brief Last notified value for the metric change */
