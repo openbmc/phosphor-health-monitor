@@ -49,6 +49,12 @@ class HealthMetricCollectionTest : public ::testing::Test
                 {
                     config.path = "/tmp";
                 }
+
+                // Disable logging for all thresholds in this test
+                for (auto& [thresholdName, threshold] : config.thresholds)
+                {
+                    threshold.log = false;
+                }
             }
         }
     }
