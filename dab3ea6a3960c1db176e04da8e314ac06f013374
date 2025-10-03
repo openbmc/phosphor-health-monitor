@@ -158,6 +158,24 @@
       "parentUuid": "6bf7e891_dcd248b7",
       "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "487ec6c8_61cdc0dc",
+        "filename": "health_metric.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-10-03T18:40:40Z",
+      "side": 1,
+      "message": "Please use topic-based CI then to avoid issues.",
+      "parentUuid": "eb54363e_76022cc0",
+      "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
