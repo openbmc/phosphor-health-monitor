@@ -42,6 +42,7 @@ test(
     executable(
         'test_health_metric',
         'test_health_metric.cpp',
+        '../health_events.cpp',
         '../health_metric.cpp',
         '../health_utils.cpp',
         '../health_metric_config.cpp',
@@ -63,6 +64,7 @@ test(
         'test_health_metric_collection',
         'test_health_metric_collection.cpp',
         '../health_metric_collection.cpp',
+        '../health_events.cpp',
         '../health_metric.cpp',
         '../health_metric_config.cpp',
         '../health_utils.cpp',
