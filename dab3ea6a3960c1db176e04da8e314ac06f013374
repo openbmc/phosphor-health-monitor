@@ -194,6 +194,24 @@
       "parentUuid": "487ec6c8_61cdc0dc",
       "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c0f33e_79141e40",
+        "filename": "health_metric.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-10-07T06:30:08Z",
+      "side": 1,
+      "message": "Please ignore my previous message. I found that  https://github.com/openbmc/telemetry only applies to /xyz/openbmc_project/sensors, not /xyz/openbmc_project/metric.",
+      "parentUuid": "4b15205d_9d473e81",
+      "revId": "dab3ea6a3960c1db176e04da8e314ac06f013374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
