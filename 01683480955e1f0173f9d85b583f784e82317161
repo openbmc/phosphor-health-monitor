@@ -33,6 +33,108 @@
       "message": "Hi @patrick@stwcx.xyz @paligill@gmail.com\nCould you please help review it again when you have time?\nThank you!",
       "revId": "01683480955e1f0173f9d85b583f784e82317161",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef616645_38e27a1c",
+        "filename": "bmc_health_config_json.md",
+        "patchSetId": 26
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-12-05T07:45:18Z",
+      "side": 1,
+      "message": "Rename SEL to EventLog for better clarity.",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb4f9cd4_f1c5c054",
+        "filename": "health_metric.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-12-05T07:45:18Z",
+      "side": 1,
+      "message": "Don\u0027t use common.hpp. The required fields should already be available via xyz/openbmc_project/Metric/Value/server.hpp on next line.",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00f06ba8_993eb435",
+        "filename": "health_metric.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-12-05T07:45:18Z",
+      "side": 1,
+      "message": "lets create a new file health_events.hpp and health_events.cpp and move all the new code there.\nCreate a HealthEvent class whose singleton object can be created/initialized in HealthMonitor and then used at all places.",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "034deef9_2f293b58",
+        "filename": "health_metric.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-12-05T07:45:18Z",
+      "side": 1,
+      "message": "Define a single API in new class generateThresholdEvent(...) by passing assert as true/false as one of the args.",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f79d9c7_61c0b92f",
+        "filename": "health_metric.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-12-05T07:45:18Z",
+      "side": 1,
+      "message": "Why are u changing this?",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4440b838_c5915424",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-12-05T07:45:18Z",
+      "side": 1,
+      "message": "Why are not extending log to eventLog and let it handle both journal logging and event logging rather than adding a new field in json?",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
