@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7a3e723_5ff55f04",
+        "filename": "bmc_health_config_json.md",
+        "patchSetId": 26
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-12-10T07:23:28Z",
+      "side": 1,
+      "message": "Originally, the idea was to add a separate EventLog (SEL) option to handle event logging, while the existing Log option continued to handle journal logging. This approach gave users more flexibility to enable the functionality they needed.\n\nThe two functionalities have now been consolidated under the Log option.",
+      "parentUuid": "ef616645_38e27a1c",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb4f9cd4_f1c5c054",
@@ -65,6 +83,24 @@
       "writtenOn": "2025-12-05T07:45:18Z",
       "side": 1,
       "message": "Don\u0027t use common.hpp. The required fields should already be available via xyz/openbmc_project/Metric/Value/server.hpp on next line.",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cb9a559_eddad078",
+        "filename": "health_metric.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-12-10T07:23:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb4f9cd4_f1c5c054",
       "revId": "01683480955e1f0173f9d85b583f784e82317161",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +122,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c495535a_04281f57",
+        "filename": "health_metric.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-12-10T07:23:28Z",
+      "side": 1,
+      "message": "I’ve already created health_events.hpp and health_events.cpp.\n\nHowever, the current implementation creates a HealthEvent instance for each HealthMetric rather than a singleton in HealthMonitor as suggested, because it’s inconvenient to pass it from HealthMonitor down to the lower-level HealthMetric.\n\nIf you have a better approach or suggestion, I’m happy to consider it.",
+      "parentUuid": "00f06ba8_993eb435",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "034deef9_2f293b58",
@@ -99,6 +153,24 @@
       "writtenOn": "2025-12-05T07:45:18Z",
       "side": 1,
       "message": "Define a single API in new class generateThresholdEvent(...) by passing assert as true/false as one of the args.",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97a49030_7ae09938",
+        "filename": "health_metric.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-12-10T07:23:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "034deef9_2f293b58",
       "revId": "01683480955e1f0173f9d85b583f784e82317161",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +192,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a0af1e9_c3068dfa",
+        "filename": "health_metric.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-12-10T07:23:28Z",
+      "side": 1,
+      "message": "Originally, there was a property assertedLog that kept track of whether each metric type/bound had been logged, so it could be resolved later. Since it was mutable, the const qualifier was removed.\n\nNow that HealthEvent maintains this property, we can restore it as const.",
+      "parentUuid": "5f79d9c7_61c0b92f",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4440b838_c5915424",
@@ -133,6 +223,24 @@
       "writtenOn": "2025-12-05T07:45:18Z",
       "side": 1,
       "message": "Why are not extending log to eventLog and let it handle both journal logging and event logging rather than adding a new field in json?",
+      "revId": "01683480955e1f0173f9d85b583f784e82317161",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de1f083a_a1918c3f",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2025-12-10T07:23:28Z",
+      "side": 1,
+      "message": "Originally, the idea was to add a separate eventLog (sel) option to handle event logging, while the existing log option continued to handle journal logging. This approach gave users more flexibility to enable the functionality they needed.\n\nThe two functionalities have now been consolidated under the log option.",
+      "parentUuid": "4440b838_c5915424",
       "revId": "01683480955e1f0173f9d85b583f784e82317161",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
