@@ -16,6 +16,23 @@
       "message": "Hi @patrick@stwcx.xyz @paligill@gmail.com\nCould you please help review it again when you have time?\nThank you!",
       "revId": "4869c08dc0fec704e3bac8664ff2b494a3c4d734",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e2a2b29_1e80c24f",
+        "filename": "health_events.cpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000941
+      },
+      "writtenOn": "2026-09-10T08:34:29Z",
+      "side": 1,
+      "message": "If I\u0027m reading this correctly: currentRatio/thresholdRatio here are value.current/value.total and tConfig.value/100 from HealthMetric::checkThreshold() (health_metric.cpp:161-162), i.e. 0..1 fractions. But UNITS is hardcoded to MetricUnit::Percent, and elsewhere in this file Percent is treated as a 0..100 range (see the CPU metric\u0027s ValueIntf::minValue(0.0)/maxValue(100.0) in initProperties(), health_metric.cpp:89-91).\n\nShould ReadingValue/ThresholdValue be multiplied by 100 here to match the declared Percent unit?\n\nAs written, a metric crossing at e.g. 12.75% would report ReadingValue\u003d0.1275 with Units\u003dPercent in the resulting entry.",
+      "revId": "4869c08dc0fec704e3bac8664ff2b494a3c4d734",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
