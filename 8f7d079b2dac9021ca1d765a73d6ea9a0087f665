@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d2672fb_1869c6c5",
+        "filename": "health_events.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "Please use error directly as u are including PHOSPHOR_LOG2_USING.\n\nMake this change at all other places too.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a34e8fe6_5b4cd34f",
+        "filename": "health_events.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "Please change CUR to CURRENT_PERCENT for clarity. Do it at other places in patch as well.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce8f731e_240b8308",
+        "filename": "health_events.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "Please update https://github.com/openbmc/phosphor-health-monitor/blob/master/bmc_health_config_json.md to state the log option that it will also log these events.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86d7d7de_a6696f76",
+        "filename": "health_events.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "Is there a reason this is defined in .hpp file, i see it only gets used .cpp file, if yes, then lets move this to .cpp file.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca3ad45a_7b245b98",
+        "filename": "health_events.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "lets call this HealthMetricEvent\n\nPlease rename the file name accordingly as well.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7341f14_15c7d495",
+        "filename": "health_events.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "lets use \"unknown\" instead.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39800ef9_a8b52b93",
+        "filename": "health_metric.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "Do we actually need a unique_ptr? I suppose this can just be a regular var, isn\u0027t it ?",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d804619b_c8964453",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "Can you please help me remind why we need these now? I suppose thresholds support was always there, isn\u0027t it?",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88437e3a_bd265394",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "Lets call this HealthMetricEventTest",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bc3a98c_ef51801f",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-01T02:24:37Z",
+      "side": 1,
+      "message": "Is there a way to mock to test if the events actually get generated ? Otherwise you can start a logging service server as part of test to intercept these events and test they are actually getting generated.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
