@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9c4f52f_e782b7e6",
+        "filename": "health_events.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d2672fb_1869c6c5",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a34e8fe6_5b4cd34f",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-01T02:24:37Z",
       "side": 1,
       "message": "Please change CUR to CURRENT_PERCENT for clarity. Do it at other places in patch as well.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6121e518_8caecc0b",
+        "filename": "health_events.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a34e8fe6_5b4cd34f",
       "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d45da7_9ce58349",
+        "filename": "health_events.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce8f731e_240b8308",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86d7d7de_a6696f76",
@@ -65,6 +119,24 @@
       "writtenOn": "2026-10-01T02:24:37Z",
       "side": 1,
       "message": "Is there a reason this is defined in .hpp file, i see it only gets used .cpp file, if yes, then lets move this to .cpp file.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc22c4be_af823da6",
+        "filename": "health_events.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86d7d7de_a6696f76",
       "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1390f20_7f083e04",
+        "filename": "health_events.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca3ad45a_7b245b98",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7341f14_15c7d495",
@@ -103,6 +193,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "927daffc_5e90ff59",
+        "filename": "health_events.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7341f14_15c7d495",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39800ef9_a8b52b93",
@@ -116,6 +224,24 @@
       "writtenOn": "2026-10-01T02:24:37Z",
       "side": 1,
       "message": "Do we actually need a unique_ptr? I suppose this can just be a regular var, isn\u0027t it ?",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d210153_bb2e8e8a",
+        "filename": "health_metric.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39800ef9_a8b52b93",
       "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +265,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd111b18_98bcb9c2",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "We can\u0027t just pass the enums directly. sdbusplus enums get converted with convert_to_string(), which gives the full D-Bus name, e.g. xyz.openbmc_project.Common.Threshold.Type.Warning. That\u0027s verbose and doesn\u0027t match the config name used in bmc_health_config.json (e.g. Warning_Lower).",
+      "parentUuid": "d804619b_c8964453",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88437e3a_bd265394",
         "filename": "test/test_health_metric.cpp",
         "patchSetId": 49
@@ -150,6 +294,24 @@
       "writtenOn": "2026-10-01T02:24:37Z",
       "side": 1,
       "message": "Lets call this HealthMetricEventTest",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45e4762a_7627f2d3",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88437e3a_bd265394",
       "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -167,6 +329,24 @@
       "writtenOn": "2026-10-01T02:24:37Z",
       "side": 1,
       "message": "Is there a way to mock to test if the events actually get generated ? Otherwise you can start a logging service server as part of test to intercept these events and test they are actually getting generated.",
+      "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "121fde4a_51438fa9",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-01T06:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc3a98c_ef51801f",
       "revId": "8f7d079b2dac9021ca1d765a73d6ea9a0087f665",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
