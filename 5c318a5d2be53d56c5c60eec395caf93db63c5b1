@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a90a76ea_ed3a4e43",
+        "filename": "health_metric_event.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-02T01:35:48Z",
+      "side": 1,
+      "message": "Left a comment in test code on how can we avoid these being virtual and also these can be made private too. Lets follow that method.",
+      "revId": "5c318a5d2be53d56c5c60eec395caf93db63c5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8546c12_408d8532",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-02T01:35:48Z",
+      "side": 1,
+      "message": "By mocking this way we will reduce lot of code coverage for testing and we also need to define lot of functions virtual in prod code. Lets change this testing to use an actual event server as in https://github.com/openbmc/phosphor-modbus/blob/main/tests/test_events.cpp#L65 . That way you can test end 2 end.",
+      "revId": "5c318a5d2be53d56c5c60eec395caf93db63c5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "077f79dd_672a789d",
+        "filename": "test/test_health_metric.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-02T01:35:48Z",
+      "side": 1,
+      "message": "Can the event tests be moved into its own file ?",
+      "revId": "5c318a5d2be53d56c5c60eec395caf93db63c5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
