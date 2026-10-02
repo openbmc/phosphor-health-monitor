@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd87fdfb_2a8ae475",
+        "filename": "health_metric_event.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-02T01:38:37Z",
+      "side": 1,
+      "message": "Which piece of logic handle if we fall below critical but still within the warning range ?\n\nDo we log a warning message then ?",
+      "revId": "5c318a5d2be53d56c5c60eec395caf93db63c5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a90a76ea_ed3a4e43",
         "filename": "health_metric_event.hpp",
         "patchSetId": 50
