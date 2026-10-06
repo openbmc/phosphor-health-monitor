@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02dab458_a19739c0",
+        "filename": "health_metric_event.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-06T22:48:50Z",
+      "side": 1,
+      "message": "@zane.li.wiwynn@gmail.com \nGeneral DBus interfaces behavior can be slightly different as interfaces are different, but in general the event behavior shall be same as in https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/75997/37/src/Thresholds.cpp . Can you please compare and contrast with that PR for discussion?",
+      "parentUuid": "a71c99c6_a335d7fa",
+      "revId": "5c318a5d2be53d56c5c60eec395caf93db63c5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a90a76ea_ed3a4e43",
         "filename": "health_metric_event.hpp",
         "patchSetId": 50
