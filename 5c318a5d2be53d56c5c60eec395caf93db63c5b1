@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8d8c3c8_f10bdb25",
+        "filename": "health_metric_event.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-07T03:11:14Z",
+      "side": 1,
+      "message": "Thanks for the pointer. I compared this patch with dbus-sensors 75997/37 Thresholds.cpp. The event flow is basically the same, apart from the interfaces and two differences that I\u0027d like your opinion on.\n\nSame behavior:\n- Each threshold is evaluated independently (checkThresholds() in both dbus-sensors and health_metric.cpp). When the reading exceeds Critical, both Warning and Critical get asserted, and each gets its own event log.\n- Events are only generated when a threshold\u0027s assertion state changes (set_property() returning true in dbus-sensors, the assertion set changing here). A threshold that stays asserted doesn\u0027t generate a new log.\n- Each threshold keeps its own outstanding log (assertedLog), and a duplicate assert while a log is outstanding is ignored.\n- On deassert only that threshold\u0027s log is resolved. When the reading drops from Critical into the Warning range, the Critical log is resolved while the Warning log stays outstanding, so no new warning log is created.\n- The normal-range event is only logged once no log is outstanding.\n\nDifferences I\u0027d like to discuss:\n1. Per-threshold `Log` option: dbus-sensors logs every threshold, so \"no outstanding log\" means \"no threshold asserted\". Here logging is configurable per threshold. With the default CPU config (Critical logged, Warning not logged), when the reading drops from Critical into the Warning range, the normal-range event would be logged while Warning is still asserted. I see two options:\na) Keep `Log` controlling which thresholds create a SEL, but track the assertion state of every threshold (logged or not), and only log the normal-range event once all of them are deasserted.\nb) Same as dbus-sensors: every threshold creates a SEL regardless of `Log`, and `Log` only keeps controlling the existing journal messages and target.\nI\u0027d prefer a), since b) changes the meaning of the existing `Log` option and would start creating SELs for thresholds that platforms have configured not to log (e.g. the default CPU Warning). Which one do you prefer?\n\n2. Filtered events: dbus-sensors skips lg2::resolve() when the assertedLog path is empty (lg2::commit() returns an empty path when the event is filtered out). This patch doesn\u0027t do that check yet. I plan to add the same check.",
+      "parentUuid": "02dab458_a19739c0",
+      "revId": "5c318a5d2be53d56c5c60eec395caf93db63c5b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a90a76ea_ed3a4e43",
         "filename": "health_metric_event.hpp",
         "patchSetId": 50
