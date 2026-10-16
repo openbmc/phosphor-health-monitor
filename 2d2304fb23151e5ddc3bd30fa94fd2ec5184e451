@@ -120,6 +120,23 @@
       "parentUuid": "720b251d_e87652e3",
       "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6b9a5a9_56e04a0a",
+        "filename": "health_metric_event.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-16T21:25:58Z",
+      "side": 1,
+      "message": "Why do we need to keep this state? The normal is already getting called in a guarded check for assertions being empty, isn\u0027t it ?\nIMHO, its better to keep this stateless like other thresholds.",
+      "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
