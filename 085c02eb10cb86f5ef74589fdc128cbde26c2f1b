@@ -16,6 +16,24 @@
       "message": "This variable ensures that a normal SEL is only generated when logging is enabled for at least one threshold. If all thresholds for a metric are configured with Log: false, no SEL should be generated when the metric returns to normal.",
       "revId": "085c02eb10cb86f5ef74589fdc128cbde26c2f1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8b4c979_27186a18",
+        "filename": "health_metric_event.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-19T21:03:53Z",
+      "side": 1,
+      "message": "I see you only check this for normal events and not for others, why is that ? It seems confusing in terms of its use and purpose.",
+      "parentUuid": "cfc00c35_738374e4",
+      "revId": "085c02eb10cb86f5ef74589fdc128cbde26c2f1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
