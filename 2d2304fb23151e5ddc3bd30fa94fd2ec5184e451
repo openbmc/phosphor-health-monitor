@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2837846e_049c903b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-19T06:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2969be62_f0a4bf83",
+      "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b879d014_cba94ef4",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-16T21:20:07Z",
       "side": 1,
       "message": "This shall be the objectPath https://github.com/openbmc/phosphor-dbus-interfaces/blame/master/yaml/xyz/openbmc_project/Metric/Threshold.events.yaml#L22and should be passed as MetricName.",
+      "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e3e0920_ac6ab826",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-19T06:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b879d014_cba94ef4",
       "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -83,6 +119,24 @@
       "writtenOn": "2026-10-16T21:20:07Z",
       "side": 1,
       "message": "The TriggerName is an ObjectPath, please use it accordingly. Refer to discussion here https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/84216/comment/cb36aa4a_15626f7b/ and use the objectPath of the metric as trigger name here.",
+      "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "955ce770_d918d8b1",
+        "filename": "health_metric_event.cpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-19T06:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c755f3b1_71d4ddc8",
       "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -153,6 +207,24 @@
       "side": 1,
       "message": "Correction: in a guarded check for assertions being empty after an assertion is removed",
       "parentUuid": "d6b9a5a9_56e04a0a",
+      "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74c3a4c1_b5c0bd20",
+        "filename": "health_metric_event.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-19T06:13:06Z",
+      "side": 1,
+      "message": "Agree.\nThe original purpose of this variable is now declared in health_metric_event.hpp:44.",
+      "parentUuid": "4ea3a770_0347bdae",
       "revId": "2d2304fb23151e5ddc3bd30fa94fd2ec5184e451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
