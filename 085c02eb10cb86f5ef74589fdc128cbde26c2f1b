@@ -52,6 +52,24 @@
       "parentUuid": "a8b4c979_27186a18",
       "revId": "085c02eb10cb86f5ef74589fdc128cbde26c2f1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b3d100_775a8e38",
+        "filename": "health_metric_event.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-10-22T18:05:07Z",
+      "side": 1,
+      "message": "\u003e For example, if the Log options for Memory_Available are all disabled, no SEL will be recorded when the reading crosses the upper or lower threshold.\n\u003e \n\u003e However, when the reading returns to the normal range, a TriggerNumericReadingNormal SEL will be generated, even though no critical or warning SEL was recorded beforehand.\n\nSure understand that. But my question is why are we building this state in Event class if Normal event shall be logged or not. I don\u0027t see its being done for error events, so its better we follow the same pattern and keep that state outside for better future understanding \u0026 maintainability.",
+      "parentUuid": "fbd1729b_108d7dff",
+      "revId": "085c02eb10cb86f5ef74589fdc128cbde26c2f1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
