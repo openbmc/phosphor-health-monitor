@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8a02263_520bc1c3",
+        "filename": "health_metric.cpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-28T06:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cfba0a4_d91194c3",
+      "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cd4c2d0_44495d74",
@@ -31,6 +49,30 @@
       "writtenOn": "2026-10-27T12:03:56Z",
       "side": 1,
       "message": "Why did you add this?  Aren\u0027t these handled by lg2 automatically because these are dbus types?",
+      "range": {
+        "startLine": 291,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 0
+      },
+      "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba18264a_e194ff4e",
+        "filename": "health_metric_config.cpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-28T06:26:35Z",
+      "side": 1,
+      "message": "Removed. This was leftover code from an earlier patchset.",
+      "parentUuid": "4cd4c2d0_44495d74",
       "range": {
         "startLine": 291,
         "startChar": 0,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b223c920_a958e5bd",
+        "filename": "health_metric_event.cpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-28T06:26:35Z",
+      "side": 1,
+      "message": "Do you mean that these Redfish events should report the sensor\u0027s actual reading, rather than treating the values as percentages?\n\nSince these events don\u0027t explicitly include units in their Redfish message arguments, is it still incorrect to use percentage-based reading and threshold values, as long as they have consistent semantics and are directly comparable?",
+      "parentUuid": "687cdf43_e80da736",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b976e9bd_88bd1cd7",
         "filename": "health_metric_event.cpp",
         "patchSetId": 60
@@ -77,6 +143,24 @@
       "writtenOn": "2026-10-27T12:03:56Z",
       "side": 1,
       "message": "Why is deassert an `error`?\n\nWhy are you even adding these messages?  \"ASSERT\" / \"DEASSERT\".  We are already creating a SEL, why should we create a second journal message with the same data?  (This feels like something you\u0027re copying from fb-openbmc)",
+      "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc2e6030_7b4c2fe1",
+        "filename": "health_metric_event.cpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-28T06:26:35Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "b976e9bd_88bd1cd7",
       "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -94,6 +178,24 @@
       "writtenOn": "2026-10-27T12:03:56Z",
       "side": 1,
       "message": "I think there is the possibility of existing tests now calling your mock daemon if they are ran in parallel?\n\nA review analysis tool I used wrote this:\n\n\n\u003e Only test_health_metric_event.cpp creates the fake xyz.openbmc_project.Logging daemon. The risk is the other direction: test_health_metric / test_health_metric_collection now link health_metric_event.cpp with log\u003dtrue fixtures, so their update()s do real lg2::commit() via new_default() (bypassing their SdBusMock) and would pollute eventServer.createdEvents() counts if run concurrently.",
+      "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4204ebbf_d8418261",
+        "filename": "test/test_health_metric_event.cpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-10-28T06:26:35Z",
+      "side": 1,
+      "message": "Disable logging in the other test files, since log events are verified in test_health_metric_event.cpp.",
+      "parentUuid": "3de3c5ed_1bb1eb77",
       "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
