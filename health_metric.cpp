@@ -246,10 +246,37 @@ void HealthMetric::update(MValue value)
     checkThresholds(value);
 }
 
+void HealthMetric::updateReadOnly(bool readOnly)
+{
+    if (!storage || storage->readOnly() == readOnly)
+    {
+        return;
+    }
+    storage->readOnly(readOnly);
+
+    if (readOnly)
+    {
+        error("Health Metric {METRIC} storage {PATH} is read-only", "METRIC",
+              config.name, "PATH", config.path);
+    }
+    else
+    {
+        info("Health Metric {METRIC} storage {PATH} is writable again",
+             "METRIC", config.name, "PATH", config.path);
+    }
+}
+
 void HealthMetric::create(const paths_t& bmcPaths)
 {
     info("Create Health Metric: {METRIC}", "METRIC", config.name);
     initProperties();
+
+    if (type == MType::storage)
+    {
+        storage = std::make_unique<sdbusplus::server::object_t<StorageIntf>>(
+            bus, getPath(type, config.name, config.subType).c_str(),
+            sdbusplus::server::object_t<StorageIntf>::action::defer_emit);
+    }
 
     std::vector<association_t> associations;
     static constexpr auto forwardAssociation = "measuring";
