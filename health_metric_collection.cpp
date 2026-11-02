@@ -176,6 +176,9 @@ auto HealthMetricCollection::readStorage() -> bool
                   strerror(e), "PATH", config.path);
             continue;
         }
+        /* Also set when the filesystem switches itself to read-only after an
+         * error (e.g. UBIFS), not only for read-only mounts. */
+        metrics[config.name]->updateReadOnly(buffer.f_flag & ST_RDONLY);
         double value = buffer.f_bfree * buffer.f_frsize;
         double total = buffer.f_blocks * buffer.f_frsize;
         debug("Storage Metric {SUBTYPE}: {VALUE}, {TOTAL}", "SUBTYPE",

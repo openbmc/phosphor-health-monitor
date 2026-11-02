@@ -93,3 +93,51 @@ TEST_F(HealthMetricTest, TestMetricThresholdChange)
     // Go below warning threshold
     metric->update(MValue(1199, 1500));
 }
+
+TEST_F(HealthMetricTest, TestStorageReadOnly)
+{
+    const std::string storagePath =
+        std::string(PathIntf::value) + "/bmc/" + PathIntf::read_write_storage;
+    sdbusplus::server::manager_t objManager(bus, storagePath.c_str());
+    bus.request_name(busName);
+
+    config.name = "Storage_RW";
+    config.subType = SubType::NA;
+    config.path = "/tmp";
+
+    EXPECT_CALL(sdbusMock, sd_bus_emit_properties_changed_strv(
+                               IsNull(), StrEq(storagePath),
+                               StrEq(StorageIntf::interface), NotNull()))
+        .Times(2)
+        .WillRepeatedly(Invoke(
+            [&]([[maybe_unused]] sd_bus* bus, [[maybe_unused]] const char* path,
+                [[maybe_unused]] const char* interface, const char** names) {
+                EXPECT_STREQ("ReadOnly", names[0]);
+                return 0;
+            }));
+
+    auto metric =
+        std::make_unique<HealthMetric>(bus, Type::storage, config, paths_t());
+    // Starts writable, so no change
+    metric->updateReadOnly(false);
+    // Goes read-only
+    metric->updateReadOnly(true);
+    // Stays read-only, so no change
+    metric->updateReadOnly(true);
+    // Writable again
+    metric->updateReadOnly(false);
+}
+
+TEST_F(HealthMetricTest, TestReadOnlyNotStorage)
+{
+    sdbusplus::server::manager_t objManager(bus, objPath.c_str());
+    bus.request_name(busName);
+
+    EXPECT_CALL(sdbusMock, sd_bus_emit_properties_changed_strv(
+                               _, _, StrEq(StorageIntf::interface), _))
+        .Times(0);
+
+    auto metric =
+        std::make_unique<HealthMetric>(bus, Type::cpu, config, paths_t());
+    metric->updateReadOnly(true);
+}

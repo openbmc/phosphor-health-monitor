@@ -5,9 +5,11 @@
 
 #include <xyz/openbmc_project/Association/Definitions/server.hpp>
 #include <xyz/openbmc_project/Inventory/Item/Bmc/server.hpp>
+#include <xyz/openbmc_project/Metric/Storage/server.hpp>
 #include <xyz/openbmc_project/Metric/Value/server.hpp>
 
 #include <deque>
+#include <memory>
 #include <tuple>
 
 namespace phosphor::health::metric
@@ -25,6 +27,7 @@ static constexpr auto BmcPath =
 using BmcIntf = sdbusplus::xyz::openbmc_project::Inventory::Item::server::Bmc;
 using MetricIntf =
     sdbusplus::server::object_t<ValueIntf, ThresholdIntf, AssociationIntf>;
+using StorageIntf = sdbusplus::server::xyz::openbmc_project::metric::Storage;
 
 struct MValue
 {
@@ -52,10 +55,17 @@ class HealthMetric : public MetricIntf
     {
         create(bmcPaths);
         this->emit_object_added();
+        if (storage)
+        {
+            storage->emit_object_added();
+        }
     }
 
     /** @brief Update the health metric with the given value */
     void update(MValue value);
+    /** @brief Update whether the filesystem of a storage metric is read-only
+     */
+    void updateReadOnly(bool readOnly);
 
   private:
     /** @brief Create a new health metric object */
@@ -81,6 +91,8 @@ class HealthMetric : public MetricIntf
     std::deque<double> history;
     /** @brief Last notified value for the metric change */
     double lastNotifiedValue = 0;
+    /** @brief Filesystem state, for storage metrics only */
+    std::unique_ptr<sdbusplus::server::object_t<StorageIntf>> storage;
 };
 
 } // namespace phosphor::health::metric
