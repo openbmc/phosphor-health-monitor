@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b112e96a_f0e2fef1",
+        "filename": "health_metric_event.cpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2026-11-18T16:24:30Z",
+      "side": 1,
+      "message": "@zane.li.wiwynn@gmail.com Lets preserve the original value of the metric as thats what is stated in the Redfish message registry for Metric Value -\n\nhttps://github.com/DMTF/Redfish-Publications/blob/main/registries/Telemetry.1.2.0.json#L35\n\n\"This argument shall contain a number that equals the value of the metric reading.\"",
+      "parentUuid": "b223c920_a958e5bd",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b976e9bd_88bd1cd7",
         "filename": "health_metric_event.cpp",
         "patchSetId": 60
