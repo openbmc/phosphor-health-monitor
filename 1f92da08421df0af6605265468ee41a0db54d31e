@@ -154,6 +154,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "626299d3_778c8479",
+        "filename": "health_metric_event.cpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002338
+      },
+      "writtenOn": "2026-11-19T05:12:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b112e96a_f0e2fef1",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "1f92da08421df0af6605265468ee41a0db54d31e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b976e9bd_88bd1cd7",
